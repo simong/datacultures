@@ -1,18 +1,33 @@
 source 'https://rubygems.org'
 
 
+
+
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.1.1'
 # Use postgresql as the database for Active Record
 gem 'pg'
-# Use SCSS for stylesheets
+
 gem 'sass-rails', '~> 4.0.3'
-# Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
-# Use CoffeeScript for .js.coffee assets and views
 gem 'coffee-rails', '~> 4.0.0'
+
+
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 # gem 'therubyracer',  platforms: :ruby
+
+# A JSON implementation as a Ruby extension in C
+# http://flori.github.com/json/
+gem "json", "~> 1.8.0"
+
+# Make external requests
+gem 'faraday'
+
+# LTI support
+gem 'ims-lti', :git => "https://github.com/instructure/ims-lti.git"
+
+# ETS's library for angular dependency!
+gem "angular-gem", "1.2.16"
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
@@ -26,9 +41,48 @@ gem 'sdoc', '~> 0.4.0',          group: :doc
 # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
 gem 'spring',        group: :development
 
+group :development do
+  # Automatically reloads your browser when "view" files are modified.
+  # https://github.com/guard/guard-livereload
+  gem "guard-livereload", "~> 1.4.0"
+  gem "rack-livereload", "~> 0.3.15"
+
+  # Polling is evil:
+  # https://github.com/guard/guard#readme
+  gem "rb-inotify", "~> 0.9.0", require: false, :platform => :ruby
+  gem "rb-fsevent", "~> 0.9.2", require: false, :platform => :ruby
+
+  # Adds extra information to the requests
+  # Enables the RailsPanel chrome extension
+  gem "meta_request", "~> 0.2.8"
+end
+
+group :test do
+  gem 'page-object', '~> 0.9.8'
+  gem "webmock", "~> 1.11.0"
+end
+
+
 group :development, :test do
   gem 'rspec'
   gem 'rspec-rails', '~> 3.0.0'
+  # We need to specify the latest webdriver here, to support the latest firefox
+  gem "selenium-webdriver", "~> 2.41.0"
+
+  # Code coverage for Ruby 1.9 with a powerful configuration library and automatic merging of coverage across test suites
+  # https://rubygems.org/gems/simplecov
+  gem "simplecov", "~> 0.7.1", require: false
+
+  # Capybara is an integration testing tool for rack based web applications.
+  # It simulates how a user would interact with a website
+  # https://rubygems.org/gems/capybara
+  gem "capybara", "~> 2.1.0"
+
+  # Factories
+  gem 'factory_girl'
+  gem 'factory_girl_rails'
+
+  gem 'byebug'
 end
 
 # Use debugger
