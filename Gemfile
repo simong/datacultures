@@ -72,6 +72,8 @@ group :development, :test do
   # https://rubygems.org/gems/capybara
   gem "capybara"
 
+  gem 'shoulda-matchers', require: false
+
   # Factories
   gem 'factory_girl'
   gem 'factory_girl_rails'
