@@ -1,16 +1,13 @@
 source 'https://rubygems.org'
 
-
-
-
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.1.1'
 # Use postgresql as the database for Active Record
 gem 'pg'
 
-gem 'sass-rails', '~> 4.0.3'
-gem 'uglifier', '>= 1.3.0'
-gem 'coffee-rails', '~> 4.0.0'
+gem 'sass-rails', "~> 4.0"
+gem 'uglifier'
+gem 'coffee-rails'
 
 
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
@@ -18,7 +15,7 @@ gem 'coffee-rails', '~> 4.0.0'
 
 # A JSON implementation as a Ruby extension in C
 # http://flori.github.com/json/
-gem "json", "~> 1.8.0"
+gem "json"
 
 # Make external requests
 gem 'faraday'
@@ -27,25 +24,22 @@ gem 'faraday'
 gem 'ims-lti', :git => "https://github.com/instructure/ims-lti.git"
 
 # ETS's library for angular dependency!
-gem "angular-gem", "1.2.16"
+gem "angular-gem"
 
-# Use jquery as the JavaScript library
 gem 'jquery-rails'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-gem 'jbuilder', '~> 2.0'
+gem 'jbuilder'
 # bundle exec rake doc:rails generates the API under doc/api.
-gem 'sdoc', '~> 0.4.0',          group: :doc
-
-# Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
-gem 'spring',        group: :development
+gem 'sdoc',          group: :doc
 
 group :development do
   # Automatically reloads your browser when "view" files are modified.
   # https://github.com/guard/guard-livereload
-  gem "guard-livereload", "~> 1.4.0"
-  gem "rack-livereload", "~> 0.3.15"
+  gem "guard-livereload"
+  gem "rack-livereload"
+  #gem "spring"
 
   # Polling is evil:
   # https://github.com/guard/guard#readme
@@ -54,20 +48,20 @@ group :development do
 
   # Adds extra information to the requests
   # Enables the RailsPanel chrome extension
-  gem "meta_request", "~> 0.2.8"
+  gem "meta_request"
 end
 
 group :test do
-  gem 'page-object', '~> 0.9.8'
-  gem "webmock", "~> 1.11.0"
+  gem 'page-object'
+  gem "webmock"
 end
 
 
 group :development, :test do
   gem 'rspec'
-  gem 'rspec-rails', '~> 3.0.0'
+  gem 'rspec-rails'
   # We need to specify the latest webdriver here, to support the latest firefox
-  gem "selenium-webdriver", "~> 2.41.0"
+  gem "selenium-webdriver"
 
   # Code coverage for Ruby 1.9 with a powerful configuration library and automatic merging of coverage across test suites
   # https://rubygems.org/gems/simplecov
@@ -76,7 +70,7 @@ group :development, :test do
   # Capybara is an integration testing tool for rack based web applications.
   # It simulates how a user would interact with a website
   # https://rubygems.org/gems/capybara
-  gem "capybara", "~> 2.1.0"
+  gem "capybara"
 
   # Factories
   gem 'factory_girl'
@@ -84,7 +78,3 @@ group :development, :test do
 
   gem 'byebug'
 end
-
-# Use debugger
-# gem 'debugger', group: [:development, :test]
-
