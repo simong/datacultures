@@ -60,6 +60,7 @@ end
 group :development, :test do
   gem 'rspec'
   gem 'rspec-rails'
+  gem 'guard-rspec'
   # We need to specify the latest webdriver here, to support the latest firefox
   gem "selenium-webdriver"
 
