@@ -1,83 +1,76 @@
 source 'https://rubygems.org'
 
-# Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
+# framework
 gem 'rails', '4.1.1'
-# Use postgresql as the database for Active Record
-gem 'pg'
 
-gem 'sass-rails', "~> 4.0"
-gem 'uglifier'
-gem 'coffee-rails'
+# database
+gem 'pg', '~> 0.17'
+gem 'paranoia', '~> 2.0'
 
+# styling
+gem 'sass-rails', '~> 4.0'
+gem 'uglifier', '~> 2.5'
 
+# JavaScript
+gem 'coffee-rails', '~> 4.0'
+gem 'angular-gem', '~> 1.2'    # ETS's library for angular dependency!
+gem 'jquery-rails', '~> 3.1'
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 # gem 'therubyracer',  platforms: :ruby
 
-# A JSON implementation as a Ruby extension in C
-# http://flori.github.com/json/
-gem "json"
+# formatters
+gem 'json', '~> 1.8'
 
-# Make external requests
-gem 'faraday'
+# DSLs
+gem 'jbuilder', '~> 2.1'
+gem 'haml', '~> 4.0'
+
+# external requests
+gem 'faraday', '~> 0.9'
+
+
+gem 'turbolinks', '~> 2.2'
 
 # LTI support
-gem 'ims-lti', :git => "https://github.com/instructure/ims-lti.git"
-
-# ETS's library for angular dependency!
-gem "angular-gem"
-
-gem 'jquery-rails'
-# Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
-gem 'turbolinks'
-# Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-gem 'jbuilder'
-# bundle exec rake doc:rails generates the API under doc/api.
-gem 'sdoc',          group: :doc
+gem 'ims-lti', :git => 'https://github.com/instructure/ims-lti.git'
 
 group :development do
-  # Automatically reloads your browser when "view" files are modified.
-  # https://github.com/guard/guard-livereload
-  gem "guard-livereload"
-  gem "rack-livereload"
-  #gem "spring"
+  gem 'guard-livereload', '~> 2.2'
+  gem 'rack-livereload', '~> 0.3'
 
   # Polling is evil:
   # https://github.com/guard/guard#readme
-  gem "rb-inotify", "~> 0.9.0", require: false, :platform => :ruby
-  gem "rb-fsevent", "~> 0.9.2", require: false, :platform => :ruby
+  gem 'rb-fsevent', '~> 0.9', require: false, :platform => :ruby
 
   # Adds extra information to the requests
   # Enables the RailsPanel chrome extension
-  gem "meta_request"
+  gem 'meta_request', '~> 0.3'
 end
 
 group :test do
-  gem 'page-object'
-  gem "webmock"
+  gem 'page-object', '~> 1.0'
+  gem 'webmock', '~> 1.18'
 end
 
 
 group :development, :test do
-  gem 'rspec'
-  gem 'rspec-rails'
-  gem 'guard-rspec'
-  # We need to specify the latest webdriver here, to support the latest firefox
-  gem "selenium-webdriver"
+  gem 'rspec', '~> 3.0'
+  gem 'rspec-rails', '~> 3.0'
+  gem 'guard-rspec', '~> 4.2'
+  gem 'selenium-webdriver', '~> 2.42'
 
   # Code coverage for Ruby 1.9 with a powerful configuration library and automatic merging of coverage across test suites
   # https://rubygems.org/gems/simplecov
-  gem "simplecov", "~> 0.7.1", require: false
+  gem 'simplecov', '~> 0.7', require: false
 
   # Capybara is an integration testing tool for rack based web applications.
   # It simulates how a user would interact with a website
   # https://rubygems.org/gems/capybara
-  gem "capybara"
-
-  gem 'shoulda-matchers', require: false
+  gem 'capybara', '~> 2.3'
+  gem 'shoulda-matchers', '~> 2.6', require: false
 
   # Factories
-  gem 'factory_girl'
-  gem 'factory_girl_rails'
-
-  gem 'byebug'
+  gem 'factory_girl', '~> 4.4'
+  gem 'factory_girl_rails', '~> 4.4'
+  gem 'byebug', '~> 3.1'
 end
