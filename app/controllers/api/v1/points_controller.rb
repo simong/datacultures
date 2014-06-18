@@ -1,4 +1,4 @@
-class PointsController < ApplicationController
+class Api::V1::PointsController < ApplicationController
   before_action :set_point, only: [:show, :update]
 
   def index

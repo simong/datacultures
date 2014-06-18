@@ -1,6 +1,10 @@
 Rails.application.routes.draw do
 
-  resources :points, only: [:index, :show, :create, :update]
+  namespace :api do
+    namespace :v1 do
+      resources :points, only: [:index, :show, :create, :update]
+    end
+  end
 
 
   # The priority is based upon order of creation: first created -> highest priority.
