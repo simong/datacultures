@@ -51,7 +51,7 @@ RSpec.configure do |config|
   # rspec-mocks config goes here. You can use an alternate test double
   # library (such as bogus or mocha) by changing the `mock_with` option here.
   config.mock_with :rspec do |mocks|
-     mocks.syntax = :expect
+    mocks.syntax = :expect
 
     # Prevents you from mocking or stubbing a method that does not exist on
     # a real object. This is generally recommended.

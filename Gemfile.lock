@@ -102,6 +102,8 @@ GEM
     guard-rspec (4.2.10)
       guard (~> 2.1)
       rspec (>= 2.14, < 4.0)
+    haml (4.0.5)
+      tilt
     hike (1.2.3)
     http_parser.rb (0.6.0)
     i18n (0.6.9)
@@ -175,8 +177,6 @@ GEM
     rb-fsevent (0.9.4)
     rb-inotify (0.9.5)
       ffi (>= 0.5.0)
-    rdoc (4.1.1)
-      json (~> 1.4)
     rspec (3.0.0)
       rspec-core (~> 3.0.0)
       rspec-expectations (~> 3.0.0)
@@ -205,9 +205,6 @@ GEM
       sass (~> 3.2.0)
       sprockets (~> 2.8, <= 2.11.0)
       sprockets-rails (~> 2.0)
-    sdoc (0.4.0)
-      json (~> 1.8)
-      rdoc (~> 4.0, < 5.0)
     selenium-webdriver (2.42.0)
       childprocess (>= 0.5.0)
       multi_json (~> 1.0)
@@ -260,33 +257,33 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  angular-gem
-  byebug
-  capybara
-  coffee-rails
-  factory_girl
-  factory_girl_rails
-  faraday
-  guard-livereload
-  guard-rspec
+  angular-gem (~> 1.2)
+  byebug (~> 3.1)
+  capybara (~> 2.3)
+  coffee-rails (~> 4.0)
+  factory_girl (~> 4.4)
+  factory_girl_rails (~> 4.4)
+  faraday (~> 0.9)
+  guard-livereload (~> 2.2)
+  guard-rspec (~> 4.2)
+  haml (~> 4.0)
   ims-lti!
-  jbuilder
-  jquery-rails
-  json
-  meta_request
-  page-object
+  jbuilder (~> 2.1)
+  jquery-rails (~> 3.1)
+  json (~> 1.8)
+  meta_request (~> 0.3)
+  page-object (~> 1.0)
   paranoia (~> 2.0)
-  pg
-  rack-livereload
+  pg (~> 0.17)
+  rack-livereload (~> 0.3)
   rails (= 4.1.1)
-  rb-fsevent (~> 0.9.2)
-  rspec
-  rspec-rails
+  rb-fsevent (~> 0.9)
+  rspec (~> 3.0)
+  rspec-rails (~> 3.0)
   sass-rails (~> 4.0)
-  sdoc
-  selenium-webdriver
-  shoulda-matchers
-  simplecov (~> 0.7.1)
-  turbolinks
-  uglifier
-  webmock
+  selenium-webdriver (~> 2.42)
+  shoulda-matchers (~> 2.6)
+  simplecov (~> 0.7)
+  turbolinks (~> 2.2)
+  uglifier (~> 2.5)
+  webmock (~> 1.18)
