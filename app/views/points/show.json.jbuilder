@@ -1,1 +1,1 @@
-json.extract! @point, :id, :created_at, :updated_at
+json.extract! @point, :id, :uid, :reason, :delta, :created_at, :updated_at

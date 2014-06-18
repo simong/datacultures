@@ -1,4 +1,3 @@
 json.array!(@points) do |point|
-  json.extract! point, :id
-  json.url point_url(point, format: :json)
+  json.extract! point, :id, :uid, :reason, :delta, :created_at, :updated_at
 end
