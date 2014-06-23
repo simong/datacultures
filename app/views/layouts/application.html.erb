@@ -1,14 +1,26 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" data-ng-app="datacultures" data-ng-controller="DataculturesController">
 <head>
-  <title>Datacultures</title>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <meta charset="utf-8" />
+  <!-- Set the viewport width to device width for mobile -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimal-ui" />
+  <meta name="description" content="Datacultures Website" />
+  <title data-ng-bind="title">DataCultures</title>
+
+  <noscript><meta http-equiv="Refresh" content="0; URL=/enable-javascript.html"></noscript>
+
+  <%= favicon_link_tag 'favicon.ico' %>
+  <%= favicon_link_tag 'favicon.png', :rel => 'icon', :type => 'image/png' %>
+
+  <!-- Included CSS Files -->
+  <%= stylesheet_link_tag "application", :media => '' %>
+
+  <!-- Included JS Files  -->
+  <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
 </head>
-<body>
 
-<%= yield %>
-
-</body>
+  <body>
+    <%= yield %>
+  </body>
 </html>

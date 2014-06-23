@@ -13,10 +13,15 @@ gem 'uglifier', '~> 2.5'
 
 # JavaScript
 gem 'coffee-rails', '~> 4.0'
-gem 'angular-gem', '~> 1.2'    # ETS's library for angular dependency!
-gem 'jquery-rails', '~> 3.1'
-# See https://github.com/sstephenson/execjs#readme for more supported runtimes
-# gem 'therubyracer',  platforms: :ruby
+gem 'angular-gem', '~> 1.2.18.1'    # ETS's library for angular dependency!
+
+# ngmin-rails
+# https://github.com/jasonm/ngmin-rails
+gem "ngmin-rails", "~> 0.4.0"
+
+# Use your angular templates with rails' asset pipeline
+# https://github.com/pitr/angular-rails-templates
+gem "angular-rails-templates", "~> 0.1.2"
 
 # formatters
 gem 'json', '~> 1.8'
@@ -27,9 +32,6 @@ gem 'haml', '~> 4.0'
 
 # external requests
 gem 'faraday', '~> 0.9'
-
-
-gem 'turbolinks', '~> 2.2'
 
 # LTI support
 gem 'ims-lti', :git => 'https://github.com/instructure/ims-lti.git'
