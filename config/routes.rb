@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   root :to => 'bootstrap#index'
   post '/canvas/embedded/*url' => 'canvas_lti#embedded', :defaults => { :format => 'html' }
   get '/canvas/lti_leaderboard' => 'canvas_lti#lti_leaderboard', :defaults => { :format => 'xml' }
+  get '/users/:course_id' => 'canvas_lti#students_list', :defaults => { :format => 'json'}
 
   namespace :api do
     namespace :v1 do

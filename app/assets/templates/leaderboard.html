@@ -1,1 +1,38 @@
-<h1>Leaderboard Placeholder</h1>
+<div id="leaderboard" data-ng-cloak data-ng-app="LeaderboardApp" data-ng-controller="LeaderboardController">
+
+  <h1>Leaderboard Prototype (Front-End)</h1>
+
+  <span class="label">Search For Student:</span> <input type="text" data-ng-model="search.name">
+
+  <table>
+    <tr>
+    <th><button class="no-style" data-ng-click="predicate='position'; reverse=!reverse">Rank &#8595;</button></th>
+    <th><button class="no-style" data-ng-click="predicate='name'; reverse=!reverse">Student &#8593;&#8595;</button></th>
+    <th><button class="no-style" data-ng-click="predicate='points'; reverse=!reverse">Points &#8593;&#8595;</button></th>
+    </tr>
+
+    <tr data-ng-repeat="students in people | orderBy:predicate:reverse | filter:search:strict">
+    <td data-ng-show="students.visibility">{{students.position}}</td>
+    <td data-ng-show="students.visibility">{{students.name}}</td>
+    <td data-ng-show="students.visibility">{{students.points}}</td>
+    </tr>
+  </table>
+
+
+  <h2>Update Points</h2>
+  <div class="content">
+    <span class="label">Student Name:</span> <input type="text" data-ng-model="searchQuery">
+    <span class="label">Points:</span> <input type="text" data-ng-model="numPoints" class="points">
+    <button data-ng-click="add()">add</button>
+    <button data-ng-click="subtract()">remove</button>
+    <span class="result">{{searchResult}} {{noResult}}</span>
+  </div>
+
+  <h2>Student Visibility</h2>
+  <div id="content">
+    <span class="label">Student Name:</span> <input type="text" data-ng-model="visibilityQuery">
+    <button data-ng-click="optOut()">opt out</button>
+    <button data-ng-click="optIn()">opt in</button>
+    <span class="result">{{visibilityResult}}</span>
+  </div>
+</div>
