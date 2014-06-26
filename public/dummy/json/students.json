@@ -1,0 +1,32 @@
+{
+   "students":[
+      {
+         "id":0,
+         "name":"Amanda",
+         "points":23,
+         "position":0,
+         "visibility":true
+      },
+      {
+         "id":1,
+         "name":"Brian",
+         "points":42,
+         "position":0,
+         "visibility":true
+      },
+      {
+         "id":2,
+         "name":"Cathy",
+         "points":12,
+         "position":0,
+         "visibility":true
+      },
+      {
+         "id":3,
+         "name":"Daniel",
+         "points":31,
+         "position":0,
+         "visibility":true
+      }
+   ]
+}

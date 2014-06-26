@@ -16,3 +16,6 @@
 /log/*.log
 /tmp
 .zeus.sock
+
+# Ignore all keys and passwords
+/config/secrets.yml
