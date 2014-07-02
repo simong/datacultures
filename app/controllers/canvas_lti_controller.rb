@@ -12,7 +12,7 @@ class CanvasLtiController < ApplicationController
     render
   end
 
-  def lti_leaderboard
+  def lti_engagement_index
     respond_to :xml
   end
 

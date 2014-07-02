@@ -1,7 +1,7 @@
 (function(angular) {
   'use strict';
 
-  angular.module('datacultures.controllers').controller('LeaderboardController', function($scope, studentFactory) {
+  angular.module('datacultures.controllers').controller('EngagementIndexController', function($scope, studentFactory) {
 
     studentFactory.getStudents().
       success(function(results) {
