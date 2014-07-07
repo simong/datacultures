@@ -19,3 +19,4 @@
 
 # Ignore all keys and passwords
 /config/secrets.yml
+/.project
