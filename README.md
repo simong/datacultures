@@ -48,7 +48,7 @@ To create the proper API keys:
             4. Follow the prompts, and don't place an expiration date (so the code won't stop working after that date)
             
     5. Add to the config/secrets.yml (there is one statically in the repo, but the data should not be checked in) the entries as follows, for all environments (example given is for development).  
-    If additional roles other than discussions_api are created above, make an entroy for tht
+    If additional roles other than discussions_api are created above, make an entry for that
     
         development:
           secret_key_base: 60e5483ffefd8b18fb44f4fb8a285d007a1e79a583bbe9bfd1f18722ce204d2a179334b8cd31e629a6c3297906caa6d0ae89db82ce3bfe807d664d8e5f1a6c7d
