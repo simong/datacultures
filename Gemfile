@@ -8,6 +8,7 @@ gem 'pg', '~> 0.17'
 gem 'paranoia', '~> 2.0'
 
 # styling
+gem 'bootstrap-sass', '~> 3.2.0'
 gem 'sass-rails', '~> 4.0'
 gem 'uglifier', '~> 2.5'
 

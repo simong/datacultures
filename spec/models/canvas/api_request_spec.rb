@@ -21,19 +21,6 @@ RSpec.describe Canvas::ApiRequest, :type => :model do
     end
   end
 
-  context "Making invalid requests" do
-    WebMock.allow_net_connect!
-    let (:request_object) do
-      Canvas::ApiRequest.new( {base_url: 'http://localhost', api_key: 'some token'})
-    end
-
-    it "fails on non-exisent path" do
-      request_object = Canvas::ApiRequest.new({ base_url: Rails.application.secrets.requests['base_url'], request_path: '/foo/bar', api_key: 'baz' })
-      resp = request_object.request.get('/foo/bar')
-      expect(resp.status).to be(404)
-    end
-  end
-
   context "Actual API Requests" do
 
     WebMock.allow_net_connect!
