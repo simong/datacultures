@@ -8,16 +8,16 @@
     http://www.imsglobal.org/xsd/imsbasiclti_v1p0 http://www.imsglobal.org/xsd/lti/ltiv1p0/imsbasiclti_v1p0.xsd
     http://www.imsglobal.org/xsd/imslticm_v1p0 http://www.imsglobal.org/xsd/lti/ltiv1p0/imslticm_v1p0.xsd
     http://www.imsglobal.org/xsd/imslticp_v1p0 http://www.imsglobal.org/xsd/lti/ltiv1p0/imslticp_v1p0.xsd">
-    <blti:title>Hello World</blti:title>
-    <blti:description>Saying Hello World</blti:description>
+    <blti:title>Engagement Index</blti:title>
+    <blti:description>Index that displays the engagement points for every student</blti:description>
     <blti:icon></blti:icon>
-    <blti:launch_url>http://localhost:3000/canvas/embedded/leaderboard</blti:launch_url>
+    <blti:launch_url>http://localhost:3000/canvas/embedded/engagement_index</blti:launch_url>
     <blti:extensions platform="canvas.instructure.com">
-      <lticm:property name="tool_id">Hello_World</lticm:property>
+      <lticm:property name="tool_id">Engagement Index</lticm:property>
       <lticm:property name="privacy_level">public</lticm:property>
       <lticm:options name="course_navigation">
-        <lticm:property name="url">http://localhost:3000/canvas/embedded/leaderboard</lticm:property>
-        <lticm:property name="text">Hello World</lticm:property>
+        <lticm:property name="url">http://localhost:3000/canvas/embedded/engagement_index</lticm:property>
+        <lticm:property name="text">Engagement Index</lticm:property>
         <lticm:property name="visibility">public</lticm:property>
         <lticm:property name="default">enabled</lticm:property>
         <lticm:property name="enabled">true</lticm:property>

@@ -13,11 +13,11 @@
       // controller: 'SplashController',
       // isPublic: true
     }).
-    when('/leaderboard', {
-      templateUrl: 'leaderboard.html'
+    when('/engagement_index', {
+      templateUrl: 'engagement_index.html'
     }).
-    when('/canvas/embedded/leaderboard', {
-      templateUrl: 'leaderboard.html'
+    when('/canvas/embedded/engagement_index', {
+      templateUrl: 'engagement_index.html'
     }).
     // Redirect to a 404 page
     otherwise({
