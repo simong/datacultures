@@ -33,6 +33,8 @@ gem 'haml', '~> 4.0'
 
 # external requests
 gem 'faraday', '~> 0.9'
+gem 'faraday_middleware', '~> 0.9'
+gem 'net-http-persistent', '~> 2.9'
 
 # LTI support
 gem 'ims-lti', :git => 'https://github.com/instructure/ims-lti.git'
@@ -51,6 +53,8 @@ group :development do
   # Adds extra information to the requests
   # Enables the RailsPanel chrome extension
   gem 'meta_request', '~> 0.3'
+
+  gem 'pry-rails', '~> 0.3'
 end
 
 group :test do
