@@ -1,22 +1,22 @@
-class Api::V1::PointsController < ApplicationController
-  before_action :set_point, only: [:show, :update]
+class Api::V1::ActivitiesController < ApplicationController
+  before_action :set_activity, only: [:show, :update]
 
   def index
     # to do scope to user
-    @points = Point.all
+    @activities = Activity.all
   end
 
   def show
-    unless @point
+    unless @activity
       head :no_content
     end
   end
 
   def create
-    @point = Point.new(point_params)
+    @activity = Activity.new(activity_params)
     begin
-      if @point.save
-        render json: @point
+      if @activity.save
+        render json: @activity
       end
     rescue
       head :unprocessable_entity
@@ -25,8 +25,8 @@ class Api::V1::PointsController < ApplicationController
 
   # update is only to mark as deleted
   def update
-    if @point
-      if  @point.delete
+    if @activity
+      if  @activity.delete
         head :no_content
       else
         head :gone
@@ -39,15 +39,15 @@ class Api::V1::PointsController < ApplicationController
 
   private
     # Use callbacks to share common setup or constraints between actions.
-    def set_point
+    def set_activity
       begin
-        @point = Point.find(params[:id])
+        @activity = Activity.find(params[:id])
       rescue
       end
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
-    def point_params
-      params.require(:point).permit(:uid, :reason, :delta)
+    def activity_params
+      params.require(:activity).permit(:uid, :reason, :delta)
     end
 end

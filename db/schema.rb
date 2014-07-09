@@ -16,7 +16,7 @@ ActiveRecord::Schema.define(version: 20140616190101) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "points", force: true do |t|
+  create_table "activities", force: true do |t|
     t.string   "uid",        null: false
     t.string   "reason",     null: false
     t.integer  "delta",      null: false
@@ -25,6 +25,6 @@ ActiveRecord::Schema.define(version: 20140616190101) do
     t.datetime "deleted_at"
   end
 
-  add_index "points", ["deleted_at"], name: "index_points_on_deleted_at", using: :btree
+  add_index "activities", ["deleted_at"], name: "index_activities_on_deleted_at", using: :btree
 
 end
