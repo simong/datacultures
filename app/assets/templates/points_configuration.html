@@ -1,0 +1,62 @@
+<!-- Defined gallery main controller -->
+<div data-ng-controller="PointsConfigurationController" class="dc-points-configuration">
+
+  <h1 class="dc-title">Points Configuration UI</h1>
+
+  <div class="main">
+
+    <!-- BUTTONS -->
+    <div class="dc-buttons-wrapper">
+      <div class="dc-activities-table-title"><h3>Course Activities</h3></div>
+      <div class="dc-wrapper" data-ng-switch on="status">
+        <button class="btn btn-info" data-ng-click="edit()" data-ng-switch-when="uneditable">Edit</button>
+        <button class="btn btn-success" data-ng-click="save()" data-ng-switch-when="editable">Save</button>
+        <button class="btn btn-danger" data-ng-click="cancel()" data-ng-switch-when="editable">Cancel</button>
+      </div>
+      <div style="clear:both"></div>
+    </div> <!-- Closing tag for BUTTONS -->
+
+    <!-- ACTIVITIES TABLE -->
+    <div class="dc-activities-table">
+      <table class="table table-striped table-compact table-bordered">
+        <tr>
+          <th class="dc-text-hidden" scope="col">ID</th>
+          <th class="dc-text-center" scope="col">Activity</th>
+          <th class="dc-text-center" scope="col">Points</th>
+          <th class="dc-text-center" scope="col">Action</th>
+        </tr>
+        <tr data-ng-repeat="activity in activities | orderBy:'id'" data-ng-switch="status">
+          <td class="dc-text-hidden dc-text-center" data-ng-bind="activity.id"></td>
+          <td class="dc-text-left dc-cell-padding" data-ng-bind="activity.name"></td>
+          <td class="dc-text-center dc-cell-padding" data-ng-bind="activity.points" data-ng-switch-when="uneditable"></td>
+          <td class="dc-text-center" data-ng-switch-when="editable">
+            <input data-ng-model="pointTotalArray[$index]" class="dc-points-input dc-text-center form-control"/>
+          </td>
+          <td class="dc-text-center"><button class="btn btn-default" data-ng-click="deleteActivity(activity)">Remove</button></td>
+        </tr>
+      </table> <!-- End activities table -->
+    </div> <!-- End activities table DIV -->
+
+    <!-- REMOVE ACTIVITIES TABLE -->
+    <div class="dc-activities-table" data-ng-show="removedTable">
+      <div class="dc-removed-table-title"><h3>Removed Activities</h3></div>
+      <table class="table table-striped table-compact table-bordered">
+        <tr>
+          <th class="dc-text-hidden" scope="col">ID</th>
+          <th class="dc-text-center" scope="col">Activity</th>
+          <th class="dc-text-center" scope="col">Points</th>
+          <th class="dc-text-center" scope="col">Action</th>
+        </tr>
+        <tr data-ng-repeat="activity in removedActivitiesList">
+          <td class="dc-text-hidden dc-text-center" data-ng-bind="activity.id"></td>
+          <td class="dc-text-left dc-cell-padding" data-ng-bind="activity.name"></td>
+          <td class="dc-text-center dc-cell-padding" data-ng-bind="activity.points"></td>
+          <td class="dc-text-center"><button class="btn btn-primary" data-ng-click="update(activity)">Add</button></td>
+        </tr>
+      </table><!-- End removed activities table -->
+    </div><!-- End removed activties table DIV -->
+
+  </div><!-- Closing tag for main -->
+
+</div><!-- Closing tag for controller -->
+</div><!-- Closing tag for gallery app -->
