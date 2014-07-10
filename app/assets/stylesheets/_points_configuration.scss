@@ -1,0 +1,63 @@
+.dc-points-configuration{
+  table, th, td {
+    border-collapse:collapse;
+    border:1px solid black;
+  }
+  input {
+    width:40px;
+  }
+  .dc-text-left {
+    text-align: left;
+  }
+  .dc-text-hidden {
+    display: none;
+  }
+  .dc-text-center {
+    text-align: center;
+  }
+  .dc-cell-padding {
+    padding-top: 15px;
+  }
+  .dc-title {
+    text-align: center;
+    font-size: 35px;
+    font-family: 'Lato', sans-serif;
+    margin-bottom: 30px;
+  }
+  .dc-buttons-wrapper {
+    position: relative;
+  }
+  .dc-activities-table-title {
+    float: left;
+    position: relative;
+    margin-bottom: 1%;
+  }
+  .dc-activities-table{
+    display: block;
+    margin: 4px auto 5px;
+    position: relative;
+    width: 100%;
+  }
+  .dc-removed-table-title {
+    margin-bottom: 22px;
+    margin-top: 60px;
+  }
+  .dc-wrapper {
+    float: right;
+    margin-top: 2%;
+    position: relative;
+  }
+  .dc-points-input {
+    width: 40px;
+    margin: 0 auto;
+    padding: 0;
+    text-align: center;
+  }
+  .main {
+    margin: 0 auto;
+    width: 50%;
+  }
+  .btn-default {
+    background: rgb(238,238,238);
+  }
+}
