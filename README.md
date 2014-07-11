@@ -21,43 +21,39 @@ To create the proper API keys:
 
     1. Login as Admin (not Site Admin), 
     2. If the course does not yet exist, add it (login as Admin, select the 'Start a New Course' button on the right)  Follow 
-    3. Add roles for the API users. 
-        
-        A  From the courses menu, select the non-site admin (so that course roles can be created; the Site Admin can only create Admin roles)
-        B. From the left nav bar, select 'Permissions'
-        C. From the center frame, select the 'Course Roles' tab.
-        D. Click on the 'Add Role' button.  
-        E. In the popup from the 'Add Roles' button, click on and disable every check mark excpet the one needed for that API (e.g., 'View Discussions' for the Discussions API)
+    3. Create a user with the 'Teacher' role:
     
-    4. Create a user or users to have that role: 
-    
-        A. Select the course added above in No. 1.  (from the top nav bar 'Courses' link, the 'My Courses' should include it).
+        A. Select the course added or having existed, above in No. 1.  (from the top nav bar 'Courses' link, the 'My Courses' should include it).
         B. Click on the "People" link in the left nav bar.
         C. Click on the "+ People" link in the upper right of the middle section.
-        D. Follow the prompts, entering as many users as needed (should only be one user) users, selecting the role previously created from the 'role' drop-down field.
+        D. Follow the prompts, creating a user with the teacher role.
         E. On the right, under that 'logout' link, click on 'Add a New User'
-        F. For each new user:
-            1. Click on the new user's link
-            2. In the login information box in the middle, click 'Add Login'
-            3. In the login dialog that appears, add login information.  Even if you have Site Admin access, still use the more limited Admin account to be the owning account.  The account should appear in the middle pane.
+        G. Click on the new user's link
+        H. In the login information box in the middle, click 'Add Login'
+        I. In the login dialog that appears, add login information.  Even if you have Site Admin access, still use the more limited Admin account to be the owning account.  The account should appear in the middle pane.
         G. Log out of the admin account (or use an incognito window/tab)
-        H. For each created user:
-            1. login as that user(Masquerade as does not work for this)
-            2. Go to the settings (either link)
-            3. At the bottom of the settings page, click "New Access Token"
-            4. Follow the prompts, and don't place an expiration date (so the code won't stop working after that date)
+        H. login as that user(Masquerade as does not work for this)
+        I. Go to the settings (either link)
+        J. At the bottom of the settings page, click "New Access Token"
+        K. Follow the prompts, and don't place an expiration date (so the code won't stop working after that date)
             
     5. Add to the config/secrets.yml (there is one statically in the repo, but the data should not be checked in) the entries as follows, for all environments (example given is for development).  
     If additional roles other than discussions_api are created above, make an entry for that
     
-        development:
+        test:
           secret_key_base: 60e5483ffefd8b18fb44f4fb8a285d007a1e79a583bbe9bfd1f18722ce204d2a179334b8cd31e629a6c3297906caa6d0ae89db82ce3bfe807d664d8e5f1a6c7d
           requests:
             base_url:  'http://localhost:3100'
+            real: false
+            course: "2390"
             api_keys:
               discussions_api:  ThisShouldBeABigQuiteLongStringOfRandomSeemingLettersAndNumbers1
 
-             
+To always mock, set the OS environment variable MOCK to 'always'.  To never mock, set MOCK to 'never'.
+
+For 'course' above, fill in the course ID number from the instance that will be tested against.  For 'real', set the default (should mocks be use or real requests by default, if the MOCK environment variable is not set).  Set 'real' to true to make actual net work requests in specs, and false to mock them (both only if MOCK environment variable is not set).
+Base URL is wherever your Canvas test server is located.
+
 ## development
 
 The following are all done from a Terminal (or iTerm2) window:
@@ -74,5 +70,5 @@ The following are all done from a Terminal (or iTerm2) window:
     $ guard
 
     Now, from other windows (or an edit tool such as RubyMine), change either a spec or the code it is covering, and it will be run in the guard window.
-    
-    
+
+If you have changes to MOCK (or any other operating system environment variable for that matter), it will be necessary to restart zeus if it is in use.

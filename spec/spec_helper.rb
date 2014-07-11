@@ -1,6 +1,7 @@
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 require 'factory_girl/syntax/methods'
 require 'webmock/rspec'
+require 'support/model_helpers'
 include FactoryGirl::Syntax::Methods
 
 RSpec.configure do |config|
@@ -61,5 +62,5 @@ RSpec.configure do |config|
 
   # add switching for real and mock requests
 
-  config.include Requests::MockHelpers, type: :model
+  config.include Models::MockHelpers, type: :model
 end
