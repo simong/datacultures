@@ -23,7 +23,7 @@ RSpec.describe Canvas::ApiRequest, :type => :model do
 
   context "Actual API Requests" do
 
-    WebMock.allow_net_connect!
+    #WebMock.allow_net_connect!
 
     let (:request_object) do
       Canvas::ApiRequest.new({base_url: Rails.application.secrets.requests['base_url'], api_key: 'unset key'})
@@ -31,6 +31,9 @@ RSpec.describe Canvas::ApiRequest, :type => :model do
 
     it "returns not found (404) for invalid path but valid API key" do
       request_object.api_key =  Rails.application.secrets.requests['api_keys']['discussions_api']
+      setup_request {
+
+      }
       resp = request_object.request.get('/foo/bar')
       expect(resp.status).to be(404)
     end

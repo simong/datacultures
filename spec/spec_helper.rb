@@ -1,5 +1,6 @@
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 require 'factory_girl/syntax/methods'
+require 'webmock/rspec'
 include FactoryGirl::Syntax::Methods
 
 RSpec.configure do |config|
@@ -57,4 +58,8 @@ RSpec.configure do |config|
     # a real object. This is generally recommended.
     mocks.verify_partial_doubles = true
   end
+
+  # add switching for real and mock requests
+
+  config.include Requests::MockHelpers, type: :model
 end
