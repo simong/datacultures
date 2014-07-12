@@ -1,99 +1,55 @@
-<div id="Engagement_Index" data-ng-cloak data-ng-controller="EngagementIndexController" class="dc-engagement-index">
+<div data-ng-cloak data-ng-controller="EngagementIndexController" class="dc-engagement-index">
 
-
-  <div class="main">
-
+  <div class="dc-main">
 
     <h1 class="text-center">Engagement Index Prototype (Front-End)</h1>
 
-  <!--   <span class="label label-default">Search For Student:</span>
-    <div class="col-lg-6 input-group">
-      <input type="text" data-ng-model="search.name">
-    </div> -->
-<!--
-    <form class="form-inline">
-      <select class="dropdown" ng-model="selectedItem" ng-options="sortmethod.type for sortmethod in sortlist">
-        <option value="">-- Sort By --</option>
-      </select>
-      <input type="text" class="form-control dc-student-search" placeholder="Search for student..." data-ng-model="search.name">
-    </form> -->
-
     <div class="dc-sort-controls">
-
       <form class="form-inline">
-
         <div class="btn-group">
-
           <!-- Sort Controls -->
           <button class="btn btn-info" type="button">Sort By</button>
           <button class="btn btn-info dropdown-toggle" type="button" data-toggle="dropdown">
             <span class="caret"></span>
             <span class="sr-only">Toggle Dropdown</span>
           </button>
+
+          <!-- Sort-by Options -->
           <ul class="dropdown-menu">
             <li><a href="#" data-ng-click="predicate='firstname'">First Name</a></li>
             <li><a href="#" data-ng-click="predicate='lastname'">Last Name</a></li>
-            <li><a href="#" data-ng-click="predicate='points'">Total Score</a></li>
+            <li><a href="#" data-ng-click="predicate='points'">Points</a></li>
             <li><a href="#" data-ng-click="predicate='section'">Section</a></li>
+            <li><a href="#" data-ng-click="predicate='lastupdate'">Last Point Earned</a></li>
             <li class="divider"></li>
             <li><a href="#" data-ng-click="predicate='id'">Default</a></li>
           </ul>
 
-<!--           <button class="btn btn-info dropdown-toggle" type="button" data-toggle="dropdown">
-            Filter by Course Section
-            <span class="caret"></span>
-            <span class="sr-only">Toggle Dropdown</span>
-          </button>
-          <ul class="dropdown-menu" role="menu">
-            <li><a href="#" data-ng-click="predicate='section'">Section A</a></li>
-            <li><a href="#" data-ng-click="predicate='section'">Section B</a></li>
-            <li><a href="#" data-ng-click="predicate='section'">Section C</a></li>
-            <li><a href="#" data-ng-click="predicate='section'">Section D</a></li>
-          </ul> -->
-
-          <!-- Search for student -->
+          <!-- Filter search by student & course section -->
           <input type="text" class="form-control dc-student-search" placeholder="Search for student..." data-ng-model="search.$">
           <input type="text" class="form-control dc-student-search" placeholder="Filter by section..." data-ng-model="search.section">
 
-        </div>
-
-      </form>
-    </div>
-
+        </div><!-- End of btn-group -->
+      </form><!-- End of form -->
+    </div><!-- End of dc-sort-controls -->
 
 
+    <!-- Engagement Index Table -->
     <table class="table table-striped table-bordered">
-   <!--    <th><button class="btn btn-info" data-ng-click="predicate='position'; reverse=!reverse">Rank &#8595;</button></th> -->
       <tr>
         <th class="dc-course-section-title">Section</th>
         <th>Student</th>
         <th>Points</th>
+        <th>Last Point Earned</th>
       </tr>
-
       <tr data-ng-repeat="students in people | orderBy:predicate:reverse | filter:search:strict">
-  <!--<td data-ng-show="students.visibility">{{students.position}}</td>-->
-        <td data-ng-show="students.visibility" data-ng-bind="students.section"></td>
-        <td data-ng-show="students.visibility">{{students.firstname}} {{students.lastname}}</td>
-        <td data-ng-show="students.visibility" data-ng-bind="students.points"></td>
+        <td class="col-sm-2" data-ng-show="students.visibility" data-ng-bind="students.section"></td>
+        <td class="col-sm-3" data-ng-show="students.visibility"><a href="#">{{students.firstname}} {{students.lastname}}</a></td>
+        <td class="col-sm-3" data-ng-show="students.visibility" data-ng-bind="students.points"></td>
+        <td class="col-sm-3" data-ng-show="students.visibility" data-ng-bind="students.lastupdate"></td>
+
       </tr>
     </table>
 
-
-  <!--   <h2>Update Points</h2>
-    <div class="content">
-      <span class="label label-default">Student Name:</span> <input type="text" data-ng-model="searchQuery">
-      <span class="label label-default">Points:</span> <input type="text" data-ng-model="numPoints" class="points">
-      <button class="btn btn-default" data-ng-click="add()">add</button>
-      <button class="btn btn-default" data-ng-click="subtract()">remove</button>
-      <span class="result">{{searchResult}} {{noResult}}</span>
-    </div>
-
-    <h2>Student Visibility</h2>
-    <div id="content">
-      <span class="label label-default">Student Name:</span> <input type="text" data-ng-model="visibilityQuery">
-      <button class="btn btn-default" data-ng-click="optOut()">opt out</button>
-      <button class="btn btn-default" data-ng-click="optIn()">opt in</button>
-      <span class="result">{{visibilityResult}}</span>
-    </div> -->
   </div><!-- End of main div -->
-</div>
+</div><!-- End of dc-engagement-index -->
