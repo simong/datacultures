@@ -1,38 +1,55 @@
-<div id="Engagement_Index" data-ng-cloak data-ng-controller="EngagementIndexController">
+<div data-ng-cloak data-ng-controller="EngagementIndexController" class="dc-engagement-index">
 
-  <h1>Engagement Index Prototype (Front-End)</h1>
+  <div class="dc-main">
 
-  <span class="label label-default">Search For Student:</span> <input type="text" data-ng-model="search.name">
+    <h1 class="text-center">Engagement Index Prototype (Front-End)</h1>
 
-  <table class="table table-striped table-compact table-bordered">
-    <tr>
-    <th><button class="no-style" data-ng-click="predicate='position'; reverse=!reverse">Rank &#8595;</button></th>
-    <th><button class="no-style" data-ng-click="predicate='name'; reverse=!reverse">Student &#8593;&#8595;</button></th>
-    <th><button class="no-style" data-ng-click="predicate='points'; reverse=!reverse">Points &#8593;&#8595;</button></th>
-    </tr>
+    <div class="dc-sort-controls">
+      <form class="form-inline">
+        <div class="btn-group">
+          <!-- Sort Controls -->
+          <button class="btn btn-info" type="button">Sort By</button>
+          <button class="btn btn-info dropdown-toggle" type="button" data-toggle="dropdown">
+            <span class="caret"></span>
+            <span class="sr-only">Toggle Dropdown</span>
+          </button>
 
-    <tr data-ng-repeat="students in people | orderBy:predicate:reverse | filter:search:strict">
-    <td data-ng-show="students.visibility">{{students.position}}</td>
-    <td data-ng-show="students.visibility">{{students.name}}</td>
-    <td data-ng-show="students.visibility">{{students.points}}</td>
-    </tr>
-  </table>
+          <!-- Sort-by Options -->
+          <ul class="dropdown-menu">
+            <li><a href="#" data-ng-click="predicate='firstname'">First Name</a></li>
+            <li><a href="#" data-ng-click="predicate='lastname'">Last Name</a></li>
+            <li><a href="#" data-ng-click="predicate='points'">Points</a></li>
+            <li><a href="#" data-ng-click="predicate='section'">Section</a></li>
+            <li><a href="#" data-ng-click="predicate='lastupdate'">Last Point Earned</a></li>
+            <li class="divider"></li>
+            <li><a href="#" data-ng-click="predicate='id'">Default</a></li>
+          </ul>
+
+          <!-- Filter search by student & course section -->
+          <input type="text" class="form-control dc-student-search" placeholder="Search for student..." data-ng-model="search.$">
+          <input type="text" class="form-control dc-student-search" placeholder="Filter by section..." data-ng-model="search.section">
+
+        </div><!-- End of btn-group -->
+      </form><!-- End of form -->
+    </div><!-- End of dc-sort-controls -->
 
 
-  <h2>Update Points</h2>
-  <div class="content">
-    <span class="label label-default">Student Name:</span> <input type="text" data-ng-model="searchQuery">
-    <span class="label label-default">Points:</span> <input type="text" data-ng-model="numPoints" class="points">
-    <button data-ng-click="add()">add</button>
-    <button data-ng-click="subtract()">remove</button>
-    <span class="result">{{searchResult}} {{noResult}}</span>
-  </div>
+    <!-- Engagement Index Table -->
+    <table class="table table-striped table-bordered">
+      <tr>
+        <th class="dc-course-section-title">Section</th>
+        <th>Student</th>
+        <th>Points</th>
+        <th>Last Point Earned</th>
+      </tr>
+      <tr data-ng-repeat="students in people | orderBy:predicate:reverse | filter:search:strict">
+        <td class="col-sm-2" data-ng-show="students.visibility" data-ng-bind="students.section"></td>
+        <td class="col-sm-3" data-ng-show="students.visibility"><a href="#">{{students.firstname}} {{students.lastname}}</a></td>
+        <td class="col-sm-3" data-ng-show="students.visibility" data-ng-bind="students.points"></td>
+        <td class="col-sm-3" data-ng-show="students.visibility" data-ng-bind="students.lastupdate"></td>
 
-  <h2>Student Visibility</h2>
-  <div id="content">
-    <span class="label label-default">Student Name:</span> <input type="text" data-ng-model="visibilityQuery">
-    <button data-ng-click="optOut()">opt out</button>
-    <button data-ng-click="optIn()">opt in</button>
-    <span class="result">{{visibilityResult}}</span>
-  </div>
-</div>
+      </tr>
+    </table>
+
+  </div><!-- End of main div -->
+</div><!-- End of dc-engagement-index -->

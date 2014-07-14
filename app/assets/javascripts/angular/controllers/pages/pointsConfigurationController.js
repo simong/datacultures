@@ -4,6 +4,7 @@
   'use strict';
 
   angular.module('datacultures.controllers').controller('PointsConfigurationController', function($http, $scope) {
+
     $http.get('/dummy/json/activities.json').success(function(activities) {
       angular.extend($scope, activities);
     });

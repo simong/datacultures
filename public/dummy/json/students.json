@@ -1,31 +1,123 @@
 {
    "students":[
       {
-         "id":0,
-         "name":"Amanda",
-         "points":23,
-         "position":0,
-         "visibility":true
+         "id": 0,
+         "firstname": "Amanda",
+         "lastname": "Zee",
+         "points": 23,
+         "position": 0,
+         "section": "A",
+         "lastupdate": "06/01/2014",
+         "visibility": true
       },
       {
          "id":1,
-         "name":"Brian",
+         "firstname":"Brian",
+         "lastname":"Yee",
          "points":42,
          "position":0,
+         "section": "B",
+         "lastupdate": "04/02/2014",
          "visibility":true
       },
       {
          "id":2,
-         "name":"Cathy",
+         "firstname":"Cathy",
+         "lastname":"Xee",
          "points":12,
          "position":0,
+         "section": "C",
+         "lastupdate": "07/03/2014",
          "visibility":true
       },
       {
          "id":3,
-         "name":"Daniel",
+         "firstname":"Daniel",
+         "lastname":"Wee",
          "points":31,
          "position":0,
+         "section": "D",
+         "lastupdate": "06/04/2014",
+         "visibility":true
+      },
+      {
+         "id":4,
+         "firstname":"Amanda",
+         "lastname": "Zee",
+         "points":25,
+         "position":0,
+         "section": "A",
+         "lastupdate": "06/05/2014",
+         "visibility":true
+      },
+      {
+         "id":5,
+         "firstname":"Brian",
+         "lastname":"Yee",
+         "points":42,
+         "position":0,
+         "section": "B",
+         "lastupdate": "06/06/2014",
+         "visibility":true
+      },
+      {
+         "id":6,
+         "firstname":"Cathy",
+         "lastname":"Xee",
+         "points":12,
+         "position":0,
+         "section": "C",
+         "lastupdate": "06/07/2014",
+         "visibility":true
+      },
+      {
+         "id":7,
+         "firstname":"Daniel",
+         "lastname":"Wee",
+         "points":31,
+         "position":0,
+         "section": "D",
+         "lastupdate": "06/08/2014",
+         "visibility":true
+      },
+      {
+         "id":8,
+         "firstname":"Amanda",
+         "lastname": "Zee",
+         "points":24,
+         "position":0,
+         "section": "A",
+         "lastupdate": "06/09/2014",
+         "visibility":true
+      },
+      {
+         "id":9,
+         "firstname":"Brian",
+         "lastname":"Yee",
+         "points":42,
+         "position":0,
+         "section": "B",
+         "lastupdate": "06/10/2014",
+         "visibility":true
+      },
+      {
+         "id":10,
+         "firstname":"Cathy",
+         "lastname":"Xee",
+         "points":12,
+         "position":0,
+         "section": "C",
+         "lastupdate": "06/11/2014",
+         "visibility":true
+      },
+      {
+         "id":11,
+         "firstname":"Daniel",
+         "lastname":"Wee",
+         "points":31,
+         "position":0,
+         "section": "D",
+         "lastupdate": "06/12/2014",
          "visibility":true
       }
    ]
