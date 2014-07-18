@@ -2,123 +2,174 @@
    "students":[
       {
          "id": 0,
-         "firstname": "Amanda",
-         "lastname": "Zee",
+         "name": "Amanda Zee",
+         "sortable_name": "Zee, Amanda",
          "points": 23,
-         "position": 0,
+         "position": 9,
          "section": "A",
          "lastupdate": "06/01/2014",
-         "visibility": true
+         "share": "YES",
+         "current": true
       },
       {
-         "id":1,
-         "firstname":"Brian",
-         "lastname":"Yee",
-         "points":42,
-         "position":0,
+         "id": 1,
+         "name": "Brian Yee",
+         "sortable_name": "Yee, Brian",
+         "points": 42,
+         "position": 0,
          "section": "B",
          "lastupdate": "04/02/2014",
-         "visibility":true
+         "share": "YES"
       },
       {
-         "id":2,
-         "firstname":"Cathy",
-         "lastname":"Xee",
-         "points":12,
-         "position":0,
+         "id": 2,
+         "name": "Cathy Xee",
+         "sortable_name": "Xee, Cathy",
+         "points": 12,
+         "position": 0,
          "section": "C",
          "lastupdate": "07/03/2014",
-         "visibility":true
+         "share": "YES"
       },
       {
-         "id":3,
-         "firstname":"Daniel",
-         "lastname":"Wee",
-         "points":31,
-         "position":0,
+         "id": 3,
+         "name": "Daniel Wee",
+         "sortable_name": "Wee, Daniel",
+         "points": 31,
+         "position": 0,
          "section": "D",
          "lastupdate": "06/04/2014",
-         "visibility":true
+         "share": "YES"
       },
       {
-         "id":4,
-         "firstname":"Amanda",
-         "lastname": "Zee",
-         "points":25,
-         "position":0,
+         "id": 4,
+         "name": "Amanda Zee",
+         "sortable_name": "Zee, Amanda",
+         "points": 25,
+         "position": 0,
          "section": "A",
          "lastupdate": "06/05/2014",
-         "visibility":true
+         "share": "YES"
       },
       {
-         "id":5,
-         "firstname":"Brian",
-         "lastname":"Yee",
-         "points":42,
+         "id": 5,
+         "name": "Brian Yee",
+         "sortable_name": "Yee, Brian",
+         "points": 42,
          "position":0,
          "section": "B",
          "lastupdate": "06/06/2014",
-         "visibility":true
+         "share": "YES"
       },
       {
-         "id":6,
-         "firstname":"Cathy",
-         "lastname":"Xee",
-         "points":12,
-         "position":0,
+         "id": 6,
+         "name": "Cathy Xee",
+         "sortable_name": "Xee, Cathy",
+         "points": 12,
+         "position": 0,
          "section": "C",
          "lastupdate": "06/07/2014",
-         "visibility":true
+         "share": "YES"
       },
       {
-         "id":7,
-         "firstname":"Daniel",
-         "lastname":"Wee",
-         "points":31,
-         "position":0,
+         "id": 7,
+         "name": "Daniel Wee",
+         "sortable_name": "Wee, Daniel",
+         "points": 31,
+         "position": 0,
          "section": "D",
          "lastupdate": "06/08/2014",
-         "visibility":true
+         "share": "YES"
       },
       {
-         "id":8,
-         "firstname":"Amanda",
-         "lastname": "Zee",
-         "points":24,
-         "position":0,
+         "id": 8,
+         "name": "Amanda Zee",
+         "sortable_name": "Zee, Amanda",
+         "points": 24,
+         "position": 0,
          "section": "A",
          "lastupdate": "06/09/2014",
-         "visibility":true
+         "share": "YES"
       },
       {
-         "id":9,
-         "firstname":"Brian",
-         "lastname":"Yee",
-         "points":42,
-         "position":0,
+         "id": 9,
+         "name": "Brian Yee",
+         "sortable_name": "Yee, Brian",
+         "points": 42,
+         "position": 0,
          "section": "B",
          "lastupdate": "06/10/2014",
-         "visibility":true
+         "share": "YES"
       },
       {
-         "id":10,
-         "firstname":"Cathy",
-         "lastname":"Xee",
-         "points":12,
+         "id": 10,
+         "name":"April Scott",
+         "sortable_name": "Scott, April",
+         "points": 99,
          "position":0,
-         "section": "C",
-         "lastupdate": "06/11/2014",
-         "visibility":true
+         "section": "B",
+         "lastupdate": "06/12/2014",
+         "share": "NO"
       },
       {
-         "id":11,
-         "firstname":"Daniel",
-         "lastname":"Wee",
-         "points":31,
-         "position":0,
+         "id": 11,
+         "name": "Bee Gee",
+         "sortable_name": "Gee, Bee",
+         "points": 100,
+         "position": 0,
          "section": "D",
          "lastupdate": "06/12/2014",
-         "visibility":true
+         "share": "YES"
+      },
+      {
+         "id": 12,
+         "name": "Cathy Xee",
+         "sortable_name": "Xee, Cathy",
+         "points": 12,
+         "position": 0,
+         "section": "C",
+         "lastupdate": "06/11/2014",
+         "share": "YES"
+      },
+      {
+         "id": 13,
+         "name": "Timon Lee",
+         "sortable_name": "Lee, Timon",
+         "points": 99,
+         "position": 0,
+         "section": "A",
+         "lastupdate": "06/15/2014",
+         "share": "NO"
+      },
+      {
+         "id": 14,
+         "name": "Bryan Rudolph",
+         "sortable_name": "Rudolph, Bryan",
+         "points": 99,
+         "position": 0,
+         "section": "C",
+         "lastupdate": "06/13/2014",
+         "share": "NO"
+      },
+      {
+         "id": 15,
+         "name": "Dwayne Carter",
+         "sortable_name": "Carter, Dwayne",
+         "points": 99,
+         "position": 0,
+         "section": "A",
+         "lastupdate": "06/01/2014",
+         "share": "NO"
+      },
+      {
+         "id": 16,
+         "name": "John Campos",
+         "sortable_name": "Campos, John",
+         "points": 99,
+         "position": 0,
+         "section": "B",
+         "lastupdate": "06/02/2014",
+         "share": "NO"
       }
    ]
 }

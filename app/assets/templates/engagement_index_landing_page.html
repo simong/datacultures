@@ -1,0 +1,44 @@
+<div data-ng-cloak data-ng-controller="EngagementIndexLandingPageController" class="dc-engagement-index-landing-page">
+
+  <div class="dc-main">
+
+    <h2>Engagement Index</h2>
+
+    <!-- Engagement Index Description -->
+    <div class="dc-description">
+      <p>
+        The engagement index is a scoreboard that lists the names and scores of all the students taking this course. You have the option to share your score engagement below. It is important to note that your decision to share or not share your score will determine how the engagement index will look. Below are examples of how the engagement index will look like in both a shared and unshared view:
+      </p>
+    </div> <!-- End of dc-description -->
+
+
+    <!-- Screenshot examples of Share and Not Share Views -->
+    <div class="dc-screenshots">
+      <div class="dc-share-screenshot" style="float:left">
+        <h3>SHARED VIEW</h3>
+        <img style="width:500px; height:200px;" src="http://cl.ly/image/3q2l0l3d413l/engagement_index_SHARE_VIEW2.png"/>
+      </div>
+      <div class="dc-unshare-screenshot" style="float:left; padding-left:70px;">
+        <h3>NOT SHARED VIEW</h3>
+        <img style="width:500px; height:200px;" src="http://cl.ly/image/1V112W3P2B2m/engagement_index_NOT_SHARE_VIEW2.png"/>
+      </div>
+    </div> <!-- End of dc-screenshots -->
+
+
+    <!-- Select share or not share -->
+    <div class="dc-select-share" style="padding-top:100px;">
+     <form style="clear:both">
+        <div>
+          <input type="radio" data-ng-model="score" value="yes"> Yes, I want to share my score on the Engagement Index.<br />
+          <input type="radio" data-ng-model="score" value="no"> No, I do not want to share my score on the Engagement Index.<br />
+          <button class="btn dc-btn-primary" type="button" data-ng-click="redirectPage()">Save</button>
+        </div>
+      </form>
+    </div><!-- End of dc-select-share -->
+
+
+
+
+
+  </div><!-- End of main div -->
+</div><!-- End of dc-engagement-index-landing-page -->

@@ -1,18 +1,50 @@
 /* BODY */
-.dc-engagement-index {
+.dc-engagement-index-landing-page {
 
-  .dc-btn-info {
-    @include background(linear-gradient(#5bc0de, #2596b8));
-    background-color: #46b0cf;
+
+  h2, h3 {
+    font-weight: normal;
+    line-height: 40px;
+    color: inherit;
+    font-family: inherit;
+    margin: 10px 0;
+    text-rendering: optimizelegibility;
+  }
+
+  h2 {
+    font-size: 1.8em;
+  }
+
+  h3 {
+    font-size: 1.5em;
+  }
+
+
+  .dc-screenshots {
+    padding-top: 50px;
+  }
+
+  .dc-select-share {
+    margin-top: 200px;
+  }
+
+  input {
+    margin-bottom: 20px;
+  }
+
+  .dc-btn-primary {
+    @include background(linear-gradient(to bottom, #0abeff, #0a95ff));
+    background-color: #0aaeff;
     background-repeat: repeat-x;
     border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
     color: #fff;
     text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
   }
 
-  .dc-btn-primary {
-    @include background(linear-gradient(to bottom, #0abeff, #0a95ff));
-    background-color: #0aaeff;
+
+  .dc-btn-info {
+    @include background(linear-gradient(#5bc0de, #2596b8));
+    background-color: #46b0cf;
     background-repeat: repeat-x;
     border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
     color: #fff;
@@ -28,18 +60,15 @@
     font-size: 14px;
     font-weight: normal;
     line-height: 24px;
+    margin-left: 50px;
     padding: 4px 6px;
     transition: border 0.2s linear 0s, box-shadow 0.2s linear 0s;
     vertical-align: middle;
-    width: 155px;
+    width: 186px;
 
       &:focus {
         box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(82, 168, 236, 0.6);
       }
-  }
-
-  .dc-engagement-search-section {
-    margin-left: 20px;
   }
   .dc-header-color {
     background: none repeat scroll 0 0 #e4e9ed;
@@ -49,36 +78,19 @@
   }
   .dc-main {
     margin: 0 auto;
-    width: 65%;
+    width: 75%;
   }
   .dc-note {
     margin-top: 50px;
   }
   .dc-sort-controls {
     margin-bottom: -25px;
-    margin-top: 40px;
+    margin-top: 80px;
   }
   .dc-table-striped-border {
     border: 1px solid #dddddd;
   }
   .dc-table-margin {
     margin-top: 50px;
-  }
-
-  .dc-user-info {
-    margin-top: 35px;
-  }
-
-  .dc-user-info-data {
-    font-weight: bold;
-  }
-
-  .dc-user-info-text {
-    font-size: 20px;
-    padding-left: 100px;
-  }
-
-  .dc-user-info-text-points {
-    padding-left: 0px;
   }
 }
