@@ -24,6 +24,11 @@
           $scope.activities[i].points = $scope.pointTotalArray[i];
         }
       }
+      $http.post('/points_configuration/update', $scope.activities).
+        success(function() {}).
+        error(function() {
+          window.alert('The Data did not send. Check your internet connection');
+        });
     };
 
     $scope.cancel = function() {

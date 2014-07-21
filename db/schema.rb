@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140709180725) do
+ActiveRecord::Schema.define(version: 20140719000136) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,5 +26,14 @@ ActiveRecord::Schema.define(version: 20140709180725) do
   end
 
   add_index "activities", ["deleted_at"], name: "index_activities_on_deleted_at", using: :btree
+
+  create_table "points_configurations", force: true do |t|
+    t.string   "pcid",                             null: false
+    t.string   "interaction",                      null: false
+    t.integer  "points_associated",                null: false
+    t.boolean  "active",            default: true
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
 end
