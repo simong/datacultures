@@ -7,10 +7,15 @@
 
     $http.get('/dummy/json/activities.json').success(function(activities) {
       angular.extend($scope, activities);
+
+      $scope.pointTotalArray = [];
+
+      for (var i = 0; i < $scope.activities.length; i++) {
+        $scope.pointTotalArray.push(0);
+      }
     });
 
     $scope.removedTable = false;
-    $scope.pointTotalArray = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
     $scope.removedActivitiesList = [];
     var master = {};
     $scope.status = 'uneditable';
