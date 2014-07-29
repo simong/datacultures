@@ -43,11 +43,12 @@ To create the proper API keys:
         test:
           secret_key_base: 60e5483ffefd8b18fb44f4fb8a285d007a1e79a583bbe9bfd1f18722ce204d2a179334b8cd31e629a6c3297906caa6d0ae89db82ce3bfe807d664d8e5f1a6c7d
           requests:
-            base_url:  'http://localhost:3100'
+            base_url:  'http://localhost:3100/'
             real: false
+            discussion_topic_id: "70239"
             course: "2390"
             api_keys:
-              discussions_api:  ThisShouldBeABigQuiteLongStringOfRandomSeemingLettersAndNumbers1
+              teacher:  ThisShouldBeABigQuiteLongStringOfRandomSeemingLettersAndNumbers1
 
 To always mock, set the OS environment variable MOCK to 'always'.  To never mock, set MOCK to 'never'.
 

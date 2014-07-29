@@ -24,11 +24,11 @@ RSpec.describe Api::V1::ActivitiesController, type: :controller do
   # Activity. As you add validations to Activity, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
-    {uid: "FOO", reason: "liked", delta: 1}
+    {canvas_user_id: "FOO", reason: "liked", delta: 1, canvas_scoring_item_id: 'bar'}
   }
 
   let(:invalid_attributes) {
-    {uid: "BAR", reason: 3 }
+    {canvas_user_id: "BAR", reason: 3 }
   }
 
   # This should return the minimal set of values that should be in the session
@@ -38,7 +38,7 @@ RSpec.describe Api::V1::ActivitiesController, type: :controller do
 
   describe "GET index" do
     it "assigns all activities as @activities" do
-      expect(valid_attributes).to eq({:uid => 'FOO', :reason => 'liked', :delta => 1})
+      expect(valid_attributes).to eq({:canvas_user_id=>"FOO", :reason=>"liked", :delta=>1, :canvas_scoring_item_id=>"bar"})
       activity = Activity.create! valid_attributes
       get :index, {format: :json}, valid_session
       expect(assigns(:activities)).to eq([activity])
@@ -113,7 +113,5 @@ RSpec.describe Api::V1::ActivitiesController, type: :controller do
 
     end
   end
-
-
 
 end

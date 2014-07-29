@@ -1,6 +1,11 @@
 class Api::V1::ActivitiesController < ApplicationController
   before_action :set_activity, only: [:show, :update]
 
+  ## TODO: only actions needed are the GET actions (index, show).  The
+  ##    postgres table will be updated directly (not via API), as it will
+  ##    happen within the app.  The GET endpoints are for UI layer
+  ##    in-app updates are in the model layer, not the controller
+
   def index
     # to do scope to user
     @activities = Activity.all
@@ -48,6 +53,6 @@ class Api::V1::ActivitiesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def activity_params
-      params.require(:activity).permit(:uid, :reason, :delta)
+      params.require(:activity).permit(:canvas_scoring_item_id, :canvas_user_id, :reason, :delta)
     end
 end

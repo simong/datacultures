@@ -82,5 +82,6 @@ group :development, :test do
   # Factories
   gem 'factory_girl', '~> 4.4'
   gem 'factory_girl_rails', '~> 4.4'
+  gem 'database_cleaner', '~> 1.3'
   gem 'byebug', '~> 3.1'
 end
