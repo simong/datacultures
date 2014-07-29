@@ -1,5 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe Activity, :type => :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+
+  describe "Activity" do
+    it "should belong to a student" do
+      a = Activity.reflect_on_association(:student)
+      expect(a.macro).to eq(:belongs_to)
+    end
+  end
 end

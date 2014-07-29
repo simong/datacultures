@@ -12,7 +12,6 @@ Rails.application.routes.draw do
       resources :activities, only: [:index, :show, :create, :update]
     end
   end
-  resources :activities, only: [:index, :show, :create, :update]
 
   get '/*url' => 'bootstrap#index', :defaults => { :format => 'html' }
 end
