@@ -40,4 +40,16 @@ ActiveRecord::Schema.define(version: 20140722171701) do
     t.datetime "updated_at"
   end
 
+  create_table "students", force: true do |t|
+    t.integer  "canvas_user_id",                 null: false
+    t.string   "name",                           null: false
+    t.string   "sortable_name",                  null: false
+    t.integer  "sis_user_id",                    null: false
+    t.string   "primary_email"
+    t.string   "section",                        null: false
+    t.boolean  "share",          default: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
 end
