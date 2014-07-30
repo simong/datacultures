@@ -13,11 +13,11 @@ class Canvas::ActivityStreamProcessor
     stream.each do |activity|
       case activity['type']
         when 'DiscussionTopic'
-          discussions_processor.process(activity)
+          discussions_processor.call(activity)
         when 'Submission'
-          submissions_processor.process(activity)
+          submissions_processor.call(activity)
         else
-          # no op; add other behaviors here
+          # no op; add other behaviors here or in another 'when' clause above
       end
     end
 

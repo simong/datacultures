@@ -58,7 +58,7 @@ RSpec.describe Canvas::DiscussionsProcessor, :type => :model do
       setup_request {
         stub_request(:get, base_url + "api/v1/courses/#{course}/discussion_topics/" ).to_return({status: 200})
       }
-      expect{processor.process(other_hash)}.to_not change{Activity.count}
+      expect{processor.call(other_hash)}.to_not change{Activity.count}
     end
 
     context "A new top-level post" do
@@ -67,7 +67,7 @@ RSpec.describe Canvas::DiscussionsProcessor, :type => :model do
           stub_request(:get, base_url + topic_path ).to_return(ok_return)
         }
         expect(request_object.request).to receive(:get).with(topic_path).once
-        processor.process(dstream)
+        processor.call(dstream)
       end
 
       it "checks for the action having already been scored" do
@@ -77,7 +77,7 @@ RSpec.describe Canvas::DiscussionsProcessor, :type => :model do
         allow(Activity).to receive(:where) { RespondsToOrder.new }
         allow(Activity).to receive(:score!) {[]}
         expect(Activity).to receive(:where).once
-        processor.process(dstream)
+        processor.call(dstream)
       end
 
       it "scores the post as a top-level discussion" do
@@ -85,14 +85,14 @@ RSpec.describe Canvas::DiscussionsProcessor, :type => :model do
           stub_request(:get, base_url + topic_path ).to_return(ok_return)
         }
         expect(Activity).to receive(:score!).once
-        processor.process(dstream)
+        processor.call(dstream)
       end
 
       it "changes the Activities table" do
         setup_request {
           stub_request(:get, base_url + topic_path ).to_return(ok_return)
         }
-        expect{processor.process(dstream)}.to change{Activity.count}.by(1)
+        expect{processor.call(dstream)}.to change{Activity.count}.by(1)
       end
 
       it "will not call the entries API without a number (> 0) entries from the stream" do
@@ -100,7 +100,7 @@ RSpec.describe Canvas::DiscussionsProcessor, :type => :model do
           stub_request(:get, base_url + topic_path ).to_return(ok_return)
         }
         expect(request_object.request).to_not receive(:get).with(entry_path)
-        processor.process(dstream)
+        processor.call(dstream)
       end
     end
 
@@ -119,14 +119,14 @@ RSpec.describe Canvas::DiscussionsProcessor, :type => :model do
           stub_request(:get, base_url + topic_path ).to_return(ok_return)
         }
         expect(request_object.request).to_not receive(:get).with(topic_path)
-        processor.process(dstream)
+        processor.call(dstream)
       end
 
       it "does not changes the Activities table" do
         setup_request {
           stub_request(:get, base_url + topic_path ).to_return(ok_return)
         }
-        expect{processor.process(dstream)}.to_not change{Activity.count}
+        expect{processor.call(dstream)}.to_not change{Activity.count}
       end
 
       it "scores the post as a top-level discussion" do
@@ -134,14 +134,14 @@ RSpec.describe Canvas::DiscussionsProcessor, :type => :model do
           stub_request(:get, base_url + topic_path ).to_return(ok_return)
         }
         expect(Activity).to_not receive(:score!)
-        processor.process(dstream)
+        processor.call(dstream)
       end
 
       it "does not create a new entry in Activities" do
         setup_request {
           stub_request(:get, base_url + topic_path ).to_return(ok_return)
         }
-        expect{processor.process(dstream)}.to_not change{Activity.count}
+        expect{processor.call(dstream)}.to_not change{Activity.count}
       end
     end
 
@@ -152,7 +152,7 @@ RSpec.describe Canvas::DiscussionsProcessor, :type => :model do
           stub_request(:get, base_url + entry_path ).to_return([ok_return])
         }
         expect(request_object.request).to receive(:get).twice
-        processor.process(discussion_stream_with_replies)
+        processor.call(discussion_stream_with_replies)
       end
 
       context "new replies" do
