@@ -4,142 +4,67 @@
 
     <h1 class="text-center">Engagement Index Prototype (Front-End)</h1>
 
-
-    <!-- Note for user -->
-<!--     <div class="dc-note">
-      <div data-ng-show="shownote" class="alert alert-info">
-        <strong>Note: </strong>Your points (below) are currently NOT viewable by other students.
+    <!-- Student Score Info -->
+    <div class="dc-user-info alert alert-info" style="width: 100%; text-align: center;">
+      <div class="" style="display: inline-block;">
+        <span class="dc-user-info-text dc-user-info-text-points">Your Points: <span class="dc-user-info-data" data-ng-bind="currStudent.points"></span></span>
+        <span class="dc-user-info-text">Your Rank: <span class="dc-user-info-data" data-ng-bind="currStudent.position"></span></span>
+        <span class="dc-user-info-text">Last Point Earned: <span class="dc-user-info-data" data-ng-bind="currStudent.last_activity_date"></span></span>
       </div>
-      <div data-ng-show="!shownote" class="alert alert-info">
-        <strong>Note: </strong>Your points are currently viewable by other students.
-      </div>
-    </div> -->
+    </div><!-- End of student score info -->
 
+    <hr />
 
-    <!-- The Current User's Engagement Index -->
-<!--     <table class="table table-condensed dc-table-striped-border">
-      <thead class="dc-header-color">
-        <tr>
-          <th class="dc-header-title">Student</th>
-          <th class="dc-header-title">Section</th>
-          <th class="dc-header-title">Rank</th>
-          <th class="dc-header-title">Points</th>
-          <th class="dc-header-title">Last Point Earned</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr class="warning">
-          <td class="col-sm-2" data-ng-show="!students.visibility"><a href="#">{{currStudent.firstname}} {{currStudent.lastname}}</a></td>
-          <td class="col-sm-2" data-ng-show="!students.visibility" data-ng-bind="currStudent.section"></td>
-          <td class="col-sm-2" data-ng-show="!students.visibility" data-ng-bind="currStudent.position"></td> -->
-
-<!--           <td class="col-sm-2" data-ng-show="showshare" data-ng-click="shareView(currStudent)">
-            <button class="btn dc-btn-info" type="button" data-tooltip title="If you share, your score will be shown on the Engagement Index below.">Share</button>
-          </td>
-          <td class="col-sm-2" data-ng-show="!showshare" data-ng-click="unshareView(currStudent)">
-            <button class="btn dc-btn-info" type="button" data-tooltip title="If you unshare, your score will be removed from the Engagement Index below.">Unshare</button>
-          </td> -->
-<!--           <td class="col-sm-2" data-ng-show="!students.visibility" data-ng-bind="currStudent.points"></td>
-          <td class="col-sm-3" data-ng-show="!students.visibility" data-ng-bind="currStudent.lastupdate"></td>
-        </tr>
-      </tbody>
-    </table>
- -->
-
-
-    <div class="user_info">
-      <div>Your Points: <span data-ng-bind="currStudent.points"></span></div>
-      <div>Your Rank: <span data-ng-bind="currStudent.position"></span></div>
-      <div>Last Point Earned: <span data-ng-bind="currStudent.lastupdate"></span></div>
-      <div>Section: <span data-ng-bind="currStudent.section"></span></div>
-    </div>
-
-
-
-
-
-
-
+    <!-- Filter Controls -->
     <div class="dc-sort-controls">
       <form class="form-inline">
-<!--         <div class="btn-group">
-          <!-- Sort Controls
-          <button class="btn dc-btn-info" type="button">Sort By</button>
-          <button class="btn dc-btn-info dropdown-toggle" type="button" data-toggle="dropdown">
-            <span class="caret"></span>
-            <span class="sr-only">Toggle Dropdown</span>
-          </button>
-
-          <!-- Sort-by Options
-          <ul class="dropdown-menu">
-            <li><a href="#" data-ng-click="predicate='firstname'">First Name</a></li>
-            <li><a href="#" data-ng-click="predicate='lastname'">Last Name</a></li>
-            <li><a href="#" data-ng-click="predicate='points'" data-ng-show="showpoints">Points</a></li>
-            <li><a href="#" data-ng-click="predicate='section'">Section</a></li>
-            <li><a href="#" data-ng-click="predicate='lastupdate'">Last Point Earned</a></li>
-            <li class="divider"></li>
-            <li><a href="#" data-ng-click="predicate='id'">Default</a></li>
-          </ul>
-
-        </div><!-- End of btn-group -->
-
         <!-- Filter search by student & course section -->
         <input type="text" class="dc-engagement-search" placeholder="Search for student..." data-ng-model="search.$">
-        <input type="text" class="dc-engagement-search" placeholder="Filter by section..." data-ng-model="search.section">
-
+        <input type="text" class="dc-engagement-search dc-engagement-search-section" placeholder="Filter by section..." data-ng-model="search.section">
       </form><!-- End of form -->
     </div><!-- End of dc-sort-controls -->
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <!-- Engagement Index Table -->
+    <!-- Engagement Index Table: For Students who SHARED -->
     <table class="table table-striped dc-table-striped-border dc-table-margin">
       <thead class="dc-header-color">
         <tr>
           <th class="dc-header-title">
-            <button class="no-style" data-ng-click="predicate='lastname'; reverse=!reverse">Student &#8593;&#8595;</button>
+            <button class="btn dc-btn-primary" data-ng-click="predicate='sortable_name'; reverse=!reverse">Student &#8593;&#8595;</button>
           </th>
           <th class="dc-header-title">
-            <button class="no-style" data-ng-click="predicate='section'; reverse=!reverse">Section &#8593;&#8595;</button>
+            <button class="btn dc-btn-primary" data-ng-click="predicate='section'; reverse=!reverse">Section &#8593;&#8595;</button>
           </th>
           <th class="dc-header-title">
-            <button class="no-style" data-ng-click="predicate='sharePoints'; reverse=!reverse">Share &#8593;&#8595;</button>
-          </th>
-          <th class="dc-header-title" data-ng-show="showpoints">
-            <button class="no-style" data-ng-click="predicate='points'; reverse=!reverse">Points &#8593;&#8595;</button>
-          </th>
-          <th class="dc-header-title" data-ng-show="showpoints">
-            <button class="no-style" data-ng-click="predicate='lastupdate'; reverse=!reverse">Last Point Earned &#8593;&#8595;</button>
+            <button class="btn dc-btn-primary" data-ng-click="">Share</button>
           </th>
         </tr>
       </thead>
-
-
-
-
-
       <tbody>
-        <tr data-ng-repeat="students in people | orderBy:predicate:reverse | filter:search:strict">
-          <td class="col-sm-3" data-ng-show="students.visibility"><a href="#">{{students.firstname}} {{students.lastname}}</a></td>
-          <td class="col-sm-2" data-ng-show="students.visibility" data-ng-bind="students.section"></td>
-          <td class="col-sm-2" data-ng-show="students.visibility" data-ng-bind="students.sharePoints"></td>
-          <td class="col-sm-2" data-ng-show="showpoints" data-ng-bind="students.points"></td>
-          <td class="col-sm-3" data-ng-show="showpoints" data-ng-bind="students.lastupdate"></td>
+        <tr data-ng-repeat="students in people | orderBy:predicate:!reverse | filter:search:strict" data-ng-class="{ info: students.current }">
+          <td class="col-sm-2" data-ng-show="visibility" data-ng-bind="students.name"><a href="#"></a></td>
+          <td class="col-sm-2" data-ng-show="visibility" data-ng-bind="students.section"></td>
+          <td class="col-sm-2" data-ng-show="visibility" data-ng-bind="students.share"></td>
         </tr>
       </tbody>
-    </table>
+    </table><!-- End of Engagement Index Table -->
+
+    <!-- Engagement Index Table: For Students who NOT SHARED-->
+    <table class="table table-striped dc-table-striped-border dc-table-margin">
+      <thead class="dc-header-color">
+        <tr>
+          <th class="dc-header-title">Student</th>
+          <th class="dc-header-title">Section</th>
+          <th class="dc-header-title">Share</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr data-ng-repeat="students in noshowStudents | orderBy:predicate:!reverse | filter:search:strict">
+          <td class="col-sm-2" data-ng-show="visibility" data-ng-bind="students.name"><a href="#"></a></td>
+          <td class="col-sm-2" data-ng-show="visibility" data-ng-bind="students.section"></td>
+          <td class="col-sm-2" data-ng-show="visibility" data-ng-bind="students.share"></td>
+        </tr>
+      </tbody>
+    </table><!-- End of Engagement Index Table -->
 
   </div><!-- End of main div -->
 </div><!-- End of dc-engagement-index -->
