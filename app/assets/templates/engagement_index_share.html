@@ -35,6 +35,12 @@
           <th class="dc-header-title">
             <button class="btn dc-btn-primary">Share</button>
           </th>
+          <th class="dc-header-title">
+            <button class="btn dc-btn-primary" data-ng-click="predicate='points'; reverse=!reverse">Points &#8593;&#8595;</button>
+          </th>
+          <th class="dc-header-title">
+            <button class="btn dc-btn-primary" data-ng-click="predicate='last_activity_date'; reverse=!reverse">Last Point Earned &#8593;&#8595;</button>
+          </th>
         </tr>
       </thead>
       <tbody>
@@ -42,6 +48,8 @@
           <td class="col-sm-2" data-ng-show="visibility" data-ng-bind="students.name"></td>
           <td class="col-sm-2" data-ng-show="visibility" data-ng-bind="students.section"></td>
           <td class="col-sm-2" data-ng-show="visibility" data-ng-bind="students.share"></td>
+          <td class="col-sm-2" data-ng-show="visibility" data-ng-bind="students.points"></td>
+          <td class="col-sm-3" data-ng-show="visibility" data-ng-bind="students.last_activity_date"></td>
         </tr>
       </tbody>
     </table><!-- End of Engagement Index Table -->
@@ -53,6 +61,8 @@
           <th class="dc-header-title">Student</th>
           <th class="dc-header-title">Section</th>
           <th class="dc-header-title">Share</th>
+          <th class="dc-header-title">Points</th>
+          <th class="dc-header-title">Last Point Earned</th>
         </tr>
       </thead>
       <tbody>
@@ -60,6 +70,8 @@
           <td class="col-sm-2" data-ng-show="visibility" data-ng-bind="students.name"></td>
           <td class="col-sm-2" data-ng-show="visibility" data-ng-bind="students.section"></td>
           <td class="col-sm-2" data-ng-show="visibility" data-ng-bind="students.share"></td>
+          <td class="col-sm-2" data-ng-show="visibility" data-ng-bind="students.points"></td>
+          <td class="col-sm-3" data-ng-show="visibility" data-ng-bind="students.last_activity_date"></td>
         </tr>
       </tbody>
     </table><!-- End of Engagement Index Table -->
