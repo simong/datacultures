@@ -10,7 +10,7 @@ class Canvas::DiscussionsProcessor
     @course          = Rails.application.secrets['requests']['course']
   end
 
-  def process(stream_entry)
+  def call(stream_entry)
 
     discussion_id = stream_entry['discussion_topic_id']   # discussion's ID, not author's
     base_params = { canvas_updated_at: stream_entry['updated_at'], body:  stream_entry['message'], canvas_scoring_item_id: discussion_id  }
