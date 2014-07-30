@@ -5,12 +5,10 @@
     <h1 class="text-center">Engagement Index Prototype (Front-End)</h1>
 
     <!-- Student Score Info -->
-    <div class="dc-user-info alert alert-info" style="width: 100%; text-align: center;">
-      <div class="" style="display: inline-block;">
-        <span class="dc-user-info-text dc-user-info-text-points">Your Points: <span class="dc-user-info-data" data-ng-bind="currStudent.points"></span></span>
-        <span class="dc-user-info-text">Your Rank: <span class="dc-user-info-data" data-ng-bind="currStudent.position"></span></span>
-        <span class="dc-user-info-text">Last Point Earned: <span class="dc-user-info-data" data-ng-bind="currStudent.last_activity_date"></span></span>
-      </div>
+    <div class="dc-user-info alert alert-info">
+      <span class="dc-user-info-text dc-user-info-text-points">Your Points: <span class="dc-user-info-data" data-ng-bind="currStudent.points"></span></span>
+      <span class="dc-user-info-text">Your Rank: <span class="dc-user-info-data" data-ng-bind="currStudent.position"></span></span>
+      <span class="dc-user-info-text">Last Point Earned: <span class="dc-user-info-data" data-ng-bind="currStudent.last_activity_date"></span></span>
     </div><!-- End of student score info -->
 
     <hr />
@@ -35,7 +33,7 @@
             <button class="btn dc-btn-primary" data-ng-click="predicate='section'; reverse=!reverse">Section &#8593;&#8595;</button>
           </th>
           <th class="dc-header-title">
-            <button class="btn dc-btn-primary" data-ng-click="">Share</button>
+            <button class="btn dc-btn-primary">Share</button>
           </th>
           <th class="dc-header-title">
             <button class="btn dc-btn-primary" data-ng-click="predicate='points'; reverse=!reverse">Points &#8593;&#8595;</button>
@@ -47,7 +45,7 @@
       </thead>
       <tbody>
         <tr data-ng-repeat="students in people | orderBy:predicate:!reverse | filter:search:strict" data-ng-class="{ info: students.current }">
-          <td class="col-sm-2" data-ng-show="visibility" data-ng-bind="students.name"><a href="#"></a></td>
+          <td class="col-sm-2" data-ng-show="visibility" data-ng-bind="students.name"></td>
           <td class="col-sm-2" data-ng-show="visibility" data-ng-bind="students.section"></td>
           <td class="col-sm-2" data-ng-show="visibility" data-ng-bind="students.share"></td>
           <td class="col-sm-2" data-ng-show="visibility" data-ng-bind="students.points"></td>
@@ -69,7 +67,7 @@
       </thead>
       <tbody>
         <tr data-ng-repeat="students in noshowStudents | orderBy:predicate:!reverse | filter:search:strict">
-          <td class="col-sm-2" data-ng-show="visibility" data-ng-bind="students.name"><a href="#"></a></td>
+          <td class="col-sm-2" data-ng-show="visibility" data-ng-bind="students.name"></td>
           <td class="col-sm-2" data-ng-show="visibility" data-ng-bind="students.section"></td>
           <td class="col-sm-2" data-ng-show="visibility" data-ng-bind="students.share"></td>
           <td class="col-sm-2" data-ng-show="visibility" data-ng-bind="students.points"></td>
