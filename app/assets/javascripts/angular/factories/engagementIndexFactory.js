@@ -9,7 +9,7 @@
   angular.module('datacultures.factories').factory('studentFactory', function($http) {
 
     var getStudents = function() {
-      var url = '/dummy/json/students.json';
+      var url = '/api/v1/engagement_index/data';
       return $http.get(url);
     };
 
