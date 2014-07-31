@@ -15,11 +15,11 @@
     <div class="dc-screenshots">
       <div class="dc-share-screenshot">
         <h3>Shared View</h3>
-        <img class="dc-screenshot" src="http://cl.ly/image/3q2l0l3d413l/engagement_index_SHARE_VIEW2.png"/>
+        <img class="dc-screenshot" src="http://cl.ly/image/3G241g010H3t/engagement_index_share.png"/>
       </div>
       <div class="dc-unshare-screenshot">
-        <h3>Not Shared View</h3>
-        <img class="dc-screenshot" src="http://cl.ly/image/1V112W3P2B2m/engagement_index_NOT_SHARE_VIEW2.png"/>
+        <h3>Unshared View</h3>
+        <img class="dc-screenshot" src="http://cl.ly/image/0L1F2m0Z2i3T/engagement_index_not_share.png"/>
       </div>
     </div> <!-- End of dc-screenshots -->
 
@@ -29,7 +29,7 @@
         <div>
           <input type="radio" data-ng-model="score" value="yes"> Yes, I want to share my score on the Engagement Index.<br />
           <input type="radio" data-ng-model="score" value="no"> No, I do not want to share my score on the Engagement Index.<br />
-          <button class="btn dc-btn-primary" type="button" data-ng-click="redirectPage()">Save</button>
+          <a data-ng-href="{{redirectPage()}}" class="btn dc-btn-primary" type="button">Save</a>
         </div>
       </form>
     </div><!-- End of dc-select-share -->
