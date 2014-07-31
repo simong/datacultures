@@ -17,6 +17,10 @@
     color: #fff;
     text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
   }
+  .dc-disclaimer {
+    font-size: 14px;
+    margin-top: 35px;
+  }
   .dc-engagement-search {
     background-color: #fff;
     border: 1px solid #ccc;
@@ -42,15 +46,19 @@
   .dc-header-color {
     background: none repeat scroll 0 0 #e4e9ed;
   }
-  .dc-header-title {
-    border-bottom: 1px solid #dddddd;
+  .dc-header-title:hover {
+    background-color: rgb(217,237,247);
   }
   .dc-main {
     margin: 0 auto;
-    width: 65%;
+    width: 70%;
   }
   .dc-note {
     margin-top: 50px;
+  }
+  .dc-pointer-hand th {
+    cursor: pointer;
+    cursor: hand;
   }
   .dc-sort-controls {
     margin-bottom: -25px;
@@ -59,19 +67,28 @@
   .dc-table-margin {
     margin-top: 50px;
   }
+  .dc-table-unshare-margin {
+    margin-top: 0px;
+  }
+  .dc-table-unshare-title {
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 50px;
+    margin-bottom: 15px;
+  }
   .dc-table-striped-border {
     border: 1px solid #dddddd;
   }
   .dc-user-info {
     margin-top: 35px;
     width: 100%;
-    text-align: center;
   }
   .dc-user-info-data {
-    font-weight: bold;
+    font-weight: normal;
   }
   .dc-user-info-text {
-    font-size: 20px;
+    font-size: 18px;
+    font-weight: bold;
     padding-left: 100px;
   }
   .dc-user-info-text-points {

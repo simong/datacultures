@@ -7,9 +7,11 @@
 
     $scope.redirectPage = function () {
       if ($scope.score === 'yes'){
-        window.location.replace('/engagement_index_share');
+        $scope.score = '/engagement_index_share';
+        return($scope.score);
       } else if ($scope.score === 'no'){
-        window.location.replace('/engagement_index');
+        $scope.score = '/engagement_index';
+        return($scope.score);
       }
     };
   });
