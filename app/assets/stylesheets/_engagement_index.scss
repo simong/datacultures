@@ -46,7 +46,7 @@
   .dc-header-color {
     background: none repeat scroll 0 0 #e4e9ed;
   }
-  .dc-header-title:hover {
+  .dc-header-title th:hover {
     background-color: rgb(217,237,247);
   }
   .dc-main {
@@ -83,15 +83,11 @@
     margin-top: 35px;
     width: 100%;
   }
-  .dc-user-info-data {
-    font-weight: normal;
-  }
   .dc-user-info-text {
     font-size: 18px;
-    font-weight: bold;
     padding-left: 100px;
   }
   .dc-user-info-text-points {
-    padding-left: 0px;
+    padding-left: 0;
   }
 }
