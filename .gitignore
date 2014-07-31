@@ -20,3 +20,6 @@
 # Ignore all keys and passwords
 /config/secrets.yml
 /.project
+
+# Ignore large public files
+images/

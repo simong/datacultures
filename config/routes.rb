@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       resources :activities, only: [:index, :show, :create, :update]
+      get '/engagement_index/data' => 'engagement_index#index', :defaults => { :format => 'json'}
     end
   end
 
