@@ -10,7 +10,7 @@ RSpec.describe Api::V1::EngagementIndexController, :type => :controller do
       sis_user_id: "1234",
       primary_email: "nolanchan@berkeley.edu",
       section: "A",
-      share: true
+      share: false
     }
   }
 
@@ -43,7 +43,6 @@ RSpec.describe Api::V1::EngagementIndexController, :type => :controller do
       get :index, {format: :json}, valid_session
       expect(JSON.parse(response.body)["students"].count).to eq(2)
     end
-
   end
 
 end

@@ -12,15 +12,16 @@
     studentFactory.getStudents().
       success(function(results) {
         $scope.people = results.students;
+        $scope.currentStudentID = results.current_canvas_user_id;
+        $scope.currStudent = $scope.people[$scope.currentStudentID]; // simulating the first student in json file is the current user
+        $scope.shareStatus = $scope.currStudent.share;
 
-        $scope.currStudent = $scope.people[0]; // simulating the first student in json file is the current user
-
-        //if user chooses not to share EI, remove them from the shared table
+        // if user chooses not to share EI, remove them from the shared table
         if ($location.path() === '/engagement_index') {
           $scope.currStudent.share = 'NO';
         }
 
-        //Loop through and remove all students that are not sharing Engagement Index
+        // Loop through and remove all students that are not sharing Engagement Index
         for (var i = $scope.people.length-1; i >= 0; i--) {
           if ($scope.people[i].share === 'NO') {
             $scope.studentToRemove = $scope.people[i];
@@ -28,9 +29,14 @@
             $scope.people.splice($scope.people.indexOf($scope.studentToRemove), 1); //remove not sharing student
           }
         }
+        studentFactory.postStudentStatus($scope.currentStudentID, $scope.shareStatus).
+          success(function() {}).
+          error(function() {
+            window.alert("Check your internet connection, status was not pushed");
+          });
 
         // Default Sort
-        $scope.predicate = 'position';
+        $scope.predicate = 'points';
       });
   });
 
