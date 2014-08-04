@@ -9,6 +9,7 @@ class CanvasLtiController < ApplicationController
     # Initialize TP object with OAuth creds and post parameters
     # provider = IMS::LTI::ToolProvider.new(@consumer_key, @consumer_secret)
     # Verify OAuth signature by passing the request object
+    session[:canvas_user_id] = params[:custom_canvas_user_id]
     render
   end
 

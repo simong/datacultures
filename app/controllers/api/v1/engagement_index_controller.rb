@@ -1,9 +1,9 @@
 class Api::V1::EngagementIndexController < ApplicationController
 
+  skip_before_filter  :verify_authenticity_token
+
   def index
     students = Student.all
-
-    #get activities group by canvas_user_id and sum
     activity_sums = Activity.group(:canvas_user_id).sum(:delta)
     last_activity_dates = Activity.select(:canvas_updated_at, :canvas_user_id).group(:canvas_user_id).maximum(:canvas_updated_at)
     render :json => engagement_index_json(students, activity_sums, last_activity_dates)
@@ -27,6 +27,7 @@ class Api::V1::EngagementIndexController < ApplicationController
       end
       engagement_index_json = {}
       engagement_index_json["students"] = students_array
+      engagement_index_json["current_canvas_user_id"] = session[:canvas_user_id]
       return engagement_index_json
     end
 end
