@@ -10,36 +10,19 @@ API keys are needed to access Canvas data.  They cannot be publicly published, s
 
 Do not use 'Developer API' keys, those have a lot of permissions.  Instead make users that will have very limited roles.
 
-Known Roles Needed:
- 
-|  Role  |  Role Type |  Canvas Permission(s)| 
-|:--------:|:------------:|:----------------------:|
-| discussions_api |  Course Role |  'View Discussions' |
-
+A key with the teacher's permissions will be needed for each course that uses the instance.
 
 To create the proper API keys:
 
-    1. Login as Admin (not Site Admin), 
-    2. If the course does not yet exist, add it (login as Admin, select the 'Start a New Course' button on the right)  Follow 
-    3. Create a user with the 'Teacher' role:
-    
-        A. Select the course added or having existed, above in No. 1.  (from the top nav bar 'Courses' link, the 'My Courses' should include it).
-        B. Click on the "People" link in the left nav bar.
-        C. Click on the "+ People" link in the upper right of the middle section.
-        D. Follow the prompts, creating a user with the teacher role.
-        E. On the right, under that 'logout' link, click on 'Add a New User'
-        G. Click on the new user's link
-        H. In the login information box in the middle, click 'Add Login'
-        I. In the login dialog that appears, add login information.  Even if you have Site Admin access, still use the more limited Admin account to be the owning account.  The account should appear in the middle pane.
-        G. Log out of the admin account (or use an incognito window/tab)
-        H. login as that user(Masquerade as does not work for this)
-        I. Go to the settings (either link)
-        J. At the bottom of the settings page, click "New Access Token"
-        K. Follow the prompts, and don't place an expiration date (so the code won't stop working after that date)
+    For each course that will uses the backend,
+        A. Log in as the instructor
+        B. Go to the settings (follow the link in the upper right)
+        C. At the bottom of the settings page, click "New Access Token"
+        D. Follow the prompts, and don't place an expiration date (so the code won't stop working after that date)
+        E. Save this generated token, it will be needed for the Canvas API calls.  It will be pasted for now in to the secrets.yml file (see below)
             
-    5. Add to the config/secrets.yml (there is one statically in the repo, but the data should not be checked in) the entries as follows, for all environments (example given is for development).  
-    If additional roles other than discussions_api are created above, make an entry for that
-    
+    5. Add to the config/secrets.yml (there is one statically in the repo, but the data should not be checked in) the entries as follows, for all environments (example given is for development).   Every running instance will need these keys, keeping them current will be part of the deploy process (or required setup for the instructor).
+
         test:
           secret_key_base: 60e5483ffefd8b18fb44f4fb8a285d007a1e79a583bbe9bfd1f18722ce204d2a179334b8cd31e629a6c3297906caa6d0ae89db82ce3bfe807d664d8e5f1a6c7d
           requests:
@@ -48,12 +31,38 @@ To create the proper API keys:
             discussion_topic_id: "70239"
             course: "2390"
             api_keys:
-              teacher:  ThisShouldBeABigQuiteLongStringOfRandomSeemingLettersAndNumbers1
+              teacher:  "ThisShouldBeABigQuiteLongStringOfRandomSeemingLettersAndNumbers1"
+
+In order to access the API keys, the same structure needs to be in every environment in which it is run (e.g.,  development, qa, or production).  If another method of configuration is desire, a Hash of the appropriate struct can be supplied in #perform method in the UpdateEngagementIndexWorker (located in app/workers/update_engagement_index_worker.rb).
 
 To always mock, set the OS environment variable MOCK to 'always'.  To never mock, set MOCK to 'never'.
 
 For 'course' above, fill in the course ID number from the instance that will be tested against.  For 'real', set the default (should mocks be use or real requests by default, if the MOCK environment variable is not set).  Set 'real' to true to make actual net work requests in specs, and false to mock them (both only if MOCK environment variable is not set).
 Base URL is wherever your Canvas test server is located.
+
+## Redis
+
+The project requires Redis, which is used by Sidekiq.   Redis can be installed for OS/X (if you have homebrew installed) with:
+
+```
+$ brew install redis
+```
+
+Once Redis has been installed, start it to launch you project.  In a shell:
+
+```
+$ redis-server
+```
+
+
+## Sidekiq
+
+For the jobs to be run, the sidekiq server needs to be started:
+
+```
+$ bundle exec sidekiq
+```
+The sidekiq server will start, and the workers defined to run by sidetiq will run.
 
 ## development
 

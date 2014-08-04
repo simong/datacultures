@@ -39,7 +39,9 @@ class Canvas::DiscussionsProcessor
     if reply_to_post.active && stream_entry["total_root_discussion_entries"]  && stream_entry["total_root_discussion_entries"] > 0
       request_path = 'api/v1/courses/'+course.to_s+'/discussion_topics/'+discussion_id.to_s+'/entries'
       entries = request_object.request.get(request_path)
-      process_children( entries )
+      if entries && entries.respond_to?(:body) && entries.body.kind_of?(Array)
+        process_children( entries.body )
+      end
     end
 
   end
@@ -48,19 +50,16 @@ class Canvas::DiscussionsProcessor
     # get the entries stream, score those not already scored.
     replies = Activity.where({reason: 'DiscussionReply'}).select(:canvas_scoring_item_id)
     logged_canvas_ids = replies.collect{|a|a.canvas_scoring_item_id}
-    if entries    # guard against no return values (no network, or no reply from Canvas)
-      entries.each do |entry|
-        subentries = entry['recent_replies'] || []
-        entries_and_subentries = [entry]   + subentries
-        entries_and_subentries.each do |e|
-          unless logged_canvas_ids.include?(e['id'])
-            Activity.score!({reason: 'DiscussionReply', delta: reply_to_post.points_associated,
-                             canvas_updated_at: e['updated_at'], body: e['message'],
-                             canvas_scoring_item_id: e['id'], canvas_user_id: e['user_id'] })
+    entries.each do |entry|
+      subentries = entry['recent_replies'] || []
+      entries_and_subentries = [entry]   + subentries
+      entries_and_subentries.each do |e|
+        unless logged_canvas_ids.include?(e['id'])
+          Activity.score!({reason: 'DiscussionReply', delta: reply_to_post.points_associated,
+                           canvas_updated_at: e['updated_at'], body: e['message'],
+                           canvas_scoring_item_id: e['id'], canvas_user_id: e['user_id'] })
 
-          end
         end
-
       end
     end
   end

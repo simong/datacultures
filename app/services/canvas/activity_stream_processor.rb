@@ -9,6 +9,11 @@ class Canvas::ActivityStreamProcessor
   end
 
 
+  def get_stream!(course)
+    strm = @request_object.request.get('api/v1/courses/'+course+'/activity_stream')
+    strm.body if strm
+  end
+
   def call(stream)
     stream.each do |activity|
       case activity['type']
