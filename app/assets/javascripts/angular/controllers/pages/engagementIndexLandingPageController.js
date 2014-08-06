@@ -3,12 +3,12 @@
 
   angular.module('datacultures.controllers').controller('EngagementIndexLandingPageController', function($scope) {
 
-    $scope.choice = 'yes';
+    $scope.choice = false;
 
     $scope.redirectPage = function () {
-      if ($scope.choice === 'yes'){
+      if ($scope.choice === true){
         return ('/engagement_index_share');
-      } else {
+      } else if ($scope.choice === false) {
         return ('/engagement_index');
       }
     };

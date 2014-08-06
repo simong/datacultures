@@ -16,55 +16,46 @@
     $scope.showpoints = false;
     $scope.visibility = true;
     $scope.showStudents = [];
-    $scope.noshowStudents = []; // array storing students who are not sharing their score
+    $scope.noshowStudents = [];
     $scope.studentPoints = [];
     $scope.studentPercentile = 0;
 
-    // Call getStudents() from EI factory to get students
+    // Get students
     studentFactory.getStudents().
       success(function(results) {
-        $scope.people = results.students; // get from ruby controller
-        $scope.currentStudentID = results.current_canvas_user_id; // get from ruby controller
+        $scope.people = results.students;
+        $scope.currentStudentID = results.current_canvas_user_id;
         $scope.currStudent = $scope.people[$scope.currentStudentID];
         $scope.shareStatus = $scope.currStudent.share;
 
-        alert($scope.currStudent.id);
-
-        // For unshare view
-        if ($location.path() === '/engagement_index') {
-          $scope.currStudent.share = 'NO';
-        }
-
-        // Loop through and remove all students that are not sharing Engagement Index
+        // Loop through and remove all students that are not sharing score
         for (var i = $scope.people.length-1; i >= 0; i--) {
-        // for (var i=0; i <$scope.people.length; i++) {
+
+          // Handle case where student IS sharing
           if ($scope.people[i].share === true) {
-            // $scope.people[i].share = 'YES';
             $scope.showStudents.push($scope.people[i]); //push shared student to showStudents array
             $scope.studentPoints.push($scope.people[i].points); //push shared student points to array
           }
 
-          if ($scope.people[i].share === false) {
+          // Handle case where student IS NOT sharing
+          else if ($scope.people[i].share === false) {
             $scope.people[i].share = 'NO';
               if ($location.path() === '/engagement_index_instructor') {
+                $scope.studentPoints.push($scope.people[i].points);
                 continue;
               } else {
-                $scope.studentToRemove = $scope.people[i]; // store "to be removed" into variable
-                $scope.noshowStudents.push($scope.studentToRemove); // push not sharing students to new array
+                $scope.studentToRemove = $scope.people[i];
+                $scope.noshowStudents.push($scope.studentToRemove);
                 $scope.studentPoints.push($scope.studentToRemove.points);
-                // $scope.people.splice($scope.people.indexOf($scope.studentToRemove), 1); // remove not sharing student
                 continue;
               }
           }
 
-          // Handle row highlighting
-          if ($scope.people[i] === $scope.currStudent) {
-            $scope.people[i].highlight = true;
-          } else {
-            $scope.people[i].highlight = false;
-          }
+          // Handle row highlighting (only get here if student is sharing)
+          $scope.people[i].highlight = !!($scope.people[i] === $scope.currStudent);
 
-          $scope.people[i].share = 'YES'; // if get here, means that the student chose to share EI score
+          // If get here, means that the student chose to share EI score
+          $scope.people[i].share = 'YES';
         }
 
         // Calculate percentile, then store it for each student
@@ -84,15 +75,15 @@
             window.alert('Check your internet connection, status was not pushed');
           });
 
-
-
         // Default Sort
-        $scope.predicate = 'points';
-        $scope.predicateUnshare = 'section';
-
-
+        if ($location.path() === '/engagement_index') {
+          $scope.predicate = 'name';
+          $scope.predicateUnshare = 'section';
+        } else {
+          $scope.predicate = 'points';
+          $scope.predicateUnshare = 'section';
+        }
       });
-
   });
 
 })(window.angular);

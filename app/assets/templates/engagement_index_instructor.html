@@ -27,16 +27,18 @@
           <th data-ng-click="predicate='section'; reverse=!reverse; showcaretSection=!showcaretSection" data-ng-class="{ dropup: showcaretSection }">Section <span class="caret"></span></th>
           <th data-ng-click="predicate='share'; reverse=!reverse; showcaretShare=!showcaretShare" data-ng-class="{ dropup: showcaretShare }">Share <span class="caret"></span></th>
           <th data-ng-click="predicate='points'; reverse=!reverse; showcaretPoints=!showcaretPoints" data-ng-class="{ dropup: showcaretPoints }">Points <span class="caret"></span></th>
+          <th data-ng-click="predicate='points'; reverse=!reverse; showcaretPercentile=!showcaretPercentile" data-ng-class="{ dropup: showcaretPercentile }">Percentile <span class="caret"></span></th>
           <th data-ng-click="predicate='last_activity_date'; reverse=!reverse; showcaretLastPoint=!showcaretLastPoint" data-ng-class="{ dropup: showcaretLastPoint }">Last Point Earned <span class="caret"></span></th>
         </tr>
       </thead>
       <tbody>
-        <tr data-ng-repeat="students in people | orderBy:predicate:!reverse | filter:search:strict" data-ng-class="{ info: students.current }" data-ng-show="visibility">
-          <td class="col-sm-2" data-ng-bind="students.name"></td>
-          <td class="col-sm-2" data-ng-bind="students.section"></td>
-          <td class="col-sm-2" data-ng-bind="students.share"></td>
-          <td class="col-sm-2" data-ng-bind="students.points"></td>
-          <td class="col-sm-3" data-ng-bind="students.last_activity_date"></td>
+        <tr data-ng-repeat="student in people | orderBy:predicate:!reverse | filter:search:strict" data-ng-show="visibility">
+          <td class="col-sm-2" data-ng-bind="student.name"></td>
+          <td class="col-sm-2" data-ng-bind="student.section"></td>
+          <td class="col-sm-2" data-ng-bind="student.share"></td>
+          <td class="col-sm-2" data-ng-bind="student.points"></td>
+          <td class="col-sm-2" data-ng-bind="student.studentPercentile"></td>
+          <td class="col-sm-3" data-ng-bind="student.last_activity_date"></td>
         </tr>
       </tbody>
     </table><!-- End of Engagement Index Table -->
