@@ -27,7 +27,7 @@ class Api::V1::EngagementIndexController < ApplicationController
       end
       engagement_index_json = {}
       engagement_index_json["students"] = students_array
-      engagement_index_json["current_canvas_user_id"] = 20 #session[:canvas_user_id]
+      engagement_index_json["current_canvas_user_id"] = session[:canvas_user_id]
       return engagement_index_json
     end
 end
