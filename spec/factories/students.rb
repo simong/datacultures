@@ -8,6 +8,6 @@ FactoryGirl.define do
     sis_user_id 123
     primary_email  {"#{name}".delete(' ') + "@gmail.com"}
     section {["A", "B", "C", "D", "E"].sample}
-    share true
+    share {[true, false].sample}
   end
 end

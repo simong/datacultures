@@ -7,7 +7,7 @@
     <!-- Engagement Index Description -->
     <div class="dc-description">
       <p>
-        The engagement index is a scoreboard that lists the names and scores of all the students taking this course. You have the option to share your score engagement below. It is important to note that your decision to share or not share your score will determine how the engagement index will look. Below are examples of how the engagement index will look like in both a shared and unshared view:
+        The engagement index is a scoreboard that lists the names and scores of all the students taking this course. You have the option to share your engagement score below. It is important to note that your decision to share or not share your score will determine how the engagement index will look. Below are examples of how the engagement index will look like in both a shared and unshared view:
       </p>
     </div> <!-- End of dc-description -->
 
@@ -26,10 +26,9 @@
     <!-- Select share or not share -->
     <div class="dc-select-share">
      <form>
-        <div>
-          <input type="radio" data-ng-model="score" value="yes"> Yes, I want to share my score on the Engagement Index.<br />
-          <input type="radio" data-ng-model="score" value="no"> No, I do not want to share my score on the Engagement Index.<br />
-          <a data-ng-href="{{redirectPage()}}" class="btn dc-btn-primary" type="button">Save</a>
+        <div><input type="checkbox" data-ng-model="choice"> Yes, I want to share my score on the Engagement Index.</div>
+        <div><a data-ng-href="{{redirectPage()}}" class="btn dc-btn-primary" type="button">Save</a></div>
+
         </div>
       </form>
     </div><!-- End of dc-select-share -->

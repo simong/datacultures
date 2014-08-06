@@ -3,13 +3,13 @@
 
   angular.module('datacultures.controllers').controller('EngagementIndexLandingPageController', function($scope) {
 
-    $scope.score = 'yes'; //sets default radio button to select the 'yes' option
+    $scope.choice = false;
 
     $scope.redirectPage = function () {
-      if ($scope.score === 'yes'){
-        return '/engagement_index_share';
-      } else if ($scope.score === 'no'){
-        return('/engagement_index');
+      if ($scope.choice === true){
+        return ('/engagement_index_share');
+      } else if ($scope.choice === false) {
+        return ('/engagement_index');
       }
     };
   });

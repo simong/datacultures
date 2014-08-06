@@ -2,7 +2,7 @@
 
   <div class="dc-main">
 
-    <h1 class="text-center">Engagement Index Prototype (Front-End)</h1>
+    <h1 class="text-center">Engagement Index Prototype (Not Share View)</h1>
 
     <div class="dc-disclaimer alert alert-info">
       <p><strong>Note: </strong></span>You have chosen not to share your points on the Engagement Index.</p>
@@ -11,7 +11,7 @@
     <!-- Student Score Info -->
     <div class="dc-user-info">
       <span class="dc-user-info-text dc-user-info-text-points"><strong>Your Points: </strong><span data-ng-bind="currStudent.points"></span></span>
-      <span class="dc-user-info-text"><strong>Your Rank: </strong><span data-ng-bind="currStudent.position"></span></span>
+      <span class="dc-user-info-text"><strong>Your Percentile: </strong><span data-ng-bind="currStudent.studentPercentile"></span></span>
       <span class="dc-user-info-text"><strong>Last Point Earned: </strong><span data-ng-bind="currStudent.last_activity_date"></span></span>
     </div><!-- End of student score info -->
 
@@ -36,10 +36,10 @@
         </tr>
       </thead>
       <tbody>
-        <tr data-ng-repeat="students in people | orderBy:predicate:!reverse | filter:search:strict" data-ng-class="{ info: students.current }" data-ng-show="visibility">
-          <td class="col-sm-2" data-ng-bind="students.name"></td>
-          <td class="col-sm-2" data-ng-bind="students.section"></td>
-          <td class="col-sm-2" data-ng-bind="students.share"></td>
+        <tr data-ng-repeat="student in showStudents | orderBy:predicate:!reverse | filter:search:strict" data-ng-class="{'info': student.highlight}" data-ng-show="visibility">
+          <td class="col-sm-2" data-ng-bind="student.name"></td>
+          <td class="col-sm-2" data-ng-bind="student.section"></td>
+          <td class="col-sm-2" data-ng-bind="student.share"></td>
         </tr>
       </tbody>
     </table><!-- End of Engagement Index Table -->
@@ -57,10 +57,10 @@
         </tr>
       </thead>
       <tbody>
-        <tr data-ng-repeat="students in noshowStudents | orderBy:predicate:!reverse | filter:search:strict" data-ng-class="{ info: students.current }" data-ng-show="visibility">
-          <td class="col-sm-2" data-ng-bind="students.name"></td>
-          <td class="col-sm-2" data-ng-bind="students.section"></td>
-          <td class="col-sm-2" data-ng-bind="students.share"></td>
+        <tr data-ng-repeat="student in noshowStudents | orderBy:predicateUnshare" data-ng-show="visibility">
+          <td class="col-sm-2" data-ng-bind="student.name"></td>
+          <td class="col-sm-2" data-ng-bind="student.section"></td>
+          <td class="col-sm-2" data-ng-bind="student.share"></td>
         </tr>
       </tbody>
     </table><!-- End of Engagement Index Table -->
