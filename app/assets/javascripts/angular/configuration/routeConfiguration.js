@@ -19,6 +19,12 @@
     when('/canvas/embedded/engagement_index', {
       templateUrl: 'engagement_index.html'
     }).
+    when('/engagement_index_instructor', {
+      templateUrl: 'engagement_index_instructor.html'
+    }).
+    when('/canvas/embedded/engagement_index_instructor', {
+      templateUrl: 'engagement_index_instructor.html'
+    }).
     when('/engagement_index_share', {
       templateUrl: 'engagement_index_share.html'
     }).
