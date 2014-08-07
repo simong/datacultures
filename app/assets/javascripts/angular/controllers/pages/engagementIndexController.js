@@ -67,13 +67,13 @@
           $scope.studentPercentile = ($scope.people[k].points/$scope.highestPointTotal)*100;
           $scope.people[k].studentPercentile = Math.round($scope.studentPercentile) + '%';
         }
-
+//
         // Send current student's share status to database
-        studentFactory.postStudentStatus($scope.currentStudentID, $scope.shareStatus).
-          success(function() {}).
-          error(function() {
-            window.alert('Check your internet connection, status was not pushed');
-          });
+        // studentFactory.postStudentStatus($scope.currentStudentID, $scope.shareStatus).
+        //   success(function() {}).
+        //   error(function() {
+        //     window.alert('Check your internet connection, status was not pushed');
+        //   });
 
         // Default Sort
         if ($location.path() === '/engagement_index') {
