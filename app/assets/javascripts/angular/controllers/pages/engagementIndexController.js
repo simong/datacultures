@@ -24,12 +24,15 @@
     studentFactory.getStudents().
       success(function(results) {
         $scope.people = results.students;
-        $scope.currentStudentID = results.current_canvas_user_id;
-        $scope.currStudent = $scope.people[$scope.currentStudentID];
-        $scope.shareStatus = $scope.currStudent.share;
+        $scope.currStudent = results.current_canvas_user;
 
         // Loop through and remove all students that are not sharing score
         for (var i = $scope.people.length-1; i >= 0; i--) {
+
+          // Set current student to appropriate student in people array
+          if ($scope.people[i].id === $scope.currStudent.canvas_user_id){
+            $scope.currStudent = $scope.people[i];
+          }
 
           // Handle case where student IS sharing
           if ($scope.people[i].share === true) {
@@ -67,13 +70,6 @@
           $scope.studentPercentile = ($scope.people[k].points/$scope.highestPointTotal)*100;
           $scope.people[k].studentPercentile = Math.round($scope.studentPercentile) + '%';
         }
-
-        // Send current student's share status to database
-        studentFactory.postStudentStatus($scope.currentStudentID, $scope.shareStatus).
-          success(function() {}).
-          error(function() {
-            window.alert('Check your internet connection, status was not pushed');
-          });
 
         // Default Sort
         if ($location.path() === '/engagement_index') {
