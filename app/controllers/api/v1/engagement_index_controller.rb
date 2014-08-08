@@ -4,7 +4,7 @@ class Api::V1::EngagementIndexController < ApplicationController
 
   def index
     students = Student.all
-    activity_sums = Activity.group(:canvas_user_id).sum(:delta)
+    activity_sums = Activity.where({score: true}).group(:canvas_user_id).sum(:delta)
     last_activity_dates = Activity.select(:canvas_updated_at, :canvas_user_id).group(:canvas_user_id).maximum(:canvas_updated_at)
     render :json => engagement_index_json(students, activity_sums, last_activity_dates)
   end

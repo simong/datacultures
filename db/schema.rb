@@ -26,6 +26,7 @@ ActiveRecord::Schema.define(version: 20140808173026) do
     t.integer  "canvas_scoring_item_id", null: false
     t.datetime "canvas_updated_at"
     t.text     "body"
+    t.boolean  "score"
   end
 
   add_index "activities", ["canvas_scoring_item_id", "reason"], name: "index_activities_on_canvas_scoring_item_id_and_reason", using: :btree
