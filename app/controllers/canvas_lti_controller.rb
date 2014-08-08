@@ -21,6 +21,10 @@ class CanvasLtiController < ApplicationController
     respond_to :xml
   end
 
+  def lti_gallery
+    respond_to :xml
+  end
+
   #GET /api/v1/courses/:course_id/users
   def students_list
     canvas_token = Rails.application.secrets.canvas_token

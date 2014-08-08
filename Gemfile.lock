@@ -105,6 +105,8 @@ GEM
     faraday_middleware (0.9.1)
       faraday (>= 0.7.4, < 0.10)
     ffi (1.9.3)
+    font-awesome-rails (4.1.0.0)
+      railties (>= 3.2, < 5.0)
     formatador (0.2.5)
     fssm (0.2.10)
     guard (2.6.1)
@@ -308,6 +310,7 @@ DEPENDENCIES
   factory_girl_rails (~> 4.4)
   faraday (~> 0.9)
   faraday_middleware (~> 0.9)
+  font-awesome-rails
   guard-livereload (~> 2.2)
   guard-rspec (~> 4.2)
   haml (~> 4.0)
