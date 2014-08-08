@@ -21,12 +21,11 @@
 
     $scope.shareDataPass = function () {
       studentFactory.postStudentStatus($scope.currStudentID, $scope.choice).
-      success(function() {
-        window.alert('Successfully passed data to backend');
-      }).
-      error(function() {
-        window.alert('Check your internet connection, status was not pushed');
-      });
+        success(function() {
+        }).
+        error(function() {
+          console.log('Check your internet connection, status was not pushed');
+        });
     };
   });
 
