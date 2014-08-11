@@ -29,20 +29,20 @@ RSpec.describe Api::V1::StudentsController, :type => :controller do
   describe "POST update" do
     it "responds with a 200 with valid params" do
       student = Student.create! valid_student_attributes
-      post :update, :status => true, :c_id => "1"
+      post :update, :status => true, :canvas_id => "1"
       expect(response.response_code).to eq(200)
     end
 
     it "changes the status correctly of the student" do
       student = Student.create! valid_student_attributes
-      post :update, :status => true, :c_id => "1"
+      post :update, :status => true, :canvas_id => "1"
       changed_student = Student.where({canvas_user_id: 1})[0]
       expect(changed_student[:share]).to eq(true)
     end
 
     it "should respond with a 400 when the params are malformed" do
       student = Student.create! valid_student_attributes
-      post :update, :c_id => "1"
+      post :update, :canvas_id => "1"
       expect(response.response_code).to eq(400)
     end
 

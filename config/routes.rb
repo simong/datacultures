@@ -11,10 +11,10 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :activities, only: [:index, :show, :create, :update]
       get '/engagement_index/data' => 'engagement_index#index', :defaults => { :format => 'json'}
-      post '/students/:c_id' => 'students#update'
+      post '/students/:canvas_id' => 'students#update'
       get '/gallery/index' => 'gallery#index', :defaults => { :format => 'json'}
       resources :points_configuration, only: [:index, :update]
-      post '/comments' => 'comments#create'
+      post '/comments/new(/:comment_id)' => 'comments#create'
     end
   end
 

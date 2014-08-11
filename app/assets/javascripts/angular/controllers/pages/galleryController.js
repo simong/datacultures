@@ -150,15 +150,15 @@
         showThread: false,
         replyThread: false,
         thread: [],
-        author: $scope.items[photoID].commentName,
+        title: $scope.items[photoID].commentTitle,
         content: $scope.items[photoID].commentContent
       });
-      $scope.items[photoID].commentName = null;
+      $scope.items[photoID].commentTitle = null;
       $scope.items[photoID].commentContent = null;
       $scope.items[photoID].numComments++;
       $scope.emptyComment = '';
 
-      $http.post('/comments', $scope.items[photoID]).
+      $http.post('api/v1/comments/new', $scope.items[photoID].comments.slice(-1)[0]).
         success(function() {}).
         error(function() {
           window.alert('The Data did not send. Check your internet connection');
@@ -196,15 +196,23 @@
         return;
       }
       $scope.items[photoID].comments[commentID].thread.push({
-        author: $scope.items[photoID].comments[commentID].commentName,
+        title: $scope.items[photoID].comments[commentID].commentTitle,
         content: $scope.items[photoID].comments[commentID].commentContent
       });
       $scope.emptyReply = '';
       $scope.items[photoID].comments[commentID].showThread = true;
       $scope.items[photoID].comments[commentID].replyThread = false;
       $scope.items[photoID].comments[commentID].threadView = 'Hide Thread';
-      $scope.items[photoID].comments[commentID].commentName = null;
+      $scope.items[photoID].comments[commentID].commentTitle = null;
       $scope.items[photoID].comments[commentID].commentContent = null;
+
+      var replyCommentID = $scope.items[photoID].comments[commentID].thread.length;
+
+      $http.post('api/v1/comments/new/' + replyCommentID, $scope.items[photoID].comments[0]).
+        success(function() {}).
+        error(function() {
+          window.alert('The Data did not send. Check your internet connection');
+        });
     };
 
     // RESET COMMENT FORM
