@@ -79,7 +79,7 @@
         $scope.studentPoints.reverse();
         $scope.highestPointTotal = $scope.studentPoints[0];
 
-        for (var k = 0; k<$scope.studentPoints.length; k++) {
+        for (var k = 0; k < $scope.studentPoints.length; k++) {
           $scope.studentPercentile = ($scope.people[k].points / $scope.highestPointTotal) * 100;
           $scope.people[k].studentPercentile = Math.round($scope.studentPercentile) + '%';
         }
