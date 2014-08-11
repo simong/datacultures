@@ -1,6 +1,9 @@
-id: 10
-updated_at: 2014-07-15T22:04:12Z
-discussion_type: "threaded"
-total_root_discussion_entries: 0
-author:
+-
   id: 7
+  last_reply_at: 2014-08-05T17:45:17Z
+  title: 'Foo Bar Baz'
+  discussion_subentry_count: 0
+  message: '<p>Will it show all the same fields in the API reply?</p>'
+  unread_count: 0
+  author:
+   id: 3

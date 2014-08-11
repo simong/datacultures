@@ -6,7 +6,7 @@ class UpdateEngagementIndexWorker
 
   def perform
     conf = Rails.application.secrets['requests']
-    EngagementIndexUpdateProcessor.call(conf)
+    Canvas::EngagementIndexScoringProcessor.new(conf.symbolize_keys).call
   end
 
 end

@@ -1,10 +1,13 @@
--
-  id: 10
-  updated_at: 2014-07-15T21:58:40Z
-  user_id: 7
-  recent_replies:
-     -
-       id: 11
-       updated_at: 2014-07-15T21:59:08Z
-       user_id: 15
-  has_more_replies: false
+---
+ -
+   id: 24
+   updated_at: 2014-08-06T17:16:27Z
+   user_id: 11
+   message: 'How now, brown cow?'
+   recent_replies:
+   -
+     id: 25
+     updated_at: 2014-08-06T18:16:29Z
+     message: 'The quick brown fox jumped over the lazy dog.'
+     user_id: 13
+   has_more_replies: false
