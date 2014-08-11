@@ -1,7 +1,7 @@
 (function(angular) {
   'use strict';
 
-  angular.module('datacultures.controllers').controller('EngagementIndexController', function($scope, studentFactory, $location) {
+  angular.module('datacultures.controllers').controller('EngagementIndexController', function($scope, $location, $anchorScroll, studentFactory) {
 
     // Define variables for carot symbol flip for sorting
     $scope.showcaretStudent = false;
@@ -19,6 +19,23 @@
     $scope.noshowStudents = [];
     $scope.studentPoints = [];
     $scope.studentPercentile = 0;
+
+
+    $scope.gotoBottom = function() {
+      $anchorScroll();
+      // set the location.hash to the id of
+      // the element you wish to scroll to.
+      $location.hash('bottom');
+
+      // call $anchorScroll()
+      $anchorScroll();
+    };
+
+
+
+
+
+
 
     // Get students
     studentFactory.getStudents().
@@ -80,6 +97,7 @@
           $scope.predicateUnshare = 'section';
         }
       });
+
   });
 
 })(window.angular);
