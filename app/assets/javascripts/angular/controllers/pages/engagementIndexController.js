@@ -27,7 +27,7 @@
         $scope.currStudent = results.current_canvas_user;
 
         // Loop through and remove all students that are not sharing score
-        for (var i = $scope.people.length-1; i >= 0; i--) {
+        for (var i = $scope.people.length - 1; i >= 0; i--) {
 
           // Set current student to appropriate student in people array
           if ($scope.people[i].id === $scope.currStudent.canvas_user_id){
@@ -36,22 +36,22 @@
 
           // Handle case where student IS sharing
           if ($scope.people[i].share === true) {
-            $scope.showStudents.push($scope.people[i]); //push shared student to showStudents array
-            $scope.studentPoints.push($scope.people[i].points); //push shared student points to array
+            $scope.showStudents.push($scope.people[i]); // push shared student to showStudents array
+            $scope.studentPoints.push($scope.people[i].points); // push shared student points to array
           }
 
           // Handle case where student IS NOT sharing
           else if ($scope.people[i].share === false) {
             $scope.people[i].share = 'NO';
-              if ($location.path() === '/engagement_index_instructor') {
-                $scope.studentPoints.push($scope.people[i].points);
-                continue;
-              } else {
-                $scope.studentToRemove = $scope.people[i];
-                $scope.noshowStudents.push($scope.studentToRemove);
-                $scope.studentPoints.push($scope.studentToRemove.points);
-                continue;
-              }
+            if ($location.path() === '/engagement_index_instructor') {
+              $scope.studentPoints.push($scope.people[i].points);
+              continue;
+            } else {
+              $scope.studentToRemove = $scope.people[i];
+              $scope.noshowStudents.push($scope.studentToRemove);
+              $scope.studentPoints.push($scope.studentToRemove.points);
+              continue;
+            }
           }
 
           // Handle row highlighting (only get here if student is sharing)
@@ -66,8 +66,8 @@
         $scope.studentPoints.reverse();
         $scope.highestPointTotal = $scope.studentPoints[0];
 
-        for (var k=0; k<$scope.studentPoints.length; k++) {
-          $scope.studentPercentile = ($scope.people[k].points/$scope.highestPointTotal)*100;
+        for (var k = 0; k<$scope.studentPoints.length; k++) {
+          $scope.studentPercentile = ($scope.people[k].points / $scope.highestPointTotal) * 100;
           $scope.people[k].studentPercentile = Math.round($scope.studentPercentile) + '%';
         }
 
