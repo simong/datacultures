@@ -7,7 +7,7 @@ class Api::V1::StudentsController < ApplicationController
       render :nothing => true, :status => 400 #incorrect request, no params
       return
     end
-    student = Student.where({canvas_user_id: params[:c_id]}).first
+    student = Student.where({canvas_user_id: params[:canvas_id]}).first
     student[:share] = params[:status]
     student.save!
     head :ok

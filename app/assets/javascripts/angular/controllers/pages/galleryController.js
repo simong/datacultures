@@ -157,6 +157,12 @@
       $scope.items[photoID].commentContent = null;
       $scope.items[photoID].numComments++;
       $scope.emptyComment = '';
+
+      $http.post('/comments', $scope.items[photoID]).
+        success(function() {}).
+        error(function() {
+          window.alert('The Data did not send. Check your internet connection');
+        });
     };
 
     // THREADED COMMENTS
