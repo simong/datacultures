@@ -1,7 +1,7 @@
 (function(angular) {
   'use strict';
 
-  angular.module('datacultures.controllers').controller('EngagementIndexController', function($scope, studentFactory, $location) {
+  angular.module('datacultures.controllers').controller('EngagementIndexController', function($scope, $location, $anchorScroll, studentFactory) {
 
     // Define variables for carot symbol flip for sorting
     $scope.showcaretStudent = false;
@@ -20,11 +20,22 @@
     $scope.studentPoints = [];
     $scope.studentPercentile = 0;
 
+    $scope.gotoBottom = function() {
+      $anchorScroll();
+    };
+
     // Get students
     studentFactory.getStudents().
       success(function(results) {
         $scope.people = results.students;
         $scope.currStudent = results.current_canvas_user;
+
+        // Set the location.hash to the id of the element you wish to scroll to.
+        if ($location.path() === '/engagement_index_instructor') {
+          $location.hash = false;
+        } else {
+          $location.hash($scope.currStudent.id);
+        }
 
         // Loop through and remove all students that are not sharing score
         for (var i = $scope.people.length - 1; i >= 0; i--) {
@@ -43,15 +54,17 @@
           // Handle case where student IS NOT sharing
           else if ($scope.people[i].share === false) {
             $scope.people[i].share = 'NO';
-            if ($location.path() === '/engagement_index_instructor') {
-              $scope.studentPoints.push($scope.people[i].points);
-              continue;
-            } else {
-              $scope.studentToRemove = $scope.people[i];
-              $scope.noshowStudents.push($scope.studentToRemove);
-              $scope.studentPoints.push($scope.studentToRemove.points);
-              continue;
-            }
+
+              if ($location.path() === '/engagement_index_instructor') {
+                $scope.studentPoints.push($scope.people[i].points);
+                continue;
+              } else {
+                $scope.studentToRemove = $scope.people[i];
+                $scope.noshowStudents.push($scope.studentToRemove);
+                $scope.studentPoints.push($scope.studentToRemove.points);
+                $scope.people[i].highlight = !!($scope.people[i] === $scope.currStudent);
+                continue;
+              }
           }
 
           // Handle row highlighting (only get here if student is sharing)
@@ -66,7 +79,7 @@
         $scope.studentPoints.reverse();
         $scope.highestPointTotal = $scope.studentPoints[0];
 
-        for (var k = 0; k<$scope.studentPoints.length; k++) {
+        for (var k = 0; k < $scope.studentPoints.length; k++) {
           $scope.studentPercentile = ($scope.people[k].points / $scope.highestPointTotal) * 100;
           $scope.people[k].studentPercentile = Math.round($scope.studentPercentile) + '%';
         }
@@ -80,6 +93,7 @@
           $scope.predicateUnshare = 'section';
         }
       });
+
   });
 
 })(window.angular);

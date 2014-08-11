@@ -51,13 +51,16 @@
   }
   .dc-main {
     margin: 0 auto;
-    width: 70%;
+    width: 90%;
+  }
+  .dc-mouse-pointer {
+    cursor: pointer;
   }
   .dc-note {
     margin-top: 50px;
   }
-  .dc-pointer-hand th {
-    cursor: pointer;
+  .dc-score-jump-link {
+    margin-top: 10px;
   }
   .dc-sort-controls {
     margin-bottom: -25px;

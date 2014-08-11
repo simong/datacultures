@@ -24,5 +24,6 @@ FactoryGirl.define do
     delta  { -1 + rand(10)}
     canvas_scoring_item_id  {rand(1000)}
     canvas_updated_at Time.now
+    score true
   end
 end

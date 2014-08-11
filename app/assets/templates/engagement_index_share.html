@@ -1,8 +1,8 @@
-<div data-ng-cloak data-ng-controller="EngagementIndexController" class="dc-engagement-index">
+<div data-ng-cloak data-ng-controller="EngagementIndexController" class="dc-engagement-index" autoscroll="false">
 
   <div class="dc-main">
 
-    <h1 class="text-center">Engagement Index Prototype (Share View)</h1>
+    <h2>Engagement Index</h2>
 
     <div class="dc-disclaimer alert alert-info">
       <p><strong>Disclaimer: </strong>Some activity points (e.g. Discussions) may not show up immediately on the Engagement Index.</p>
@@ -14,6 +14,8 @@
       <span class="dc-user-info-text"><strong>Your Percentile: </strong><span data-ng-bind="currStudent.studentPercentile"></span></span>
       <span class="dc-user-info-text"><strong>Last Point Earned: </strong><span data-ng-bind="currStudent.last_activity_date"></span></span>
     </div><!-- End of student score info -->
+
+    <div class="dc-score-jump-link"><a data-ng-click="gotoBottom()" class="dc-mouse-pointer">Go to my score &darr;</a></div>
 
     <hr />
 
@@ -29,7 +31,7 @@
     <!-- Engagement Index Table: For Students who SHARED -->
     <table class="table table-striped table-bordered dc-table-striped-border dc-table-margin">
       <thead class="dc-header-color">
-        <tr class="dc-pointer-hand dc-header-title">
+        <tr class="dc-mouse-pointer dc-header-title">
           <th data-ng-click="predicate='sortable_name'; reverse=!reverse; showcaretStudent=!showcaretStudent" data-ng-class="{ dropup: showcaretStudent }">Student <span class="caret"></span></th>
           <th data-ng-click="predicate='section'; reverse=!reverse; showcaretSection=!showcaretSection" data-ng-class="{ dropup: showcaretSection }">Section <span class="caret"></span></th>
           <th>Share</th>
@@ -39,7 +41,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr data-ng-repeat="student in showStudents | orderBy:predicate:!reverse | filter:search:strict" data-ng-class="{'info': student.highlight}" data-ng-show="visibility">
+        <tr id="{{student.id}}" data-ng-repeat="student in showStudents | orderBy:predicate:!reverse | filter:search:strict" data-ng-class="{'info': student.highlight}" data-ng-show="visibility">
           <td class="col-sm-2" data-ng-bind="student.name"></td>
           <td class="col-sm-2" data-ng-bind="student.section"></td>
           <td class="col-sm-2" data-ng-bind="student.share"></td>
