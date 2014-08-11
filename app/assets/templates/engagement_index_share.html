@@ -1,8 +1,8 @@
-<div data-ng-cloak data-ng-controller="EngagementIndexController" class="dc-engagement-index">
+<div data-ng-cloak data-ng-controller="EngagementIndexController" class="dc-engagement-index" autoscroll="false">
 
   <div class="dc-main">
 
-    <h2 class="text-center">ENGAGEMENT INDEX (Share View)</h2>
+    <h2>Engagement Index</h2>
 
     <div class="dc-disclaimer alert alert-info">
       <p><strong>Disclaimer: </strong>Some activity points (e.g. Discussions) may not show up immediately on the Engagement Index.</p>
@@ -15,24 +15,7 @@
       <span class="dc-user-info-text"><strong>Last Point Earned: </strong><span data-ng-bind="currStudent.last_activity_date"></span></span>
     </div><!-- End of student score info -->
 
-
-
-
-
-      <a id="scrollArea" data-ng-click="gotoBottom()" style="height: 350px;overflow: auto;">Go to bottom</a>
-
-
-
-
-
-
-
-
-
-
-
-
-
+    <div class="dc-score-jump-link"><a data-ng-click="gotoBottom()" class="dc-mouse-pointer">Go to my score &darr;</a></div>
 
     <hr />
 
@@ -58,7 +41,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr data-ng-repeat="student in showStudents | orderBy:predicate:!reverse | filter:search:strict" data-ng-class="{'info': student.highlight}" data-ng-show="visibility">
+        <tr id="{{student.id}}" data-ng-repeat="student in showStudents | orderBy:predicate:!reverse | filter:search:strict" data-ng-class="{'info': student.highlight}" data-ng-show="visibility">
           <td class="col-sm-2" data-ng-bind="student.name"></td>
           <td class="col-sm-2" data-ng-bind="student.section"></td>
           <td class="col-sm-2" data-ng-bind="student.share"></td>
@@ -68,23 +51,6 @@
         </tr>
       </tbody>
     </table><!-- End of Engagement Index Table -->
-
-
-
-
-
-
-
-
-    <a id="bottom"></a> You're at the bottom!
-
-
-
-
-
-
-
-
 
     <!-- Engagement Index Table: For Students who NOT SHARED-->
     <div class="dc-table-unshare-title">
@@ -106,7 +72,6 @@
         </tr>
       </tbody>
     </table><!-- End of Engagement Index Table -->
-
 
   </div><!-- End of main div -->
 </div><!-- End of dc-engagement-index -->
