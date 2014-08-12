@@ -310,7 +310,7 @@ DEPENDENCIES
   factory_girl_rails (~> 4.4)
   faraday (~> 0.9)
   faraday_middleware (~> 0.9)
-  font-awesome-rails
+  font-awesome-rails (~> 4.1.0.0)
   guard-livereload (~> 2.2)
   guard-rspec (~> 4.2)
   haml (~> 4.0)

@@ -13,6 +13,7 @@ Rails.application.routes.draw do
       resources :activities, only: [:index, :show, :create, :update]
       get '/engagement_index/data' => 'engagement_index#index', :defaults => { :format => 'json'}
       post '/students/:c_id' => 'students#update'
+      get '/gallery/index' => 'gallery#index', :defaults => { :format => 'json'}
     end
   end
 

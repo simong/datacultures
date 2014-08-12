@@ -17,20 +17,25 @@ class Canvas::SubmissionsProcessor
       scored_submissions = []
     end
 
+    smap = {}
+    Student.all.select(:canvas_user_id, :name).each{|s| smap[s.canvas_user_id] = s.name}
+
     submissions.each do |submission|
       user_id    = submission['user_id']
       assignment_id = submission['assignment_id']
-      attachment_urls = []
+      attachment_data = []
       if  submission['attachments']
         submission['attachments'].each do |attachment|
-          attachment_urls << attachment['url']
+          attachment_data << {'author' =>  smap[user_id], 'id' => attachment['id'],
+                              'source' => attachment['url'],
+                              'date' => Time.parse(attachment['updated_at']).to_s(:gallery)}
         end
       end
 
       if user_id   && !(scored_submissions.include?([assignment_id, user_id]))
         Activity.score!({canvas_scoring_item_id: assignment_id,
                          canvas_user_id: user_id, reason: 'Submission',
-                         body: attachment_urls.to_s,
+                         body: attachment_data.to_json,
                          score: submission_conf.active, delta: submission_conf.points_associated,
                          canvas_updated_at: submission['submitted_at'] })
       end
