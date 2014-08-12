@@ -26,12 +26,12 @@
             <div class="dc-load-comments" ng-repeat="comment in items[imageID].comments">
               <div class="dc-comment-inline">
                 <div class="dc-comment-by-image"></div>
-                <span class="dc-comment-by">Title {{comment.title}}</span> <br>
+                <span class="dc-comment-by">Posted by {{comment.author}}</span> <br>
                 {{comment.content}} <br>
                 <button class="dc-comment-button" ng-click="toggleThread(comment.photoID, comment.commentID)"><i class="fa fa-comments"></i> {{comment.threadView}}</button>
                 <div ng-show="comment.showThread" ng-repeat="post in comment.thread">
                   <blockquote class="dc-comment-reply">
-                    Title <b>{{post.title}}</b> <br>
+                    <b>{{post.author}}</b> replied with: <br>
                     {{post.content}}
                   </blockquote>
                 </div>
@@ -39,15 +39,17 @@
 
                 <div ng-show="comment.replyThread"> <br>
                   <form id="add-threaded-comment">
-                    <span class="dc-comment-by">Title</span>&nbsp; <input ng-model="comment.commentTitle" class="dc-comment-title"><br>
+                    <span class="dc-comment-by">{{items[imageID].commentName}}</span>&nbsp;
+                    <div class="dc-comment-by-image"></div>
                     <textarea ng-model="comment.commentContent" class="dc-comment-textarea"></textarea> <br>
-                    <button ng-click="submitReplyThread(comment.photoID, comment.commentID)" ng-click= "resetForm('add-threaded-comment')" class="dc-comment-button">Submit</button> {{emptyReply}}
+                    <button ng-click="submitReplyThread(comment.photoID, comment.commentID)" ng-click="resetForm('add-threaded-comment')" class="dc-comment-button">Submit</button> {{emptyReply}}
                   </form>
                 </div>
               </div>
             </div>
             <form id="dc-add-comment">
-              <span class="dc-comment-by">Title</span>&nbsp; <input class="dc-comment-title" ng-model="items[imageID].commentTitle"> <br>
+              <span class="dc-comment-by">{{items[imageID].commentName}}</span>&nbsp;
+              <div class="dc-comment-by-image"></div>
               <textarea class="dc-comment-textarea" ng-model="items[imageID].commentContent"></textarea> <br>
               <button ng-click="insertComment(imageID)" ng-click="resetForm('addComment')" class="dc-comment-button">Submit</button> {{emptyComment}}
             </form>
@@ -68,7 +70,7 @@
                 <button ng-disabled="items[imageID].dislikeDisabled" ng-click="dislike(imageID)"><i class="fa fa-thumbs-down fa-lg"></i></button>{{items[imageID].numDislikes}}
               </span>
               <br> <br>
-              Posted By <b>{{items[imageID].author}}</b> on <b>{{items[imageID].date}}</b> <br>
+              Posted by <b>{{items[imageID].author}}</b> on <b>{{items[imageID].date}}</b> <br>
               {{items[imageID].numComments}} comments &#8226; {{items[imageID].numViews}} views
               <div class="dc-line-break"></div>
               Category: Module {{items[imageID].module}} <br>

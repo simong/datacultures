@@ -24,7 +24,7 @@ def retrieve_canvas_students()
   end
 end
 
-unless Rails.env.test? || Rails.application.secrets['requests'].nil?
+if !Rails.env.test? && Rails.application.secrets['requests'] && ActiveRecord::Base.connection.table_exists?('students')
   retrieve_canvas_students()
 end
 

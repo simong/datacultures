@@ -10,7 +10,7 @@ class Api::V1::EngagementIndexController < ApplicationController
   end
 
   private
-    def engagement_index_json(students, student_points, last_activity_dates)
+    def engagement_index_json(students, student_points, last_activity_dates) #creates a json that can be read by the front end EI
       students_array = []
       students.each do |student|
         student_hash = {}

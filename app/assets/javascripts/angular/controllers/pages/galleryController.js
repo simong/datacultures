@@ -7,6 +7,7 @@
 
     $http.get('/api/v1/gallery/index').success(function(results) {
       $scope.items = results.files;
+      $scope.currentUser = results.files.slice(-1)[0];
     });
 
     // FILTER & MODULES
@@ -150,10 +151,10 @@
         showThread: false,
         replyThread: false,
         thread: [],
-        title: $scope.items[photoID].commentTitle,
+        author: $scope.currentUser.name,
         content: $scope.items[photoID].commentContent
       });
-      $scope.items[photoID].commentTitle = null;
+      $scope.items[photoID].commentName = null;
       $scope.items[photoID].commentContent = null;
       $scope.items[photoID].numComments++;
       $scope.emptyComment = '';
@@ -196,14 +197,14 @@
         return;
       }
       $scope.items[photoID].comments[commentID].thread.push({
-        title: $scope.items[photoID].comments[commentID].commentTitle,
+        author: $scope.currentUser.name,
         content: $scope.items[photoID].comments[commentID].commentContent
       });
       $scope.emptyReply = '';
       $scope.items[photoID].comments[commentID].showThread = true;
       $scope.items[photoID].comments[commentID].replyThread = false;
       $scope.items[photoID].comments[commentID].threadView = 'Hide Thread';
-      $scope.items[photoID].comments[commentID].commentTitle = null;
+      $scope.items[photoID].comments[commentID].commentName = null;
       $scope.items[photoID].comments[commentID].commentContent = null;
 
       var replyCommentID = $scope.items[photoID].comments[commentID].thread.length;
