@@ -21,4 +21,14 @@
 
 en:
   app_name: "Data Cultures LTI application"
-  hello: "Hello world"
+  activity_types:
+    # don't change keys below
+    DiscussionTopic:  'Created a discussion topic'
+    DiscussionEdit:   'Edited a discussion topic'
+    DiscussionEntry:  'Replied to a discussion'
+    Submission:       'Submitted for an assignment'
+    # these keys can change
+    Like:             'Liked a Gallery Item'
+    Dislike:          'Disliked a Gallery Item'
+
+
