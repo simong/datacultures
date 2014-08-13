@@ -39,7 +39,8 @@
 
                 <div ng-show="comment.replyThread"> <br>
                   <form id="add-threaded-comment">
-                    <span class="dc-comment-by">Post as</span>&nbsp; <input ng-model="comment.commentName" class="dc-comment-name"><br>
+                    <span class="dc-comment-by">{{items[imageID].commentName}}</span>&nbsp;
+                    <div class="dc-comment-by-image"></div>
                     <textarea ng-model="comment.commentContent" class="dc-comment-textarea"></textarea> <br>
                     <button ng-click="submitReplyThread(comment.photoID, comment.commentID)" ng-click="resetForm('add-threaded-comment')" class="dc-comment-button">Submit</button> {{emptyReply}}
                   </form>
@@ -47,7 +48,8 @@
               </div>
             </div>
             <form id="dc-add-comment">
-              <span class="dc-comment-by">Post as</span>&nbsp; <input class="dc-comment-name" ng-model="items[imageID].commentName"> <br>
+              <span class="dc-comment-by">{{items[imageID].commentName}}</span>&nbsp;
+              <div class="dc-comment-by-image"></div>
               <textarea class="dc-comment-textarea" ng-model="items[imageID].commentContent"></textarea> <br>
               <button ng-click="insertComment(imageID)" ng-click="resetForm('addComment')" class="dc-comment-button">Submit</button> {{emptyComment}}
             </form>

@@ -1,4 +1,4 @@
-activity_types = ['DiscussionTopic', 'DiscussionEntry', 'DiscussionEdit', 'Submission']
+activity_types = ['DiscussionTopic', 'DiscussionEntry', 'DiscussionEdit', 'Submission', 'GalleryComment']
 
 pcid = 1
 activity_types.each do |at|
