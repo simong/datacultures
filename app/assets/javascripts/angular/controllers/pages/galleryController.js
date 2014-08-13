@@ -5,7 +5,7 @@
 
     $scope.imageID = $routeParams.imageID;
 
-    $http.get('/dummy/json/gallerySubmissions.json').success(function(results) {
+    $http.get('/api/v1/gallery/index').success(function(results) {
       $scope.items = results.files;
     });
 
