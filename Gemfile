@@ -87,3 +87,7 @@ group :development, :test do
   gem 'database_cleaner',      '~> 1.3'
   gem 'byebug',                '~> 3.1'
 end
+
+group :production  do
+  gem 'passenger',              '~> 4.0'
+end
