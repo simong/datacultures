@@ -40,6 +40,25 @@ To always mock, set the OS environment variable MOCK to 'always'.  To never mock
 For 'course' above, fill in the course ID number from the instance that will be tested against.  For 'real', set the default (should mocks be use or real requests by default, if the MOCK environment variable is not set).  Set 'real' to true to make actual net work requests in specs, and false to mock them (both only if MOCK environment variable is not set).
 Base URL is wherever your Canvas test server is located.
 
+## Configuring Engagement Points by student activity
+
+A default setup is provided.  The English-language textual description should be entered in the file config/locales/en.yml
+or other internationalization file.  Under the "activity_types" key, there are entries for each possible activity.  The key 
+there is the internal string representation of the activity (e.g., DiscussionTopic means posting a new Discussion Topic in Canvas.
+It is the name that such activity displays in the values returned from the Canvas API.  Some types are internal to DataCultures such as 'Entries' 
+which represents a reply to a DiscussionTopic.  
+
+Each type of Activity must have an entry in the PointsConfiguration table, where:
+* pcid is the sort order
+* interaction is the code name for the activity
+* points_associated is the value for the activity
+
+If you database does not already have all the required PointsConfiguration data, you may populate the table (with random point scores) with:
+```
+rake db:seed
+```
+
+
 ## Redis
 
 The project requires Redis, which is used by Sidekiq.   Redis can be installed for OS/X (if you have homebrew installed) with:

@@ -5,15 +5,20 @@
 
   angular.module('datacultures.controllers').controller('PointsConfigurationController', function($http, $scope) {
 
-    $http.get('/dummy/json/activities.json').success(function(activities) {
+    $http.get('/api/v1/points_configuration').success(function(activities) {
       angular.extend($scope, activities);
 
       $scope.pointTotalArray = [];
 
+
       for (var i = 0; i < $scope.activities.length; i++) {
-        $scope.pointTotalArray.push(0);
+        $scope.pointTotalArray.push($scope.activities[i].points);
+        if ($scope.activities[i].active == false) {
+            $scope.deleteActivity($scope.activities[i]);
+        }
       }
     });
+
 
     $scope.removedTable = false;
     $scope.removedActivitiesList = [];
@@ -29,7 +34,7 @@
           $scope.activities[i].points = $scope.pointTotalArray[i];
         }
       }
-      $http.post('/points_configuration/update', $scope.activities).
+      $http.put('/api/v1/points_configuration/update', $scope.activities).
         success(function() {}).
         error(function() {
           window.alert('The Data did not send. Check your internet connection');

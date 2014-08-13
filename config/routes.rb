@@ -6,7 +6,6 @@ Rails.application.routes.draw do
   get '/canvas/lti_points_configuration' => 'canvas_lti#lti_points_configuration', :defaults => { :format => 'xml'}
   get '/canvas/lti_gallery' => 'canvas_lti#lti_gallery', :defaults => { :format => 'xml'}
   get '/users/:course_id' => 'canvas_lti#students_list', :defaults => { :format => 'json'}
-  post '/points_configuration/update' => 'points_configuration#update_all'
 
   namespace :api do
     namespace :v1 do
@@ -14,6 +13,7 @@ Rails.application.routes.draw do
       get '/engagement_index/data' => 'engagement_index#index', :defaults => { :format => 'json'}
       post '/students/:c_id' => 'students#update'
       get '/gallery/index' => 'gallery#index', :defaults => { :format => 'json'}
+      resources :points_configuration, only: [:index, :update]
     end
   end
 
