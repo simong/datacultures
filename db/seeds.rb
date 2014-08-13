@@ -1,4 +1,3 @@
-
 activity_types = ['DiscussionTopic', 'DiscussionEntry', 'DiscussionEdit', 'Submission']
 
 pcid = 1

@@ -31,9 +31,7 @@
         $scope.currStudent = results.current_canvas_user;
 
         // Set the location.hash to the id of the element you wish to scroll to.
-        if ($location.path() === '/engagement_index_instructor') {
-          $location.hash = false;
-        } else {
+        if ($location.path() === '/engagement_index_share') {
           $location.hash($scope.currStudent.id);
         }
 
@@ -73,14 +71,45 @@
           // If get here, means that the student chose to share EI score
           $scope.people[i].share = 'YES';
         }
+        // Percentile Rank:
+        // ((Count of all scores less than score of interest) + 0.5(frequency of scores of interest) / # people in array) * 100
+        // ($scopeCount + 0.5($scope.scoreFreq) / $scope.studentPoints.length ) * 100
 
-        // Calculate percentile, then store it for each student
-        $scope.studentPoints.sort();
-        $scope.studentPoints.reverse();
-        $scope.highestPointTotal = $scope.studentPoints[0];
+        // Array: [8,8,8,8,7,7,6,6,5,4,3,3,2,1,1,1,0,-1,-1,-1]
+        // First iteration: 8
+        // scoreFreq should = 4
+        // scoreCount should = 16
 
-        for (var k = 0; k < $scope.studentPoints.length; k++) {
-          $scope.studentPercentile = ($scope.people[k].points / $scope.highestPointTotal) * 100;
+
+        // Thought process here...
+        // $scope.showStudents = includes all the students who decided to share score
+        // $scope.noshowStudents = includes all the students who decided to NOT share score
+        // $scope.studentPoints = includes all the points of ALL the students
+        // $scope.people = includes ALL of the students
+        //
+        // If I want to calculate the percentile rank, I want to cover for ALL students
+        // This means I would have to loop through $scope.people, access each of their points
+        for (var k = 0; k < $scope.people.length; k++) {
+          var index = 0;
+          $scope.scoreFreq = 1;
+          $scope.scoreCount = 0;
+
+          $scope.thisStudent = $scope.people[k];
+          $scope.compareStudent = $scope.people[index];
+
+          while (index < $scope.people.length) {
+            if ($scope.thisStudent.id === $scope.people[index].id) {
+              index++;
+              continue;
+            }
+            if ($scope.thisStudent.points === $scope.people[index].points) {
+              $scope.scoreFreq++;
+            } else if ($scope.people[index].points < $scope.thisStudent.points) {
+              $scope.scoreCount++;
+            }
+            index++;
+          }
+          $scope.studentPercentile = (($scope.scoreCount + (0.5 * $scope.scoreFreq)) / $scope.people.length) * 100;
           $scope.people[k].studentPercentile = Math.round($scope.studentPercentile) + '%';
         }
 
