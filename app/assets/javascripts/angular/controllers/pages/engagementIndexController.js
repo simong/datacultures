@@ -30,7 +30,7 @@
         $scope.people = results.students;
         $scope.currStudent = results.current_canvas_user;
 
-        // Set the location.hash to the id of the element you wish to scroll to.
+        // Set the location.hash to the id of the element I want to scroll to
         if ($location.path() === '/engagement_index_instructor') {
           $location.hash = false;
         } else {
@@ -74,13 +74,34 @@
           $scope.people[i].share = 'YES';
         }
 
-        // Calculate percentile, then store it for each student
-        $scope.studentPoints.sort();
-        $scope.studentPoints.reverse();
-        $scope.highestPointTotal = $scope.studentPoints[0];
+        // Percentile calculation (based on formula below)
+        for (var k = 0; k < $scope.people.length; k++) {
+          var index = 0;
+          $scope.scoreFreq = 1;
+          $scope.scoreCount = 0;
+          $scope.thisStudent = $scope.people[k];
 
-        for (var k = 0; k < $scope.studentPoints.length; k++) {
-          $scope.studentPercentile = ($scope.people[k].points / $scope.highestPointTotal) * 100;
+          // Linear 'search' through array of students to find the score frequency and total count of scores less than current student's
+          while (index < $scope.people.length) {
+
+            // Always start at index 0; skip over itself
+            if ($scope.thisStudent.id === $scope.people[index].id) {
+              index++;
+              continue;
+            }
+            // If score matches, update this student's score frequency
+            if ($scope.thisStudent.points === $scope.people[index].points) {
+              $scope.scoreFreq++;
+
+            // If score is less, update this student's score count (total number of scores that are less than his/hers)
+            } else if ($scope.people[index].points < $scope.thisStudent.points) {
+              $scope.scoreCount++;
+            }
+            index++;
+          }
+
+          // Calculate the percentile with rounding
+          $scope.studentPercentile = (($scope.scoreCount + (0.5 * $scope.scoreFreq)) / $scope.people.length) * 100;
           $scope.people[k].studentPercentile = Math.round($scope.studentPercentile) + '%';
         }
 
@@ -93,7 +114,6 @@
           $scope.predicateUnshare = 'section';
         }
       });
-
   });
 
 })(window.angular);
