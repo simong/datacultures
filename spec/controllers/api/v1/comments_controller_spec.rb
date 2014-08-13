@@ -9,6 +9,12 @@ RSpec.describe Api::V1::CommentsController, :type => :controller do
       content: "This is a practice comment"
     }
   }
+  before(:all) do
+    PointsConfiguration.delete_all
+    Activity.delete_all
+    PointsConfiguration.create({interaction: "GalleryComment", points_associated: 7,
+                                active: true, pcid: 3})
+  end
 
   describe "POST update" do
 

@@ -1,11 +1,11 @@
 (function(angular) {
   'use strict';
 
-  angular.module('datacultures.controllers').controller('GalleryController', function($scope, $routeParams, $http) {
+  angular.module('datacultures.controllers').controller('GalleryController', function(galleryFactory, $scope, $routeParams) {
 
     $scope.imageID = $routeParams.imageID;
 
-    $http.get('/api/v1/gallery/index').success(function(results) {
+    galleryFactory.getSubmissions().success(function(results) {
       $scope.items = results.files;
       $scope.currentUser = results.files.slice(-1)[0];
     });
@@ -139,7 +139,7 @@
     // ADD COMMENT
     $scope.emptyComment = '';
     $scope.insertComment = function(photoID) {
-      if ($scope.items[photoID].commentName === null || $scope.items[photoID].commentContent === null) {
+      if ($scope.items[photoID].commentContent === null) {
         $scope.emptyComment = 'Please enter your name & comment!';
         return;
       }
@@ -154,12 +154,11 @@
         author: $scope.currentUser.name,
         content: $scope.items[photoID].commentContent
       });
-      $scope.items[photoID].commentName = null;
       $scope.items[photoID].commentContent = null;
       $scope.items[photoID].numComments++;
       $scope.emptyComment = '';
 
-      $http.post('api/v1/comments/new', $scope.items[photoID].comments.slice(-1)[0]).
+      galleryFactory.createComment($scope.items[photoID].comments.slice(-1)[0]).
         success(function() {}).
         error(function() {
           window.alert('The Data did not send. Check your internet connection');
@@ -192,7 +191,7 @@
 
     $scope.emptyReply = '';
     $scope.submitReplyThread = function(photoID, commentID) {
-      if ($scope.items[photoID].comments[commentID].commentName === null || $scope.items[photoID].comments[commentID].commentContent === null) {
+      if ($scope.items[photoID].comments[commentID].commentContent === null) {
         $scope.emptyReply = '';
         return;
       }
@@ -204,12 +203,9 @@
       $scope.items[photoID].comments[commentID].showThread = true;
       $scope.items[photoID].comments[commentID].replyThread = false;
       $scope.items[photoID].comments[commentID].threadView = 'Hide Thread';
-      $scope.items[photoID].comments[commentID].commentName = null;
       $scope.items[photoID].comments[commentID].commentContent = null;
 
-      var replyCommentID = $scope.items[photoID].comments[commentID].thread.length;
-
-      $http.post('api/v1/comments/new/' + replyCommentID, $scope.items[photoID].comments[0]).
+      galleryFactory.createComment($scope.items[photoID].comments[commentID]).
         success(function() {}).
         error(function() {
           window.alert('The Data did not send. Check your internet connection');

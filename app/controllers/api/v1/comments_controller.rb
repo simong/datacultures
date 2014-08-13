@@ -21,10 +21,11 @@ class Api::V1::CommentsController < ApplicationController
       }
     end
     comment =  Comment.new comment_attributes
+    gallery_comment = PointsConfiguration.where({interaction: 'GalleryComment'}).first
     if comment.save
-      Activity.score! ({ reason: "GalleryComment", delta: 1, #PointsConfiguration.where({interaction: 'GalleryComment'}).first,
+      Activity.score! ({ reason: "GalleryComment", delta: gallery_comment.points_associated,
                          canvas_user_id: session[:canvas_user_id],
-                         canvas_scoring_item_id: comment.id,
+                         canvas_scoring_item_id: comment.id, score: gallery_comment.active,
                          canvas_updated_at: nil, body: comment.content})
       head :ok
     else

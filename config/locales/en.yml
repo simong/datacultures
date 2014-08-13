@@ -27,6 +27,7 @@ en:
     DiscussionEdit:   'Edited a discussion topic'
     DiscussionEntry:  'Replied to a discussion'
     Submission:       'Submitted for an assignment'
+    GalleryComment:   'Comment on a Gallery Submission'
     # these keys can change
     Like:             'Liked a Gallery Item'
     Dislike:          'Disliked a Gallery Item'
