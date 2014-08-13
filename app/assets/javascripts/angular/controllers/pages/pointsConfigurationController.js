@@ -13,7 +13,7 @@
 
       for (var i = 0; i < $scope.activities.length; i++) {
         $scope.pointTotalArray.push($scope.activities[i].points);
-        if ($scope.activities[i]['active'] == false) {
+        if ($scope.activities[i].active == false) {
             $scope.deleteActivity($scope.activities[i]);
         }
       }
