@@ -2,7 +2,7 @@
 
   <div class="dc-main">
 
-    <h2>Engagement Index</h2>
+    <h2 class="dc-header-h2">Engagement Index</h2>
 
     <div class="dc-disclaimer alert alert-info">
       <p><strong>Disclaimer: </strong>Some activity points (e.g. Discussions) may not show up immediately on the Engagement Index.</p>
@@ -34,7 +34,6 @@
         <tr class="dc-mouse-pointer dc-header-title">
           <th data-ng-click="predicate='sortable_name'; reverse=!reverse; showcaretStudent=!showcaretStudent" data-ng-class="{ dropup: showcaretStudent }">Student <span class="caret"></span></th>
           <th data-ng-click="predicate='section'; reverse=!reverse; showcaretSection=!showcaretSection" data-ng-class="{ dropup: showcaretSection }">Section <span class="caret"></span></th>
-          <th>Share</th>
           <th data-ng-click="predicate='points'; reverse=!reverse; showcaretPoints=!showcaretPoints" data-ng-class="{ dropup: showcaretPoints }">Points <span class="caret"></span></th>
           <th data-ng-click="predicate='points'; reverse=!reverse; showcaretPercentile=!showcaretPercentile" data-ng-class="{ dropup: showcaretPercentile }">Percentile <span class="caret"></span></th>
           <th data-ng-click="predicate='last_activity_date'; reverse=!reverse; showcaretLastPoint=!showcaretLastPoint" data-ng-class="{ dropup: showcaretLastPoint }">Last Point Earned <span class="caret"></span></th>
@@ -44,31 +43,9 @@
         <tr id="{{student.id}}" data-ng-repeat="student in showStudents | orderBy:predicate:!reverse | filter:search:strict" data-ng-class="{'info': student.highlight}" data-ng-show="visibility">
           <td class="col-sm-2" data-ng-bind="student.name"></td>
           <td class="col-sm-2" data-ng-bind="student.section"></td>
-          <td class="col-sm-2" data-ng-bind="student.share"></td>
           <td class="col-sm-2" data-ng-bind="student.points"></td>
           <td class="col-sm-2" data-ng-bind="student.studentPercentile"></td>
           <td class="col-sm-3" data-ng-bind="student.last_activity_date"></td>
-        </tr>
-      </tbody>
-    </table><!-- End of Engagement Index Table -->
-
-    <!-- Engagement Index Table: For Students who NOT SHARED-->
-    <div class="dc-table-unshare-title">
-      <p>Students Not Sharing Score</p>
-    </div>
-    <table class="table table-striped table-bordered dc-table-striped-border dc-table-unshare-margin">
-      <thead class="dc-header-color">
-        <tr>
-          <th>Student</th>
-          <th>Section</th>
-          <th>Share</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr data-ng-repeat="student in noshowStudents | orderBy:predicateUnshare" data-ng-show="visibility">
-          <td class="col-sm-2" data-ng-bind="student.name"></td>
-          <td class="col-sm-2" data-ng-bind="student.section"></td>
-          <td class="col-sm-2" data-ng-bind="student.share"></td>
         </tr>
       </tbody>
     </table><!-- End of Engagement Index Table -->
