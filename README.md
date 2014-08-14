@@ -83,6 +83,14 @@ $ bundle exec sidekiq
 ```
 The sidekiq server will start, and the workers defined to run by sidetiq will run.
 
+## assets
+
+Assets should be precompiled to run the app.  Run:
+
+```
+rake assets:precompile
+```
+
 ## development
 
 The following are all done from a Terminal (or iTerm2) window:
