@@ -21,5 +21,8 @@
 /config/secrets.yml
 /.project
 
+# compiled assets
+public/assets
+
 # Ignore large public files
-images/
+#images/
