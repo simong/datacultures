@@ -1,20 +1,6 @@
 /* BODY */
 .dc-engagement-index-landing-page {
-  h2, h3 {
-    color: inherit;
-    font-family: inherit;
-    font-weight: normal;
-    line-height: 40px;
-    margin: 10px 0;
-    text-transform: uppercase;
-  }
-  h2 {
-    font-size: 1.8em;
-  }
-  h3 {
-    font-size: 1.5em;
-    text-decoration: underline;
-  }
+
   input {
     margin-bottom: 20px;
   }
@@ -57,13 +43,25 @@
   .dc-header-color {
     background: none repeat scroll 0 0 #e4e9ed;
   }
+  .dc-header-h2 {
+    font-size: 1.8em;
+    font-weight: normal;
+    line-height: 40px;
+    margin: 10px 0;
+  }
+  .dc-header-h3 {
+    font-size: 1.5em;
+    font-weight: normal;
+    line-height: 40px;
+    text-decoration: underline;
+  }
   .dc-header-title {
     border-bottom: 1px solid #dddddd;
   }
   .dc-main {
     margin: 0 auto;
     margin-bottom: 50px;
-    width: 90%;
+    width: 96%;
   }
   .dc-note {
     margin-top: 50px;
@@ -71,7 +69,7 @@
   .dc-screenshot {
     border: 1px solid #F1F1F1;
     height: 400px;
-    width: 580px;
+    width: 755px;
   }
   .dc-screenshots {
     padding-top: 25px;
