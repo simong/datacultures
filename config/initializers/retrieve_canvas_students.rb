@@ -19,7 +19,16 @@ def retrieve_canvas_students()
       user_attributes[:sis_user_id] = user["sis_user_id"] || -1
       user_attributes[:share] = false
       user_attributes[:section] = "Unknown"
-      Student.find_or_create_by(user_attributes)
+
+      # we can't use #find_or_create_by as if any other attributes differ but canvas_user_id value is already
+      # present, ActiveRecord will not match, and will try to create a new record, violating uniqueness on that key.
+      student = Student.where({canvas_user_id: user_attributes[:canvas_user_id]}).first
+      if student.nil?
+        Student.create(user_attributes)
+      else
+        # pickup any changes from Canvas
+        student.update_attributes(user_attributes)
+      end
     end
   end
 end
