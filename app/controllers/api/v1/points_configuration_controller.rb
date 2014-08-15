@@ -18,10 +18,14 @@ class Api::V1::PointsConfigurationController < ApplicationController
     returned_pcids = point_config_data.map{|pc| pc['id'].to_s}
     missing_pcids = all_pcids - returned_pcids
     point_config_data.each do |pc|
-      PointsConfiguration.where({pcid: pc['id'].to_s}).first.update_attributes({points_associated: pc['points'], active: true})
+      p = PointsConfiguration.where({pcid: pc['id'].to_s}).first
+      p.update_attributes({points_associated: pc['points'], active: true})
+      Activity.where({reason: p.interaction}).update_all(score: true)
     end
     missing_pcids.each do |pc|
-      PointsConfiguration.where({pcid: pc}).first.update_attribute(:active, false)
+      p = PointsConfiguration.where({pcid: pc}).first
+      p.update_attribute(:active, false)
+      Activity.where({reason: p.interaction}).update_all(score: false)
     end
     head :ok
   end
