@@ -23,7 +23,7 @@
           <th class="dc-text-hidden" scope="col">ID</th>
           <th class="dc-text-center" scope="col">Activity</th>
           <th class="dc-text-center" scope="col">Points</th>
-          <th class="dc-text-center" scope="col">Action</th>
+          <th class="dc-text-center" scope="col" data-ng-show="showAction">Action</th>
         </tr>
         <tr data-ng-repeat="activity in activities | orderBy:'id'" data-ng-switch="status">
           <td class="dc-text-hidden dc-text-center" data-ng-bind="activity.id"></td>
@@ -32,7 +32,7 @@
           <td class="dc-text-center" data-ng-switch-when="editable">
             <input data-ng-model="pointTotalArray[$index]" class="dc-points-input dc-text-center form-control"/>
           </td>
-          <td class="dc-text-center"><button class="btn btn-default" data-ng-click="deleteActivity(activity)">Remove</button></td>
+          <td class="dc-text-center" data-ng-show="showAction"><button class="btn btn-default" data-ng-click="deleteActivity(activity)">Remove</button></td>
         </tr>
       </table> <!-- End activities table -->
     </div> <!-- End activities table DIV -->
@@ -45,13 +45,13 @@
           <th class="dc-text-hidden" scope="col">ID</th>
           <th class="dc-text-center" scope="col">Activity</th>
           <th class="dc-text-center" scope="col">Points</th>
-          <th class="dc-text-center" scope="col">Action</th>
+          <th class="dc-text-center" scope="col" data-ng-show="showAction">Action</th>
         </tr>
         <tr data-ng-repeat="activity in removedActivitiesList">
           <td class="dc-text-hidden dc-text-center" data-ng-bind="activity.id"></td>
           <td class="dc-text-left dc-cell-padding" data-ng-bind="activity.name"></td>
           <td class="dc-text-center dc-cell-padding" data-ng-bind="activity.points"></td>
-          <td class="dc-text-center"><button class="btn btn-primary" data-ng-click="update(activity)">Add</button></td>
+          <td class="dc-text-center" data-ng-show="showAction"><button class="btn btn-primary" data-ng-click="update(activity)">Add</button></td>
         </tr>
       </table><!-- End removed activities table -->
     </div><!-- End removed activties table DIV -->

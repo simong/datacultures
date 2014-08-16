@@ -10,23 +10,26 @@
 
       $scope.pointTotalArray = [];
 
+      // Sort $scope.activities by id (so when push to pointTotalArray, the activities match up with the points)
+      $scope.activities.sort(function(obj1, obj2) {
+        return obj1.id - obj2.id;
+      });
 
+      // Fill the points configuration table activities with their respective points (regardless of active or inactive)
       for (var i = 0; i < $scope.activities.length; i++) {
         $scope.pointTotalArray.push($scope.activities[i].points);
-        if ($scope.activities[i].active == false) {
-            $scope.deleteActivity($scope.activities[i]);
-        }
       }
     });
-
 
     $scope.removedTable = false;
     $scope.removedActivitiesList = [];
     var master = {};
     $scope.status = 'uneditable';
+    $scope.showAction = false;
 
     $scope.save = function() {
       $scope.status = 'uneditable';
+      $scope.showAction = false;
       for (var i = 0; i < $scope.pointTotalArray.length; i++) {
         if ($scope.pointTotalArray[i] === '' || $scope.pointTotalArray[i] === null) {
           $scope.activities[i].points = 0;
@@ -43,10 +46,12 @@
 
     $scope.cancel = function() {
       $scope.status = 'uneditable';
+      $scope.showAction = false;
     };
 
     $scope.edit = function() {
       $scope.status = 'editable';
+      $scope.showAction = true;
     };
 
     $scope.deleteActivity = function(activity) {
@@ -55,7 +60,6 @@
 
       $scope.pointTotalArray.splice($scope.activities.indexOf(activity), 1); // remove from totalpoints array
       $scope.activities.splice($scope.activities.indexOf(activity), 1); // remove from JSON object
-
       $scope.removedActivitiesList.push(activity); // push onto removed activities list
     };
 
