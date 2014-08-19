@@ -10,7 +10,7 @@ RSpec.describe Canvas::AssignmentsProcessor, :type => :model do
   end
 
   let(:assignment_json) do
-    [{'id' => 3},{'id' => 9}]
+    [{'id' => 3, 'has_submitted_submissions' => true},{'id' => 9}]
   end
 
   context '#call' do
@@ -23,8 +23,8 @@ RSpec.describe Canvas::AssignmentsProcessor, :type => :model do
         processor.call(assignment_json)
       end
 
-      it "calls the PagedApiProcessor for each assignment" do
-        expect_any_instance_of(Canvas::PagedApiProcessor).to receive(:call).twice
+      it "calls the PagedApiProcessor for each assignment with submissions" do
+        expect_any_instance_of(Canvas::PagedApiProcessor).to receive(:call).once
         processor.call(assignment_json)
       end
 
