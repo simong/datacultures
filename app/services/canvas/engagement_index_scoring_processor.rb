@@ -14,6 +14,7 @@ class Canvas::EngagementIndexScoringProcessor
                                       handler: discussion_topics_processor}).call("api/v1/courses/#{course}/discussion_topics?per_page=250")
     Canvas::PagedApiProcessor.new({request_object: request_object,
                                       handler: assignments_processor}).call("api/v1/courses/#{course}/assignments?per_page=250")
+    Activity.update_scores!
   end
 
 end

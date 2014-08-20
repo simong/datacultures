@@ -8,7 +8,7 @@ class Api::V1::ActivitiesController < ApplicationController
 
   def index
     # to do scope to user
-    @activities = Activity.all
+    @activities = Activity.all.order('updated_at DESC')
   end
 
   def show
