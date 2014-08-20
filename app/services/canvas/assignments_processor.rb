@@ -12,7 +12,9 @@ class Canvas::AssignmentsProcessor
   def call(assignments)
 
     assignments.each do |assignment|
-      paged_api_processor.call('api/v1/courses/'+course.to_s+'/assignments/'+assignment['id'].to_s+'/submissions?per_page=250')
+      if assignment['has_submitted_submissions']
+        paged_api_processor.call('api/v1/courses/'+course.to_s+'/assignments/'+assignment['id'].to_s+'/submissions?per_page=250')
+      end
     end
 
   end
