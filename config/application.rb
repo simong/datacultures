@@ -13,6 +13,10 @@ require "sprockets/railtie"
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
+load 'lib/settings.rb'
+include Settings
+Kernel.const_set(:EnvSettings, deep_open_struct(YAML.load_file('config/.env_conf.yml')))
+
 module Datacultures
   class Application < Rails::Application
     # Settings in config/environments/* take precedence over those specified here.
