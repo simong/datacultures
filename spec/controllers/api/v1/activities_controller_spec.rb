@@ -41,7 +41,7 @@ RSpec.describe Api::V1::ActivitiesController, type: :controller do
       expect(valid_attributes).to eq({:canvas_user_id=>"FOO", :reason=>"liked", :delta=>1, :canvas_scoring_item_id=>"bar"})
       activity = Activity.create! valid_attributes
       get :index, {format: :json}, valid_session
-      expect(assigns(:activities)).to eq([activity])
+      expect(assigns(:activities)).to eq(Activity.all.order('updated_at DESC'))
     end
   end
 

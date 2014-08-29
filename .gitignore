@@ -23,6 +23,6 @@
 
 # compiled assets
 public/assets
-=======
+
 # do not manage (after the initial checkin) the server private config data
 #/config/.env_conf.yml
