@@ -15,7 +15,13 @@ Bundler.require(*Rails.groups)
 
 load 'lib/settings.rb'
 include Settings
-Kernel.const_set(:EnvSettings, deep_open_struct(YAML.load_file('config/.env_conf.yml')))
+CONF_FILE = ['config/.env_conf.yml', 'config/.env_conf.yml.example']
+if File.readable?(CONF_FILE.first)
+  settings_location = CONF_FILE.first
+else
+  settings_location = CONF_FILE.last
+end
+Kernel.const_set(:EnvSettings, deep_open_struct(YAML.load_file(settings_location)))
 
 module Datacultures
   class Application < Rails::Application

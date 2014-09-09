@@ -21,12 +21,12 @@ production: &production
   <<: *default
   database: datacultures
   username: datacultures_app
-  host: <%= EnvSettings.databases.production.host %>
-  password: <%= EnvSettings.databases.production.password %>
-  port: <%= EnvSettings.databases.production.port %>
+  host: <%= EnvSettings.production.databases.host %>
+  password: <%= EnvSettings.production.databases.password %>
+  port: <%= EnvSettings.production.databases.port %>
 
 qa:
   <<: *production
-  host: <%= EnvSettings.databases.qa.host %>
-  password: <%= EnvSettings.databases.qa.password %>
-  port:  <%= EnvSettings.databases.qa.port %>
+  host: <%= EnvSettings.qa.databases.host %>
+  password: <%= EnvSettings.qa.databases.password %>
+  port:  <%= EnvSettings.qa.databases.port %>
