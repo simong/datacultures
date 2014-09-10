@@ -2,5 +2,6 @@
 
 FactoryGirl.define do
   factory :points_configuration do
+    pcid "FOO"
   end
 end

@@ -12,9 +12,13 @@ Rails.application.routes.draw do
       resources :activities, only: [:index, :show, :create, :update]
       get '/engagement_index/data' => 'engagement_index#index', defaults: { format: 'json'}
       post '/students/:canvas_id' => 'students#update'
+      get '/students/:canvas_id' => 'students#show'
       get '/gallery/index' => 'gallery#index', defaults: { format: 'json'}
       resources :points_configuration, only: [:index, :update]
       post '/comments/new(/:comment_id)' => 'comments#create'
+      resources :likes, only: [:index, :create]
+      put '/likes' => 'likes#update'
+      patch '/likes' => 'likes#update'
     end
   end
 

@@ -5,7 +5,7 @@ class Api::V1::PointsConfigurationController < ApplicationController
   # GET #index
   def index
     human_names = I18n.t 'activity_types'
-    points_configuration = PointsConfiguration.all.inject([]){|a, pc| a << {id: pc.pcid.to_i,
+    points_configuration = PointsConfiguration.where.not(pcid: '0').inject([]){|a, pc| a << {id: pc.pcid.to_i,
          name: human_names[pc.interaction.to_sym], active: pc.active, points: pc.points_associated}}
     render json: {"activities" => points_configuration}
   end

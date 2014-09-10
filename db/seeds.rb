@@ -1,4 +1,4 @@
-activity_types = ['DiscussionTopic', 'DiscussionEntry', 'DiscussionEdit', 'Submission', 'GalleryComment']
+activity_types = ['DiscussionTopic', 'DiscussionEntry', 'DiscussionEdit', 'Submission', 'GalleryComment', 'Like', 'Dislike']
 
 pcid = 1
 activity_types.each do |at|
@@ -8,3 +8,4 @@ activity_types.each do |at|
   points_configuration.save unless points_configuration.persisted?
   pcid += 1
 end
+PointsConfiguration.find_or_create_by({pcid: '0', interaction: 'MarkNeutral', points_associated: 0, active: true})
