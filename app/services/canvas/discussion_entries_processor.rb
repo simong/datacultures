@@ -5,7 +5,7 @@ class Canvas::DiscussionEntriesProcessor
   def initialize(conf)
     @request_object     = conf[:request_object] || Canvas::ApiRequest.new({api_key: conf['api_key'], base_url: conf['base_url']})
     @discussion_entry   = PointsConfiguration.where({interaction: 'DiscussionEntry'}).first
-    @course             = conf['course'] || Rails.application.secrets['requests']['course']
+    @course             = conf['course'] || AppConfig::CourseConstants.course
   end
 
   def call(entries)

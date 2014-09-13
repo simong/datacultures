@@ -5,8 +5,8 @@ class UpdateEngagementIndexWorker
   recurrence { minutely }
 
   def perform
-    conf = Rails.application.secrets['requests']
-    Canvas::EngagementIndexScoringProcessor.new(conf.symbolize_keys).call
+    conf = {base_url: AppConfig::CourseConstants.base_url, api_key: AppConfig::CourseConstants.api_key}
+    Canvas::EngagementIndexScoringProcessor.new(conf).call
   end
 
 end

@@ -6,7 +6,7 @@ RetrieveCanvasStudents = Struct.new(:description)
 RSpec.describe RetrieveCanvasStudents do
 
   let(:url){
-    course_id = Rails.application.secrets['requests']['course']
+    course_id = AppConfig::CourseConstants.course
     "http://localhost:3100/api/v1/courses/#{course_id}/search_users"
   }
 

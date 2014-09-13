@@ -6,7 +6,7 @@ class Canvas::DiscussionTopicsProcessor
     @request_object  = conf[:request_object]
     @top_level_post  = PointsConfiguration.where({interaction: 'DiscussionTopic'}).first
     @edit_post       = PointsConfiguration.where({interaction: 'DiscussionEdit'}).first
-    @course          = conf[:course] || Rails.application.secrets['requests']['course']
+    @course          = conf[:course] || AppConfig::CourseConstants.course
   end
 
   def call(discussions)

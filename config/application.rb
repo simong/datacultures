@@ -9,6 +9,7 @@ require "action_view/railtie"
 require "sprockets/railtie"
 # require "rails/test_unit/railtie"
 
+
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
@@ -22,6 +23,8 @@ else
   settings_location = CONF_FILE.last
 end
 Kernel.const_set(:EnvSettings, deep_open_struct(YAML.load_file(settings_location)))
+
+load 'lib/app_config.rb'
 
 module Datacultures
   class Application < Rails::Application

@@ -11,18 +11,16 @@ RSpec.describe Canvas::DiscussionTopicsProcessor, :type => :model do
       PointsConfiguration.create({interaction: "DiscussionEdit", points_associated: 3, active: true, pcid: "Bar" })
     end
 
-    let(:conf)        {  Rails.application.secrets['requests']                                       }
-
     # request configuration data (for rare actual call testing)
-    let(:base_url)   {  conf['base_url']                                                             }
-    let(:api_key)    {  conf['api_keys']['teacher']                                                  }
-    let(:course)     {  "1"                                                                          }
+    let(:base_url)   {  AppConfig::CourseConstants.base_url                                          }
+    let(:api_key)    {  AppConfig::CourseConstants.api_key                                           }
+    let(:course)     {  AppConfig::CourseConstants.course                                            }
 
     # YAML stored mock data hashes -- these are examples of the API call returns
     let(:discussion) { YAML.load_file('spec/fixtures/discussions/discussions.yml')                   }
     let(:entries)    { YAML.load_file('spec/fixtures/discussions/discussion_entries.yml')             }
 
-    # test specific configuration, depends on YAML fixtures and secrets.yml
+    # test specific configuration, depends on YAML fixtures and app_config
     let(:topic_id)   { "7"                                                                           }
     let(:topic_path) { "api/v1/courses/#{course}/discussion_topics/#{topic_id}"                      }
     let(:entry_path) { "api/v1/courses/#{course}/discussion_topics/#{topic_id}/entries?per_page=250" }
