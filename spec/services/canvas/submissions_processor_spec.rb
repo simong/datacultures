@@ -11,9 +11,11 @@ RSpec.describe Canvas::SubmissionsProcessor, :type => :model do
     JSON.parse(File.read('spec/fixtures/submissions/submission_stream.json'))
   end
 
-  let(:conf)           {  Rails.application.secrets['requests']                                    }
-  let(:base_url)       {  conf['base_url']                                                         }
-  let(:api_key)        {  conf['api_keys']['teacher']                                              }
+  # request configuration data (for rare actual call testing)
+  let(:base_url)   {  AppConfig::CourseConstants.base_url                                          }
+  let(:api_key)    {  AppConfig::CourseConstants.api_key                                           }
+  let(:course)     {  AppConfig::CourseConstants.course                                            }
+
   let(:request_object) {  Canvas::ApiRequest.new({base_url: base_url, api_key: api_key})           }
 
   let(:processor) do

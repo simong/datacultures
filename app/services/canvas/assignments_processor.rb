@@ -3,7 +3,7 @@ class Canvas::AssignmentsProcessor
   attr_accessor :request_object, :submissions_processor, :course, :paged_api_processor
 
   def initialize(conf)
-    @course = conf[:course] || Rails.application.secrets['requests']['course']
+    @course = conf[:course] || AppConfig::CourseConstants.course
     @request_object = conf[:request_object] || Canvas::ApiRequest.new({api_key: conf[:api_key], base_url: conf[:base_url]})
     @submissions_processor = conf[:submissions_processor] || Canvas::SubmissionsProcessor.new({request_object: request_object, course: course})
     @paged_api_processor = conf[:paged_api_processor] || Canvas::PagedApiProcessor.new({ handler: submissions_processor})

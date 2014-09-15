@@ -17,7 +17,7 @@ module Models
         when 'never'
           false
         else
-          !Rails.application.secrets['requests']['real']
+          !EnvSettings.send(Rails.env).real_requests  # don't encode '.test' in very rare case it isn't 'test'
       end
     end
 

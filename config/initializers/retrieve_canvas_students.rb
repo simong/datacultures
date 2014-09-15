@@ -1,8 +1,8 @@
 def retrieve_canvas_students()
   # if we are in the test environment or the request array doesn't exist, don't run script
-  course_id = Rails.application.secrets['requests']['course']
-  base_url = Rails.application.secrets['requests']['base_url']
-  api_key = Rails.application.secrets['requests']['api_keys']['teacher']
+  course_id = AppConfig::CourseConstants.course
+  base_url = AppConfig::CourseConstants.base_url
+  api_key = AppConfig::CourseConstants.api_key
   begin
     response = Canvas::ApiRequest.new({base_url:  base_url, api_key: api_key}).request.get("api/v1/courses/#{course_id}/search_users")
     users_list_json = response.body
@@ -33,7 +33,13 @@ def retrieve_canvas_students()
   end
 end
 
-if !Rails.env.test? && Rails.application.secrets['requests'] && ActiveRecord::Base.connection.table_exists?('students')
+def have_needed_config?
+  !AppConfig::CourseConstants.base_url.nil? && !AppConfig::CourseConstants.api_key.nil? && !AppConfig::CourseConstants.course.nil?
+end
+
+if !Rails.env.test? && have_needed_config? && ActiveRecord::Base.connection.table_exists?('students')
   retrieve_canvas_students()
 end
+
+
 
