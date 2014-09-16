@@ -11,12 +11,12 @@
     <blti:title>Points Configuration</blti:title>
     <blti:description>Assign points to course activities</blti:description>
     <blti:icon></blti:icon>
-    <blti:launch_url>http://localhost:3000/canvas/embedded/points_configuration</blti:launch_url>
+    <blti:launch_url><%= launch_url('points_configuration') %></blti:launch_url>
     <blti:extensions platform="canvas.instructure.com">
       <lticm:property name="tool_id">points_configuration_tool</lticm:property>
       <lticm:property name="privacy_level">public</lticm:property>
       <lticm:options name="course_navigation">
-        <lticm:property name="url">http://localhost:3000/canvas/embedded/points_configuration</lticm:property>
+        <lticm:property name="url"><%= launch_url('points_configuration') %></lticm:property>
         <lticm:property name="text">Points Configuration</lticm:property>
         <lticm:property name="visibility">public</lticm:property>
         <lticm:property name="default">enabled</lticm:property>
