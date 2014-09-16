@@ -8,16 +8,16 @@
     http://www.imsglobal.org/xsd/imsbasiclti_v1p0 http://www.imsglobal.org/xsd/lti/ltiv1p0/imsbasiclti_v1p0.xsd
     http://www.imsglobal.org/xsd/imslticm_v1p0 http://www.imsglobal.org/xsd/lti/ltiv1p0/imslticm_v1p0.xsd
     http://www.imsglobal.org/xsd/imslticp_v1p0 http://www.imsglobal.org/xsd/lti/ltiv1p0/imslticp_v1p0.xsd">
-    <blti:title>Engagement Index</blti:title>
-    <blti:description>Index that displays the engagement points for every student</blti:description>
+    <blti:title>DataCultures Gallery</blti:title>
+    <blti:description>The gallery to display all submissions of all students </blti:description>
     <blti:icon></blti:icon>
-    <blti:launch_url>http://localhost:3000/canvas/embedded/engagement_index</blti:launch_url>
+    <blti:launch_url><%= launch_url('gallery') %></blti:launch_url>
     <blti:extensions platform="canvas.instructure.com">
-      <lticm:property name="tool_id">Engagement Index</lticm:property>
+      <lticm:property name="tool_id">datacultures_gallery</lticm:property>
       <lticm:property name="privacy_level">public</lticm:property>
       <lticm:options name="course_navigation">
-        <lticm:property name="url">http://localhost:3000/canvas/embedded/engagement_index</lticm:property>
-        <lticm:property name="text">Engagement Index</lticm:property>
+        <lticm:property name="url"><%= launch_url('gallery') %></lticm:property>
+        <lticm:property name="text">DataCultures Gallery</lticm:property>
         <lticm:property name="visibility">public</lticm:property>
         <lticm:property name="default">enabled</lticm:property>
         <lticm:property name="enabled">true</lticm:property>
