@@ -12,14 +12,14 @@
       });
 
     $scope.redirectPage = function() {
-      if($scope.choice === true) {
+      if ($scope.choice === true) {
         return ('/engagement_index_share');
       } else if ($scope.choice === false) {
         return ('/engagement_index');
       }
     };
 
-    $scope.shareDataPass = function () {
+    $scope.shareDataPass = function() {
       studentFactory.postStudentStatus($scope.currStudentID, $scope.choice).
         success(function() {
         }).

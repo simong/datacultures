@@ -37,11 +37,7 @@
           $scope.activities[i].points = $scope.pointTotalArray[i];
         }
       }
-      $http.put('/api/v1/points_configuration/update', $scope.activities).
-        success(function() {}).
-        error(function() {
-          window.alert('The Data did not send. Check your internet connection');
-        });
+      $http.put('/api/v1/points_configuration/update', $scope.activities);
     };
 
     $scope.cancel = function() {

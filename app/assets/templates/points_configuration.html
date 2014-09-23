@@ -2,16 +2,15 @@
 <div data-ng-controller="PointsConfigurationController" class="dc-points-configuration">
 
   <h1 class="dc-title">Points Configuration UI</h1>
-
   <div class="main">
 
     <!-- BUTTONS -->
     <div class="dc-buttons-wrapper">
       <div class="dc-activities-table-title"><h3>Course Activities</h3></div>
-      <div class="dc-wrapper" data-ng-switch on="status">
-        <button class="btn btn-info" data-ng-click="edit()" data-ng-switch-when="uneditable">Edit</button>
-        <button class="btn btn-success" data-ng-click="save()" data-ng-switch-when="editable">Save</button>
-        <button class="btn btn-danger" data-ng-click="cancel()" data-ng-switch-when="editable">Cancel</button>
+      <div class="dc-wrapper">
+        <button class="btn btn-info" data-ng-click="edit()" data-ng-if="status === 'uneditable' && api.user.me.roles.instructor">Edit</button>
+        <button class="btn btn-success" data-ng-click="save()" data-ng-if="status === 'editable'">Save</button>
+        <button class="btn btn-danger" data-ng-click="cancel()" data-ng-if="status === 'editable'">Cancel</button>
       </div>
       <div style="clear:both"></div>
     </div> <!-- Closing tag for BUTTONS -->
