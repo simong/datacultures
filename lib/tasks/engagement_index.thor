@@ -3,12 +3,6 @@ class EngagementIndex < Thor
   require 'thor/rails'
   include Thor::Rails
 
-  desc "print", "Print Rails env"
-
-  def print_env
-    puts ENV['RAILS_ENV']
-  end
-
   desc "update", "Update the engagement index"
 
   def update

@@ -6,11 +6,21 @@ class CanvasLtiController < ApplicationController
   helper_method :launch_url
 
   def embedded
-    # Initialize TP object with OAuth creds and post parameters
-    # provider = IMS::LTI::ToolProvider.new(@consumer_key, @consumer_secret)
-    # Verify OAuth signature by passing the request object
-    session[:canvas_user_id] = params[:custom_canvas_user_id]
-    render
+    consumer_key = AppConfig::CourseConstants.lti_key
+    consumer_secret = AppConfig::CourseConstants.lti_secret
+    provider = IMS::LTI::ToolProvider.new(consumer_key, consumer_secret, params)
+    ## Verify OAuth signature by passing the request object
+    #if provider.valid_request?(request)
+      session[:canvas] ||= {}
+      session[:canvas][:user_roles]  = provider.roles
+      session[:canvas][:user_id]     = params[:custom_canvas_user_id]
+      session[:canvas][:user_name]   = params['lis_person_name_full']
+      render
+    #else
+    #  # handle invalid OAuth
+    #  # policy not yet set
+    #end
+
   end
 
   def lti_engagement_index
@@ -33,7 +43,7 @@ class CanvasLtiController < ApplicationController
     render :json => response.body
   end
 
-  # If no aquery parameters are present, returns a URL corresponding to the app server.
+  # If no query parameters are present, returns a URL corresponding to the app server.
   # If 'app_host' is specified, then the URL points to the app_host server.
   # Example: https://calcentral.berkeley.edu/canvas/lti_roster_photos.xml?app_host=sometestsystem.berkeley.edu
   def launch_url(app_name)
