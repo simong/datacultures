@@ -1,21 +1,20 @@
-/* BODY */
+// BODY
 .dc-engagement-index {
-
   .dc-btn-info {
     @include background(linear-gradient(#5bc0de, #2596b8));
     background-color: #46b0cf;
     background-repeat: repeat-x;
-    border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+    border-color: rgba(0, 0, 0, .1) rgba(0, 0, 0, .1) rgba(0, 0, 0, .25);
     color: #fff;
-    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, .25);
   }
   .dc-btn-primary {
     @include background(linear-gradient(to bottom, #0abeff, #0a95ff));
     background-color: #0aaeff;
     background-repeat: repeat-x;
-    border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+    border-color: rgba(0, 0, 0, .1) rgba(0, 0, 0, .1) rgba(0, 0, 0, .25);
     color: #fff;
-    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, .25);
   }
   .dc-disclaimer {
     font-size: 14px;
@@ -25,20 +24,19 @@
     background-color: #fff;
     border: 1px solid #ccc;
     border-radius: 4px;
-    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, .075) inset;
     color: #555;
     display: inline-block;
     font-size: 14px;
     font-weight: normal;
     line-height: 24px;
     padding: 4px 6px;
-    transition: border 0.2s linear 0s, box-shadow 0.2s linear 0s;
+    transition: border .2s linear 0s, box-shadow .2s linear 0s;
     vertical-align: middle;
     width: 155px;
-
-      &:focus {
-        box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(82, 168, 236, 0.6);
-      }
+    &:focus {
+      box-shadow: 0 1px 1px rgba(0, 0, 0, .075) inset, 0 0 8px rgba(82, 168, 236, .6);
+    }
   }
   .dc-engagement-search-section {
     margin-left: 20px;
@@ -52,7 +50,7 @@
     line-height: 40px;
   }
   .dc-header-title th:hover {
-    background-color: rgb(217,237,247);
+    background-color: rgb(217, 237, 247);
   }
   .dc-main {
     margin: 0 auto;
@@ -84,7 +82,7 @@
     margin-top: 50px;
   }
   .dc-table-striped-border {
-    border: 1px solid #dddddd;
+    border: 1px solid #ddd;
   }
   .dc-user-info {
     margin-top: 35px;

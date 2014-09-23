@@ -20,12 +20,7 @@
     };
 
     $scope.shareDataPass = function() {
-      studentFactory.postStudentStatus($scope.currStudentID, $scope.choice).
-        success(function() {
-        }).
-        error(function() {
-          console.log('Check your internet connection, status was not pushed');
-        });
+      studentFactory.postStudentStatus($scope.currStudentID, $scope.choice);
     };
   });
 
