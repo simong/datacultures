@@ -10,6 +10,8 @@ matrix:
 before_install:
   - "npm -g install jshint"
   - "npm -g install jscs"
+  - "gem install scss-lint"
+  - "scss-lint ."
   - "bundle install"
   - "bin/rake db:create"
   - "bin/rake db:migrate"

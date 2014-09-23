@@ -41,7 +41,7 @@
         for (var i = $scope.people.length - 1; i >= 0; i--) {
 
           // Set current student to appropriate student in people array
-          if ($scope.people[i].id === $scope.currStudent.canvas_user_id){
+          if ($scope.people[i].id === $scope.currStudent.canvas_user_id) {
             $scope.currStudent = $scope.people[i];
           }
 
@@ -49,26 +49,24 @@
           if ($scope.people[i].share === true) {
             $scope.showStudents.push($scope.people[i]); // push shared student to showStudents array
             $scope.studentPoints.push($scope.people[i].points); // push shared student points to array
-          }
-
-          // Handle case where student IS NOT sharing
-          else if ($scope.people[i].share === false) {
+          } else if ($scope.people[i].share === false) {
+            // Handle case where student IS NOT sharing
             $scope.people[i].share = 'NO';
 
-              if ($location.path() === '/engagement_index_instructor') {
-                $scope.studentPoints.push($scope.people[i].points);
-                continue;
-              } else {
-                $scope.studentToRemove = $scope.people[i];
-                $scope.noshowStudents.push($scope.studentToRemove);
-                $scope.studentPoints.push($scope.studentToRemove.points);
-                $scope.people[i].highlight = !!($scope.people[i] === $scope.currStudent);
-                continue;
-              }
+            if ($location.path() === '/engagement_index_instructor') {
+              $scope.studentPoints.push($scope.people[i].points);
+              continue;
+            } else {
+              $scope.studentToRemove = $scope.people[i];
+              $scope.noshowStudents.push($scope.studentToRemove);
+              $scope.studentPoints.push($scope.studentToRemove.points);
+              $scope.people[i].highlight = ($scope.people[i] === $scope.currStudent);
+              continue;
+            }
           }
 
           // Handle row highlighting (only get here if student is sharing)
-          $scope.people[i].highlight = !!($scope.people[i] === $scope.currStudent);
+          $scope.people[i].highlight = ($scope.people[i] === $scope.currStudent);
 
           // If get here, means that the student chose to share EI score
           $scope.people[i].share = 'YES';

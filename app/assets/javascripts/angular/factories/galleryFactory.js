@@ -8,7 +8,13 @@
   angular.module('datacultures.factories').factory('galleryFactory', function($http) {
 
     var getSubmissions = function() {
+      // var url = '/dummy/json/gallerySubmissions.json';
       var url = '/api/v1/gallery/index';
+      return $http.get(url);
+    };
+
+    var getComments = function(imageID) {
+      var url = '/api/v1/comments/' + imageID;
       return $http.get(url);
     };
 
@@ -19,7 +25,8 @@
 
     return {
       getSubmissions: getSubmissions,
-      createComment: createComment
+      createComment: createComment,
+      getComments: getComments
     };
 
   });

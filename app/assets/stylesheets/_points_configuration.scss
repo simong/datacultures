@@ -1,10 +1,10 @@
-.dc-points-configuration{
+.dc-points-configuration {
   table, th, td {
-    border-collapse:collapse;
-    border:1px solid black;
+    border: 1px solid #000;
+    border-collapse: collapse;
   }
   input {
-    width:40px;
+    width: 40px;
   }
   .dc-text-left {
     text-align: left;
@@ -19,20 +19,20 @@
     padding-top: 15px;
   }
   .dc-title {
-    text-align: center;
-    font-size: 35px;
     font-family: 'Lato', sans-serif;
+    font-size: 35px;
     margin-bottom: 30px;
+    text-align: center;
   }
   .dc-buttons-wrapper {
     position: relative;
   }
   .dc-activities-table-title {
     float: left;
-    position: relative;
     margin-bottom: 1%;
+    position: relative;
   }
-  .dc-activities-table{
+  .dc-activities-table {
     display: block;
     margin: 4px auto 5px;
     position: relative;
@@ -48,16 +48,16 @@
     position: relative;
   }
   .dc-points-input {
-    width: 40px;
     margin: 0 auto;
     padding: 0;
     text-align: center;
+    width: 40px;
   }
   .main {
     margin: 0 auto;
     width: 50%;
   }
   .btn-default {
-    background: rgb(238,238,238);
+    background: rgb(238, 238, 238);
   }
 }

@@ -6,8 +6,18 @@
     $scope.imageID = $routeParams.imageID;
 
     galleryFactory.getSubmissions().success(function(results) {
+      if (!results.length) {
+        return;
+      }
       $scope.items = results.files;
-      $scope.currentUser = results.files.slice(-1)[0];
+      $scope.currentUser = $scope.items.pop();
+      $scope.item = $scope.submission();
+      $scope.path = $scope.item.source;
+
+      galleryFactory.getComments($scope.imageID).success(function(results) {
+        $scope.item.comments = results;
+      });
+
     });
 
     // FILTER & MODULES
@@ -41,6 +51,16 @@
 
     $scope.filterGallery = {
       types: $scope.filterOptions.types[0]
+    };
+
+    $scope.submission = function() {
+      for (var i = 0; i < $scope.items.length; i++) {
+        var itemId = $scope.items[i].id + '';
+        var imageId = $scope.imageID + '';
+        if (itemId === imageId) {
+          return $scope.items[i];
+        }
+      }
     };
 
     $scope.customFilter = function(items) {
@@ -139,41 +159,45 @@
     // ADD COMMENT
     $scope.emptyComment = '';
     $scope.insertComment = function(photoID) {
-      if ($scope.items[photoID].commentContent === null) {
+      if ($scope.item.commentContent === null) {
         $scope.emptyComment = 'Please enter your name & comment!';
         return;
       }
-      $scope.items[photoID].comments.push({
-        numComments: 0,
+      $scope.item.comments.push({
+        numComments: $scope.item.comments.length,
         photoID: photoID,
-        commentID: $scope.items[photoID].numComments,
+        commentID: $scope.item.comments.length,
         threadView: 'Show Thread',
         showThread: false,
         replyThread: false,
         thread: [],
         author: $scope.currentUser.name,
-        content: $scope.items[photoID].commentContent
+        content: $scope.item.commentContent
       });
-      $scope.items[photoID].commentContent = null;
-      $scope.items[photoID].numComments++;
+      $scope.item.commentContent = null;
+      $scope.item.numComments++;
       $scope.emptyComment = '';
 
-      galleryFactory.createComment($scope.items[photoID].comments.slice(-1)[0]).
+      galleryFactory.createComment($scope.item.comments.slice(-1)[0]).
         success(function() {}).
         error(function() {
           window.alert('The Data did not send. Check your internet connection');
         });
+
+      galleryFactory.getComments(photoID).success(function(results) {
+        $scope.item.comments = results;
+      });
     };
 
     // THREADED COMMENTS
     $scope.showThread = false;
     $scope.toggleThread = function(photoID, commentID) {
-      if ($scope.items[photoID].comments[commentID].threadView === 'Show Thread') {
-        $scope.items[photoID].comments[commentID].showThread = true;
-        $scope.items[photoID].comments[commentID].threadView = 'Hide Thread';
+      if ($scope.item.comments[commentID].threadView === 'Show Thread') {
+        $scope.item.comments[commentID].showThread = true;
+        $scope.item.comments[commentID].threadView = 'Hide Thread';
       } else {
-        $scope.items[photoID].comments[commentID].showThread = false;
-        $scope.items[photoID].comments[commentID].threadView = 'Show Thread';
+        $scope.item.comments[commentID].showThread = false;
+        $scope.item.comments[commentID].threadView = 'Show Thread';
       }
     };
 
@@ -182,30 +206,30 @@
 
     $scope.showReplyThread = function(photoID, commentID) {
       $scope.commentID = '';
-      if ($scope.items[photoID].comments[commentID].replyThread === false) {
-        $scope.items[photoID].comments[commentID].replyThread = true;
+      if ($scope.item.comments[commentID].replyThread === false) {
+        $scope.item.comments[commentID].replyThread = true;
       } else {
-        $scope.items[photoID].comments[commentID].replyThread = false;
+        $scope.item.comments[commentID].replyThread = false;
       }
     };
 
     $scope.emptyReply = '';
     $scope.submitReplyThread = function(photoID, commentID) {
-      if ($scope.items[photoID].comments[commentID].commentContent === null) {
+      if ($scope.item.comments[commentID].commentContent === null) {
         $scope.emptyReply = '';
         return;
       }
-      $scope.items[photoID].comments[commentID].thread.push({
+      $scope.item.comments[commentID].thread.push({
         author: $scope.currentUser.name,
-        content: $scope.items[photoID].comments[commentID].commentContent
+        content: $scope.item.comments[commentID].commentContent
       });
       $scope.emptyReply = '';
-      $scope.items[photoID].comments[commentID].showThread = true;
-      $scope.items[photoID].comments[commentID].replyThread = false;
-      $scope.items[photoID].comments[commentID].threadView = 'Hide Thread';
-      $scope.items[photoID].comments[commentID].commentContent = null;
+      $scope.item.comments[commentID].showThread = true;
+      $scope.item.comments[commentID].replyThread = false;
+      $scope.item.comments[commentID].threadView = 'Hide Thread';
+      $scope.item.comments[commentID].commentContent = null;
 
-      galleryFactory.createComment($scope.items[photoID].comments[commentID]).
+      galleryFactory.createComment($scope.item.comments[commentID]).
         success(function() {}).
         error(function() {
           window.alert('The Data did not send. Check your internet connection');
