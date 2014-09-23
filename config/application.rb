@@ -18,8 +18,12 @@ load 'lib/app_config.rb'
 include AppConfig
 AppConfig.load_app_settings
 
+I18n.enforce_available_locales = false
+
 module Datacultures
   class Application < Rails::Application
+
+
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
