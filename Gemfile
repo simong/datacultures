@@ -23,22 +23,21 @@ gem 'sidetiq',                 '~> 0.6'
 
 # styling
 gem 'bootstrap-sass',          '~> 3.2.0'
-gem 'sass-rails',              '~> 4.0'
+gem 'sass-rails',              '~> 4.0.3'
 gem 'compass-rails',           '~> 2.0.0'
 gem 'uglifier',                '~> 2.5'
-gem 'font-awesome-rails',      '~> 4.1.0.0'
+gem 'font-awesome-rails',      '~> 4.2.0.0'
 
 # JavaScript
 gem 'coffee-rails',            '~> 4.0'
-gem 'angular-gem',             '~> 1.2.18.1'    # ETS's library for angular dependency!
+gem 'angular-gem',             '~> 1.2.25'
 
-# ngmin-rails
-# https://github.com/jasonm/ngmin-rails
-gem 'ngmin-rails',             '~> 0.4.0'
+# https://rubygems.org/gems/ngannotate-rails
+gem 'ngannotate-rails',        '~> 0.10.1'
 
 # Use your angular templates with rails' asset pipeline
 # https://github.com/pitr/angular-rails-templates
-gem 'angular-rails-templates', '~> 0.1.2'
+gem 'angular-rails-templates', '~> 0.1.3'
 
 # formatters
 gem 'json',                    '~> 1.8'
@@ -51,17 +50,6 @@ gem 'haml',                    '~> 4.0'
 gem 'ims-lti', :git => 'https://github.com/instructure/ims-lti.git'
 
 group :development do
-  gem 'guard-livereload',      '~> 2.2'
-  gem 'rack-livereload',       '~> 0.3'
-
-  # Polling is evil:
-  # https://github.com/guard/guard#readme
-  gem 'rb-fsevent',            '~> 0.9', require: false, :platform => :ruby
-
-  # Adds extra information to the requests
-  # Enables the RailsPanel chrome extension
-  gem 'meta_request',          '~> 0.3'
-
   gem 'pry-rails',             '~> 0.3'
 end
 
