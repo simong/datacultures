@@ -36,9 +36,7 @@
   "disallowTrailingWhitespace": true,
   "excludeFiles": [
     "app/assets/javascripts/application.js",
-    "app/assets/javascripts/lib/analytics.js",
-    "coverage/**",
-    "public/dummy/js/videos.js"
+    "config/.env_conf.yml"
   ],
   "requireBlocksOnNewline": true,
   "requireCommaBeforeLineBreak": true,
