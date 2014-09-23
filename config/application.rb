@@ -14,17 +14,9 @@ require "sprockets/railtie"
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
-load 'lib/settings.rb'
-include Settings
-CONF_FILE = ['config/.env_conf.yml', 'config/.env_conf.yml.example']
-if File.readable?(CONF_FILE.first)
-  settings_location = CONF_FILE.first
-else
-  settings_location = CONF_FILE.last
-end
-Kernel.const_set(:EnvSettings, deep_open_struct(YAML.load_file(settings_location)))
-
 load 'lib/app_config.rb'
+include AppConfig
+AppConfig.load_app_settings
 
 module Datacultures
   class Application < Rails::Application

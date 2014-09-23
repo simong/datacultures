@@ -1,6 +1,6 @@
 module Settings
 
-  def deep_open_struct(hash_recursive)
+  def self.deep_open_struct(hash_recursive)
     require 'ostruct'
     obj = hash_recursive
     if obj.is_a?(Hash)

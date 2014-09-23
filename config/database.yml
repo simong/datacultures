@@ -19,14 +19,8 @@ test:
 
 production: &production
   <<: *default
-  database: datacultures
+  database: <%= EnvSettings.production.databases.database %>
   username: datacultures
   host: <%= EnvSettings.production.databases.host %>
-  #password: <%= EnvSettings.production.databases.password %>
+  password: <%= EnvSettings.production.databases.password %>
   port: <%= EnvSettings.production.databases.port %>
-
-qa:
-  <<: *production
-  host: <%= EnvSettings.qa.databases.host %>
-  #password: <%= EnvSettings.qa.databases.password %>
-  port:  <%= EnvSettings.qa.databases.port %>
