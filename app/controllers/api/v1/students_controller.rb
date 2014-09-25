@@ -15,6 +15,7 @@ class Api::V1::StudentsController < ApplicationController
     end
     student = Student.where({canvas_user_id: params[:canvas_id]}).first
     student[:share] = params[:status]
+    student[:has_answered_share_question] = true
     student.save!
     head :ok
   end
