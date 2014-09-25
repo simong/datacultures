@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140819041455) do
+ActiveRecord::Schema.define(version: 20140925174509) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -44,14 +44,16 @@ ActiveRecord::Schema.define(version: 20140819041455) do
     t.datetime "deleted_at"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "num_comments"
   end
 
   create_table "comments", force: true do |t|
-    t.integer  "parent_id",         null: false
+    t.integer  "parent_id"
     t.integer  "comment_id",        null: false
     t.text     "content"
     t.integer  "submission_id",     null: false
     t.integer  "authors_canvas_id", null: false
+    t.string   "author"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -66,15 +68,16 @@ ActiveRecord::Schema.define(version: 20140819041455) do
   end
 
   create_table "students", force: true do |t|
-    t.integer  "canvas_user_id",                 null: false
-    t.string   "name",                           null: false
-    t.string   "sortable_name",                  null: false
-    t.integer  "sis_user_id",                    null: false
+    t.integer  "canvas_user_id",                              null: false
+    t.string   "name",                                        null: false
+    t.string   "sortable_name",                               null: false
+    t.integer  "sis_user_id",                                 null: false
     t.string   "primary_email"
-    t.string   "section",                        null: false
-    t.boolean  "share",          default: false
+    t.string   "section",                                     null: false
+    t.boolean  "share",                       default: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "has_answered_share_question", default: false
   end
 
   add_index "students", ["canvas_user_id"], name: "index_students_on_canvas_user_id", unique: true, using: :btree
