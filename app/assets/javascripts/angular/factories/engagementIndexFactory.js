@@ -15,7 +15,9 @@
 
     var postStudentStatus = function(canvasUserID, share) {
       var url = '/api/v1/students/' + canvasUserID;
-      var data = {'status': share};
+      var data = {
+        status: share
+      };
       return $http.post(url, data);
     };
 

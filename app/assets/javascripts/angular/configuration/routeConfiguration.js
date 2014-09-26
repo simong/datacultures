@@ -19,24 +19,6 @@
     when('/canvas/embedded/engagement_index', {
       templateUrl: 'engagement_index.html'
     }).
-    when('/engagement_index_instructor', {
-      templateUrl: 'engagement_index_instructor.html'
-    }).
-    when('/canvas/embedded/engagement_index_instructor', {
-      templateUrl: 'engagement_index_instructor.html'
-    }).
-    when('/engagement_index_share', {
-      templateUrl: 'engagement_index_share.html'
-    }).
-    when('/canvas/embedded/engagement_index_share', {
-      templateUrl: 'engagement_index_share.html'
-    }).
-    when('/engagement_index_landing_page', {
-      templateUrl: 'engagement_index_landing_page.html'
-    }).
-    when('/canvas/embedded/engagement_index_landing_page', {
-      templateUrl: 'engagement_index_landing_page.html'
-    }).
     when('/canvas/embedded/gallery', {
       templateUrl: 'gallery.html'
     }).

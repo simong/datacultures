@@ -1,63 +1,19 @@
 .dc-points-configuration {
-  table, th, td {
-    border: 1px solid #000;
-    border-collapse: collapse;
+
+  .dc-points-configuration-buttons {
+    margin-top: 5px;
   }
-  input {
-    width: 40px;
+  .dc-points-configuration-main-container {
+    max-width: 440px;
   }
-  .dc-text-left {
-    text-align: left;
+  .dc-points-configuration-table-container {
+    margin: 5px auto;
+    table td {
+      vertical-align: middle;
+    }
   }
-  .dc-text-hidden {
-    display: none;
-  }
-  .dc-text-center {
-    text-align: center;
-  }
-  .dc-cell-padding {
-    padding-top: 15px;
-  }
-  .dc-title {
-    font-family: 'Lato', sans-serif;
-    font-size: 35px;
-    margin-bottom: 30px;
-    text-align: center;
-  }
-  .dc-buttons-wrapper {
-    position: relative;
-  }
-  .dc-activities-table-title {
-    float: left;
-    margin-bottom: 1%;
-    position: relative;
-  }
-  .dc-activities-table {
-    display: block;
-    margin: 4px auto 5px;
-    position: relative;
-    width: 100%;
-  }
-  .dc-removed-table-title {
-    margin-bottom: 22px;
-    margin-top: 60px;
-  }
-  .dc-wrapper {
-    float: right;
-    margin-top: 2%;
-    position: relative;
-  }
-  .dc-points-input {
+  .dc-points-configuration-table-points-input {
     margin: 0 auto;
-    padding: 0;
-    text-align: center;
     width: 40px;
-  }
-  .main {
-    margin: 0 auto;
-    width: 50%;
-  }
-  .btn-default {
-    background: rgb(238, 238, 238);
   }
 }

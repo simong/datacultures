@@ -1,22 +1,20 @@
-<!-- Defined gallery main controller -->
 <div data-ng-controller="PointsConfigurationController" class="dc-points-configuration">
 
-  <h1 class="dc-title">Points Configuration UI</h1>
-  <div class="main">
+  <h1>Points Configuration</h1>
+
+  <div class="dc-points-configuration-main-container">
 
     <!-- BUTTONS -->
-    <div class="dc-buttons-wrapper">
-      <div class="dc-activities-table-title"><h3>Course Activities</h3></div>
-      <div class="dc-wrapper">
-        <button class="btn btn-info" data-ng-click="edit()" data-ng-if="status === 'uneditable' && api.user.me.roles.instructor">Edit</button>
-        <button class="btn btn-success" data-ng-click="save()" data-ng-if="status === 'editable'">Save</button>
-        <button class="btn btn-danger" data-ng-click="cancel()" data-ng-if="status === 'editable'">Cancel</button>
-      </div>
-      <div style="clear:both"></div>
-    </div> <!-- Closing tag for BUTTONS -->
+    <h2 class="dc-float-left">Course Activities</h2>
+    <div class="dc-points-configuration-buttons dc-float-right">
+      <button class="btn btn-info" data-ng-click="edit()" data-ng-if="status === 'uneditable' && api.user.me.roles.instructor">Edit</button>
+      <button class="btn btn-success" data-ng-click="save()" data-ng-if="status === 'editable'">Save</button>
+      <button class="btn btn-danger" data-ng-click="cancel()" data-ng-if="status === 'editable'">Cancel</button>
+    </div>
+    <div style="clear:both"></div>
 
     <!-- ACTIVITIES TABLE -->
-    <div class="dc-activities-table">
+    <div class="dc-points-configuration-table-container">
       <table class="table table-striped table-compact table-bordered">
         <tr>
           <th class="dc-text-hidden" scope="col">ID</th>
@@ -26,36 +24,36 @@
         </tr>
         <tr data-ng-repeat="activity in activities | orderBy:'id'" data-ng-switch="status">
           <td class="dc-text-hidden dc-text-center" data-ng-bind="activity.id"></td>
-          <td class="dc-text-left dc-cell-padding" data-ng-bind="activity.name"></td>
-          <td class="dc-text-center dc-cell-padding" data-ng-bind="activity.points" data-ng-switch-when="uneditable"></td>
+          <td class="dc-text-left" data-ng-bind="activity.name"></td>
+          <td class="dc-text-center" data-ng-bind="activity.points" data-ng-switch-when="uneditable"></td>
           <td class="dc-text-center" data-ng-switch-when="editable">
-            <input data-ng-model="pointTotalArray[$index]" class="dc-points-input dc-text-center form-control"/>
+            <input data-ng-model="pointTotalArray[$index]" class="dc-points-configuration-table-points-input dc-text-center form-control"/>
           </td>
           <td class="dc-text-center" data-ng-show="showAction"><button class="btn btn-default" data-ng-click="deleteActivity(activity)">Remove</button></td>
         </tr>
-      </table> <!-- End activities table -->
-    </div> <!-- End activities table DIV -->
+      </table>
+    </div>
 
     <!-- REMOVE ACTIVITIES TABLE -->
-    <div class="dc-activities-table" data-ng-show="removedTable">
-      <div class="dc-removed-table-title"><h3>Removed Activities</h3></div>
-      <table class="table table-striped table-compact table-bordered">
-        <tr>
-          <th class="dc-text-hidden" scope="col">ID</th>
-          <th class="dc-text-center" scope="col">Activity</th>
-          <th class="dc-text-center" scope="col">Points</th>
-          <th class="dc-text-center" scope="col" data-ng-show="showAction">Action</th>
-        </tr>
-        <tr data-ng-repeat="activity in removedActivitiesList">
-          <td class="dc-text-hidden dc-text-center" data-ng-bind="activity.id"></td>
-          <td class="dc-text-left dc-cell-padding" data-ng-bind="activity.name"></td>
-          <td class="dc-text-center dc-cell-padding" data-ng-bind="activity.points"></td>
-          <td class="dc-text-center" data-ng-show="showAction"><button class="btn btn-primary" data-ng-click="update(activity)">Add</button></td>
-        </tr>
-      </table><!-- End removed activities table -->
-    </div><!-- End removed activties table DIV -->
+    <div data-ng-show="removedTable">
+      <h2>Removed Activities</h2>
+      <div class="dc-points-configuration-table-container">
+        <table class="table table-striped table-compact table-bordered">
+          <tr>
+            <th class="dc-text-hidden" scope="col">ID</th>
+            <th class="dc-text-center" scope="col">Activity</th>
+            <th class="dc-text-center" scope="col">Points</th>
+            <th class="dc-text-center" scope="col" data-ng-show="showAction">Action</th>
+          </tr>
+          <tr data-ng-repeat="activity in removedActivitiesList">
+            <td class="dc-text-hidden dc-text-center" data-ng-bind="activity.id"></td>
+            <td class="dc-text-left" data-ng-bind="activity.name"></td>
+            <td class="dc-text-center" data-ng-bind="activity.points"></td>
+            <td class="dc-text-center" data-ng-show="showAction"><button class="btn btn-primary" data-ng-click="update(activity)">Add</button></td>
+          </tr>
+        </table>
+      </div>
+    </div>
 
-  </div><!-- Closing tag for main -->
-
-</div><!-- Closing tag for controller -->
-</div><!-- Closing tag for gallery app -->
+  </div>
+</div>

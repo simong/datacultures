@@ -1,0 +1,47 @@
+<div class="dc-disclaimer alert alert-info">
+  <p><strong>Disclaimer: </strong>Some activity points (e.g. Discussions) may not show up immediately on the Engagement Index.</p>
+</div>
+
+<div data-ng-if="!api.user.me.roles.instructor">
+
+  <div data-ng-include="'engagement_index_user_info.html'"></div>
+
+  <div class="dc-score-jump-link">
+    <a data-ng-click="api.util.scrollToElement('dc-engagement-index-table-id-' + currStudent.id)" class="dc-mouse-pointer">Go to my score &darr;</a>
+  </div>
+
+  <hr />
+</div>
+
+<div class="dc-sort-controls">
+  <form class="form-inline">
+    <input type="text" class="dc-engagement-search form-control" placeholder="Search for student..." data-ng-model="search.$">
+    <input type="text" class="dc-engagement-search form-control dc-engagement-search-section" placeholder="Filter by section..." data-ng-model="search.section">
+  </form>
+</div>
+
+<table class="table table-striped table-bordered dc-table-striped-border dc-table-margin">
+  <thead class="dc-header-color">
+    <tr class="dc-header-title dc-mouse-pointer">
+      <th data-ng-click="predicate='sortable_name'; reverse=!reverse; showcaretStudent=!showcaretStudent" data-ng-class="{ dropup: showcaretStudent }">Student <span class="caret"></span></th>
+      <th data-ng-click="predicate='section'; reverse=!reverse; showcaretSection=!showcaretSection" data-ng-class="{ dropup: showcaretSection }">Section <span class="caret"></span></th>
+      <th data-ng-if="api.user.me.roles.instructor" data-ng-click="predicate='share'; reverse=!reverse; showcaretShare=!showcaretShare" data-ng-class="{ dropup: showcaretShare }">Share <span class="caret"></span></th>
+      <th data-ng-click="predicate='points'; reverse=!reverse; showcaretPoints=!showcaretPoints" data-ng-class="{ dropup: showcaretPoints }">Points <span class="caret"></span></th>
+      <th data-ng-click="predicate='points'; reverse=!reverse; showcaretPercentile=!showcaretPercentile" data-ng-class="{ dropup: showcaretPercentile }">Percentile <span class="caret"></span></th>
+      <th data-ng-click="predicate='last_activity_date'; reverse=!reverse; showcaretLastPoint=!showcaretLastPoint" data-ng-class="{ dropup: showcaretLastPoint }">Last Point Earned <span class="caret"></span></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-attr-id="dc-engagement-index-table-id-{{student.id}}" data-ng-repeat="student in people | orderBy:predicate:!reverse | filter:search:strict" data-ng-class="{'info': student.highlight}">
+      <td class="col-sm-2" data-ng-bind="student.name"></td>
+      <td class="col-sm-2" data-ng-bind="student.section"></td>
+      <td data-ng-if="api.user.me.roles.instructor" class="col-sm-2">
+        <span data-ng-if="student.share">Yes</span>
+        <span data-ng-if="!student.share">No</span>
+      </td>
+      <td class="col-sm-2" data-ng-bind="student.points"></td>
+      <td class="col-sm-2" data-ng-bind="student.studentPercentile"></td>
+      <td class="col-sm-3" data-ng-bind="student.last_activity_date"></td>
+    </tr>
+  </tbody>
+</table>

@@ -7,8 +7,6 @@
   <meta name="description" content="Datacultures Website" />
   <title data-ng-bind="title">DataCultures</title>
 
-  <noscript><meta http-equiv="Refresh" content="0; URL=/enable-javascript.html"></noscript>
-
   <!-- Included CSS Files -->
   <%= stylesheet_link_tag "application", :media => '' %>
 
@@ -16,8 +14,7 @@
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
 </head>
-
-  <body>
-    <%= yield %>
-  </body>
+<body class="dc-main">
+  <%= yield %>
+</body>
 </html>

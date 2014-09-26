@@ -3,13 +3,15 @@
   'use strict';
 
   angular.module('datacultures.services').service('apiService', function(
+    httpService,
     userService,
-    httpService) {
+    utilService) {
 
     // API
     var api = {
       http: httpService,
-      user: userService
+      user: userService,
+      util: utilService
     };
 
     return api;
