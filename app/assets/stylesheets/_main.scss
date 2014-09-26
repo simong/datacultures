@@ -1,0 +1,67 @@
+// Headers
+h1, h2, h3 {
+  font-weight: normal;
+  margin: 10px 0;
+}
+h1 {
+  font-size: 36px;
+}
+h2 {
+  font-size: 24px;
+}
+
+// Labels
+label {
+  cursor: pointer;
+  font-weight: normal;
+}
+
+// Bootstrap overrides
+.btn-default {
+  background: #eee;
+}
+
+// Clear Float Fixes
+.dc-clearfix {
+  clear: both;
+}
+.dc-clearfix-container:before,
+.dc-clearfix-container:after {
+  content: " ";
+  display: table;
+}
+.dc-clearfix-container:after {
+  clear: both;
+}
+
+// Images
+.dc-image-responsive {
+  background-position: top;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+// Floats
+.dc-float-left {
+  float: left;
+}
+.dc-float-right {
+  float: right;
+}
+
+// Main container
+.dc-main {
+  margin: 20px;
+}
+
+// Text
+.dc-text-left {
+  text-align: left;
+}
+.dc-text-hidden {
+  display: none;
+}
+.dc-text-center {
+  text-align: center;
+}
+

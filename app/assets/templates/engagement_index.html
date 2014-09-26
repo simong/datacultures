@@ -1,19 +1,18 @@
-<div data-ng-cloak data-ng-controller="EngagementIndexController" class="dc-engagement-index" autoscroll="false">
+<div data-ng-controller="EngagementIndexController" class="dc-engagement-index" autoscroll="false" data-ng-if="api.user.me.canvas_user_id">
 
-  <div class="dc-main">
+  <h1>Engagement Index</h1>
 
-    <h2 class="dc-header-h2">Engagement Index</h2>
+  <!-- Landing Page -->
+  <div data-ng-if="!api.user.me.roles.instructor && !currStudent.has_answered_share_question" data-ng-include="'engagement_index_landing.html'"></div>
 
-    <div class="dc-disclaimer alert alert-info">
-      <p><strong>Note: </strong></span>You have chosen to not share your points on the Engagement Index.</p>
-    </div>
+  <div data-ng-if="currStudent.has_answered_share_question || api.user.me.roles.instructor">
 
-    <!-- Student Score Info -->
-    <div class="dc-user-info">
-      <span class="dc-user-info-text dc-user-info-text-points">Your Points: <span data-ng-bind="currStudent.points"></span></span>
-      <span class="dc-user-info-text">Your Percentile: <span data-ng-bind="currStudent.studentPercentile"></span></span>
-      <span class="dc-user-info-text">Last Point Earned: <span data-ng-bind="currStudent.last_activity_date"></span></span>
-    </div><!-- End of student score info -->
+    <!-- Not Share -->
+    <div data-ng-if="!api.user.me.roles.instructor && !currStudent.share" data-ng-include="'engagement_index_not_share.html'"></div>
 
-  </div><!-- End of main div -->
-</div><!-- End of dc-engagement-index -->
+    <!-- Share or Instructor -->
+    <div data-ng-if="api.user.me.roles.instructor || currStudent.share" data-ng-include="'engagement_index_list.html'"></div>
+
+  </div>
+
+</div>
