@@ -5,6 +5,9 @@ require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
 require 'factory_girl'
 
+# for api calls in controller specs.  possible refactor to (theoretical) controller_spec_helper.rb
+USER_STRUCT = OpenStruct.new({canvas_id: 5})
+
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
 # run as spec files by default. This means that files in spec/support that end

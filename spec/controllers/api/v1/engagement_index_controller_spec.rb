@@ -30,6 +30,7 @@ RSpec.describe Api::V1::EngagementIndexController, :type => :controller do
     it "responds with a JSON" do
       activity = Activity.create! valid_activity_attributes
       student = Student.create! valid_student_attributes
+      allow(controller).to receive(:current_user).and_return(USER_STRUCT)
       get :index, {format: :json}, valid_session
       expect(JSON.parse(response.body)["students"][0]["name"]).to eq("Nolan Chan")
 
@@ -40,6 +41,7 @@ RSpec.describe Api::V1::EngagementIndexController, :type => :controller do
       FactoryGirl.create(:activity, canvas_user_id: 2)
       activity = Activity.create! valid_activity_attributes
       student = Student.create! valid_student_attributes
+      allow(controller).to receive(:current_user).and_return(USER_STRUCT)
       get :index, {format: :json}, valid_session
       expect(JSON.parse(response.body)["students"].count).to eq(2)
     end
