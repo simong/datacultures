@@ -18,7 +18,7 @@ class Api::V1::EngagementIndexController < ApplicationController
         student_hash[:id] = id
         student_hash[:name] = student[:name]
         student_hash[:sortable_name] = student[:sortable_name]
-        student_hash[:points] = student_points[student[:canvas_user_id]] || 0 #if points exist for user, then set to points, else 0
+        student_hash[:points] = student_points[current_user.canvas_id] || 0 #if points exist for user, then set to points, else 0
         student_hash[:position] = 1
         student_hash[:section] = student[:section]
         student_hash[:share] = student[:share]
@@ -27,8 +27,8 @@ class Api::V1::EngagementIndexController < ApplicationController
       end
       engagement_index_json = {}
       engagement_index_json["students"] = students_array.sort_by {|h| h[:id]}
-      engagement_index_json["current_canvas_user"] = students.where({canvas_user_id: session[:canvas_user_id].to_i.to_i}).first
-      engagement_index_json["current_canvas_user_points"] = student_points[session[:canvas_user_id].to_i.to_i] || 0
+      engagement_index_json["current_canvas_user"] = students.where({canvas_user_id: current_user.canvas_id}).first
+      engagement_index_json["current_canvas_user_points"] = student_points[current_user.canvas_id] || 0
       return engagement_index_json
     end
 end
