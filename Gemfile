@@ -17,9 +17,9 @@ gem 'httparty',                '~> 0.13'
 gem 'thor',                    '~> 0.19'
 gem 'thor-rails',              '~> 0.0'
 
-# workers & scheduling
-gem 'sidekiq',                 '~> 3.2'
-gem 'sidetiq',                 '~> 0.6'
+## workers & scheduling
+#gem 'sidekiq',                 '~> 3.2'
+#gem 'sidetiq',                 '~> 0.6'
 
 # styling
 gem 'bootstrap-sass',          '~> 3.2.0'
@@ -50,10 +50,6 @@ gem 'haml',                    '~> 4.0'
 # LTI support
 gem 'ims-lti', :git => 'https://github.com/instructure/ims-lti.git'
 
-group :development do
-  gem 'pry-rails',             '~> 0.3'
-end
-
 group :test do
   gem 'page-object',           '~> 1.0'
   gem 'webmock',               '~> 1.18'
@@ -65,16 +61,19 @@ group :development, :test do
   gem 'guard-rspec',           '~> 4.2'
   gem 'selenium-webdriver',    '~> 2.42'
 
+  # Debugging
+  gem 'byebug',                '~> 3.1'
+  gem 'pry-rails',             '~> 0.3'
+
   gem 'simplecov',             '~> 0.7', require: false
 
   gem 'capybara',              '~> 2.3'
   gem 'shoulda-matchers',      '~> 2.6', require: false
 
-  # Factories
+  # Factories & DataBase manipulation
   gem 'factory_girl',          '~> 4.4'
   gem 'factory_girl_rails',    '~> 4.4'
   gem 'database_cleaner',      '~> 1.3'
-  gem 'byebug',                '~> 3.1'
 end
 
 group :production  do
