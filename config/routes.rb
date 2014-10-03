@@ -10,16 +10,17 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       resources :activities, only: [:index, :show, :create, :update]
-      get '/user_info/me' => 'user_info#show', defaults: { format: 'json'}
-      get '/engagement_index/data' => 'engagement_index#index', defaults: { format: 'json'}
-      post '/students/:canvas_id' => 'students#update'
-      get '/students/:canvas_id' => 'students#show'
+      get '/user_info/me'            => 'user_info#show', defaults: { format: 'json'}
+      get '/engagement_index/data'   => 'engagement_index#index', defaults: { format: 'json'}
+      post '/students/:canvas_id'    => 'students#update'
+      get '/students/:canvas_id'     => 'students#show'
       get '/gallery/index' => 'gallery#index', defaults: { format: 'json'}
       resources :points_configuration, only: [:index, :update]
-      post '/comments/new(/:comment_id)' => 'comments#create'
+      post '/comments/new'           => 'comments#create'
+      get '/comments/:attachment_id' => 'comments#show'
       resources :likes, only: [:index, :create]
-      put '/likes' => 'likes#update'
-      patch '/likes' => 'likes#update'
+      put '/likes'                   => 'likes#update'
+      patch '/likes'                 => 'likes#update'
     end
   end
 
