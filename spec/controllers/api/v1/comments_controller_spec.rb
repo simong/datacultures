@@ -2,13 +2,13 @@ require 'rails_helper'
 
 RSpec.describe Api::V1::CommentsController, :type => :controller do
 
-  let(:valid_comment_json_response) {
+  let(:valid_comment_json) {
     {
-      commentID: 1,
-      photoID: 10,
+      attachment_id: 10,
       content: "This is a practice comment"
     }
   }
+
   before(:all) do
     PointsConfiguration.delete_all
     Activity.delete_all
@@ -18,25 +18,30 @@ RSpec.describe Api::V1::CommentsController, :type => :controller do
 
   describe "POST update" do
 
-    it "responds with a 200 with valid params" do
+    before(:all) do
+      FactoryGirl.create(:student, name: 'Ford Prefect', canvas_user_id: 5)
+    end
+
+    before(:each) do
       allow(controller).to receive(:current_user).and_return(USER_STRUCT)
+    end
+
+    it "creates a comment when submitted to with valid params" do
       expect{
-        post :create, valid_comment_json_response
+        post :create, valid_comment_json
       }.to change(Comment, :count).by(1)
     end
 
     it "responds with a 400 with invalid params" do
-      allow(controller).to receive(:current_user).and_return(USER_STRUCT)
-      valid_comment_json_response.delete(:commentID)
-      post :create, valid_comment_json_response
+      valid_comment_json.delete(:attachment_id)
+      post :create, valid_comment_json
       expect(response.response_code).to eq(400)
     end
 
     it "does not create a new object with invalid params" do
-      allow(controller).to receive(:current_user).and_return(USER_STRUCT)
       expect{
-        valid_comment_json_response.delete(:commentID)
-        post :create, valid_comment_json_response
+        valid_comment_json.delete(:attachment_id)
+        post :create, valid_comment_json
       }.to change(Comment, :count).by(0)
     end
 
