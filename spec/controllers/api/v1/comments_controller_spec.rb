@@ -19,7 +19,11 @@ RSpec.describe Api::V1::CommentsController, :type => :controller do
   describe "POST update" do
 
     before(:all) do
-      FactoryGirl.create(:student, name: 'Ford Prefect', canvas_user_id: 5)
+      FactoryGirl.create(:student, name: 'Ford Prefect of the Comments Controller', canvas_user_id: 5)
+    end
+
+    after(:all) do
+      Student.delete_all
     end
 
     before(:each) do
