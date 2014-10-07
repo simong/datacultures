@@ -12,11 +12,15 @@ class ApplicationController < ActionController::Base
     #  If this must be extended with the ActiveRecord object, perhaps use '.user' or '.local_user'
 
     def canvas_id
-      session[:canvas][:user_id].to_i
+      session && session['canvas'] && session['canvas']['user_id']
     end
 
     def user_name
-      session[:canvas][:user_name]
+      session && session['canvas'] && session['canvas']['user_name']
+    end
+
+    def user_roles
+      session && session['canvas'] && session['canvas']['user_roles']
     end
   end
 
