@@ -6,10 +6,11 @@ class Student < ActiveRecord::Base
       request_object = Canvas::ApiRequest.new({base_url: AppConfig::CourseConstants.base_url, api_key: AppConfig::CourseConstants.api_key})
       profile_response = request_object.request.get('api/v1/users/'+canvas_id.to_s+'/profile')
       profile = profile_response.body
+      logger.debug "profile="+profile.inspect
       student_data = {share: false, has_answered_share_question: false, canvas_user_id: canvas_id,
                       sis_user_id: -1, section: 'Unknown',
-                      primary_email: profile['primary_email'],
-                      name: profile['name'], sortable_name: profile['sortable_name'] }
+                      primary_email: profile['primary_email'] || '',
+                      name: profile['name'] || '', sortable_name: profile['sortable_name'] || '' }
       Student.create(student_data)
     end
 
