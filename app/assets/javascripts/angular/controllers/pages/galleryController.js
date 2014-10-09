@@ -6,9 +6,6 @@
     $scope.imageID = $routeParams.imageID;
 
     galleryFactory.getSubmissions().success(function(results) {
-      if (!results.length) {
-        return;
-      }
       $scope.items = results.files;
       $scope.currentUser = $scope.items.pop();
       $scope.item = $scope.submission();
