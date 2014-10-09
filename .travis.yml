@@ -1,4 +1,4 @@
-bundler_args: --without development testext production
+bundler_args: --without production --jobs=4 --retry=5
 
 rvm:
   - "2.1.1"
@@ -12,6 +12,7 @@ before_install:
   - "npm -g install jscs"
   - "gem install scss-lint"
   - "scss-lint ."
-  - "bundle install"
+
+before_script:
   - "bin/rake db:create"
   - "bin/rake db:migrate"
