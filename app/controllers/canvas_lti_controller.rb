@@ -11,6 +11,7 @@ class CanvasLtiController < ApplicationController
     provider = IMS::LTI::ToolProvider.new(consumer_key, consumer_secret, params)
     ## Verify OAuth signature by passing the request object
     #if provider.valid_request?(request)
+      Student.ensure_student_record_exists_by_canvas_id(params[:custom_canvas_user_id])
       session[:canvas] ||= {}
       session[:canvas][:user_roles]  = provider.roles
       session[:canvas][:user_id]     = params[:custom_canvas_user_id]
