@@ -90,6 +90,9 @@
     float: left;
     margin: 8px;
     padding: 2px;
+    img {
+      max-width: 100%;
+    }
   }
   .dc-thumbnail-hover {
     list-style-type: none;
