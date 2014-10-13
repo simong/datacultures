@@ -1,20 +1,25 @@
 (function(angular) {
   'use strict';
 
-  angular.module('datacultures.controllers').controller('GalleryController', function(galleryFactory, $scope, $routeParams) {
+  angular.module('datacultures.controllers').controller('GalleryController', function(galleryFactory, userInfoFactory, $scope, $routeParams) {
 
     $scope.imageID = $routeParams.imageID;
 
-    galleryFactory.getSubmissions().success(function(results) {
-      $scope.items = results.files;
-      $scope.currentUser = $scope.items.pop();
-      $scope.item = $scope.submission();
-      $scope.path = $scope.item.source;
-
-      galleryFactory.getComments($scope.imageID).success(function(results) {
+    userInfoFactory.me().success(function(data) {
+      $scope.currentUser = data;
+    }).then(function() {
+      return galleryFactory.getSubmissions().success(function(results) {
+        $scope.items = results.files;
+        $scope.item = $scope.submission();
+        // $scope.path = $scope.item.source;
+      });
+    }).then(function() {
+      if (!$scope.imageID) {
+        return;
+      }
+      return galleryFactory.getComments($scope.imageID).success(function(results) {
         $scope.item.comments = results;
       });
-
     });
 
     // FILTER & MODULES
