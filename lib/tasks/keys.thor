@@ -28,7 +28,7 @@ class Keys < Thor
   def lti_new
     Datacultures::Keys.update_lti_keys
     AppConfig.load_app_settings
-    list
+    lti_list
   end
 
 end
