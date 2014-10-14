@@ -1,6 +1,7 @@
 class CanvasLtiController < ApplicationController
   require 'ims/lti'
   require 'open-uri'
+  require 'oauth/request_proxy/rack_request'
   skip_before_action :verify_authenticity_token, :set_x_frame_options_header
   before_action :disable_xframe_options
   helper_method :launch_url
