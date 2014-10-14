@@ -9,18 +9,18 @@ class CanvasLtiController < ApplicationController
     consumer_key = AppConfig::CourseConstants.lti_key
     consumer_secret = AppConfig::CourseConstants.lti_secret
     provider = IMS::LTI::ToolProvider.new(consumer_key, consumer_secret, params)
-    ## Verify OAuth signature by passing the request object
-    #if provider.valid_request?(request)
-      Student.ensure_student_record_exists_by_canvas_id(params[:custom_canvas_user_id])
+    # Verify OAuth signature by passing the request object
+    if provider.valid_request?(request)
+      Student.ensure_student_record_exists(params)
       session[:canvas] ||= {}
-      session[:canvas][:user_roles]  = provider.roles
-      session[:canvas][:user_id]     = params[:custom_canvas_user_id]
-      session[:canvas][:user_name]   = params['lis_person_name_full']
+      session[:canvas][:user_roles]  = (params['roles'] || '').split(',')
+      session[:canvas][:user_id]     = params[:custom_canvas_user_id] || ''
+      session[:canvas][:user_name]   = params['lis_person_name_full'] || ''
       render
-    #else
-    #  # handle invalid OAuth
-    #  # policy not yet set
-    #end
+    else
+      # handle invalid OAuth
+      # policy not yet set
+    end
 
   end
 

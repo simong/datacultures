@@ -3,6 +3,20 @@ require 'spec_helper'
 
 RSpec.describe Student, :type => :model do
 
+  let(:student_data) do
+    { 'primary_email' => 'fox@vulpes.net', 'name' => 'Reynard Fox',
+      'sortable_name' => 'Fox, Reynard' }
+  end
+
+  # let(:fox) do
+  #   student_data.
+  # end
+
+  let(:params) do
+    {'lis_person_name_family' => 'Fox', 'lis_person_name_given' => 'Reynard', 'custom_canvas_user_id' => '4',
+     'lis_person_name_full' => 'Reynard Fox', 'lis_person_contact_email_primary' => 'fox@vulpes.net' }
+  end
+
   describe "Student" do
     it "has a valid factory" do
       expect(FactoryGirl.build(:student)).to be_valid
@@ -20,28 +34,50 @@ RSpec.describe Student, :type => :model do
 
   end
 
-  context "Class methods" do
+  context 'Instance Methods' do
 
-    describe '::ensure_student_record_exists_by_canvas_id' do
+    describe '#update_if_needed' do
 
-      CANVAS_STUDENT_PROFILE_DATA = { 'primary_email' => 'fox@vulpes.net', 'name' => 'Reynard the Fox',
-                                      'sortable_name' => 'Fox, Reynard the' }
-      it 'creates the student record if it does not exist' do
-        stub_request(:get,AppConfig::CourseConstants.base_url + 'api/v1/users/4/profile').
-          to_return({status: 200, body: CANVAS_STUDENT_PROFILE_DATA })
-        expect{Student.ensure_student_record_exists_by_canvas_id(4)}.to change{Student.count}.by(1)
+      let(:student) { FactoryGirl.create(:student, student_data)}
+
+      it "does not touch the record if no values have changed" do
+        student = FactoryGirl.create(:student, student_data)
+        expect(student.update_if_needed(student_data)).to be_nil
       end
 
-      it 'does not create new record if the student already exists' do
-        stub_request(:get,AppConfig::CourseConstants.base_url + 'api/v1/users/4/profile').
-            to_return({status: 200, body: CANVAS_STUDENT_PROFILE_DATA })
-        FactoryGirl.create(:student, canvas_user_id: 4)
-        expect{Student.ensure_student_record_exists_by_canvas_id(4)}.to_not change{Student.count}
+      it "updates the record if something has changed" do
+        student = FactoryGirl.create(:student, name: 'Reynard')
+        new_student_data = student_data
+        new_student_data['primary_email']  = 'bazing@baring.fooing'
+        expect(student.update_if_needed(new_student_data)).to eq(true)
       end
 
     end
 
   end
+
+  context "Class methods" do
+
+    describe '::ensure_student_record_exists_by_canvas_id' do
+
+      it 'creates the student record if it does not exist' do
+        expect{Student.ensure_student_record_exists(params)}.to change{Student.count}.by(1)
+      end
+
+      it 'does not create new record if the student already exists' do
+        FactoryGirl.create(:student, {canvas_user_id: params['custom_canvas_user_id']})
+        expect{Student.ensure_student_record_exists(params)}.to_not change{Student.count}
+      end
+
+      it 'updates the record if the data has changed' do
+        FactoryGirl.create(:student, {canvas_user_id: params['custom_canvas_user_id'], name: 'Reynard Fox'})
+        expect{Student.ensure_student_record_exists(params)}.to_not change{Student.find_by_canvas_user_id(4).name}
+      end
+
+    end
+
+  end
+
 end
 
 

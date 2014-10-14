@@ -1,21 +1,11 @@
 class Student < ActiveRecord::Base
   has_many :activities
 
-  def self.ensure_student_record_exists_by_canvas_id(canvas_id)
-    if Student.find_by_canvas_user_id(canvas_id).nil?
-      request_object = Canvas::ApiRequest.new({base_url: AppConfig::CourseConstants.base_url, api_key: AppConfig::CourseConstants.api_key})
-      profile_response = request_object.request.get('api/v1/users/'+canvas_id.to_s+'/profile')
-      profile = profile_response.body
-      logger.debug "profile="+profile.inspect
-      student_data = {share: false, has_answered_share_question: false, canvas_user_id: canvas_id,
-                      sis_user_id: -1, section: 'Unknown',
-                      primary_email: profile['primary_email'] || '',
-                      name: profile['name'] || '', sortable_name: profile['sortable_name'] || '' }
-      Student.create(student_data)
-    end
+  require 'array_refinement'
+  using ArrayRefinement
 
-  end
-
+  DEFAULT_USER_ATTRIBUTES = { share: false, has_answered_share_question: false,
+                              sis_user_id: -1, section: 'Unknown'}
 
   # expire cache of students in the current course
   def self.reset_students_by_id!
@@ -26,7 +16,37 @@ class Student < ActiveRecord::Base
     ## using "pluck" gives the less readable [0] and [1] compared to ".id" and ".name" but it does not
     #    instantiate an ActiveRecord object for each.
     Student.all.pluck(:id, :name).inject({}){|memo, student|
-       memo.merge!({student[0] => student[1]})}
+      memo.merge!({student[0] => student[1]})}
+  end
+
+  # make sure the Student record exists, and is up to date
+  def self.ensure_student_record_exists(params)
+    # canvas_user_id *is* specific, but cannot change for the Student and so is ignored in those hashes
+    sortable_user_name = [params['lis_person_name_family'], params['lis_person_name_given']].name_sortable
+    new_specifics      = [params, sortable_user_name].personal_data
+    existing_student = Student.find_by_canvas_user_id(params["custom_canvas_user_id"])
+    if (existing_student.nil?)
+      Student.create(self.full_student_data(new_specifics, params))
+    else
+      existing_student.update_if_needed(new_specifics)
+    end
+  end
+
+  def self.full_student_data(new_specifics, params)
+    full_student_data = DEFAULT_USER_ATTRIBUTES.merge(new_specifics).merge({canvas_user_id: params["custom_canvas_user_id"]})
+  end
+
+  def update_if_needed(new_specifics)
+    existing_specifics = {name: name, primary_email: primary_email, sortable_name: sortable_name}
+    if (new_specifics.symbolize_keys != existing_specifics)
+      update_attributes(new_specifics)
+    end
+  end
+
+  # update other records where name has been copied.
+  def update_other_tables(new_attributes)
+    # Comments should use new name value
+    Comment.where({authors_canvas_id: new_attributes[:canvas_user_id]}).update_all({author: new_attributes[:name]})
   end
 
 end
