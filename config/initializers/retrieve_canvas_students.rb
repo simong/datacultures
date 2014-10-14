@@ -17,7 +17,6 @@ def retrieve_canvas_students()
       user_attributes[:sortable_name] = user["sortable_name"]
       user_attributes[:canvas_user_id] = user["id"].to_i
       user_attributes[:sis_user_id] = user["sis_user_id"] || -1
-      user_attributes[:share] = false
       user_attributes[:section] = "Unknown"
 
       # we can't use #find_or_create_by as if any other attributes differ but canvas_user_id value is already
