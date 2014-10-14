@@ -10,8 +10,6 @@
     }).then(function() {
       return galleryFactory.getSubmissions().success(function(results) {
         $scope.items = results.files;
-        $scope.item = $scope.submission();
-        // $scope.path = $scope.item.source;
       });
     }).then(function() {
       if (!$scope.imageID) {
@@ -43,8 +41,7 @@
     };
 
     $scope.appliedFilters = {
-      filters: [
-      ]
+      filters: []
     };
 
     $scope.filterModules = {
