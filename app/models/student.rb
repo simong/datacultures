@@ -12,10 +12,10 @@ class Student < ActiveRecord::Base
   end
 
   # This data is very cachable
-  def self.get_students_by_id
+  def self.get_students_by_canvas_id
     ## using "pluck" gives the less readable [0] and [1] compared to ".id" and ".name" but it does not
     #    instantiate an ActiveRecord object for each.
-    Student.all.pluck(:id, :name).inject({}){|memo, student|
+    Student.all.pluck(:canvas_user_id, :name).inject({}){|memo, student|
       memo.merge!({student[0] => student[1]})}
   end
 
