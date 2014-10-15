@@ -9,7 +9,7 @@
     var defineRoles = function() {
       var roles = {};
       if (me && me.canvas_roles) {
-        roles.instructor = (me.canvas_roles.indexOf('instructor') !== -1);
+        roles.instructor = (me.canvas_roles.indexOf('Instructor') !== -1);
       }
       me.roles = roles;
     };
