@@ -17,7 +17,7 @@ class Canvas::SubmissionsProcessor
       scored_submissions = []
     end
 
-    smap =  Student.get_students_by_id
+    smap =  Student.get_students_by_canvas_id
 
     # TODO: move back further - maybe as early as PagedApiProcessor; and create if needed here
     attachment_processor = Canvas::AttachmentsProcessor.new({})
@@ -26,18 +26,17 @@ class Canvas::SubmissionsProcessor
       user_id    = submission['user_id']
       assignment_id = submission['assignment_id']
       attachment_data = []
-      if  submission['attachments']
-        previously_credited = Activity.where({canvas_scoring_item_id: submission['assignment_id'],
-            reason: 'Submission', canvas_user_id: submission['user_id']}).first
 
-        ## Attachments on a submission are processed in two cases:
-        #     1. It has not been done before for this student and this assignment, or
-        #     2. The assignment has been resubmitted (the date is after the already credited date)
-        if previously_credited.nil? || (previously_credited.canvas_updated_at.to_time != Time.parse(submission['submitted_at']))
-          attachment_processor.attachment_conf = { content_type:submission['content-type'], canvas_user_id: submission['user_id'],
-             assignment_id: submission['assignment_id'], submission_id: submission['id'], author: smap[submission['user_id']]}
-          attachment_processor.call(submission['attachments'])
-          previously_credited.update_attribute(:canvas_updated_at, submission['submitted_at']) if previously_credited
+      has_url = (submission['url'] && !submission['url'].empty?)
+      if (has_url || submission['attachments'])
+        previously_credited = Activity.where({canvas_scoring_item_id: submission['assignment_id'],
+                                              reason: 'Submission', canvas_user_id: submission['user_id']}).first
+        if has_url
+            MediaUrl.process_submission_url(url: submission['url'], canvas_user_id: user_id,
+                                            assignment_id: assignment_id, author: smap[user_id])
+        end
+        if  submission['attachments']
+          process_attachments_to_submission(attachment_processor, smap, submission, previously_credited)
         end
       end
 
@@ -50,6 +49,22 @@ class Canvas::SubmissionsProcessor
       end
     end
 
+  end
+
+  def process_attachments_to_submission(attachment_processor, smap, submission, previously_credited)
+    ## Attachments on a submission are processed in two cases:
+    #     1. It has not been done before for this student and this assignment, or
+    #     2. The assignment has been resubmitted (the date is after the already credited date)
+    if needs_processing?(previously_credited, submission['submitted_at'])
+      attachment_processor.attachment_conf = {content_type: submission['content-type'], canvas_user_id: submission['user_id'],
+                                              assignment_id: submission['assignment_id'], submission_id: submission['id'], author: smap[submission['user_id']]}
+      attachment_processor.call(submission['attachments'])
+      previously_credited.update_attribute(:canvas_updated_at, submission['submitted_at']) if previously_credited
+    end
+  end
+
+  def needs_processing?(previously_credited, new_date)
+    previously_credited.nil? || (previously_credited.canvas_updated_at.to_time != Time.parse(new_date))
   end
 
 end
