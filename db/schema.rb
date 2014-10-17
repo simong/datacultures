@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141015203016) do
+ActiveRecord::Schema.define(version: 20141017193930) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -36,26 +36,24 @@ ActiveRecord::Schema.define(version: 20141015203016) do
     t.integer  "canvas_user_id"
     t.integer  "assignment_id"
     t.integer  "submission_id"
-    t.integer  "attachment_id"
     t.string   "author"
     t.string   "date"
     t.string   "content_type"
-    t.text     "url"
+    t.text     "image_url"
     t.datetime "deleted_at"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "num_comments"
+    t.integer  "attachment_id"
   end
 
   create_table "comments", force: true do |t|
-    t.integer  "parent_id"
-    t.integer  "comment_id",        null: false
+    t.integer  "parent_id",         null: false
     t.text     "content"
-    t.integer  "submission_id",     null: false
+    t.integer  "attachment_id",     null: false
     t.integer  "authors_canvas_id", null: false
-    t.string   "author"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "author"
   end
 
   create_table "media_urls", force: true do |t|
