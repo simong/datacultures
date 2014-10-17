@@ -36,6 +36,7 @@ ActiveRecord::Schema.define(version: 20141017193930) do
     t.integer  "canvas_user_id"
     t.integer  "assignment_id"
     t.integer  "submission_id"
+    t.integer  "attachment_id"
     t.string   "author"
     t.string   "date"
     t.string   "content_type"
@@ -43,17 +44,16 @@ ActiveRecord::Schema.define(version: 20141017193930) do
     t.datetime "deleted_at"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "attachment_id"
   end
 
   create_table "comments", force: true do |t|
-    t.integer  "parent_id",         null: false
+    t.integer  "parent_id"
     t.text     "content"
     t.integer  "attachment_id",     null: false
     t.integer  "authors_canvas_id", null: false
+    t.string   "author"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "author"
   end
 
   create_table "media_urls", force: true do |t|
