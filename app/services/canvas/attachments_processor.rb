@@ -12,7 +12,7 @@ class Canvas::AttachmentsProcessor
        delete_all
     attachments.each do |attachment|
       Attachment.create(attachment_conf.merge({date: Time.parse(attachment['updated_at']).to_s(:gallery),
-                        attachment_id: attachment['id'], url: attachment['url'], content_type: attachment['content-type']})
+                        attachment_id: attachment['id'], image_url: attachment['url'], content_type: attachment['content-type']})
       )
      end
   end

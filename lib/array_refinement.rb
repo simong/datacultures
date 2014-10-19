@@ -15,6 +15,28 @@ module ArrayRefinement
       }
     end
 
+    def image_hash
+      map(&:serializable_hash).each{ |image, image_id|
+        image['id'] = "#{image['assignment_id']}-#{image['id']}"
+        image['type'] = 'image'
+      }
+    end
+
+    def video_hash
+      map{|media_url|
+        {
+            media_url.site_tag.to_sym => media_url.site_id,
+            canvas_user_id: media_url.canvas_user_id,
+            assignment_id: media_url.canvas_assignment_id,
+            author: media_url.author,
+            id: "#{media_url.canvas_assignment_id}-#{media_url.id}",
+            type: 'video',
+            image_url: Video::Metadata.thumbnail_url(media_url.site_tag, media_url.site_id)
+        }
+      }
+
+    end
+
   end
 
 end

@@ -25,6 +25,7 @@ RSpec.describe Canvas::AttachmentsProcessor, type: :model do
       expect{processor.call(attachment_json)}.to change{Attachment.count}.by(1)
     end
 
+    # equivalent to resubmitting with no attachment. Is this possible in Canvas?
     it "erases the old records, even if there are no new records." do
       processor.call(attachment_json)
       expect{processor.call([])}.to change{Attachment.count}.by(-2)

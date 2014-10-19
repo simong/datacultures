@@ -1,10 +1,14 @@
 class Api::V1::GalleryController < ApplicationController
 
+  require 'array_refinement'
+  using ArrayRefinement
+
   # GET /api/v1/gallery/index.json
-  GALLERY_UI_ATTRIBUTES = ['id','canvas_user_id','assignment_id','submission_id','attachment_id', 'author','date','content_type','url']
+  IMAGE_ATTRIBUTES = ['id','canvas_user_id','assignment_id','submission_id','attachment_id', 'author','date','content_type','image_url']
+  VIDEO_ATTRIBUTES = ['id', 'site_tag', 'site_id', 'canvas_user_id', 'canvas_assignment_id', 'author']
   def index
-    image_json = Attachment.select(GALLERY_UI_ATTRIBUTES).to_a.map(&:serializable_hash)
-    video_json = MediaUrl.hash_for_api
+    image_json = Attachment.select(IMAGE_ATTRIBUTES).to_a.image_hash
+    video_json = MediaUrl.select(VIDEO_ATTRIBUTES).to_a.video_hash
     json = image_json + video_json
     render json: {'files' => json}, layout: false
   end

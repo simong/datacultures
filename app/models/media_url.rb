@@ -23,9 +23,4 @@ class MediaUrl < ActiveRecord::Base
 
   end
 
-  def self.hash_for_api
-    all.map{|media_url| {media_url.site_tag.to_sym => media_url.site_id, canvas_user_id: media_url.canvas_user_id,
-             assignment_id: media_url.canvas_assignment_id, author: media_url.author } }
-  end
-
 end
