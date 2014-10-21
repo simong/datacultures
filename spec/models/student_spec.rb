@@ -58,6 +58,25 @@ RSpec.describe Student, :type => :model do
 
   context "Class methods" do
 
+    describe '::create_by_canvas_user_id' do
+
+      it 'does nothing if the student exists' do
+        student_data_with_canvas_id = student_data.merge({canvas_user_id: 17})
+        FactoryGirl.create(:student, student_data_with_canvas_id)
+        expect{Student.create_by_canvas_user_id(17)}.to_not change{Student.count}
+      end
+
+      it 'creates the student record if it does not exist' do
+        student_data_with_canvas_id = student_data.merge({canvas_user_id: 17})
+        stub_request(:get, AppConfig::CourseConstants.base_url + 'api/v1/users/17/profile').
+            to_return({body: {'name' => 'FooBar', 'sortable_name' => 'Bar, Foo',
+                              'primary_email' => 'bar@foo.baz'}})
+        expect{Student.create_by_canvas_user_id(17)}.to change{Student.count}.by(1)
+      end
+
+    end
+
+
     describe '::ensure_student_record_exists_by_canvas_id' do
 
       it 'creates the student record if it does not exist' do

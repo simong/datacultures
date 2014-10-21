@@ -6,6 +6,7 @@ class Student < ActiveRecord::Base
 
   DEFAULT_USER_ATTRIBUTES = { share: false, has_answered_share_question: false,
                               sis_user_id: -1, section: 'Unknown'}
+  USER_PROFILE_FIELDS     =  %w{name sortable_name primary_email}   # fields used from the /api/v1/users/:id/profile call
 
   # expire cache of students in the current course
   def self.reset_students_by_id!
@@ -19,7 +20,22 @@ class Student < ActiveRecord::Base
       memo.merge!({student[0] => student[1]})}
   end
 
-  # make sure the Student record exists, and is up to date
+  # unlike the case for ::ensure_student_record_exists we do not have enough data, and so require
+  #   an API call
+  def self.create_by_canvas_user_id(canvas_user_id)
+    if canvas_user_id && where({canvas_user_id: canvas_user_id}).empty?
+      requester = Canvas::ApiRequest.new({base_url: AppConfig::CourseConstants.base_url,
+                                          api_key: AppConfig::CourseConstants.api_key})
+      student_data = requester.request.get('api/v1/users/'+canvas_user_id.to_s+'/profile').body
+      creation_data = student_data.slice(*USER_PROFILE_FIELDS)
+          .merge('canvas_user_id' => canvas_user_id)
+          .merge(DEFAULT_USER_ATTRIBUTES)
+      Student.create(creation_data)
+    end
+  end
+
+  # make sure the Student record exists, and is up to date.  params hash has given us enough data to
+  #   create the record
   def self.ensure_student_record_exists(params)
     # canvas_user_id *is* specific, but cannot change for the Student and so is ignored in those hashes
     sortable_user_name = [params['lis_person_name_family'], params['lis_person_name_given']].name_sortable

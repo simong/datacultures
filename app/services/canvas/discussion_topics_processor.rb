@@ -11,15 +11,21 @@ class Canvas::DiscussionTopicsProcessor
 
   def call(discussions)
 
+    canvas_student_ids = Student.get_students_by_canvas_id.keys
     if discussions.respond_to?(:each)
       discussions.each do |discussion|
-
         ## API return data might be 'dirty'
+        author_id = discussion && discussion['author'] && discussion['author']['id']
+        if (author_id && !canvas_student_ids.include?(author_id.to_i))
+          Student.create_by_canvas_user_id(author_id)
+          canvas_student_ids << author_id.to_i
+        end
         msg = discussion['message'] || ''
         title = discussion['title'] || ''
         discussion_id = discussion['id']   # discussion's ID, not author's
         base_params = { canvas_updated_at: discussion['last_reply_at'], body: msg + title, canvas_scoring_item_id: discussion_id  }
-        previous_scoring_record = Activity.where({canvas_scoring_item_id: discussion_id, reason: ['DiscussionTopic', 'DiscussionEdit']}).order('updated_at DESC').first
+        previous_scoring_record = Activity.where({canvas_scoring_item_id: discussion_id,
+            reason: ['DiscussionTopic', 'DiscussionEdit']}).order('updated_at DESC').first
 
         if previous_scoring_record
           # we can only tell if this top-level entry was edited from comparing the message values,
@@ -32,8 +38,7 @@ class Canvas::DiscussionTopicsProcessor
           end
         else   # new post
           process_entries = true   # post is new, so last_reply_at is irrelevant -- always check for children
-          if (discussion['author'] && discussion['author']['id'])
-            author_id = discussion['author']['id']
+          if author_id
             Activity.score!(base_params.merge({ reason: 'DiscussionTopic', delta: top_level_post.points_associated,
                                                 score: top_level_post.active,
                                                 canvas_user_id: author_id}))
