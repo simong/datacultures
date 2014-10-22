@@ -22,11 +22,19 @@ RSpec.describe Canvas::SubmissionsProcessor, :type => :model do
     Canvas::SubmissionsProcessor.new({request_object: request_object})
   end
 
+  before(:all) do
+    FactoryGirl.create(:student, {canvas_user_id: 9})
+  end
+
+  after(:all) do
+    Student.delete_all
+  end
+
   context '#call' do
 
     context 'without valid parameters'  do
 
-      it "does not register and Activity without a valid user_id" do
+      it "does not register an Activity without a valid user_id" do
         submission_stream.first['user_id'] = nil
         expect{processor.call(submission_stream)}.to_not change{Activity.count}
       end

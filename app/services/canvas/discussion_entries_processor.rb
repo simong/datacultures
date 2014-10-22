@@ -12,12 +12,18 @@ class Canvas::DiscussionEntriesProcessor
     # get the entries stream, score those not already scored.
     replies = Activity.where({reason: 'DiscussionEntry'}).select(:canvas_scoring_item_id)
     scored_canvas_ids = replies.collect{|a|a.canvas_scoring_item_id}
+    canvas_student_ids = Student.get_students_by_canvas_id.keys
     entries.each do |entry|
       ## TODO: paginate if need be, for all subentries.  This will require more API requests so long as need be.
       #      the scoring loop below can be extracted out to a method;
       #      and another method will be called if ['has_more_entries'] is set
       entries_and_subentries = [entry]   + (entry['recent_replies'] || [])
       entries_and_subentries.each do |e|
+        author_id = e && e['user_id']
+        if (author_id && !canvas_student_ids.include?(author_id.to_i))
+          Student.create_by_canvas_user_id(author_id)
+          canvas_student_ids << author_id.to_i
+        end
         unless !(['id', 'user_id', 'updated_at'].all?{|k| e.key?(k) }) || scored_canvas_ids.include?(e['id'])
           Activity.score!({reason: 'DiscussionEntry', delta: discussion_entry.points_associated,
                            canvas_updated_at: e['updated_at'], body: e['message'], score: discussion_entry.active,

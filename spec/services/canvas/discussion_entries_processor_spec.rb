@@ -28,6 +28,15 @@ RSpec.describe Canvas::DiscussionEntriesProcessor, :type => :model do
   ## simple mock data
   let(:entry_score_change)  {               5        }
 
+  before(:all) do
+    FactoryGirl.create(:student, {canvas_user_id: 11})
+    FactoryGirl.create(:student, {canvas_user_id: 13})
+  end
+
+  after(:all) do
+    Student.delete_all
+  end
+
   context "#call" do
 
     it "scores both children and grandchildren" do

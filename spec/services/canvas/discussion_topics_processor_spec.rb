@@ -34,6 +34,14 @@ RSpec.describe Canvas::DiscussionTopicsProcessor, :type => :model do
     let(:create_score_change) {              12        }
     let(:reply_score_change)  {               5        }
 
+    before(:all) do
+      FactoryGirl.create(:student, {canvas_user_id: 3})
+    end
+
+    after(:all) do
+      Student.delete_all
+    end
+
     context "A new top-level post" do
 
        it "scores the post as a top-level discussion" do
