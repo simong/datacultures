@@ -38,10 +38,10 @@ class Canvas::SubmissionsProcessor
                                               reason: 'Submission', canvas_user_id: submission['user_id']}).first
         if has_url
             MediaUrl.process_submission_url(url: submission['url'], canvas_user_id: user_id,
-                                            assignment_id: assignment_id, author: student_map[user_id])
+                                            assignment_id: assignment_id, author: student_names[user_id])
         end
         if  submission['attachments']
-          process_attachments_to_submission(attachment_processor, student_map, submission, previously_credited)
+          process_attachments_to_submission(attachment_processor, student_names, submission, previously_credited)
         end
       end
 
