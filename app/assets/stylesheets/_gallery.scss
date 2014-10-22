@@ -88,6 +88,7 @@
         color: #f0f0f0;
         opacity: 0;
         position: absolute;
+        width: 100%;
         @include single-transition(all, .5s, ease);
         p {
           font-size: .9em;
