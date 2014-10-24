@@ -6,6 +6,7 @@ gem 'rails',                   '4.1.5'
 # database
 gem 'pg',                      '~> 0.17'
 gem 'paranoia',                '~> 2.0'
+gem 'sidekiq',                 '~> 3.2'
 
 # external requests
 gem 'faraday',                 '~> 0.9'

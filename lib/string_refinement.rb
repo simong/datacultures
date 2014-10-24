@@ -36,6 +36,10 @@ module StringRefinement
       self =~ /vimeo\.com\/(?:video\/)?(\d+)/
       $1 ?  {site_tag: :vimeo_id, site_id: $1} : nil
     end
+
+    def slash_bracket(const_part)
+      empty? ? self : const_part + '/' + self
+    end
   end
 
 end

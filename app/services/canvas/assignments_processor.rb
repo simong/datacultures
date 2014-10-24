@@ -1,5 +1,7 @@
 class Canvas::AssignmentsProcessor
 
+  include CanvasRelativeUrlHelper
+
   attr_accessor :request_object, :submissions_processor, :course, :paged_api_processor
 
   def initialize(conf)
@@ -12,8 +14,10 @@ class Canvas::AssignmentsProcessor
   def call(assignments)
 
     assignments.each do |assignment|
+      processing_url = course_api_url(course: course, final_url: :submissions,
+                                      mid_variable: assignment['id'].to_s, mid_const: :assignments)
       if assignment['has_submitted_submissions']
-        paged_api_processor.call('api/v1/courses/'+course.to_s+'/assignments/'+assignment['id'].to_s+'/submissions?per_page=250')
+        paged_api_processor.call(processing_url)
       end
     end
 
