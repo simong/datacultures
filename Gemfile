@@ -31,7 +31,7 @@ gem 'font-awesome-rails',      '~> 4.2.0.0'
 # JavaScript
 gem 'coffee-rails',            '~> 4.0'
 gem 'jquery-rails',            '~> 3.1.2'
-gem 'angular-gem',             '~> 1.2.25'
+gem 'angular-gem',             '~> 1.3.0'
 
 # https://rubygems.org/gems/ngannotate-rails
 gem 'ngannotate-rails',        '~> 0.10.1'
