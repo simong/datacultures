@@ -4,8 +4,8 @@ class Api::V1::UserInfoController < ApplicationController
   def show
     current_user_info = {
       canvas_user_id:  current_user.canvas_id,
-      canvas_username: current_user.user_name,
-      canvas_roles:    current_user.user_roles
+      canvas_username: current_user.full_name,
+      canvas_roles:    current_user.roles
        }
     render json: current_user_info, layout: false
   end
