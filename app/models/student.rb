@@ -24,8 +24,8 @@ class Student < ActiveRecord::Base
   #   an API call
   def self.create_by_canvas_user_id(canvas_user_id)
     if canvas_user_id && where({canvas_user_id: canvas_user_id}).empty?
-      requester = Canvas::ApiRequest.new({base_url: AppConfig::CourseConstants.base_url,
-                                          api_key: AppConfig::CourseConstants.api_key})
+      requester = ApiRequest.new(base_url: AppConfig::CourseConstants.base_url,
+                                          api_key: AppConfig::CourseConstants.api_key)
       student_data = requester.request.get('api/v1/users/'+canvas_user_id.to_s+'/profile').body
       creation_data = student_data.slice(*USER_PROFILE_FIELDS)
           .merge('canvas_user_id' => canvas_user_id)

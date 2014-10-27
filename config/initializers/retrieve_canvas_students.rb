@@ -4,7 +4,7 @@ def retrieve_canvas_students()
   base_url = AppConfig::CourseConstants.base_url
   api_key = AppConfig::CourseConstants.api_key
   begin
-    response = Canvas::ApiRequest.new({base_url:  base_url, api_key: api_key}).request.get("api/v1/courses/#{course_id}/search_users")
+    response = ApiRequest.new(base_url:  base_url, api_key: api_key).request.get("api/v1/courses/#{course_id}/search_users")
     users_list_json = response.body
     status = response.status
   rescue

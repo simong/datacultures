@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Canvas::ApiRequest, :type => :model do
+RSpec.describe ApiRequest, :type => :model do
 
   let(:base_url) { AppConfig::CourseConstants.base_url   }
   let(:course_id){ AppConfig::CourseConstants.course     }
@@ -11,24 +11,20 @@ RSpec.describe Canvas::ApiRequest, :type => :model do
       { base_url:  'http://localhost/', api_key: 'some token'}
     end
 
-    it "should not raise an exception if required params are present" do
-     expect{Canvas::ApiRequest.new(api_params)}.not_to raise_error
-    end
-
     it "raises an ArgumentError if not passed in the correct parameters" do
-      expect{Canvas::ApiRequest.new({foo:  'bar'})}.to raise_error(ArgumentError)
+      expect{ApiRequest.new(foo:  'bar')}.to raise_error(ArgumentError)
     end
 
     it "creates a valid object if the right params are passed in" do
-      @connection = Canvas::ApiRequest.new(api_params)
-      expect(@connection).to be_kind_of Canvas::ApiRequest
+      @connection = ApiRequest.new(base_url:  base_url, api_key: 'some token')
+      expect(@connection).to be_kind_of ApiRequest
     end
   end
 
   context "Actual API Requests" do
 
     let (:request_object) do
-      Canvas::ApiRequest.new({base_url: base_url, api_key: 'unset key'})
+      ApiRequest.new(base_url: base_url, api_key: 'unset key')
     end
 
     it "returns not found (404) for invalid path but valid API key" do

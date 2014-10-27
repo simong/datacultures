@@ -22,7 +22,7 @@ RSpec.describe Canvas::DiscussionEntriesProcessor, :type => :model do
   let(:ok_return)  { {status: 200, body: {"author" => {"id" => topic_id}} }                        }
 
   ## Ruby objects
-  let(:request_object) {  Canvas::ApiRequest.new({base_url: base_url, api_key: api_key})           }
+  let(:request_object) {  ApiRequest.new(base_url: base_url, api_key: api_key)           }
   let(:processor)      {  Canvas::DiscussionEntriesProcessor.new({request_object: request_object, course: '1'}) }
 
   ## simple mock data

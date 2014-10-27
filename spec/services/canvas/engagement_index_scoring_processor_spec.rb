@@ -19,9 +19,8 @@ RSpec.describe Canvas::EngagementIndexScoringProcessor, :type => :model do
   end
 
   let(:request_object) do
-    config_data = {api_key:  AppConfig::CourseConstants.api_key,
-                   base_url: AppConfig::CourseConstants.base_url}
-    Canvas::ApiRequest.new(config_data)
+    ApiRequest.new(api_key:  AppConfig::CourseConstants.api_key,
+                   base_url: AppConfig::CourseConstants.base_url)
   end
 
   let(:processing_config) do
