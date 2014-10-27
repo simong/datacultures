@@ -4,7 +4,7 @@ class Canvas::SubmissionsProcessor
 
   def initialize(conf)
     @submission_conf = PointsConfiguration.where({interaction: 'Submission'}).first
-    @request_object     = conf[:request_object] || Canvas::ApiRequest.new({api_key: conf['api_key'], base_url: conf['base_url']})
+    @request_object     = conf[:request_object] || ApiRequest.new(api_key: conf['api_key'], base_url: conf['base_url'])
   end
 
   def call(submissions)

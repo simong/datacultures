@@ -1,15 +1,11 @@
-class Canvas::ApiRequest
-
-  include ActiveModel::Validations
+class ApiRequest
 
   attr_reader    :base_url, :api_key
   attr_accessor  :request
 
-  def initialize(config_data)
-    raise ArgumentError unless config_data.is_a?(Hash) && config_data[:api_key] && config_data[:base_url]
-    [:api_key, :base_url].each do |k|
-      self.instance_variable_set('@'+k.to_s, config_data[k])
-    end
+  def initialize(api_key:, base_url:)
+    @api_key = api_key
+    @base_url = base_url
     @request = request_object
   end
 

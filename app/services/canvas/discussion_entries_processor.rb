@@ -3,7 +3,7 @@ class Canvas::DiscussionEntriesProcessor
   attr_accessor :request_object, :discussion_entry, :course
 
   def initialize(conf)
-    @request_object     = conf[:request_object] || Canvas::ApiRequest.new({api_key: conf['api_key'], base_url: conf['base_url']})
+    @request_object     = conf[:request_object] || ApiRequest.new(api_key: conf['api_key'], base_url: conf['base_url'])
     @discussion_entry   = PointsConfiguration.where({interaction: 'DiscussionEntry'}).first
     @course             = conf['course'] || AppConfig::CourseConstants.course
   end

@@ -4,7 +4,7 @@ class Canvas::EngagementIndexScoringProcessor
 
   def initialize(config)
     @course                      = config[:course] || AppConfig::CourseConstants.course
-    @request_object              = config[:request_object] ||= Canvas::ApiRequest.new({base_url: config[:base_url], api_key: config[:api_key]})
+    @request_object              = config[:request_object] ||= ApiRequest.new(base_url: config[:base_url], api_key: config[:api_key])
     @discussion_topics_processor = config[:discussions_processor] ||= Canvas::DiscussionTopicsProcessor.new({request_object: request_object, course: course})
     @assignments_processor       = config[:assignments_processor] ||= Canvas::AssignmentsProcessor.new({request_object: request_object, course: course})
   end

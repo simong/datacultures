@@ -16,7 +16,7 @@ RSpec.describe Canvas::SubmissionsProcessor, :type => :model do
   let(:api_key)    {  AppConfig::CourseConstants.api_key                                           }
   let(:course)     {  AppConfig::CourseConstants.course                                            }
 
-  let(:request_object) {  Canvas::ApiRequest.new({base_url: base_url, api_key: api_key})           }
+  let(:request_object) {  ApiRequest.new(base_url: base_url, api_key: api_key)           }
 
   let(:processor) do
     Canvas::SubmissionsProcessor.new({request_object: request_object})
