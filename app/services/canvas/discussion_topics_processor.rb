@@ -1,5 +1,7 @@
 class Canvas::DiscussionTopicsProcessor
 
+  include CanvasRelativeUrlHelper
+
   attr_accessor :request_object, :top_level_post, :edit_post, :reply_to_post, :course
 
   def initialize(conf)
@@ -47,7 +49,7 @@ class Canvas::DiscussionTopicsProcessor
 
         ## if there are replies to this discussion_topic
         if (discussion["discussion_subentry_count"]  > 0) && process_entries
-          request_path = 'api/v1/courses/'+course.to_s+'/discussion_topics/'+discussion_id.to_s+'/entries?per_page=250'
+          request_path = course_api_url(course: course, mid_variable: discussion_id.to_s, mid_const: :discussion_topics, final_url: :entries)
           entry_processor  = Canvas::DiscussionEntriesProcessor.new({request_object: request_object})
           paged_processor = Canvas::PagedApiProcessor.new({ handler: entry_processor })
           paged_processor.call(request_path)
