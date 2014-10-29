@@ -31,7 +31,7 @@ RSpec.describe Api::V1::GalleryController, :type => :controller do
       get :index, {format: :json}, valid_session
       attachment_ids = Attachment.all.select(:id, :assignment_id).map{|a| a.assignment_id.to_s + '-' + a.id.to_s}
       disliked_item = JSON.parse(response.body)['files'].detect{|gi| gi['id'] == attachment_ids[1]}
-      expect(disliked_item['liked']).to  eq('false')
+      expect(disliked_item['liked']).to  eq(false)
     end
 
     it "gives the right liked state ('null') for items with no activity" do
@@ -39,7 +39,7 @@ RSpec.describe Api::V1::GalleryController, :type => :controller do
       get :index, {format: :json}, valid_session
       attachment_ids = Attachment.all.select(:id, :assignment_id).map{|a| a.assignment_id.to_s + '-' + a.id.to_s}
       disinterested_item = JSON.parse(response.body)['files'].detect{|gi| gi['id'] == attachment_ids[0]}
-      expect(disinterested_item['liked']).to  eq('null')
+      expect(disinterested_item['liked']).to be_nil
     end
 
 

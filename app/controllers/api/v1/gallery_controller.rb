@@ -25,9 +25,9 @@ class Api::V1::GalleryController < ApplicationController
         select('scoring_item_id').map{|activity| activity.scoring_item_id}
     dislikes = Activity.where({canvas_user_id:  user_id, reason: 'Dislike'}).
         select('scoring_item_id').map{|activity| activity.scoring_item_id}
-    likes_hash = Hash.new('null')
-    likes.each{|id| likes_hash[id] = 'true' }
-    dislikes.each{|id|likes_hash[id] = 'false'}
+    likes_hash = {}
+    likes.each{ |id| likes_hash[id] = true }
+    dislikes.each{ |id|likes_hash[id] = false }
     likes_hash
   end
 
