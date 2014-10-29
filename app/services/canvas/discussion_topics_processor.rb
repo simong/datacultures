@@ -25,8 +25,8 @@ class Canvas::DiscussionTopicsProcessor
         msg = discussion['message'] || ''
         title = discussion['title'] || ''
         discussion_id = discussion['id']   # discussion's ID, not author's
-        base_params = { canvas_updated_at: discussion['last_reply_at'], body: msg + title, canvas_scoring_item_id: discussion_id  }
-        previous_scoring_record = Activity.where({canvas_scoring_item_id: discussion_id,
+        base_params = { canvas_updated_at: discussion['last_reply_at'], body: msg + title, scoring_item_id: discussion_id  }
+        previous_scoring_record = Activity.where({scoring_item_id: discussion_id.to_s,
             reason: ['DiscussionTopic', 'DiscussionEdit']}).order('updated_at DESC').first
 
         if previous_scoring_record

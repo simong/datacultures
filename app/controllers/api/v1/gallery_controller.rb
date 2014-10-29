@@ -9,8 +9,26 @@ class Api::V1::GalleryController < ApplicationController
   def index
     image_json = Attachment.select(IMAGE_ATTRIBUTES).to_a.image_hash
     video_json = MediaUrl.select(VIDEO_ATTRIBUTES).to_a.video_hash
+    dislike_counts = Activity.where({reason: 'Dislike'}).group(:scoring_item_id).count
+    like_counts = Activity.where({reason: 'Like'}).group(:scoring_item_id).count
     json = image_json + video_json
+    json.each do |item|
+      item['likes']    =    like_counts[item['id']] || 0
+      item['dislikes'] = dislike_counts[item['id']] || 0
+      item['liked']    =     user_likes[item['id']]
+    end
     render json: {'files' => json}, layout: false
+  end
+
+  def user_likes(user_id = current_user.canvas_id)
+    likes    = Activity.where({canvas_user_id:  user_id, reason: 'Like'}).
+        select('scoring_item_id').map{|activity| activity.scoring_item_id}
+    dislikes = Activity.where({canvas_user_id:  user_id, reason: 'Dislike'}).
+        select('scoring_item_id').map{|activity| activity.scoring_item_id}
+    likes_hash = Hash.new('null')
+    likes.each{|id| likes_hash[id] = 'true' }
+    dislikes.each{|id|likes_hash[id] = 'false'}
+    likes_hash
   end
 
 end

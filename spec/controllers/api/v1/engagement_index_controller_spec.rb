@@ -19,7 +19,7 @@ RSpec.describe Api::V1::EngagementIndexController, :type => :controller do
       canvas_user_id: 1,
       reason: "Post artwork in Mission Gallery",
       delta: 15,
-      canvas_scoring_item_id: 100,
+      scoring_item_id: 100,
       canvas_updated_at: Time.now
     }
   }

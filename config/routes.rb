@@ -17,9 +17,8 @@ Rails.application.routes.draw do
       resources :points_configuration, only: [:index, :update]
       post '/comments/new'           => 'comments#create'
       get '/comments/:attachment_id' => 'comments#show'
+      post '/likes'                  => 'likes#create_or_update'
       resources :likes, only: [:index, :create]
-      put '/likes'                   => 'likes#update'
-      patch '/likes'                 => 'likes#update'
     end
   end
 

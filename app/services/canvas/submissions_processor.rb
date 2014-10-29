@@ -10,9 +10,9 @@ class Canvas::SubmissionsProcessor
   def call(submissions)
 
     ## rewrite for return data from assignments API call
-    scoring_submissions = Activity.where({reason: 'Submission'}).select(:canvas_scoring_item_id, :canvas_user_id)
+    scoring_submissions = Activity.where({reason: 'Submission'}).select(:scoring_item_id, :canvas_user_id)
     if scoring_submissions
-      scored_submissions = scoring_submissions.map{|s| [s.canvas_scoring_item_id, s.canvas_user_id] }
+      scored_submissions = scoring_submissions.map{|s| [s.scoring_item_id, s.canvas_user_id] }
     else
       scored_submissions = []
     end
@@ -34,7 +34,7 @@ class Canvas::SubmissionsProcessor
         Student.create_by_canvas_user_id(user_id)
       end
       if (has_url || submission['attachments'])
-        previously_credited = Activity.where({canvas_scoring_item_id: submission['assignment_id'],
+        previously_credited = Activity.where({scoring_item_id: submission['assignment_id'],
                                               reason: 'Submission', canvas_user_id: submission['user_id']}).first
         if has_url
             MediaUrl.process_submission_url(url: submission['url'], canvas_user_id: user_id,
@@ -45,8 +45,8 @@ class Canvas::SubmissionsProcessor
         end
       end
 
-      if user_id   && !(scored_submissions.include?([assignment_id, user_id]))
-        Activity.score!({canvas_scoring_item_id: assignment_id,
+      if user_id   && !(scored_submissions.include?([assignment_id.to_s, user_id]))
+        Activity.score!({scoring_item_id: assignment_id,
                          canvas_user_id: user_id, reason: 'Submission',
                          body: attachment_data.to_json,
                          score: submission_conf.active, delta: submission_conf.points_associated,

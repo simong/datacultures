@@ -24,7 +24,7 @@ RSpec.describe Api::V1::ActivitiesController, type: :controller do
   # Activity. As you add validations to Activity, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
-    {canvas_user_id: "FOO", reason: "liked", delta: 1, canvas_scoring_item_id: 'bar'}
+    {canvas_user_id: "FOO", reason: "liked", delta: 1, scoring_item_id: 'bar'}
   }
 
   let(:invalid_attributes) {
@@ -38,7 +38,7 @@ RSpec.describe Api::V1::ActivitiesController, type: :controller do
 
   describe "GET index" do
     it "assigns all activities as @activities" do
-      expect(valid_attributes).to eq({:canvas_user_id=>"FOO", :reason=>"liked", :delta=>1, :canvas_scoring_item_id=>"bar"})
+      expect(valid_attributes).to eq({:canvas_user_id=>"FOO", :reason=>"liked", :delta=>1, :scoring_item_id=>"bar"})
       activity = Activity.create! valid_attributes
       get :index, {format: :json}, valid_session
       expect(assigns(:activities)).to eq(Activity.all.order('updated_at DESC'))

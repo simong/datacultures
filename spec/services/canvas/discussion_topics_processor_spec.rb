@@ -71,13 +71,13 @@ RSpec.describe Canvas::DiscussionTopicsProcessor, :type => :model do
     context "An existing post" do
 
       before (:each) do
-         Activity.create({reason: 'DiscussionTopic', canvas_user_id: 3, canvas_scoring_item_id: 7,
+         Activity.create({reason: 'DiscussionTopic', canvas_user_id: 3, scoring_item_id: 7,
                          delta: 3, body: discussion.first['message']+discussion.first['title'],
                          canvas_updated_at: Time.now - 5.years })
       end
 
       after (:each) do
-        Activity.where({reason: 'DiscussionTopic', canvas_scoring_item_id: 7}).delete_all
+        Activity.where({reason: 'DiscussionTopic', scoring_item_id: '7'}).delete_all
       end
 
       context "which was not edited" do

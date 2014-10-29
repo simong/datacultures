@@ -12,11 +12,11 @@ class PointsConfiguration < ActiveRecord::Base
   end
 
   def self.recache_mappings!
-    @@config_mapping = self.select(:points_associated, :interaction).inject({}){|memo, pc| memo.merge!( {pc[:interaction] => pc[:points_associated]})}
+    self.select(:points_associated, :interaction).inject({}){|memo, pc| memo.merge!( {pc[:interaction] => pc[:points_associated]})}
   end
 
   def self.cached_mappings
-    @@config_mapping || self.recache_mappings!
+    self.recache_mappings!
   end
 
 end

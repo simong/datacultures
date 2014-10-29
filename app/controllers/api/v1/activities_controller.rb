@@ -53,6 +53,6 @@ class Api::V1::ActivitiesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def activity_params
-      params.require(:activity).permit(:canvas_scoring_item_id, :canvas_user_id, :reason, :delta)
+      params.require(:activity).permit(:scoring_item_id, :canvas_user_id, :reason, :delta)
     end
 end

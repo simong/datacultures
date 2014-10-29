@@ -7,44 +7,54 @@ class Api::V1::LikesController < ApplicationController
     # render :text instead of :json as with :json the keys are quoted
     render json:
     {'Like' =>
-       Activity.where(score: true, reason: ['Like']).group(:canvas_scoring_item_id).count.sort.to_h,
+       Activity.where(score: true, reason: ['Like']).group(:scoring_item_id).count.sort.to_h,
      'Dislike' =>
-       Activity.where(score: true, reason: ['Dislike']).group(:canvas_scoring_item_id).count.sort.to_h
+       Activity.where(score: true, reason: ['Dislike']).group(:scoring_item_id).count.sort.to_h
     }
   end
 
   # POST /api/v1/likes
-  def create
-
+  def create_or_update
     if previous_record
-      head :conflict
-    else
-      Activity.create(item_params.merge({delta: PointsConfiguration.cached_mappings[item_params[:reason]]}))
-      head :created
-    end
-  end
-
-  # PUT /api/v1/likes
-  # PATCH /api/v1/likes
-  def update
-    if previous_record
-      previous_record.update_attributes item_params
+      previous_record.update_attributes create_or_update_values
       head :no_content
     else
-      head :gone
+      Activity.create(create_or_update_values)
+      head :created
     end
   end
 
   private
     # Never trust parameters from the scary internet, only allow the white list through.
-    def item_params
-      params.require(:item).permit(:canvas_scoring_item_id, :canvas_user_id, :reason)
+    def safe_params
+      params.permit(:liked, :id)
+    end
+
+    def create_or_update_values
+      { canvas_user_id: current_user.canvas_id,
+        reason: reason,
+        scoring_item_id: safe_params[:id],
+        canvas_updated_at: Time.now,
+        delta: PointsConfiguration.cached_mappings[reason]
+      }
+
+    end
+
+    def reason
+      case safe_params[:liked]
+        when 'true'
+          'Like'
+        when 'false'
+          'Dislike'
+        when 'null'
+          'MarkNeutral'
+      end
     end
 
     def previous_record
       Activity.where(reason: ['Like', 'Dislike', 'MarkNeutral'],
-                     canvas_scoring_item_id: item_params[:canvas_scoring_item_id],
-                     canvas_user_id: item_params[:canvas_user_id]).first
+                     scoring_item_id: safe_params[:id],
+                     canvas_user_id: current_user.canvas_id).first
     end
 
 end
