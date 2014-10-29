@@ -36,7 +36,7 @@ class Api::V1::CommentsController < ApplicationController
     if comment.save
       Activity.score! ({ reason: "GalleryComment", delta: comment_configuration.points_associated,
                          canvas_user_id: current_user.canvas_id,
-                         canvas_scoring_item_id: params['attachment_id'], score: comment_configuration.active,
+                         scoring_item_id: params['attachment_id'], score: comment_configuration.active,
                          canvas_updated_at: Time.now, body: comment.content})
       head :created
     else

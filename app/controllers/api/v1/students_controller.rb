@@ -4,8 +4,8 @@ class Api::V1::StudentsController < ApplicationController
 
   def show
     render json: Activity.where(reason: ['Like', 'Dislike','MarkNeutral'], canvas_user_id: student_params[:canvas_id]).
-      select([:canvas_scoring_item_id, :reason]).as_json.inject({}) \
-    {|memo, h|  memo.merge!({h['canvas_scoring_item_id'] => h['reason']})}
+      select([:scoring_item_id, :reason]).as_json.inject({}) \
+    {|memo, h|  memo.merge!({h['scoring_item_id'] => h['reason']})}
   end
 
   def update

@@ -46,7 +46,7 @@ RSpec.describe Canvas::SubmissionsProcessor, :type => :model do
       end
 
       it 'does not create an Activity for a submission if it has already been done.' do
-        Activity.create({reason: 'Submission', delta: 7, canvas_user_id: 9, canvas_scoring_item_id: 3 })
+        Activity.create({reason: 'Submission', delta: 7, canvas_user_id: 9, scoring_item_id: 3 })
         expect{processor.call(submission_stream)}.to_not change{Activity.count}
       end
     end
