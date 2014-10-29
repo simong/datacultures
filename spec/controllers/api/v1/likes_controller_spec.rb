@@ -44,7 +44,7 @@ RSpec.describe Api::V1::LikesController, :type => :controller do
         Activity.delete_all
         FactoryGirl.create(:activity, valid_db_params)
         allow(controller).to receive(:current_user).and_return(USER_STRUCT)
-        post :create_or_update, valid_api_params.merge({liked: 'false'}), valid_session
+        post :create_or_update, valid_api_params.merge({liked: false}), valid_session
         expect(Activity.first.reason).to eq('Dislike')
       end
 
@@ -52,7 +52,7 @@ RSpec.describe Api::V1::LikesController, :type => :controller do
         Activity.delete_all
         FactoryGirl.create(:activity, valid_db_params)
         allow(controller).to receive(:current_user).and_return(USER_STRUCT)
-        post :create_or_update, valid_api_params.merge({like: 'false'}), valid_session
+        post :create_or_update, valid_api_params.merge({like: false}), valid_session
         expect(response.status).to have_return_status :no_content
       end
     end

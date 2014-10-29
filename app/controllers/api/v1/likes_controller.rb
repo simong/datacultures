@@ -42,11 +42,11 @@ class Api::V1::LikesController < ApplicationController
 
     def reason
       case safe_params[:liked]
-        when 'true'
+        when true
           'Like'
-        when 'false'
+        when false
           'Dislike'
-        when 'null'
+        else
           'MarkNeutral'
       end
     end

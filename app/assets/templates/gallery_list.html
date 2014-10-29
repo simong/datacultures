@@ -20,34 +20,23 @@
 </label>
 <input id="dc-gallery-search-text" type="text" ng-model="search.author">
 
-<div class="dc-gallery-list" ng-repeat="files in items | orderBy:sortGallery | filter:customFilter | filter:search">
+<div class="dc-gallery-list" ng-repeat="item in items | orderBy:sortGallery | filter:customFilter | filter:search">
   <div class="dc-thumbnail-item-container">
-    <a class="dc-thumbnail-item" ng-href="/gallery/{{files.id}}" style="background-image: url({{files.image_url}})">
+    <a class="dc-thumbnail-item" ng-href="/gallery/{{item.id}}" style="background-image: url({{item.image_url}})">
       <div class="dc-thumbnail-hover">
         <p>
-          {{files.title}} <br>
-          Posted by {{files.author}}
+          {{item.title}} <br>
+          Posted by {{item.author}}
         </p>
       </div>
     </a>
     <p class="dc-thumbnail-caption">
-      <span ng-show="files.hasLike">
-        <button ng-disabled="files.likeDisabled" ng-click="like(files.id)" class="dc-blue-thumb"><i class="fa fa-thumbs-up fa-lg"></i></button><b>12{{files.numLikes}}</b>
-      </span>
+      <button ng-click="like(item.id)" ng-class="item.liked ? 'dc-blue-thumb' : ''"><i class="fa fa-thumbs-up fa-lg"></i></button><strong ng-bind="item.likes"></strong>
 
-      <span ng-hide="files.hasLike">
-        <button ng-disabled="files.likeDisabled" ng-click="like(files.id)"><i class="fa fa-thumbs-up fa-lg"></i></button>{{files.numLikes}}
-      </span> &nbsp;
+      <button ng-click="dislike(item.id)" ng-class="item.liked === false ? 'dc-blue-thumb' : ''"><i class="fa fa-thumbs-down fa-lg"></i></button><strong ng-bind="item.dislikes"></strong>
 
-      <span ng-show="files.hasDislike">
-        <button ng-disabled="files.dislikeDisabled" ng-click="dislike(files.id)" class="dc-blue-thumb"><i class="fa fa-thumbs-down fa-lg"></i></button><b>33{{files.numDislikes}}</b>
-      </span>
-
-      <span ng-hide="files.hasDislike">
-        <button ng-disabled="files.dislikeDisabled" ng-click="dislike(files.id)"><i class="fa fa-thumbs-down fa-lg"></i></button>{{files.numDislikes}}
-      </span>
-      <br> {{files.numComments}} comments &#8226; {{files.numViews}} views
-      <br> <span ng-if="files.date">Posted on {{files.date | date:'MM/dd/yyyy'}}</span>
+      <br> {{item.comments}} comments
+      <br> <span ng-if="item.date">Posted on {{item.date | date:'MM/dd/yyyy'}}</span>
     </p>
   </div>
 </div>

@@ -88,149 +88,50 @@
       $scope.sortGallery = type.type;
     };
 
-      // COUNT VIEWS
-
-    $scope.countViews = function(id) {
-      $scope.items[id].numViews++;
+    var findItem = function(id) {
+      for (var i = 0; i < $scope.items.length; i++) {
+        if ($scope.items[i].id === id) {
+          return $scope.items[i];
+        }
+      }
     };
 
-      // LIKE FUNCTION
+    var like = function(item, liked) {
+      galleryFactory.like({
+        id: item.id,
+        liked: liked
+      }).success(function() {
+        if (item.liked === true && liked === null) {
+          item.likes--;
+        } else if (item.liked === false && liked === null) {
+          item.dislikes--;
+        } else if (item.liked === false && liked === true) {
+          item.dislikes--;
+          item.likes++;
+        } else if (item.liked === true && liked === false) {
+          item.dislikes++;
+          item.likes--;
+        } else {
+          if (liked === true) {
+            item.likes++;
+          } else {
+            item.dislikes++;
+          }
+        }
+        item.liked = liked;
+      });
+    };
 
     $scope.like = function(id) {
-      if ($scope.items[id].disliked === 'Un-Dislike') {
-        $scope.items[id].likeDisabled = true;
-      } else {
-        if ($scope.items[id].liked === 'Like') {
-          $scope.items[id].numLikes++;
-          $scope.items[id].liked = 'Unlike';
-          $scope.items[id].dislikeDisabled = true;
-          $scope.items[id].hasLike = true;
-        } else {
-          $scope.items[id].numLikes--;
-          $scope.items[id].liked = 'Like';
-          $scope.items[id].dislikeDisabled = false;
-          $scope.items[id].hasLike = false;
-        }
-      }
+      var item = findItem(id);
+      like(item, item.liked ? null : true);
     };
-
-    // DISLIKE FUNCTION
 
     $scope.dislike = function(id) {
-      if ($scope.items[id].liked === 'Unlike') {
-        $scope.items[id].dislikeDisabled = true;
-      } else {
-        if ($scope.items[id].disliked === 'Dislike') {
-          $scope.cont = window.confirm('Are you sure? Disliking a post will cause you to lose points too!');
-          if ($scope.cont === false) {
-            return;
-          }
-          $scope.items[id].numDislikes++;
-          $scope.items[id].disliked = 'Un-Dislike';
-          $scope.items[id].likeDisabled = true;
-          $scope.items[id].hasDislike = true;
-        } else {
-          $scope.items[id].numDislikes--;
-          $scope.items[id].disliked = 'Dislike';
-          $scope.items[id].likeDisabled = false;
-          $scope.items[id].hasDislike = false;
-        }
-      }
+      var item = findItem(id);
+      like(item, item.liked === false ? null : false);
     };
 
-    // ADD COMMENT
-    $scope.emptyComment = '';
-    $scope.insertComment = function(photoID) {
-      if ($scope.item.commentContent === null) {
-        $scope.emptyComment = 'Please enter your name & comment!';
-        return;
-      }
-      $scope.item.comments.push({
-        numComments: $scope.item.comments.length,
-        photoID: photoID,
-        commentID: $scope.item.comments.length,
-        threadView: 'Show Thread',
-        showThread: false,
-        replyThread: false,
-        thread: [],
-        author: $scope.currentUser.name,
-        content: $scope.item.commentContent
-      });
-      $scope.item.commentContent = null;
-      $scope.item.numComments++;
-      $scope.emptyComment = '';
-
-      galleryFactory.createComment($scope.item.comments.slice(-1)[0]).
-        success(function() {}).
-        error(function() {
-          window.alert('The Data did not send. Check your internet connection');
-        });
-
-      galleryFactory.getComments(photoID).success(function(results) {
-        $scope.item.comments = results;
-      });
-    };
-
-    // THREADED COMMENTS
-    $scope.showThread = false;
-    $scope.toggleThread = function(photoID, commentID) {
-      if ($scope.item.comments[commentID].threadView === 'Show Thread') {
-        $scope.item.comments[commentID].showThread = true;
-        $scope.item.comments[commentID].threadView = 'Hide Thread';
-      } else {
-        $scope.item.comments[commentID].showThread = false;
-        $scope.item.comments[commentID].threadView = 'Show Thread';
-      }
-    };
-
-    // THREADED REPLIES
-    $scope.replyThread = 'Toggle Reply';
-
-    $scope.showReplyThread = function(photoID, commentID) {
-      $scope.commentID = '';
-      if ($scope.item.comments[commentID].replyThread === false) {
-        $scope.item.comments[commentID].replyThread = true;
-      } else {
-        $scope.item.comments[commentID].replyThread = false;
-      }
-    };
-
-    $scope.emptyReply = '';
-    $scope.submitReplyThread = function(photoID, commentID) {
-      if ($scope.item.comments[commentID].commentContent === null) {
-        $scope.emptyReply = '';
-        return;
-      }
-      $scope.item.comments[commentID].thread.push({
-        author: $scope.currentUser.name,
-        content: $scope.item.comments[commentID].commentContent
-      });
-      $scope.emptyReply = '';
-      $scope.item.comments[commentID].showThread = true;
-      $scope.item.comments[commentID].replyThread = false;
-      $scope.item.comments[commentID].threadView = 'Hide Thread';
-      $scope.item.comments[commentID].commentContent = null;
-
-      galleryFactory.createComment($scope.item.comments[commentID]).
-        success(function() {}).
-        error(function() {
-          window.alert('The Data did not send. Check your internet connection');
-        });
-    };
-
-    // RESET COMMENT FORM
-    $scope.resetForm = function(element) {
-      document.getElementById(element).reset();
-    };
-
-    // HAS DESCRIPTION
-    $scope.hasDescription = function(itemId) {
-      if ($scope.items[itemId].description === 'None') {
-        return false;
-      } else {
-        return true;
-      }
-    };
   });
 
 })(window.angular);
