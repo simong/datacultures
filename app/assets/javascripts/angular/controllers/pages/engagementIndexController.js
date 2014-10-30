@@ -90,11 +90,7 @@
       }
 
       // Default Sort
-      if ($scope.api.user.me.roles.instructor) {
-        $scope.predicate = 'points';
-      } else {
-        $scope.predicate = 'name';
-      }
+      $scope.predicate = 'points';
       $scope.predicateUnshare = 'section';
     };
 
