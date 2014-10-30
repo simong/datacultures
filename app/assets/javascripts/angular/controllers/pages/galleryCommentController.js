@@ -7,16 +7,28 @@
       $scope.comment.input = '';
     };
 
-    var updateSuccesful = function() {
+    var addingSuccesful = function() {
       $scope.refreshSubmissions();
       resetForm();
+    };
+
+    $scope.enterEditMode = function(comment) {
+      comment.editMode = true;
+      $scope.editComment = angular.copy(comment);
+    };
+
+    $scope.updateComment = function(comment) {
+      galleryFactory.updateComment({
+        comment: comment.comment,
+        comment_id: comment.comment_id
+      }).success($scope.refreshSubmissions);
     };
 
     $scope.addComment = function() {
       galleryFactory.addComment({
         id: $scope.currentItem.id,
         comment: $scope.comment.input
-      }).success(updateSuccesful);
+      }).success(addingSuccesful);
     };
 
   });

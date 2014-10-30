@@ -43,8 +43,11 @@
       margin: 10px 0;
       padding: 5px;
     }
-    .dc-comments-list-author {
+    .dc-comments-list-comment-info {
       color: #888;
+      .btn {
+        padding: 1px 5px;
+      }
     }
     .dc-comments-list-comment {
       -moz-hyphens: auto;
