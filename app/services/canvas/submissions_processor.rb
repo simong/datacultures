@@ -34,7 +34,7 @@ class Canvas::SubmissionsProcessor
         Student.create_by_canvas_user_id(user_id)
       end
       if (has_url || submission['attachments'])
-        previously_credited = Activity.where({scoring_item_id: submission['assignment_id'],
+        previously_credited = Activity.where({scoring_item_id: submission['assignment_id'].to_s,
                                               reason: 'Submission', canvas_user_id: submission['user_id']}).first
         if has_url
             MediaUrl.process_submission_url(url: submission['url'], canvas_user_id: user_id,
