@@ -17,7 +17,7 @@
 
     <ul class="dc-comments-list" ng-if="currentItem.comments.length">
       <li ng-repeat="comment in currentItem.comments">
-        <div class="dc-comments-list-comment" ng-bind-html="comment.comment | multiLineFilter"></div>
+        <div class="dc-comments-list-comment" ng-bind-html="comment.comment | linky"></div>
         <div class="dc-comments-list-author">by {{comment.author.name}}</div>
       </li>
     </ul>
