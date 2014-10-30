@@ -29,11 +29,16 @@ class MediaUrl < ActiveRecord::Base
 
 
   def create_gallery_reference
-    update_attribute(:gallery_id, id.to_s+'-'+canvas_assignment_id.to_s)
+    update_attribute(:gallery_id, generate_gallery_id)
   end
 
   def comments_json
     comments.map{|c| c.api_json}
+  end
+
+
+  def generate_gallery_id
+    'video-' + id.to_s + '-' + assignment_id.to_s
   end
 
 
