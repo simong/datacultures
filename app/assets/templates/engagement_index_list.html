@@ -25,7 +25,7 @@
     <tr class="dc-header-title dc-mouse-pointer">
       <th data-ng-click="predicate='sortable_name'; reverse=!reverse; showcaretStudent=!showcaretStudent" data-ng-class="{ dropup: showcaretStudent }">Student <span class="caret"></span></th>
       <th data-ng-click="predicate='section'; reverse=!reverse; showcaretSection=!showcaretSection" data-ng-class="{ dropup: showcaretSection }">Section <span class="caret"></span></th>
-      <th data-ng-if="api.user.me.roles.instructor" data-ng-click="predicate='share'; reverse=!reverse; showcaretShare=!showcaretShare" data-ng-class="{ dropup: showcaretShare }">Share <span class="caret"></span></th>
+      <th data-ng-show="api.user.me.roles.instructor" data-ng-click="predicate='share'; reverse=!reverse; showcaretShare=!showcaretShare" data-ng-class="{ dropup: showcaretShare }">Share <span class="caret"></span></th>
       <th data-ng-click="predicate='points'; reverse=!reverse; showcaretPoints=!showcaretPoints" data-ng-class="{ dropup: showcaretPoints }">Points <span class="caret"></span></th>
       <th data-ng-click="predicate='points'; reverse=!reverse; showcaretPercentile=!showcaretPercentile" data-ng-class="{ dropup: showcaretPercentile }">Percentile <span class="caret"></span></th>
       <th data-ng-click="predicate='last_activity_date'; reverse=!reverse; showcaretLastPoint=!showcaretLastPoint" data-ng-class="{ dropup: showcaretLastPoint }">Last Point Earned <span class="caret"></span></th>
