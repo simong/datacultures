@@ -9,7 +9,11 @@
     var defineRoles = function() {
       var roles = {};
       if (me && me.canvas_roles) {
-        roles.instructor = (me.canvas_roles.indexOf('Instructor') !== -1);
+        roles.instructor = (
+          me.canvas_roles.indexOf('Instructor') !== -1 ||
+          // Designer should have the same permissions as an instructor
+          me.canvas_roles.indexOf('ContentDeveloper') !== -1
+        );
       }
       me.roles = roles;
     };
