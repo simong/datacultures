@@ -12,29 +12,36 @@
 #  $ bin/deploy.sh
 
 # put apache in maintenace mode
-touch /var/www/html/datacultures/datacultures-in-maintenance
+touch ${DOCROOT}/datacultures-in-maintenance
 
-## discard any changes that now exist
-git reset HEAD
-git checkout -- *
+git fetch origin
 
-# get new code
-git pull origin master
+change_count=$(git rev-list HEAD...origin/master --count)
+if [ "$change_count" -gt 0 ];
+  then
 
-# get new gems if any
-bundle
+    ## discard any changes that now exist
+    git reset --hard
+    git clean -fd
 
-#  delete old assets
-rake assets:clobber
-rm -rf $DOCROOT/assets
+    # get new code
+    git pull origin master
 
-# generate new assets and copy to the DOCROOT
-rake assets:precompile
-cp -R public/assets/ $DOCROOT
-cp public/index.htm $DOCROOT
+    # get new gems if any
+    bundle
 
-# update the DB if need be
-rake db:migrate
+    #  delete old assets
+    rake assets:clobber
+    rm -rf ${DOCROOT}/assets
 
-# resume normal apache mode
-rm /var/www/html/datacultures/datacultures-in-maintenance
+    # generate new assets and copy to the DOCROOT
+    rake assets:precompile
+    cp -R public/assets/ ${DOCROOT}
+    cp public/index.htm ${DOCROOT}
+
+    # update the DB if need be
+    rake db:migrate
+
+    # resume normal apache mode
+    rm -f ${DOCROOT}/datacultures-in-maintenance
+fi
