@@ -21,7 +21,7 @@ RSpec.describe Api::V1::GalleryController, :type => :controller do
                   FactoryGirl.create(:student, canvas_user_id: 5),
                   FactoryGirl.create(:student, canvas_user_id: 7)]
       FactoryGirl.create_list(:attachment, 3)
-      attachment_ids = Attachment.all.select(:id, :assignment_id).map{|a| a.assignment_id.to_s + '-' + a.id.to_s}
+      attachment_ids = Attachment.all.map(&:gallery_id)
       Activity.create({reason: 'Like', scoring_item_id: attachment_ids[0], delta: 10, canvas_user_id: 4 })
       Activity.create({reason: 'Dislike', scoring_item_id: attachment_ids[1], delta: -2, canvas_user_id: 5 })
     end
@@ -29,7 +29,7 @@ RSpec.describe Api::V1::GalleryController, :type => :controller do
     it "gives the right liked state ('disliked')" do
       allow(controller).to receive(:current_user).and_return(USER_STRUCT)
       get :index, {format: :json}, valid_session
-      attachment_ids = Attachment.all.select(:id, :assignment_id).map{|a| a.assignment_id.to_s + '-' + a.id.to_s}
+      attachment_ids = Attachment.all.map(&:gallery_id)
       disliked_item = JSON.parse(response.body)['files'].detect{|gi| gi['id'] == attachment_ids[1]}
       expect(disliked_item['liked']).to  eq(false)
     end
@@ -37,7 +37,7 @@ RSpec.describe Api::V1::GalleryController, :type => :controller do
     it "gives the right liked state ('null') for items with no activity" do
       allow(controller).to receive(:current_user).and_return(USER_STRUCT)
       get :index, {format: :json}, valid_session
-      attachment_ids = Attachment.all.select(:id, :assignment_id).map{|a| a.assignment_id.to_s + '-' + a.id.to_s}
+      attachment_ids = Attachment.all.map(&:gallery_id)
       disinterested_item = JSON.parse(response.body)['files'].detect{|gi| gi['id'] == attachment_ids[0]}
       expect(disinterested_item['liked']).to be_nil
     end

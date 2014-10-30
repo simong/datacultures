@@ -1,4 +1,12 @@
 class Comment < ActiveRecord::Base
-  validates :attachment_id, :presence => true
-  validates :parent_id, :presence => true #-1 if it doesn't have a parent
+  validates :gallery_id, :presence => true
+  belongs_to :author, primary_key: 'canvas_user_id', foreign_key: 'authors_canvas_id', class_name: 'Student'
+
+  def api_json
+    { 'author' => { 'name' => author.name },
+      'comment_id' => id,
+      'comment' => content
+    }
+  end
+
 end
