@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 # framework
-gem 'rails',                   '4.1.5'
+gem 'rails',                   '4.1.6'
 
 # database
 gem 'pg',                      '~> 0.17'
@@ -23,8 +23,8 @@ gem 'thor-rails',              '~> 0.0'
 #gem 'sidetiq',                 '~> 0.6'
 
 # styling
-gem 'bootstrap-sass',          '~> 3.2.0'
-gem 'sass-rails',              '~> 4.0.3'
+gem 'bootstrap-sass',          '~> 3.3.0.1'
+gem 'sass-rails',              '~> 4.0.4'
 gem 'compass-rails',           '~> 2.0.0'
 gem 'uglifier',                '~> 2.5'
 gem 'font-awesome-rails',      '~> 4.2.0.0'
