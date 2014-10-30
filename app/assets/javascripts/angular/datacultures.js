@@ -8,6 +8,7 @@
   angular.module('datacultures.config', ['ngRoute']);
   angular.module('datacultures.controllers', []);
   angular.module('datacultures.factories', []);
+  angular.module('datacultures.filters', []);
   angular.module('datacultures.services', ['ng']);
 
   /**
@@ -17,6 +18,7 @@
     'datacultures.config',
     'datacultures.controllers',
     'datacultures.factories',
+    'datacultures.filters',
     'datacultures.services',
     'ngRoute',
     'ngSanitize',

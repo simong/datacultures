@@ -5,13 +5,15 @@
 
     $scope.itemId = $routeParams.itemId;
 
-    userInfoFactory.me().success(function(data) {
-      $scope.currentUser = data;
-    }).then(function() {
+    $scope.refreshSubmissions = function() {
       return galleryFactory.getSubmissions().success(function(results) {
         $scope.items = results.files;
       });
-    });
+    };
+
+    userInfoFactory.me().success(function(data) {
+      $scope.currentUser = data;
+    }).then($scope.refreshSubmissions);
 
     // FILTER & MODULES
 
@@ -86,50 +88,6 @@
 
     $scope.switch = function(type) {
       $scope.sortGallery = type.type;
-    };
-
-    var findItem = function(id) {
-      for (var i = 0; i < $scope.items.length; i++) {
-        if ($scope.items[i].id === id) {
-          return $scope.items[i];
-        }
-      }
-    };
-
-    var like = function(item, liked) {
-      galleryFactory.like({
-        id: item.id,
-        liked: liked
-      }).success(function() {
-        if (item.liked === true && liked === null) {
-          item.likes--;
-        } else if (item.liked === false && liked === null) {
-          item.dislikes--;
-        } else if (item.liked === false && liked === true) {
-          item.dislikes--;
-          item.likes++;
-        } else if (item.liked === true && liked === false) {
-          item.dislikes++;
-          item.likes--;
-        } else {
-          if (liked === true) {
-            item.likes++;
-          } else {
-            item.dislikes++;
-          }
-        }
-        item.liked = liked;
-      });
-    };
-
-    $scope.like = function(id) {
-      var item = findItem(id);
-      like(item, item.liked ? null : true);
-    };
-
-    $scope.dislike = function(id) {
-      var item = findItem(id);
-      like(item, item.liked === false ? null : false);
     };
 
   });
