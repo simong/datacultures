@@ -1,25 +1,4 @@
 .dc-gallery {
-  b {
-    color: #0092dd;
-    font-weight: 300;
-  }
-  .dc-blue-thumb {
-    color: #0092dd;
-  }
-  button {
-    background-color: transparent;
-    border: 0;
-    color: #0d628e;
-    text-decoration: none;
-    &:disabled {
-      color: #aaa;
-    }
-    &:focus, &:hover {
-      border: 0;
-      box-shadow: none;
-      outline: none;
-    }
-  }
   input, textarea {
     border: 1px solid #eaeaea;
     border-radius: 0;
@@ -50,10 +29,60 @@
     @include single-transition(all, .3s, ease-in-out);
   }
   textarea {
+    margin: 0;
     resize: none;
+    width: 100%;
   }
 
-  // THUMBNAIL
+  .dc-comments-list {
+    list-style-type: none;
+    margin: 20px 0;
+    max-width: 600px;
+    padding: 0;
+    li {
+      background: #f9f9f9;
+      margin: 10px 0;
+      padding: 5px;
+    }
+    .dc-comments-list-author {
+      color: #888;
+    }
+    .dc-comments-list-comment {
+      -moz-hyphens: auto;
+      -webkit-hyphens: auto;
+      hyphens: auto;
+      word-break: break-word;
+      word-wrap: break-word;
+    }
+  }
+
+  .dc-full-back-link {
+    color: #888;
+    &:hover {
+      color: #555;
+    }
+  }
+  .dc-full-container {
+    margin-bottom: 30px;
+    margin-top: 20px;
+  }
+  .dc-full-header {
+    border-bottom: 1px solid #efefef;
+    padding: 10px;
+  }
+  .dc-full-image {
+    max-width: 750px;
+    width: 100%;
+  }
+
+  .dc-thumb {
+    color: #0d628e;
+    padding: 2px 6px 3px;
+  }
+  .dc-thumb-blue {
+    color: #0092dd;
+  }
+
   .dc-thumbnail-caption {
     font-size: .9em;
     text-align: center;
@@ -109,121 +138,5 @@
       top: 0;
       width: 100%;
     }
-  }
-
-  // FULL VIEW LAYOUT
-  .dc-full-align-right {
-    float: right;
-  }
-  .dc-full-align-left {
-    float: left;
-  }
-  .dc-full-back-link {
-    color: #888;
-  }
-  .dc-full-back-link:hover {
-    color: #555;
-  }
-  .dc-full-comments-position {
-    vertical-align: top;
-    width: 530px;
-  }
-  .dc-full-container {
-    margin-bottom: 30px;
-    margin-top: 20px;
-  }
-  .dc-full-details-position {
-    padding-left: 15px;
-    vertical-align: top;
-    width: 205px;
-  }
-  .dc-full-header {
-    border-bottom: 1px solid #efefef;
-    padding: 10px;
-  }
-  .dc-full-image {
-    max-width: 750px;
-    width: 100%;
-  }
-  .dc-full-image-details {
-    font-size: .9em;
-    font-weight: 300;
-    position: relative;
-  }
-  .dc-full-image-description {
-    clear: both;
-    margin-bottom: 20px;
-  }
-  .dc-full-likes-inline {
-    background: #ddd;
-    margin-bottom: 10px;
-  }
-  .dc-full-navigate {
-    width: 750px;
-  }
-
-  // COMMENTS
-  .dc-comment-by-image {
-    background-image: url('tempicon.png');
-    background-size: cover;
-    border-radius: 50%;
-    float: left;
-    height: 45px;
-    margin-bottom: 2px;
-    margin-right: 10px;
-    margin-top: 5px;
-    width: 45px;
-  }
-  .dc-comment-by {
-    color: #1c3a5e;
-  }
-  .dc-comment-button {
-    background: rgba(255, 255, 255, .6);
-    border: 1px solid #bbb;
-    font-weight: 300;
-    margin-left: 0;
-    margin-top: 5px;
-    padding-bottom: 2px;
-    padding-left: 4px;
-    padding-right: 4px;
-    padding-top: 2px;
-  }
-  .dc-comment-button:active {
-    color: #0092dd;
-  }
-  .dc-comment-button:focus {
-    border: 1px solid #bbb;
-  }
-  .dc-comment-inline {
-    background: #f1f6fb;
-    font-size: .9em;
-    margin-bottom: 12px;
-    margin-top: 5px;
-    padding: 8px;
-  }
-  .dc-comment-name {
-    width: 251px;
-  }
-  .dc-comment-name, .dc-comment-textarea {
-    background: #fff;
-    border: 1px solid #ccc;
-    font-weight: 300;
-    margin: 0;
-    margin-top: 7px;
-    padding: 2px;
-  }
-  .dc-comment-reply {
-    background: #fdfeff;
-    font-size: 1em;
-    margin: 12px;
-    padding: 8px;
-  }
-  .dc-comment-textarea {
-    width: 300px;
-  }
-  .dc-line-break {
-    border-top: 1px solid #ddd;
-    margin-bottom: 18px;
-    margin-top: 18px;
   }
 }

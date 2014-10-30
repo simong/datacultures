@@ -7,14 +7,9 @@
    */
   angular.module('datacultures.factories').factory('galleryFactory', function($http) {
 
-    var createComment = function(data) {
-      var url = '/api/v1/comments/new';
+    var addComment = function(data) {
+      var url = '/api/v1/comments';
       return $http.post(url, data);
-    };
-
-    var getComments = function(itemId) {
-      var url = '/api/v1/comments/' + itemId;
-      return $http.get(url);
     };
 
     var like = function(data) {
@@ -29,9 +24,8 @@
     };
 
     return {
-      createComment: createComment,
+      addComment: addComment,
       like: like,
-      getComments: getComments,
       getSubmissions: getSubmissions
     };
 
