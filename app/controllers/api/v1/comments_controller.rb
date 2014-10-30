@@ -10,7 +10,6 @@ class Api::V1::CommentsController < ApplicationController
 
   def update
     Comment.find(safe_params[:comment_id]).update_attributes({
-        gallery_id: safe_params[:id],
         content: safe_params[:comment] })
     head :ok
   end
