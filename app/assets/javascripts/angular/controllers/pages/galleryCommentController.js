@@ -7,7 +7,7 @@
       $scope.comment.input = '';
     };
 
-    var addingSuccesful = function() {
+    var addingSuccessful = function() {
       $scope.refreshSubmissions();
       resetForm();
     };
@@ -28,7 +28,7 @@
       galleryFactory.addComment({
         id: $scope.currentItem.id,
         comment: $scope.comment.input
-      }).success(addingSuccesful);
+      }).success(addingSuccessful);
     };
 
   });
