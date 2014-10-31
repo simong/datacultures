@@ -38,7 +38,7 @@ class MediaUrl < ActiveRecord::Base
 
 
   def generate_gallery_id
-    'video-' + id.to_s + '-' + assignment_id.to_s
+    'video-' + id.to_s + '-' + canvas_assignment_id.to_s
   end
 
 
