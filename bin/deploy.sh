@@ -11,16 +11,28 @@
 #
 #  $ bin/deploy.sh
 
+app_user="app_calcentral"
+
 # put apache in maintenace mode
 touch ${DOCROOT}/datacultures-in-maintenance
+
+# verify user
+if [ "$(whoami)" != "${app_user}" ]
+  then echo "Only user ${app_user} can run this script"
+  exit
+fi
+
+# cd to application's base directory
+cd ${HOME}/datacultures
 
 git fetch origin
 
 change_count=$(git rev-list HEAD...origin/master --count)
+
 if [ "$change_count" -gt 0 ];
   then
 
-    ## discard any changes that now exist
+    # discard any changes that now exist
     git reset --hard
     git clean -fd
 
@@ -42,6 +54,14 @@ if [ "$change_count" -gt 0 ];
     # update the DB if need be
     rake db:migrate
 
+    # generate new Application Secret Key Base
+    thor keys:app_new_secret
+
+    chmod 600 config/secrets.yml \
+      || { echo 'FAILED to change permissions on yml file' ; exit 1; }
+
     # resume normal apache mode
-    rm -f ${DOCROOT}/datacultures-in-maintenance
+    rm -f ${DOCROOT}/datacultures-in-maintenance \
+      || { echo 'FAILED to take DataCultures out of maintenance mode' ; exit 1; }
+
 fi
