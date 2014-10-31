@@ -12,7 +12,6 @@ gem 'sidekiq',                 '~> 3.2'
 gem 'faraday',                 '~> 0.9'
 gem 'faraday_middleware',      '~> 0.9'
 gem 'net-http-persistent',     '~> 2.9'
-gem 'httparty',                '~> 0.13'
 
 # cli tools
 gem 'thor',                    '~> 0.19'
