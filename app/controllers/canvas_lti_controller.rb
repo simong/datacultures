@@ -37,14 +37,6 @@ class CanvasLtiController < ApplicationController
     respond_to :xml
   end
 
-  #GET /api/v1/courses/:course_id/users
-  def students_list
-    canvas_token = Rails.application.secrets.canvas_token
-    course_id = params[:course_id]
-    response = HTTParty.get("https://ucberkeley.test.instructure.com/api/v1/courses/#{course_id}/users?access_token=#{canvas_token}")
-    render :json => response.body
-  end
-
   # If no query parameters are present, returns a URL corresponding to the app server.
   # If 'app_host' is specified, then the URL points to the app_host server.
   # Example: https://calcentral.berkeley.edu/canvas/lti_roster_photos.xml?app_host=sometestsystem.berkeley.edu
