@@ -4,7 +4,7 @@ RSpec.describe Activity, :type => :model do
 
   before(:all) do
     Activity.delete_all
-    FactoryGirl.create_list(:activity, 5)
+    FactoryGirl.create(:activity)
   end
 
   describe "Activity" do
@@ -13,21 +13,26 @@ RSpec.describe Activity, :type => :model do
       expect(a.macro).to eq(:belongs_to)
     end
 
-    it "does not update until called to do so." do
-      Activity.update_scores!
-      #expect{FactoryGirl.create_list(:activity, 5)}.to_not change{Activity.student_scores}
-      expect{FactoryGirl.create_list(:activity, 5)}.to change{Activity.student_scores}
-    end
-
-    it "updates scores when called to do so" do
-      Activity.update_scores!
-      FactoryGirl.create(:activity)
-      #expect{Activity.update_scores!}.to change{Activity.student_scores}
-      expect{Activity.update_scores!}.to_not change{Activity.student_scores}
-    end
-
     it "Activity.student_scores returns a hash" do
       expect(Activity.student_scores).to be_kind_of Hash
+    end
+
+    it "a Like increases the score of the original poster of the item liked." do
+      FactoryGirl.create(:activity, {score: true, delta: 1, posters_canvas_id: 3})  # change BY can't handle *from* nil
+      expect{FactoryGirl.create(:activity, {posters_canvas_id: 3, score: true, delta: 5 })}.
+          to change{Activity.student_scores[3]}.by(5)
+    end
+
+    it "a Like changes the #liked_scores of the one liked" do
+      FactoryGirl.create(:activity, {score: true, delta: 1, posters_canvas_id: 23})  # change BY can't handle *from* nil
+      expect{FactoryGirl.create(:activity, {posters_canvas_id: 23, score: true, delta: 4 })}.
+          to change{Activity.liked_scores[23]}.by(4)
+    end
+
+    it "increases the score of the person taking the action." do
+      FactoryGirl.create(:activity, {score: true, delta: 1, canvas_user_id: 13})  # change BY can't handle *from* nil
+      expect{FactoryGirl.create(:activity, {canvas_user_id: 13, score: true, delta: 5 })}.
+          to change{Activity.student_scores[13]}.by(5)
     end
 
   end

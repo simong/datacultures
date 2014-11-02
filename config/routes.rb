@@ -18,7 +18,7 @@ Rails.application.routes.draw do
       resources :comments, only: [ :create]
       put  '/comments'               => 'comments#update'
       post '/likes'                  => 'likes#create_or_update'
-      resources :likes, only: [:index, :create]
+      resources :likes, only: [:create]
     end
   end
 

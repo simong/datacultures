@@ -2,24 +2,13 @@ class Api::V1::LikesController < ApplicationController
 
   layout false
 
-  # GET /api/v1/likes
-  def index
-    # render :text instead of :json as with :json the keys are quoted
-    render json:
-    {'Like' =>
-       Activity.where(score: true, reason: ['Like']).group(:scoring_item_id).count.sort.to_h,
-     'Dislike' =>
-       Activity.where(score: true, reason: ['Dislike']).group(:scoring_item_id).count.sort.to_h
-    }
-  end
-
   # POST /api/v1/likes
   def create_or_update
     if previous_record
-      previous_record.update_attributes create_or_update_values
+      previous_record.update_attributes values_for_update
       head :no_content
     else
-      Activity.create(create_or_update_values)
+      Activity.create(values_for_create)
       head :created
     end
   end
@@ -30,14 +19,25 @@ class Api::V1::LikesController < ApplicationController
       params.permit(:liked, :id)
     end
 
-    def create_or_update_values
-      { canvas_user_id: current_user.canvas_id,
+    def  values_for_update
+      {
         reason: reason,
-        scoring_item_id: safe_params[:id],
         canvas_updated_at: Time.now,
         delta: PointsConfiguration.cached_mappings[reason]
       }
+    end
 
+    def values_for_create
+      posting_users_canvas_id = Activity.where(reason: 'Submission', scoring_item_id: safe_params[:id]).
+          first.try(:canvas_user_id)
+      {
+          canvas_user_id: current_user.canvas_id,
+          reason: reason,
+          scoring_item_id: safe_params[:id],
+          canvas_updated_at: Time.now,
+          delta: PointsConfiguration.cached_mappings[reason],
+          posters_canvas_id: posting_users_canvas_id
+      }
     end
 
     def reason
