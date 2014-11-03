@@ -13,14 +13,15 @@
 
 app_user="app_calcentral"
 
-# put apache in maintenace mode
-touch ${DOCROOT}/datacultures-in-maintenance
-
 # verify user
 if [ "$(whoami)" != "${app_user}" ]
   then echo "Only user ${app_user} can run this script"
   exit
 fi
+
+# Create maintenace mode marker file
+touch ${DOCROOT}/datacultures-in-maintenance \
+  || { echo 'FAILED to put DataCultures into maintenance mode' ; exit 1; }
 
 # cd to application's base directory
 cd ${HOME}/datacultures
