@@ -10,6 +10,8 @@ Rails.application.routes.draw do
     namespace :v1 do
       get '/user_info/me'            => 'user_info#show', defaults: { format: 'json'}
       get '/engagement_index/data'   => 'engagement_index#index', defaults: { format: 'json'}
+      post '/students/:canvas_id'    => 'students#update'
+      get '/students/:canvas_id'     => 'students#show'
       get '/gallery/index' => 'gallery#index', defaults: { format: 'json'}
       resources :points_configuration, only: [:index, :update]
       resources :comments, only: [ :create]
