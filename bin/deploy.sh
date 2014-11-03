@@ -28,7 +28,7 @@ cd ${HOME}/datacultures
 
 git fetch origin
 
-change_count=$(git rev-list HEAD...origin/master --count)
+change_count=$(git rev-list HEAD...origin/master | wc -l)
 
 if [ "$change_count" -gt 0 ];
   then
