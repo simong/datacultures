@@ -15,6 +15,11 @@ class PointsConfiguration < ActiveRecord::Base
     self.select(:points_associated, :interaction).inject({}){|memo, pc| memo.merge!( {pc[:interaction] => pc[:points_associated]})}
   end
 
+
+  def self.active_flag_mappings
+    self.select(:interaction, :active).inject({}){|memo, pc| memo.merge!( {pc[:interaction] => pc[:active]})}
+  end
+
   def self.cached_mappings
     self.recache_mappings!
   end
