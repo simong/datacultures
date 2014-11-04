@@ -28,7 +28,12 @@ class Api::V1::LikesController < ApplicationController
     end
 
     def values_for_create
-      posting_users_canvas_id = Activity.where(reason: 'Submission', scoring_item_id: safe_params[:id]).
+      if safe_params[:id] =~ /image-/
+        model = Attachment
+      else
+        model = MediaUrl
+      end
+      posting_users_canvas_id = model.where(gallery_id: safe_params[:id]).
           first.try(:canvas_user_id)
       {
           canvas_user_id: current_user.canvas_id,
