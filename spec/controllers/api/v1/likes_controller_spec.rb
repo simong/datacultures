@@ -12,7 +12,7 @@ RSpec.describe Api::V1::LikesController, :type => :controller do
 
   let!(:valid_api_params)           { { id: 'image-19', canvas_user_id: 5, liked: 'true'                            } }
   let!(:valid_db_params)            { {  canvas_user_id: 5, reason: 'Like', delta: 17, scoring_item_id: 'image-19'  } }
-  let!(:submission_activity_params) { {  canvas_user_id: 9, reason: 'Submission', scoring_item_id: 'image-19'  } }
+  let!(:submission_activity_params) { {  canvas_user_id: 9, gallery_id: 'image-19'  } }
 
   let!(:valid_session) { {} }
 
@@ -39,7 +39,8 @@ RSpec.describe Api::V1::LikesController, :type => :controller do
 
       it "Adds the poster's ID to the Activity record" do
         Activity.delete_all
-        FactoryGirl.create(:activity, submission_activity_params )
+        FactoryGirl.create(:attachment, submission_activity_params) # the after_create overwrites specificed gallery_id
+        Attachment.first.update_attribute(:gallery_id, submission_activity_params[:gallery_id])
         allow(controller).to receive(:current_user).and_return(USER_STRUCT)
         post :create_or_update, valid_api_params, valid_session
         expect(Activity.opinion.first.posters_canvas_id).to eq(submission_activity_params[:canvas_user_id])
