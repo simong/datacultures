@@ -41,6 +41,7 @@ class Api::V1::LikesController < ApplicationController
           scoring_item_id: safe_params[:id],
           canvas_updated_at: Time.now,
           delta: PointsConfiguration.cached_mappings[reason],
+          score: PointsConfiguration.active_flag_mappings[reason],
           posters_canvas_id: posting_users_canvas_id
       }
     end
