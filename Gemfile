@@ -6,7 +6,6 @@ gem 'rails',                   '4.1.6'
 # database
 gem 'pg',                      '~> 0.17'
 gem 'paranoia',                '~> 2.0'
-gem 'sidekiq',                 '~> 3.2'
 
 # external requests
 gem 'faraday',                 '~> 0.9'
@@ -17,9 +16,11 @@ gem 'net-http-persistent',     '~> 2.9'
 gem 'thor',                    '~> 0.19'
 gem 'thor-rails',              '~> 0.0'
 
-## workers & scheduling
-#gem 'sidekiq',                 '~> 3.2'
-#gem 'sidetiq',                 '~> 0.6'
+# workers & scheduling
+gem 'sidekiq',                 '~> 3.2'
+gem 'clockwork',               '~> 1.0.0'
+gem 'clockworkd',              '~> 0.2.5'
+gem 'daemons',                 '~> 1.1.9'
 
 # styling
 gem 'bootstrap-sass',          '~> 3.3.0.1'

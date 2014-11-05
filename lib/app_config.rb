@@ -1,9 +1,10 @@
 module AppConfig
 
   require 'yaml'
-  load 'lib/settings.rb'
+  load 'settings.rb'
   include Settings
-  CONF_FILE = ['config/.env_conf.yml', 'config/.env_conf.yml.example']
+  here = File.dirname(__FILE__)
+  CONF_FILE = [here + '/../config/.env_conf.yml', here + '/../config/.env_conf.yml.example']
 
   def self.load_app_settings
     if File.readable?(CONF_FILE.first)
