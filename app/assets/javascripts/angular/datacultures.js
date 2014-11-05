@@ -7,6 +7,7 @@
    */
   angular.module('datacultures.config', ['ngRoute']);
   angular.module('datacultures.controllers', []);
+  angular.module('datacultures.directives', []);
   angular.module('datacultures.factories', []);
   angular.module('datacultures.filters', []);
   angular.module('datacultures.services', ['ng']);
@@ -17,6 +18,7 @@
   var datacultures = angular.module('datacultures', [
     'datacultures.config',
     'datacultures.controllers',
+    'datacultures.directives',
     'datacultures.factories',
     'datacultures.filters',
     'datacultures.services',
