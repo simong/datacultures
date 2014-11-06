@@ -26,7 +26,8 @@ touch ${DOCROOT}/datacultures-in-maintenance \
 # cd to application's base directory
 cd ${HOME}/datacultures
 
-git fetch origin
+git fetch origin \
+  || { echo 'FAILED to fetch latest from master' ; exit 1; }
 
 change_count=$(git rev-list HEAD...origin/master --count)
 
