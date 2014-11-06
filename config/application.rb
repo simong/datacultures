@@ -14,9 +14,6 @@ require "sprockets/railtie"
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
-load 'lib/app_config.rb'
-include AppConfig
-AppConfig.load_app_settings
 
 I18n.enforce_available_locales = false
 
@@ -37,3 +34,7 @@ module Datacultures
     # config.i18n.default_locale = :de
   end
 end
+
+require_relative '../lib/app_config'
+include AppConfig
+AppConfig.load_app_settings
