@@ -1,0 +1,5 @@
+<div ng-controller="GalleryLikeController">
+  <button class="dc-button-link dc-thumb" ng-click="like(item)" ng-class="item.liked ? 'dc-thumb-blue' : ''" ng-disabled="item.canvas_user_id === api.user.me.canvas_user_id"><i class="fa fa-thumbs-up fa-lg"></i></button><strong ng-bind="item.likes"></strong>
+
+  <button class="dc-button-link dc-thumb" ng-click="dislike(item)" ng-class="item.liked === false ? 'dc-thumb-blue' : ''" ng-disabled="item.canvas_user_id === api.user.me.canvas_user_id"><i class="fa fa-thumbs-down fa-lg"></i></button><strong ng-bind="item.dislikes"></strong>
+</div>
