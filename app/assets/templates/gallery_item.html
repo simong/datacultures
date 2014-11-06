@@ -25,7 +25,7 @@
     <ul class="dc-comments-list" ng-if="currentItem.comments.length">
       <li ng-repeat="comment in currentItem.comments">
         <div ng-if="!comment.editMode">
-          <div class="dc-comments-list-comment" ng-bind-html="comment.comment | linky"></div>
+          <div class="dc-comments-list-comment" dc-compile-directive="comment.comment | linky"></div>
           <div class="dc-comments-list-comment-info">
             by {{comment.author.name}}
             <span ng-if="comment.author.canvas_user_id === api.user.me.canvas_user_id"> | <button type="button" ng-click="enterEditMode(comment)" class="btn btn-info">Edit</button></span>
