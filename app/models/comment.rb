@@ -9,7 +9,8 @@ class Comment < ActiveRecord::Base
         'canvas_user_id' => author.canvas_user_id
       },
       'comment_id' => id,
-      'comment' => content
+      'comment' => content,
+      'created_at' => created_at.to_i * 1000,
     }
   end
 
