@@ -30,13 +30,15 @@
         </p>
       </div>
     </a>
-    <p class="dc-thumbnail-caption" ng-controller="GalleryLikeController">
-      <button class="dc-button-link dc-thumb" ng-click="like(item)" ng-class="item.liked ? 'dc-thumb-blue' : ''"><i class="fa fa-thumbs-up fa-lg"></i></button><strong ng-bind="item.likes"></strong>
+    <div class="dc-thumbnail-caption">
+      <div data-ng-include="'gallery_likes.html'"></div>
 
-      <button class="dc-button-link dc-thumb" ng-click="dislike(item)" ng-class="item.liked === false ? 'dc-thumb-blue' : ''"><i class="fa fa-thumbs-down fa-lg"></i></button><strong ng-bind="item.dislikes"></strong>
-
-      <br> <span ng-pluralize count="item.comments.length" when="{'1': '1 comment', 'other': '{} comments'}"></span>
-      <br> <span ng-if="item.date">Posted on {{item.date | date:'MM/dd/yyyy'}}</span>
-    </p>
+      <div>
+        <span ng-pluralize count="item.comments.length" when="{'1': '1 comment', 'other': '{} comments'}"></span>
+      </div>
+      <div>
+        <span ng-if="item.date">Posted on {{item.date | date:'MM/dd/yyyy'}}</span>
+      </div>
+    </div>
   </div>
 </div>

@@ -28,7 +28,7 @@
       if (currentItem && currentItem.type === 'video') {
         currentItem.videoUrl = constructVideoUrl(currentItem);
       }
-      $scope.currentItem = currentItem;
+      $scope.item = currentItem;
     });
 
   });
