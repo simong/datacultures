@@ -74,21 +74,28 @@
       }
     };
 
-    // SORTING
-
+    // Sorting
     $scope.sortOptions = [
-      {display: 'Unsorted', type: 'naturalOrder'},
-      {display: 'Comments', type: 'numComments'},
-      {display: 'Date', type: 'date'},
-      {display: 'Likes', type: 'numLikes'},
-      {display: 'Views', type: 'numViews'}
+      {
+        display: 'Date',
+        type: 'date'
+      },
+      {
+        display: 'Comments',
+        type: 'comments.length'
+      },
+      {
+        display: 'Likes',
+        type: 'likes'
+      },
+      {
+        display: 'Dislikes',
+        type: 'dislikes'
+      }
     ];
 
-    $scope.sortGallery = 'naturalOrder';
-
-    $scope.switch = function(type) {
-      $scope.sortGallery = type.type;
-    };
+    // Default should be the first one (date)
+    $scope.sortOption = $scope.sortOptions[0];
 
   });
 
