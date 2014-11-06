@@ -16,7 +16,7 @@
     $scope.studentPercentile = 0;
 
     $scope.user = {
-      choice: false
+      choice: true
     };
 
     $scope.shareDataPass = function() {
