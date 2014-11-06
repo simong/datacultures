@@ -83,6 +83,9 @@
   .dc-thumb {
     color: #0d628e;
     padding: 2px 6px 3px;
+    &:disabled {
+      color: #999;
+    }
   }
   .dc-thumb-blue {
     color: #0092dd;
