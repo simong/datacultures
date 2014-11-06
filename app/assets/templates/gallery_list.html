@@ -11,16 +11,14 @@
 <label for="dc-gallery-search-sort">
   Sort by:
 </label>
-<select id="dc-gallery-search-sort" ng-model="sortMethod" ng-options="sortOptions as sortOptions.display for sortOptions in sortOptions" ng-change="switch(sortMethod)">
-  <option value="">Choose One</option>
-</select>
+<select id="dc-gallery-search-sort" ng-model="sortOption" ng-options="option.display for option in sortOptions"></select>
 
 <label for="dc-gallery-search-text">
   Search For Student:
 </label>
 <input id="dc-gallery-search-text" type="text" ng-model="search.author">
 
-<div class="dc-gallery-list" ng-repeat="item in items | orderBy:sortGallery | filter:customFilter | filter:search">
+<div class="dc-gallery-list" ng-repeat="item in items | orderBy:sortOption.type:true | filter:customFilter | filter:search">
   <div class="dc-thumbnail-item-container">
     <a class="dc-thumbnail-item" ng-href="/gallery/{{item.id}}" style="background-image: url({{item.image_url}})">
       <div class="dc-thumbnail-hover">
