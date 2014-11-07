@@ -14,7 +14,7 @@
     };
 
     var updateComment = function(data) {
-      return $http.put(commentUrl + '/' + data.comment_id, data);
+      return $http.put(commentUrl, data);
     };
 
     var like = function(data) {
