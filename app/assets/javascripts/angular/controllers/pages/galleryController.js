@@ -1,7 +1,7 @@
 (function(angular) {
   'use strict';
 
-  angular.module('datacultures.controllers').controller('GalleryController', function(assignmentsFactory, galleryFactory, userInfoFactory, $scope, $routeParams) {
+  angular.module('datacultures.controllers').controller('GalleryController', function(assignmentFactory, galleryFactory, userInfoFactory, $scope, $routeParams) {
 
     $scope.itemId = $routeParams.itemId;
 
@@ -15,12 +15,11 @@
       $scope.currentUser = data;
     }).then($scope.refreshSubmissions);
 
-    assignmentsFactory.getAssignments().success(function(data) {
+    assignmentFactory.getAssignments().success(function(data) {
       $scope.assignments = data;
     });
 
-    // FILTER
-
+    // Type Filter
     $scope.typeOptions = [
       {
         display: 'Image',
@@ -37,6 +36,10 @@
       {
         display: 'Date',
         type: 'date'
+      },
+      {
+        display: 'Views',
+        type: 'views'
       },
       {
         display: 'Comments',
