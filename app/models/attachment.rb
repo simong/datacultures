@@ -5,6 +5,7 @@ class Attachment < ActiveRecord::Base
 
   belongs_to  :assignment, primary_key: 'canvas_assignment_id', foreign_key: 'assignment_id'
   has_many :comments, :primary_key => :gallery_id, :foreign_key => :gallery_id
+  has_one  :view, foreign_key: :gallery_id, primary_key: :gallery_id
 
   def create_gallery_reference
     update_attribute(:gallery_id, generate_gallery_id)
@@ -18,5 +19,8 @@ class Attachment < ActiveRecord::Base
     'image-' + id.to_s + '-' + assignment_id.to_s
   end
 
+  def views_count
+    view.nil? ? 0 : view.views
+  end
 
 end

@@ -7,9 +7,9 @@ class MediaUrl < ActiveRecord::Base
   after_create :create_gallery_reference
 
   has_many :comments, :primary_key => :gallery_id, :foreign_key => :gallery_id
+  has_one  :view, foreign_key: :gallery_id, primary_key: :gallery_id
 
   def self.process_submission_url(url:, canvas_user_id:, assignment_id:, author:)
-
     site_and_slug = url.extract_site_and_slug
     user_submission_traits = {canvas_user_id: canvas_user_id,
                               canvas_assignment_id: assignment_id }
@@ -24,9 +24,7 @@ class MediaUrl < ActiveRecord::Base
         end
       end
     end
-
   end
-
 
   def create_gallery_reference
     update_attribute(:gallery_id, generate_gallery_id)
@@ -36,10 +34,12 @@ class MediaUrl < ActiveRecord::Base
     comments.map{|c| c.api_json}
   end
 
-
   def generate_gallery_id
     'video-' + id.to_s + '-' + canvas_assignment_id.to_s
   end
 
+  def views_count
+    view.nil? ? 0 : view.views
+  end
 
 end
