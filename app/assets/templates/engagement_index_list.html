@@ -8,7 +8,6 @@
 <div class="dc-sort-controls">
   <form class="form-inline">
     <input type="text" class="dc-engagement-search form-control" placeholder="Search..." data-ng-model="search.$">
-    <input type="text" class="dc-engagement-search form-control dc-engagement-search-section" placeholder="Filter by section..." data-ng-model="search.section">
   </form>
 </div>
 
@@ -16,7 +15,6 @@
   <thead class="dc-header-color">
     <tr class="dc-header-title dc-mouse-pointer">
       <th data-ng-click="predicate='sortable_name'; reverse=!reverse; showcaretStudent=!showcaretStudent" data-ng-class="{ dropup: showcaretStudent }">Student <span class="caret"></span></th>
-      <th data-ng-click="predicate='section'; reverse=!reverse; showcaretSection=!showcaretSection" data-ng-class="{ dropup: showcaretSection }">Section <span class="caret"></span></th>
       <th data-ng-show="api.user.me.roles.instructor" data-ng-click="predicate='share'; reverse=!reverse; showcaretShare=!showcaretShare" data-ng-class="{ dropup: showcaretShare }">Share <span class="caret"></span></th>
       <th data-ng-click="predicate='points'; reverse=!reverse; showcaretPoints=!showcaretPoints" data-ng-class="{ dropup: showcaretPoints }">Points <span class="caret"></span></th>
       <th data-ng-click="predicate='points'; reverse=!reverse; showcaretPercentile=!showcaretPercentile" data-ng-class="{ dropup: showcaretPercentile }">Percentile <span class="caret"></span></th>
@@ -26,7 +24,6 @@
   <tbody>
     <tr ng-attr-id="dc-engagement-index-table-id-{{student.id}}" data-ng-repeat="student in people | orderBy:predicate:!reverse | filter:search:strict" data-ng-class="{'info': student.highlight}">
       <td class="col-sm-2" data-ng-bind="student.name"></td>
-      <td class="col-sm-2" data-ng-bind="student.section"></td>
       <td data-ng-if="api.user.me.roles.instructor" class="col-sm-2">
         <span data-ng-if="student.share">Yes</span>
         <span data-ng-if="!student.share">No</span>
