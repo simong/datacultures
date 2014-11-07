@@ -1,12 +1,16 @@
-<label for="dc-gallery-search-module">
-  Select Module:
+<label for="dc-gallery-search-assignment">
+  Select Assignment:
 </label>
-<select id="dc-gallery-search-module" ng-model="filterModules.types" ng-options="item.display for item in moduleOptions.types" ng-change="sortType(type)"></select>
+<select id="dc-gallery-search-assignment" ng-model="assignmentFilter" ng-options="assignment.name for assignment in assignments">
+  <option value="">Select All</option>
+</select>
 
 <label for="dc-gallery-search-filter">
   Filter by:
 </label>
-<select id="dc-gallery-search-filter" ng-model="filterGallery.types" ng-options="item.display for item in filterOptions.types" ng-change="sortType(type)"></select>
+<select id="dc-gallery-search-filter" ng-model="typeFilter" ng-options="item.display for item in typeOptions">
+  <option value="">All Types</option>
+</select>
 
 <label for="dc-gallery-search-sort">
   Sort by:
@@ -18,7 +22,7 @@
 </label>
 <input id="dc-gallery-search-text" type="text" ng-model="search.author">
 
-<div class="dc-gallery-list" ng-repeat="item in items | orderBy:sortOption.type:true | filter:customFilter | filter:search">
+<div class="dc-gallery-list" ng-repeat="item in items | orderBy:sortOption.type:true | filter:search | filter:{assignment_id:assignmentFilter.canvas_assignment_id} | filter:{type:typeFilter.value}">
   <div class="dc-thumbnail-item-container">
     <a class="dc-thumbnail-item" ng-href="/gallery/{{item.id}}" style="background-image: url({{item.image_url}})">
       <div class="dc-thumbnail-hover">
