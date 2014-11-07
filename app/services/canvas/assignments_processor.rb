@@ -13,6 +13,8 @@ class Canvas::AssignmentsProcessor
 
   def call(assignments)
 
+    Assignment.sync_if_needed(assignments_data: assignments)
+
     assignments.each do |assignment|
       processing_url = course_api_url(course: course, final_url: :submissions,
                                       mid_variable: assignment['id'].to_s, mid_const: :assignments)
