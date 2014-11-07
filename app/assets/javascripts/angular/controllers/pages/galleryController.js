@@ -4,6 +4,9 @@
   angular.module('datacultures.controllers').controller('GalleryController', function(assignmentFactory, galleryFactory, userInfoFactory, $scope, $routeParams) {
 
     $scope.itemId = $routeParams.itemId;
+    $scope.search = {
+      author: $routeParams.authorId
+    };
 
     $scope.refreshSubmissions = function() {
       return galleryFactory.getSubmissions().success(function(results) {
