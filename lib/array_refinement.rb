@@ -21,17 +21,18 @@ module ArrayRefinement
     def image_hash
       map{ |image|
         {
-          'id'                  => image.gallery_id,
-          'canvas_user_id'      => image.canvas_user_id,
-          'assignment_id'       => image.assignment_id,
-          'submission_id'       => image.submission_id,
-          'attachment_id'       => image.attachment_id,
-          'author'              => image.author,
-          'content_type'         => image.content_type,
-          'image_url'           => image.image_url,
-          'type'                => 'image',
-          'date'                => image.date.to_i * 1000,
-          'comments'            => image.comments_json
+          'id'               => image.gallery_id,
+          'canvas_user_id'   => image.canvas_user_id,
+          'assignment_id'    => image.assignment_id,
+          'submission_id'    => image.submission_id,
+          'attachment_id'    => image.attachment_id,
+          'author'           => image.author,
+          'content_type'     => image.content_type,
+          'image_url'        => image.image_url,
+          'type'             => 'image',
+          'date'             => image.date.to_i * 1000,
+          'comments'         => image.comments_json,
+          'views'            => image.views_count
         }
       }
     end
@@ -47,10 +48,10 @@ module ArrayRefinement
           'type'             => 'video',
           'image_url'        => Video::Metadata.thumbnail_url(media_url.site_tag, media_url.site_id),
           'date'             => media_url.created_at.to_i * 1000,
-          'comments'         => media_url.comments_json
+          'comments'         => media_url.comments_json,
+          'views'            => media_url.views_count
         }
       }
-
     end
 
   end

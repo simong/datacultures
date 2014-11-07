@@ -20,6 +20,7 @@ Rails.application.routes.draw do
       post '/likes'                  => 'likes#create_or_update'
       resources :likes, only: [:create]
       resources :workers, only: [:create]
+      post '/views'                  => 'views#increment'
     end
   end
 
