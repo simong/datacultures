@@ -26,7 +26,7 @@
 
     $scope.addComment = function() {
       galleryFactory.addComment({
-        id: $scope.currentItem.id,
+        id: $scope.item.id,
         comment: $scope.comment.input
       }).success(addingSuccessful);
     };
