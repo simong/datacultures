@@ -6,7 +6,7 @@ class Video::Metadata
     else
       f = Faraday.new(url: "http://vimeo.com/")
       f.response :json, :content_type => 'application/json'
-      f.get("api/v2/video/#{id}.json").body.first['thumbnail_medium']
+      f.get("api/v2/video/#{id}.json").body.first['thumbnail_medium'].sub('http://', 'https://')
     end
   end
 
