@@ -24,7 +24,7 @@
 
 <div class="dc-gallery-list" ng-repeat="item in items | orderBy:sortOption.type:true | filter:search | filter:{assignment_id:assignmentFilter.canvas_assignment_id} | filter:{type:typeFilter.value}">
   <div class="dc-thumbnail-item-container">
-    <a class="dc-thumbnail-item" ng-href="/gallery/{{item.id}}" style="background-image: url({{item.image_url}})">
+    <a class="dc-thumbnail-item" ng-href="/gallery/item/{{item.id}}" style="background-image: url({{item.image_url}})">
       <div class="dc-thumbnail-hover">
         <p>
           {{item.title}} <br>

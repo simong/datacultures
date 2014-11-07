@@ -28,7 +28,10 @@
     when('/canvas/embedded/points_configuration', {
       templateUrl: 'points_configuration.html'
     }).
-    when('/gallery/:itemId?', {
+    when('/gallery/item/:itemId', {
+      templateUrl: 'gallery.html'
+    }).
+    when('/gallery/author/:authorId', {
       templateUrl: 'gallery.html'
     }).
     // Redirect to a 404 page
