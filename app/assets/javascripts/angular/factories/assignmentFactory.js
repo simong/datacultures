@@ -7,7 +7,7 @@
    * Assignment Factory
    * @param {Object} httpService The http service
    */
-  angular.module('datacultures.factories').factory('assignmentsFactory', function(httpService) {
+  angular.module('datacultures.factories').factory('assignmentFactory', function(httpService) {
 
     var url = '/api/v1/assignments';
 

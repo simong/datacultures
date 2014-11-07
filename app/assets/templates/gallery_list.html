@@ -36,7 +36,8 @@
       <div data-ng-include="'gallery_likes.html'"></div>
 
       <div>
-        <span ng-pluralize count="item.comments.length" when="{'1': '1 comment', 'other': '{} comments'}"></span>
+        <span ng-pluralize count="item.comments.length" when="{'1': '1 comment', 'other': '{} comments'}"></span> &bullet;
+        <span ng-pluralize count="item.views" when="{'1': '1 view', 'other': '{} views'}"></span>
       </div>
       <div>
         <span ng-if="item.date">Posted on {{item.date | date:'MM/dd/yyyy'}}</span>

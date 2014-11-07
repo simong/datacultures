@@ -3,7 +3,7 @@
     <a href="/gallery" class="dc-full-back-link">&#8592; Back to Gallery</a>
   </div>
 
-  <div class="dc-full-container">
+  <div class="dc-full-container" ng-controller="GalleryViewController">
     <div ng-if="item.type === 'image'">
       <img class="dc-full-image" ng-src="{{item.image_url}}">
     </div>
