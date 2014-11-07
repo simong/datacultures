@@ -27,7 +27,7 @@ module ArrayRefinement
           'submission_id'       => image.submission_id,
           'attachment_id'       => image.attachment_id,
           'author'              => image.author,
-          'conent_type'         => image.content_type,
+          'content_type'         => image.content_type,
           'image_url'           => image.image_url,
           'type'                => 'image',
           'date'                => image.date.to_i * 1000,
