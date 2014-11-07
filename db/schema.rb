@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141102013948) do
+ActiveRecord::Schema.define(version: 20141106222129) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -33,6 +33,14 @@ ActiveRecord::Schema.define(version: 20141102013948) do
 
   add_index "activities", ["deleted_at"], name: "index_activities_on_deleted_at", using: :btree
   add_index "activities", ["scoring_item_id", "reason"], name: "index_activities_on_scoring_item_id_and_reason", using: :btree
+
+  create_table "assignments", force: true do |t|
+    t.string   "name"
+    t.integer  "canvas_assignment_id"
+    t.datetime "deleted_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "attachments", force: true do |t|
     t.integer  "canvas_user_id"

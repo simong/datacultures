@@ -3,6 +3,7 @@ class Attachment < ActiveRecord::Base
 
   after_create :create_gallery_reference
 
+  belongs_to  :assignment, primary_key: 'canvas_assignment_id', foreign_key: 'assignment_id'
   has_many :comments, :primary_key => :gallery_id, :foreign_key => :gallery_id
 
   def create_gallery_reference
@@ -16,5 +17,6 @@ class Attachment < ActiveRecord::Base
   def generate_gallery_id
     'image-' + id.to_s + '-' + assignment_id.to_s
   end
+
 
 end
