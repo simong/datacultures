@@ -5,7 +5,6 @@
 
     // Define variables for carot symbol flip for sorting
     $scope.showcaretStudent = false;
-    $scope.showcaretSection = false;
     $scope.showcaretPoints = false;
     $scope.showcaretLastPoint = false;
     $scope.showcaretPercentile = false;
@@ -91,7 +90,6 @@
 
       // Default Sort
       $scope.predicate = 'points';
-      $scope.predicateUnshare = 'section';
     };
 
     var userWatch = $scope.$watch('api.user.me.canvas_user_id', function(canvasUserId) {
