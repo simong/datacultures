@@ -11,6 +11,14 @@ DatabaseCleaner.strategy = :transaction
 # for api calls in controller specs.  possible refactor to (theoretical) controller_spec_helper.rb
 USER_STRUCT = OpenStruct.new({canvas_id: 5})
 
+HTTP_SYMBOLS = {conflict: 409, created: 201, gone: 410, no_content: 204, bad_request: 400}
+
+RSpec::Matchers.define :have_return_status do |expected|
+  match do |actual|
+    actual == HTTP_SYMBOLS[expected]
+  end
+end
+
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
 # run as spec files by default. This means that files in spec/support that end

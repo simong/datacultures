@@ -1,17 +1,9 @@
 require 'rails_helper'
 
-HTTP_SYMBOLS = {conflict: 409, created: 201, gone: 410, no_content: 204}
-
-RSpec::Matchers.define :have_return_status do |expected|
-  match do |actual|
-    actual == HTTP_SYMBOLS[expected]
-  end
-end
-
 RSpec.describe Api::V1::LikesController, :type => :controller do
 
   let!(:valid_api_params)           { { id: 'image-19', canvas_user_id: 5, liked: 'true'                            } }
-  let!(:valid_db_params)            { {  canvas_user_id: 5, reason: 'Like', delta: 17, scoring_item_id: 'image-19'  } }
+  let!(:valid_db_params)            { { canvas_user_id: 5, reason: 'Like', delta: 17, scoring_item_id: 'image-19'  } }
   let!(:submission_activity_params) { {  canvas_user_id: 9, gallery_id: 'image-19'  } }
 
   let!(:valid_session) { {} }

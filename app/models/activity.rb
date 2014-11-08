@@ -4,6 +4,7 @@ class Activity < ActiveRecord::Base
   acts_as_paranoid
 
   scope :opinion, -> { where(reason: ['Like', 'Dislike', 'MarkNeutral'])}
+  scope :scored,  -> { where(score: true)}
 
   def self.score!(activity)
     create(activity)
@@ -12,16 +13,20 @@ class Activity < ActiveRecord::Base
     #   and even then, not if there is no new activity
   end
 
-  def self.liked_scores
-    Activity.where({score: true}).group(:posters_canvas_id).sum(:delta)
+  def self.as_csv
+    all.pluck(*FIELDS).map(&:to_csv).join()
+  end
+
+  def self.received_scores
+    Activity.scored.group(:posters_canvas_id).sum(:delta)
   end
 
   def self.active_scores
-    Activity.where({score: true}).group(:canvas_user_id).sum(:delta)
+    Activity.scored.group(:canvas_user_id).sum(:delta)
   end
 
   def self.student_scores
-    self.active_scores.update(self.liked_scores) { |user, active, liked| active + liked }
+    self.active_scores.update(self.received_scores) { |user, active, received| active + received }
   end
 
   ## refresh cache
