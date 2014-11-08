@@ -28,6 +28,9 @@
     when('/canvas/embedded/points_configuration', {
       templateUrl: 'points_configuration.html'
     }).
+    when('/gallery', {
+      templateUrl: 'gallery.html'
+    }).
     when('/gallery/item/:itemId', {
       templateUrl: 'gallery.html'
     }).
