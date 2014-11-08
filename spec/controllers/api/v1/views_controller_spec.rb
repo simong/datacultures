@@ -1,13 +1,5 @@
 require 'rails_helper'
 
-HTTP_SYMBOLS = {conflict: 409, created: 201, gone: 410, no_content: 204, ok: 200}
-
-RSpec::Matchers.define :have_return_status do |expected|
-  match do |actual|
-    actual == HTTP_SYMBOLS[expected]
-  end
-end
-
 RSpec.describe Api::V1::ViewsController, :type => :controller do
 
   let(:post_params) { { gallery_id: 'picture-2-300' } }
@@ -19,7 +11,7 @@ RSpec.describe Api::V1::ViewsController, :type => :controller do
 
       it "indicates that a resource was created" do
         post :increment, post_params, valid_session
-        expect(response.status).to have_return_status :ok
+        expect(response.response_code).to eq(200)
       end
 
       it "adds an View record if none associated" do
