@@ -11,11 +11,20 @@ DatabaseCleaner.strategy = :transaction
 # for api calls in controller specs.  possible refactor to (theoretical) controller_spec_helper.rb
 USER_STRUCT = OpenStruct.new({canvas_id: 5})
 
-HTTP_SYMBOLS = {conflict: 409, created: 201, gone: 410, no_content: 204, bad_request: 400}
+
+HTTP_RETURN_STATUS_SYMBOLS = {
+    ok:          200,
+    created:     201,
+    no_content:  204,
+    bad_request: 400,
+    forbidden:   403,
+    conflict:    409,
+    gone:        410
+}
 
 RSpec::Matchers.define :have_return_status do |expected|
   match do |actual|
-    actual == HTTP_SYMBOLS[expected]
+    actual == HTTP_RETURN_STATUS_SYMBOLS[expected]
   end
 end
 

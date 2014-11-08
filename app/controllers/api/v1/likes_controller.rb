@@ -4,12 +4,17 @@ class Api::V1::LikesController < ApplicationController
 
   # POST /api/v1/likes
   def create_or_update
+    poster = posting_user_id
     if previous_record
       previous_record.update_attributes values_for_update
       head :no_content
     else
-      Activity.create(values_for_create)
-      head :created
+      if poster != current_user.canvas_id
+        Activity.create(values_for_create(posting_users_canvas_id: poster))
+        head :created
+      else
+        head :forbidden
+      end
     end
   end
 
@@ -27,14 +32,7 @@ class Api::V1::LikesController < ApplicationController
       }
     end
 
-    def values_for_create
-      if safe_params[:id] =~ /image-/
-        model = Attachment
-      else
-        model = MediaUrl
-      end
-      posting_users_canvas_id = model.where(gallery_id: safe_params[:id]).
-          first.try(:canvas_user_id)
+    def values_for_create(posting_users_canvas_id:)
       {
           canvas_user_id: current_user.canvas_id,
           reason: reason,
@@ -55,6 +53,15 @@ class Api::V1::LikesController < ApplicationController
         else
           'MarkNeutral'
       end
+    end
+
+    def posting_user_id
+      if safe_params[:id] =~ /image-/
+        model = Attachment
+      else
+        model = MediaUrl
+      end
+      model.where(gallery_id: safe_params[:id]).first.try(:canvas_user_id)
     end
 
     def previous_record
