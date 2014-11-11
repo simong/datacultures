@@ -1,20 +1,25 @@
 class Api::V1::LikesController < ApplicationController
 
   layout false
+  CURRENT_USER_TYPES = { true => 'Like', false => 'Dislike'}
+  ORIGINAL_POSTER_TYPE = { true => 'GetALike', false => 'GetADislike'}
 
   # POST /api/v1/likes
-  def create_or_update
-    poster = posting_user_id
-    if previous_record
-      previous_record.update_attributes values_for_update
-      head :no_content
-    else
-      if poster != current_user.canvas_id
-        Activity.create(values_for_create(posting_users_canvas_id: poster))
-        head :created
-      else
-        head :forbidden
+  def create
+    original_poster = posting_user_id
+    if (original_poster != current_user.canvas_id)
+      previous_records(user_list: [original_poster, current_user.canvas_id]).each do |previous_record|
+        previous_record.retire!
       end
+      if [true, false].include?(safe_params['liked'])
+        Activity.score!(values_for_create(canvas_user_id: current_user.canvas_id,
+                                          activity_name: like_type(user_type: 'CurrentUser')))
+        Activity.score!(values_for_create(canvas_user_id: original_poster,
+                                          activity_name: like_type(user_type: 'OriginalPoster')))
+      end
+      head :created
+    else
+      head :forbidden
     end
   end
 
@@ -24,35 +29,20 @@ class Api::V1::LikesController < ApplicationController
       params.permit(:liked, :id)
     end
 
-    def  values_for_update
+    def values_for_create(canvas_user_id:, activity_name:)
       {
-        reason: reason,
-        canvas_updated_at: Time.now,
-        delta: PointsConfiguration.cached_mappings[reason]
-      }
-    end
-
-    def values_for_create(posting_users_canvas_id:)
-      {
-          canvas_user_id: current_user.canvas_id,
-          reason: reason,
-          scoring_item_id: safe_params[:id],
+          canvas_user_id: canvas_user_id,
+          reason: activity_name,
+          scoring_item_id: safe_params['id'],
           canvas_updated_at: Time.now,
-          delta: PointsConfiguration.cached_mappings[reason],
-          score: PointsConfiguration.active_flag_mappings[reason],
-          posters_canvas_id: posting_users_canvas_id
+          delta: PointsConfiguration.cached_mappings[activity_name],
+          score: PointsConfiguration.active_flag_mappings[activity_name]
       }
     end
 
-    def reason
-      case safe_params[:liked]
-        when true
-          'Like'
-        when false
-          'Dislike'
-        else
-          'MarkNeutral'
-      end
+    def like_type(user_type:)
+      user_mapping = (user_type == 'CurrentUser') ? CURRENT_USER_TYPES : ORIGINAL_POSTER_TYPE
+      user_mapping[safe_params['liked']]
     end
 
     def posting_user_id
@@ -64,10 +54,10 @@ class Api::V1::LikesController < ApplicationController
       model.where(gallery_id: safe_params[:id]).first.try(:canvas_user_id)
     end
 
-    def previous_record
-      Activity.where(reason: ['Like', 'Dislike', 'MarkNeutral'],
-                     scoring_item_id: safe_params[:id],
-                     canvas_user_id: current_user.canvas_id).first
+    def previous_records(user_list:)
+      Activity.current.where(reason: ['Like', 'Dislike'],
+                     scoring_item_id: safe_params['id'],
+                     canvas_user_id: user_list)
     end
 
 end

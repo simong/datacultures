@@ -28,8 +28,23 @@ en:
     DiscussionEntry:  'Reply to a discussion'
     Submission:       'Submit for an assignment'
     GalleryComment:   'Comment on a Gallery Submission'
-    # these keys can change
+    GetAComment:      'Receive a Comment on a Gallery Submission'
     Like:             'Like a Gallery Item'
     Dislike:          'Dislike a Gallery Item'
+    GetALike:         'Receive a Gallery Item like'
+    GetADislike:      'Receive a Gallery Item dislike'
 
+
+  short_activity_names:
+    DiscussionTopic:  'New Discussion'
+    DiscussionEdit:   'Edit Discussion'
+    DiscussionEntry:  'Discussion Reply'
+    Submission:       'Submission'
+    GalleryComment:   'Comment'
+    GetAComment:      'Receive Comment'
+    Like:             'Like'
+    Dislike:          'Dislike'
+    GetALike:         'Get a like'
+    GetADislike:      'Get a dislike'
+  csv_column_heads: ['Activity Type', 'Student Name', 'Total Score', 'Score','Active','Updated Time']
 

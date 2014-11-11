@@ -41,8 +41,9 @@ gem 'ngannotate-rails',        '~> 0.10.1'
 # https://github.com/pitr/angular-rails-templates
 gem 'angular-rails-templates', '~> 0.1.3'
 
-# formatters
+# formatters / decorators
 gem 'json',                    '~> 1.8'
+gem 'decorated_csv',           '~> 1.0.0'
 
 # DSLs
 gem 'jbuilder',                '~> 2.1'

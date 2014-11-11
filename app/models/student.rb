@@ -34,6 +34,11 @@ class Student < ActiveRecord::Base
     end
   end
 
+  def score
+    #Activity.where({canvas_user_id: id, score: true, expired: false}).sum(:delta)
+    Activity.student_scores[id]
+  end
+
   # make sure the Student record exists, and is up to date.  params hash has given us enough data to
   #   create the record
   def self.ensure_student_record_exists(params)
