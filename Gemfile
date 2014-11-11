@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 # framework
-gem 'rails',                   '4.1.6'
+gem 'rails',                   '4.1.7'
 
 # database
 gem 'pg',                      '~> 0.17'
@@ -32,7 +32,7 @@ gem 'font-awesome-rails',      '~> 4.2.0.0'
 # JavaScript
 gem 'coffee-rails',            '~> 4.0'
 gem 'jquery-rails',            '~> 3.1.2'
-gem 'angular-gem',             '~> 1.3.0'
+gem 'angular-gem',             '~> 1.3.2'
 
 # https://rubygems.org/gems/ngannotate-rails
 gem 'ngannotate-rails',        '~> 0.10.1'
@@ -60,7 +60,7 @@ group :development, :test do
   gem 'rspec',                 '~> 3.0'
   gem 'rspec-rails',           '~> 3.0'
   gem 'guard-rspec',           '~> 4.2'
-  gem 'selenium-webdriver',    '~> 2.42'
+  gem 'selenium-webdriver',    '~> 2.44'
 
   # Debugging
   gem 'byebug',                '~> 3.1'
