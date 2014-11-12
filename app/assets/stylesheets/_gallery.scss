@@ -1,5 +1,6 @@
 .dc-gallery {
   input, textarea {
+    @include single-transition(all, .3s, ease-in-out);
     border: 1px solid #eaeaea;
     border-radius: 0;
     color: #777;
@@ -7,7 +8,6 @@
     margin: 6px;
     padding: 4px;
     width: 182px;
-    @include single-transition(all, .3s, ease-in-out);
   }
   input, textarea, select {
     &:focus, &:hover {
@@ -17,6 +17,7 @@
     }
   }
   select {
+    @include single-transition(all, .3s, ease-in-out);
     background: #fff;
     border: 1px solid #eaeaea;
     border-radius: 0;
@@ -25,7 +26,6 @@
     height: 22px;
     margin: 6px;
     width: 130px;
-    @include single-transition(all, .3s, ease-in-out);
   }
   textarea {
     margin: 0;
@@ -50,9 +50,7 @@
       }
     }
     .dc-comments-list-comment {
-      -moz-hyphens: auto;
-      -webkit-hyphens: auto;
-      hyphens: auto;
+      @include hyphens(auto);
       white-space: pre-wrap;
       word-break: break-word;
       word-wrap: break-word;
@@ -117,13 +115,13 @@
         }
       }
       .dc-thumbnail-hover {
+        @include single-transition(all, .5s, ease);
         background-color: #0a5881;
         bottom: 0;
         color: #f0f0f0;
         opacity: 0;
         position: absolute;
         width: 100%;
-        @include single-transition(all, .5s, ease);
         p {
           font-size: .9em;
           margin-left: 10px;
