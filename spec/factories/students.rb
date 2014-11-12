@@ -2,7 +2,7 @@
 
 FactoryGirl.define do
   factory :student do
-    canvas_user_id 1
+    sequence (:canvas_user_id) { |n| n }
     name "Jonathan Doe"
     sortable_name {"#{name}".split.reverse.join(', ')}
     sis_user_id 123
