@@ -11,24 +11,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141107004006) do
+ActiveRecord::Schema.define(version: 20141110213750) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "activities", force: true do |t|
-    t.string   "reason",            null: false
-    t.integer  "delta",             null: false
+    t.string   "reason",                            null: false
+    t.integer  "delta",                             null: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "deleted_at"
-    t.integer  "canvas_user_id",    null: false
-    t.string   "scoring_item_id",   null: false
+    t.integer  "canvas_user_id",                    null: false
+    t.string   "scoring_item_id",                   null: false
     t.datetime "canvas_updated_at"
     t.text     "body"
     t.boolean  "score"
     t.string   "gallery_id"
     t.integer  "posters_canvas_id"
+    t.boolean  "expired",           default: false
   end
 
   add_index "activities", ["deleted_at"], name: "index_activities_on_deleted_at", using: :btree
@@ -46,13 +47,13 @@ ActiveRecord::Schema.define(version: 20141107004006) do
     t.integer  "canvas_user_id"
     t.integer  "assignment_id"
     t.integer  "submission_id"
-    t.integer  "attachment_id"
     t.string   "author"
     t.string   "content_type"
     t.text     "image_url"
     t.datetime "deleted_at"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "attachment_id"
     t.datetime "date"
     t.string   "gallery_id"
   end

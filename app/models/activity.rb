@@ -1,10 +1,11 @@
 class Activity < ActiveRecord::Base
 
-  belongs_to :student
+  belongs_to :student, primary_key: :canvas_user_id, foreign_key: :canvas_user_id
   acts_as_paranoid
 
-  scope :opinion, -> { where(reason: ['Like', 'Dislike', 'MarkNeutral'])}
-  scope :scored,  -> { where(score: true)}
+  scope :opinion, -> { where(reason:  ['Like', 'Dislike', 'GetALike', 'GetADislike' ])}
+  scope :scored,  -> { where(score:   true)}
+  scope :current, -> { where(expired: false)}
 
   def self.score!(activity)
     create(activity)
@@ -14,20 +15,17 @@ class Activity < ActiveRecord::Base
   end
 
   def self.as_csv
-    all.pluck(*FIELDS).map(&:to_csv).join()
+    current.scored.pluck(*FIELDS).map(&:to_csv).join()
   end
 
-  def self.received_scores
-    Activity.scored.group(:posters_canvas_id).sum(:delta)
-  end
-
-  def self.active_scores
-    Activity.scored.group(:canvas_user_id).sum(:delta)
+  def retire!
+    update_attribute(:expired, true)
   end
 
   def self.student_scores
-    self.active_scores.update(self.received_scores) { |user, active, received| active + received }
+    current.scored.group(:canvas_user_id).sum(:delta)
   end
+
 
   ## refresh cache
   def self.update_scores!

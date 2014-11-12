@@ -1,10 +1,11 @@
 Rails.application.routes.draw do
 
   root :to => 'bootstrap#index'
-  post '/canvas/embedded/*url' => 'canvas_lti#embedded', defaults: { format: 'html' }
-  get '/canvas/lti_engagement_index' => 'canvas_lti#lti_engagement_index', defaults: { format: 'xml' }
+  post '/canvas/embedded/*url'           => 'canvas_lti#embedded', defaults: { format: 'html' }
+  get '/canvas/lti_engagement_index'     => 'canvas_lti#lti_engagement_index', defaults: { format: 'xml' }
   get '/canvas/lti_points_configuration' => 'canvas_lti#lti_points_configuration', defaults: { format: 'xml'}
-  get '/canvas/lti_gallery' => 'canvas_lti#lti_gallery', defaults: { format: 'xml'}
+  get '/canvas/lti_gallery'              => 'canvas_lti#lti_gallery', defaults: { format: 'xml'}
+  get  '/activities'                     => 'activities#index'
 
   namespace :api do
     namespace :v1 do
@@ -17,7 +18,6 @@ Rails.application.routes.draw do
       resources :points_configuration, only: [:index, :update]
       resources :comments, only: [ :create]
       put  '/comments'               => 'comments#update'
-      post '/likes'                  => 'likes#create_or_update'
       resources :likes, only: [:create]
       resources :workers, only: [:create]
       post '/views'                  => 'views#increment'

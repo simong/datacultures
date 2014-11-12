@@ -17,18 +17,6 @@ RSpec.describe Activity, :type => :model do
       expect(Activity.student_scores).to be_kind_of Hash
     end
 
-    it "a Like increases the score of the original poster of the item liked." do
-      FactoryGirl.create(:activity, {score: true, delta: 1, posters_canvas_id: 3})  # change BY can't handle *from* nil
-      expect{FactoryGirl.create(:activity, {posters_canvas_id: 3, score: true, delta: 5 })}.
-          to change{Activity.student_scores[3]}.by(5)
-    end
-
-    it "a Like changes the #received_scores of the one liked" do
-      FactoryGirl.create(:activity, {score: true, delta: 1, posters_canvas_id: 23})  # change BY can't handle *from* nil
-      expect{FactoryGirl.create(:activity, {posters_canvas_id: 23, score: true, delta: 4 })}.
-          to change{Activity.received_scores[23]}.by(4)
-    end
-
     it "increases the score of the person taking the action." do
       FactoryGirl.create(:activity, {score: true, delta: 1, canvas_user_id: 13})  # change BY can't handle *from* nil
       expect{FactoryGirl.create(:activity, {canvas_user_id: 13, score: true, delta: 5 })}.

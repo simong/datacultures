@@ -15,8 +15,22 @@ module ArrayRefinement
       }
     end
 
-    #   'author','date','content_type','image_url', 'gallery_id']
+    def csv_array
+      short_names   = (I18n.t 'short_activity_names').stringify_keys
+      #student_names = Student.get_students_by_canvas_id
+      scores        = Activity.student_scores 
 
+      map{ |activity|
+        [
+            short_names[activity[0]],   #  activity type
+            activity[4],                #  student name
+            scores[activity[1]],        #  total score
+            activity[2],                #  delta
+            !activity[5],                #  current (not retired)
+            activity[3]                 #  updated_at
+        ]
+      }
+    end
 
     def image_hash
       map{ |image|

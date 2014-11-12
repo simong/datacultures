@@ -1,5 +1,13 @@
 require 'rails_helper'
 
+HTTP_SYMBOLS = {conflict: 409, created: 201, gone: 410, no_content: 204, bad_request: 400}
+
+RSpec::Matchers.define :have_return_status do |expected|
+  match do |actual|
+    actual == HTTP_SYMBOLS[expected]
+  end
+end
+
 RSpec.describe Api::V1::CommentsController, :type => :controller do
 
   let(:valid_create_comment_json) {
@@ -46,7 +54,7 @@ RSpec.describe Api::V1::CommentsController, :type => :controller do
     it "responds with a 400 with invalid params" do
       valid_create_comment_json.delete(:id)
       post :create, valid_create_comment_json
-      expect(response.response_code).to eq(400)
+      expect(response.status).to have_return_status :bad_request
     end
 
     it "does not create a new object with invalid params" do
@@ -62,13 +70,6 @@ RSpec.describe Api::V1::CommentsController, :type => :controller do
       }.to change{Activity.student_scores}
     end
 
-    it "scores for the base item's poster if not also the commenter" do
-      attachment = FactoryGirl.create(:attachment, canvas_user_id: 17)
-      expect{
-        post :create, { 'comment' => 'testing', 'id' => attachment.gallery_id }
-      }.to change{Activity.student_scores[17]}
-    end
-
     it "does not score for the commenter if s/he also posted the base item" do
       attachment = FactoryGirl.create(:attachment, canvas_user_id: USER_STRUCT.canvas_id)
       expect{
@@ -80,7 +81,7 @@ RSpec.describe Api::V1::CommentsController, :type => :controller do
 
   describe "PUT update" do
 
-    it "returns '410 GONE' if not passed in a valid comment_id"  do
+      it "returns '410 GONE' if not passed in a valid comment_id"  do
       put :update, valid_update_comment_json
       expect(response.status).to have_return_status :gone
     end
