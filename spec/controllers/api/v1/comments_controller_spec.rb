@@ -27,15 +27,18 @@ RSpec.describe Api::V1::CommentsController, :type => :controller do
   before(:all) do
     PointsConfiguration.delete_all
     Activity.delete_all
-    PointsConfiguration.create({interaction: "GalleryComment", points_associated: 7,
-                                active: true, pcid: 3})
+    PointsConfiguration.create({interaction: "GalleryComment", points_associated: 7, active: true, pcid: 5})
+    PointsConfiguration.create({interaction: "GetAComment", points_associated: 11, active: true, pcid: 6})
     FactoryGirl.create(:student, name: 'Ford Prefect of the Comments Controller', canvas_user_id: 5)
+    FactoryGirl.create(:attachment, canvas_user_id: USER_STRUCT.canvas_id)
+    FactoryGirl.create(:attachment, canvas_user_id: USER_STRUCT.canvas_id+1)
   end
 
   after(:all) do
     Student.delete_all
     Activity.delete_all
     Comment.delete_all
+    Attachment.delete_all
     PointsConfiguration.delete_all
   end
 
@@ -43,11 +46,19 @@ RSpec.describe Api::V1::CommentsController, :type => :controller do
     allow(controller).to receive(:current_user).and_return(USER_STRUCT)
   end
 
+  let(:current_user_attachment) do
+    Attachment.where(canvas_user_id: USER_STRUCT.canvas_id).first
+  end
+
+  let(:other_user_attachment) do
+    Attachment.where(canvas_user_id: USER_STRUCT.canvas_id+1).first
+  end
+
   describe "POST create" do
 
     it "creates a comment when submitted to with valid params" do
       expect{
-        post :create, valid_create_comment_json
+        post :create, {'id' => other_user_attachment.gallery_id, 'comment' => 'bar baz'}
       }.to change(Comment, :count).by(1)
     end
 
@@ -66,22 +77,24 @@ RSpec.describe Api::V1::CommentsController, :type => :controller do
 
     it "scores for the student posting" do
       expect {
-        post :create, valid_create_comment_json
-      }.to change{Activity.student_scores}
+        post :create,  {'id' => other_user_attachment.gallery_id, 'comment' => 'foo bar'}
+      }.to change{Activity.student_scores[USER_STRUCT.canvas_id]}.from(nil).to(7)
     end
 
     it "does not score for the commenter if s/he also posted the base item" do
-      attachment = FactoryGirl.create(:attachment, canvas_user_id: USER_STRUCT.canvas_id)
       expect{
-        post :create, { 'comment' => 'testing', 'id' => attachment.gallery_id }
-      }.to_not change{Activity.student_scores[USER_STRUCT.canvas_id]}
+        post :create, { 'comment' => 'testing', 'id' => current_user_attachment.gallery_id }
+      }.to_not change{Activity.student_scores[current_user_attachment.canvas_user_id]}
     end
 
-  end
+    it "score for the original poster" do
+      attachment = FactoryGirl.create(:attachment, canvas_user_id: USER_STRUCT.canvas_id + 1)
+      expect{
+        post :create, { 'comment' => 'testing', 'id' => attachment.gallery_id }
+      }.to change{Activity.student_scores[USER_STRUCT.canvas_id+1]}.from(nil).to(11)
+    end
 
-  describe "PUT update" do
-
-      it "returns '410 GONE' if not passed in a valid comment_id"  do
+    it "returns '410 GONE' if not passed in a valid comment_id"  do
       put :update, valid_update_comment_json
       expect(response.status).to have_return_status :gone
     end

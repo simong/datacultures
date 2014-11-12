@@ -7,7 +7,8 @@ class Api::V1::CommentsController < ApplicationController
                        content: safe_params[:comment] }).persisted?
       base_poster = original_poster_id
       if (base_poster != current_user.canvas_id)
-        Activity.score!(values_for_create(item_poster_id: base_poster))
+        Activity.score!(values_for_create(user_id: base_poster,            activity_type: 'GetAComment'))
+        Activity.score!(values_for_create(user_id: current_user.canvas_id, activity_type: 'GalleryComment'))
       end
       head :created
     end
@@ -34,16 +35,15 @@ class Api::V1::CommentsController < ApplicationController
     params.permit(:id, :comment, :comment_id)
   end
 
-  def values_for_create(item_poster_id:)
+  def values_for_create(user_id:, activity_type:)
     # self-commenting does not credit the commenter
     {
-        canvas_user_id: current_user.canvas_id,
-        reason: 'GalleryComment',
+        canvas_user_id: user_id,
+        reason: activity_type,
         scoring_item_id: safe_params[:id],
         canvas_updated_at: Time.now,
-        delta: PointsConfiguration.cached_mappings['GalleryComment'],
-        score: PointsConfiguration.active_flag_mappings['GalleryComment'],
-        posters_canvas_id: item_poster_id
+        delta: PointsConfiguration.cached_mappings[activity_type],
+        score: PointsConfiguration.active_flag_mappings[activity_type]
     }
   end
 

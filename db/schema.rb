@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141110213750) do
+ActiveRecord::Schema.define(version: 20141112025710) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,7 +28,6 @@ ActiveRecord::Schema.define(version: 20141110213750) do
     t.text     "body"
     t.boolean  "score"
     t.string   "gallery_id"
-    t.integer  "posters_canvas_id"
     t.boolean  "expired",           default: false
   end
 
