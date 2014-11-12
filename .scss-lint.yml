@@ -9,3 +9,5 @@ linters:
     enabled: false
   StringQuotes:
     enabled: false
+  NestingDepth:
+    max_depth: 5
