@@ -11,9 +11,9 @@ class Api::V1::CommentsController < ApplicationController
         Activity.score!(values_for_create(user_id: current_user.canvas_id, activity_type: 'GalleryComment'))
       end
       head :created
+    else
+      head :bad_request
     end
-  else
-    head :bad_request
   end
 
   def update
