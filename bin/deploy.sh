@@ -54,6 +54,7 @@ if [ "$change_count" -gt 0 ];
 
     # update the DB if need be
     rake db:migrate
+    rake db:seed
 
     # generate new Application Secret Key Base
     thor keys:app_new_secret
