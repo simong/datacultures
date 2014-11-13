@@ -19,10 +19,6 @@ if [ "$(whoami)" != "${app_user}" ]
   exit
 fi
 
-# Create maintenace mode marker file
-touch ${DOCROOT}/datacultures-in-maintenance \
-  || { echo 'FAILED to put DataCultures into maintenance mode' ; exit 1; }
-
 # cd to application's base directory
 cd ${HOME}/datacultures
 
@@ -33,6 +29,9 @@ change_count=$(git rev-list HEAD...origin/master | wc -l)
 
 if [ "$change_count" -gt 0 ];
   then
+    # Create maintenace mode marker file
+    touch ${DOCROOT}/datacultures-in-maintenance \
+      || { echo 'FAILED to put DataCultures into maintenance mode' ; exit 1; }
 
     # discard any changes that now exist
     git reset --hard
@@ -55,6 +54,7 @@ if [ "$change_count" -gt 0 ];
 
     # update the DB if need be
     rake db:migrate
+    rake db:seed
 
     # generate new Application Secret Key Base
     thor keys:app_new_secret
