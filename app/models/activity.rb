@@ -32,4 +32,14 @@ class Activity < ActiveRecord::Base
     self.student_scores
   end
 
+  def self.visible_to(user_id:, all_seeing:)
+    does_user_share = Student.find_by_canvas_user_id(user_id).try(:share)
+    if all_seeing
+      where(true)
+    else
+      share_criterion = does_user_share ? Student.sharers_ids : user_id
+      where(canvas_user_id: share_criterion)
+    end
+  end
+
 end

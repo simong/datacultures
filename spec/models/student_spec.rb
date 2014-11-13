@@ -54,6 +54,39 @@ RSpec.describe Student, :type => :model do
 
     end
 
+    describe '#visible_to' do
+
+      before(:all) do
+        @nonsharing_students = FactoryGirl.create_list(:student, 2, share: false)
+        @sharing_students    = FactoryGirl.create_list(:student, 2, share: true)
+      end
+
+      after(:all) do
+        Student.delete_all
+      end
+
+
+      it "with all_seeing = true, show all students" do
+        expect(
+          Student.visible_to(user_id: Student.first.canvas_user_id, all_seeing: true).count
+        ).to eq(4)
+      end
+
+      it "shows all sharing students to other sharing students" do
+        expect(
+            Student.visible_to(user_id: Student.sharing.first.canvas_user_id, all_seeing: false).count
+        ).to be(2)
+      end
+
+      it "only showns the student him/herself if not sharing" do
+        expect(
+            Student.visible_to(user_id: Student.nonsharing.first.canvas_user_id, all_seeing: false).first.canvas_user_id
+        ).to be(Student.nonsharing.first.canvas_user_id)
+
+      end
+
+    end
+
   end
 
   context "Class methods" do

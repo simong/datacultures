@@ -2,48 +2,33 @@ require 'rails_helper'
 
 RSpec.describe Api::V1::EngagementIndexController, :type => :controller do
 
-  let(:valid_student_attributes) {
-    {
-      canvas_user_id: 1,
-      name: "Nolan Chan",
-      sortable_name: "Chan, Nolan",
-      sis_user_id: "1234",
-      primary_email: "nolanchan@berkeley.edu",
-      section: "A",
-      share: false
-    }
-  }
-
-  let(:valid_activity_attributes) {
-    {
-      canvas_user_id: 1,
-      reason: "Post artwork in Mission Gallery",
-      delta: 15,
-      scoring_item_id: 100,
-      canvas_updated_at: Time.now
-    }
-  }
-
   let(:valid_session) { {} }
 
-  describe "GET index" do
-    it "responds with a JSON" do
-      activity = Activity.create! valid_activity_attributes
-      student = Student.create! valid_student_attributes
-      allow(controller).to receive(:current_user).and_return(USER_STRUCT)
-      get :index, {format: :json}, valid_session
-      expect(JSON.parse(response.body)["students"][0]["name"]).to eq("Nolan Chan")
+  before(:all) do
+    FactoryGirl.create_list(:student, 2, {share: true})
+    FactoryGirl.create(:student, {share: false})
+  end
 
+  describe "GET index" do
+    it "returns all students if a teacher" do
+      FactoryGirl.create(:student, {name: 'Nolan Chan', share: false})
+      allow(controller).to receive(:current_user).and_return(TEACHER_STRUCT)
+      get :index, {format: :json}, valid_session
+      expect(JSON.parse(response.body)["students"].map{|s| s['name']}).to include("Nolan Chan")
     end
 
-    it "returns two students when two students are in the Database" do
-      FactoryGirl.create(:student, canvas_user_id: 2)
-      FactoryGirl.create(:activity, canvas_user_id: 2)
-      activity = Activity.create! valid_activity_attributes
-      student = Student.create! valid_student_attributes
+    it "returns three students when three students sharing are in the Database" do
       allow(controller).to receive(:current_user).and_return(USER_STRUCT)
+      FactoryGirl.create(:student, {canvas_user_id: USER_STRUCT.canvas_id, share: true})
       get :index, {format: :json}, valid_session
-      expect(JSON.parse(response.body)["students"].count).to eq(2)
+      expect(JSON.parse(response.body)["students"].count).to eq(3)
+    end
+
+    it "only shows the current student if s/he is not sharing" do
+      allow(controller).to receive(:current_user).and_return(USER_STRUCT)
+      FactoryGirl.create(:student, {canvas_user_id: USER_STRUCT.canvas_id, share: false})
+      get :index, {format: :json}, valid_session
+      expect(JSON.parse(response.body)["students"].count).to eq(1)
     end
   end
 

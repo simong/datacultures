@@ -1,6 +1,9 @@
 class Student < ActiveRecord::Base
   has_many :activities
 
+  scope :sharing,    -> { where(share: true)}
+  scope :nonsharing, -> { where(share: false)}
+
   require 'array_refinement'
   using ArrayRefinement
 
@@ -68,6 +71,23 @@ class Student < ActiveRecord::Base
   def update_other_tables(new_attributes)
     # Comments should use new name value
     Comment.where({authors_canvas_id: new_attributes[:canvas_user_id]}).update_all({author: new_attributes[:name]})
+  end
+
+  def self.visible_to(user_id:, all_seeing: )
+    if all_seeing
+      filter_by = true
+    else
+      if Student.find_by_canvas_user_id(user_id).try(:share)
+        filter_by = {share: true}
+      else
+        filter_by = { canvas_user_id: user_id}
+      end
+    end
+    where(filter_by)
+  end
+
+  def self.sharers_ids
+    where(share: true).pluck(:canvas_user_id)
   end
 
 end

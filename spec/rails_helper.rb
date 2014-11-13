@@ -9,7 +9,8 @@ require 'database_cleaner'
 DatabaseCleaner.strategy = :transaction
 
 # for api calls in controller specs.  possible refactor to (theoretical) controller_spec_helper.rb
-USER_STRUCT = OpenStruct.new({canvas_id: 5})
+USER_STRUCT = OpenStruct.new({canvas_id: 5, user_roles: ['Learner']})
+TEACHER_STRUCT = OpenStruct.new({canvas_id: 7, user_roles: ['Instructor']})
 
 
 HTTP_RETURN_STATUS_SYMBOLS = {
