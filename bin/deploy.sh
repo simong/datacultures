@@ -19,10 +19,6 @@ if [ "$(whoami)" != "${app_user}" ]
   exit
 fi
 
-# Create maintenace mode marker file
-touch ${DOCROOT}/datacultures-in-maintenance \
-  || { echo 'FAILED to put DataCultures into maintenance mode' ; exit 1; }
-
 # cd to application's base directory
 cd ${HOME}/datacultures
 
@@ -33,6 +29,9 @@ change_count=$(git rev-list HEAD...origin/master | wc -l)
 
 if [ "$change_count" -gt 0 ];
   then
+    # Create maintenace mode marker file
+    touch ${DOCROOT}/datacultures-in-maintenance \
+      || { echo 'FAILED to put DataCultures into maintenance mode' ; exit 1; }
 
     # discard any changes that now exist
     git reset --hard
