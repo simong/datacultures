@@ -23,6 +23,7 @@ RSpec.describe Canvas::SubmissionsProcessor, :type => :model do
   end
 
   before(:all) do
+    Student.delete_all
     FactoryGirl.create(:student, {canvas_user_id: 9})
   end
 

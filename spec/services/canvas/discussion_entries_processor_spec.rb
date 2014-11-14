@@ -5,7 +5,14 @@ RSpec.describe Canvas::DiscussionEntriesProcessor, :type => :model do
   before(:all) do
     PointsConfiguration.delete_all
     Activity.delete_all
+    Student.delete_all
     PointsConfiguration.create({interaction: "DiscussionEntry",   points_associated:  7, active: true, pcid: "Baz"})
+  end
+
+  after(:all) do
+    Student.delete_all
+    PointsConfiguration.delete_all
+    Activity.delete_all
   end
 
   # request configuration data (for rare actual call testing)
