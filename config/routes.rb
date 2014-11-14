@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   get '/canvas/lti_engagement_index'     => 'canvas_lti#lti_engagement_index', defaults: { format: 'xml' }
   get '/canvas/lti_points_configuration' => 'canvas_lti#lti_points_configuration', defaults: { format: 'xml'}
   get '/canvas/lti_gallery'              => 'canvas_lti#lti_gallery', defaults: { format: 'xml'}
-  get  '/activities'                     => 'activities#index'
+  get '/download/activities'             => 'activities#index'
 
   namespace :api do
     namespace :v1 do

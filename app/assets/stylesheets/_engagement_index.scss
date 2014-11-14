@@ -1,8 +1,13 @@
 // BODY
 .dc-engagement-index {
-
+  .dc-engagement-index-controls {
+    margin: 40px 0 20px;
+  }
   .dc-engagement-index-description {
     margin-bottom: 40px;
+  }
+  .dc-engagement-index-disclaimer {
+    margin-top: 20px;
   }
   .dc-engagement-index-screenshot-container {
     max-width: 500px;
@@ -13,10 +18,6 @@
     padding-bottom: 52.7272%;
   }
 
-
-  .dc-disclaimer {
-    margin-top: 20px;
-  }
   .dc-engagement-search {
     display: inline-block;
     padding: 4px 6px;
@@ -33,14 +34,8 @@
   .dc-mouse-pointer {
     cursor: pointer;
   }
-  .dc-score-jump-link {
-    margin-top: 10px;
-  }
   .dc-select-share {
     padding-top: 50px;
-  }
-  .dc-sort-controls {
-    margin: 40px 0 20px;
   }
   .dc-user-info {
     font-size: 18px;
