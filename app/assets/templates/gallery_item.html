@@ -1,6 +1,6 @@
 <div ng-controller="GalleryItemController">
   <div class="dc-full-header">
-    <a href="/gallery" class="dc-full-back-link">&#8592; Back to Gallery</a>
+    <button class="dc-button-link dc-full-back-link" data-ng-click="selectedItem.itemId = ''">&#8592; Back to Gallery</button>
   </div>
 
   <div class="dc-full-container" ng-controller="GalleryViewController">
@@ -28,7 +28,7 @@
         <div ng-if="!comment.editMode">
           <div class="dc-comments-list-comment" dc-compile-directive="comment.comment | linky"></div>
           <div class="dc-comments-list-comment-info">
-            by <a ng-href="/gallery/author/{{comment.author.name}}">{{comment.author.name}}</a> on {{comment.created_at | date:"MM/dd/yyyy 'at' h:mm a"}}
+            by <button class="dc-button-link dc-button-link-color" ng-click="searchAuthor(comment.author.name)">{{comment.author.name}}</button> on {{comment.created_at | date:"MM/dd/yyyy 'at' h:mm a"}}
             <span ng-if="comment.author.canvas_user_id === api.user.me.canvas_user_id"> | <button type="button" ng-click="enterEditMode(comment)" class="btn btn-info">Edit</button></span>
           </div>
         </div>

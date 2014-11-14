@@ -1,8 +1,8 @@
 <div class="dc-gallery dc-clearfix-container" ng-controller="GalleryController">
   <h1>
-    <a href="/gallery">Media Gallery</a>
+    <button class="dc-button-link dc-button-link-color" data-ng-click="resetOptions()">Media Gallery</button>
   </h1>
 
-  <div data-ng-if="!itemId" data-ng-include="'gallery_list.html'"></div>
-  <div data-ng-if="itemId" data-ng-include="'gallery_item.html'"></div>
+  <div data-ng-if="!selectedItem.itemId" data-ng-include="'gallery_list.html'"></div>
+  <div data-ng-if="selectedItem.itemId" data-ng-include="'gallery_item.html'"></div>
 </div>
