@@ -5,10 +5,11 @@
   <hr />
 </div>
 
-<div class="dc-sort-controls">
-  <form class="form-inline">
+<div class="dc-engagement-index-controls dc-clearfix-container">
+  <form class="form-inline dc-float-left">
     <input type="text" class="dc-engagement-search form-control" placeholder="Search..." data-ng-model="search.$">
   </form>
+  <a type="button" href="/download/activities.csv" target="_blank" class="btn btn-info dc-float-right" data-ng-show="api.user.me.roles.instructor">Download CSV</a>
 </div>
 
 <table class="table table-striped table-bordered dc-table-striped-border dc-table-margin">
