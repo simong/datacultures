@@ -14,14 +14,14 @@
     var getCurrentItem = function() {
       for (var i = 0; i < $scope.items.length; i++) {
         var item = $scope.items[i];
-        if (item.id === $scope.itemId) {
+        if (item.id === $scope.selectedItem.itemId) {
           return item;
         }
       }
     };
 
-    $scope.$watch('items', function(newValue) {
-      if (!newValue || !$scope.itemId) {
+    $scope.$watchGroup(['items', 'selectedItem.itemId'], function(newValues) {
+      if (!newValues || !$scope.selectedItem || !$scope.selectedItem.itemId) {
         return;
       }
       var currentItem = getCurrentItem();

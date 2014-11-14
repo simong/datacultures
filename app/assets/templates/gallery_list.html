@@ -1,37 +1,38 @@
 <label for="dc-gallery-search-assignment">
   Select Assignment:
 </label>
-<select id="dc-gallery-search-assignment" ng-model="assignmentFilter" ng-options="assignment.name for assignment in assignments">
+<select id="dc-gallery-search-assignment" ng-model="filter.assignment" ng-options="assignment.name for assignment in assignments">
   <option value="">Select All</option>
 </select>
 
 <label for="dc-gallery-search-filter">
   Filter by:
 </label>
-<select id="dc-gallery-search-filter" ng-model="typeFilter" ng-options="item.display for item in typeOptions">
+<select id="dc-gallery-search-filter" ng-model="filter.type" ng-options="item.display for item in typeOptions">
   <option value="">All Types</option>
 </select>
 
 <label for="dc-gallery-search-sort">
   Sort by:
 </label>
-<select id="dc-gallery-search-sort" ng-model="sortOption" ng-options="option.display for option in sortOptions"></select>
+<select id="dc-gallery-search-sort" ng-model="sort.option" ng-options="option.display for option in sortOptions"></select>
 
 <label for="dc-gallery-search-text">
   Search For Student:
 </label>
 <input id="dc-gallery-search-text" type="text" ng-model="search.author">
 
-<div class="dc-gallery-list" ng-repeat="item in items | orderBy:sortOption.type:true | filter:search | filter:{assignment_id:assignmentFilter.canvas_assignment_id} | filter:{type:typeFilter.value}">
+<div class="dc-gallery-list" ng-repeat="item in items | orderBy:sort.option.type:true | filter:search | filter:{assignment_id:filter.assignment.canvas_assignment_id} | filter:{type:filter.type.value}">
   <div class="dc-thumbnail-item-container">
-    <a class="dc-thumbnail-item" ng-href="/gallery/item/{{item.id}}" style="background-image: url({{item.image_url}})">
+    {{selectedItem.itemId}}
+    <button class="dc-button-link dc-thumbnail-item" ng-click="selectedItem.itemId = item.id" style="background-image: url({{item.image_url}})">
       <div class="dc-thumbnail-hover">
         <p>
           {{item.title}} <br>
           Posted by {{item.author}}
         </p>
       </div>
-    </a>
+    </button>
     <div class="dc-thumbnail-caption">
       <div data-ng-include="'gallery_likes.html'"></div>
 

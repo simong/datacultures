@@ -1,11 +1,28 @@
 (function(angular) {
   'use strict';
 
-  angular.module('datacultures.controllers').controller('GalleryController', function(assignmentFactory, galleryFactory, userInfoFactory, $scope, $routeParams) {
+  angular.module('datacultures.controllers').controller('GalleryController', function(assignmentFactory, galleryFactory, userInfoFactory, $scope) {
 
-    $scope.itemId = $routeParams.itemId;
-    $scope.search = {
-      author: $routeParams.authorId
+    $scope.resetOptions = function() {
+      $scope.selectedItem = {
+        itemId: ''
+      };
+      $scope.search = {
+        author: ''
+      };
+      $scope.filter = {
+        assignment: '',
+        type: ''
+      };
+      // Default should be the first one (date)
+      $scope.sort = {
+        option: $scope.sortOptions[0]
+      };
+    };
+
+    $scope.searchAuthor = function(authorName) {
+      $scope.resetOptions();
+      $scope.search.author = authorName;
     };
 
     $scope.refreshSubmissions = function() {
@@ -58,8 +75,7 @@
       }
     ];
 
-    // Default should be the first one (date)
-    $scope.sortOption = $scope.sortOptions[0];
+    $scope.resetOptions();
 
   });
 

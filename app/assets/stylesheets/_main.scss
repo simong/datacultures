@@ -25,12 +25,17 @@ label {
 // Buttons
 .dc-button-link {
   padding: 0;
+  text-align: left;
   &, &:hover, &:focus {
     background-color: transparent;
     border: 0;
-    color: #333;
-    font-size: 14px;
-    font-weight: normal;
+  }
+}
+.dc-button-link-color {
+  color: #428bca;
+  &:focus, &:hover {
+    color: #2a6496;
+    text-decoration: underline;
   }
 }
 
