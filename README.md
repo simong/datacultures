@@ -26,6 +26,10 @@ Instructions on manual application deployment (after it has been set up once). T
 
 * [Configure Mocking Options for RSpec](docs/mock_options_configure.md) Mocking is enabled by default, which should be fine for most circumstances (in which case this section is optional).
 
+## Reset
+
+[System reset](docs/system_reset.md) For if you want to start from scratch.
+
 ## [Developer Setup](docs/developer_setup_optional.md)
 
 (Optional) A slate of tools is included. Zeus and Guard can help accelerate development.
