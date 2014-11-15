@@ -12,6 +12,9 @@ gem 'faraday',                 '~> 0.9'
 gem 'faraday_middleware',      '~> 0.9'
 gem 'net-http-persistent',     '~> 2.9'
 
+# process management
+gem 'foreman',                 '~> 0.75.0'
+
 # cli tools
 gem 'thor',                    '~> 0.19'
 gem 'thor-rails',              '~> 0.0'
