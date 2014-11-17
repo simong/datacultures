@@ -3,7 +3,7 @@
   'use strict';
 
   /**
-   * Roster Factory - get data from the roster API
+   * Student Factory - get data from the student API
    * @param {Object} $http The $http service from Angular
    */
   angular.module('datacultures.factories').factory('studentFactory', function($http) {
