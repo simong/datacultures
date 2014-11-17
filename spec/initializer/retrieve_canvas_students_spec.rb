@@ -10,6 +10,10 @@ RSpec.describe RetrieveCanvasStudents do
     "http://localhost:3100/api/v1/courses/#{course_id}/search_users"
   }
 
+  before(:all) do
+    Student.delete_all
+  end
+
   let(:valid_student_attributes){
     [{
         "id" => 1,
