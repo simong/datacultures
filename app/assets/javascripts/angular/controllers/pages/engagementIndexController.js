@@ -18,10 +18,15 @@
       choice: true
     };
 
+    var getStudents = function() {
+      studentFactory.getStudents().success(parseStudents);
+    };
+
     $scope.shareDataPass = function() {
       studentFactory.postStudentStatus($scope.currStudentID, $scope.user.choice).success(function() {
         $scope.currStudent.share = $scope.user.choice;
         $scope.currStudent.has_answered_share_question = true;
+        getStudents();
       });
     };
 
@@ -29,13 +34,6 @@
       $scope.people = results.students;
       $scope.currStudent = results.current_canvas_user;
       $scope.currStudentID = $scope.currStudent.canvas_user_id;
-
-      // Set the location.hash to the id of the element I want to scroll to
-      // if ($location.path() === '/engagement_index_instructor') {
-      //   $location.hash = false;
-      // } else {
-      //   $location.hash($scope.currStudent.id);
-      // }
 
       // Loop through and remove all students that are not sharing score
       for (var i = $scope.people.length - 1; i >= 0; i--) {
@@ -96,7 +94,7 @@
       if (canvasUserId) {
 
         // Get students
-        studentFactory.getStudents().success(parseStudents);
+        getStudents();
 
         // Make sure to cancel the watch
         userWatch();
