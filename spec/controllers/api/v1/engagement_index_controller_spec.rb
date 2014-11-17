@@ -9,6 +9,10 @@ RSpec.describe Api::V1::EngagementIndexController, :type => :controller do
     FactoryGirl.create(:student, {share: false})
   end
 
+  after(:all) do
+    Student.delete_all
+  end
+
   describe "GET index" do
     it "returns all students if a teacher" do
       FactoryGirl.create(:student, {name: 'Nolan Chan', share: false})
