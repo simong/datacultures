@@ -7,14 +7,4 @@
   <div class="dc-image-responsive dc-engagement-index-screenshot-example"></div>
 </div>
 
-<div class="dc-select-share">
- <form ng-submit="shareDataPass()">
-    <div>
-      <input type="checkbox" ng-model="user.choice" id="dc-engagement-index-choice">
-      <label for="dc-engagement-index-choice">Yes, I want to share my score on the Engagement Index.</label>
-    </div>
-    <div>
-      <button type="submit" class="btn btn-info">Save</button>
-    </div>
-  </form>
-</div>
+<div data-ng-include="'engagement_index_sharing_option.html'"></div>

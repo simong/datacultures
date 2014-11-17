@@ -17,6 +17,9 @@
     background-image: asset-url("engagement_index_screenshot-1100x580.png");
     padding-bottom: 52.7272%;
   }
+  .dc-engagement-index-sharing {
+    padding-top: 20px;
+  }
 
   .dc-engagement-search {
     display: inline-block;
@@ -33,9 +36,6 @@
   }
   .dc-mouse-pointer {
     cursor: pointer;
-  }
-  .dc-select-share {
-    padding-top: 50px;
   }
   .dc-user-info {
     font-size: 18px;
