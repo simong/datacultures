@@ -23,7 +23,7 @@
     };
 
     $scope.shareDataPass = function() {
-      studentFactory.postStudentStatus($scope.currStudentID, $scope.user.choice).success(function() {
+      studentFactory.postStudentStatus($scope.currStudent.canvas_user_id, $scope.user.choice).success(function() {
         $scope.currStudent.share = $scope.user.choice;
         $scope.currStudent.has_answered_share_question = true;
         getStudents();
@@ -33,7 +33,10 @@
     var parseStudents = function(results) {
       $scope.people = results.students;
       $scope.currStudent = results.current_canvas_user;
-      $scope.currStudentID = $scope.currStudent.canvas_user_id;
+
+      if (results.current_canvas_user.has_answered_share_question) {
+        $scope.user.choice = results.current_canvas_user.share;
+      }
 
       // Loop through and remove all students that are not sharing score
       for (var i = $scope.people.length - 1; i >= 0; i--) {

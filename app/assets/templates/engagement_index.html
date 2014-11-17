@@ -13,6 +13,8 @@
     <!-- Share or Instructor -->
     <div data-ng-if="api.user.me.roles.instructor || currStudent.share" data-ng-include="'engagement_index_list.html'"></div>
 
+    <!-- Share option -->
+    <div data-ng-if="!api.user.me.roles.instructor" data-ng-include="'engagement_index_sharing_option.html'"></div>
   </div>
 
 </div>
