@@ -1,7 +1,7 @@
 (function(angular) {
   'use strict';
 
-  angular.module('datacultures.controllers').controller('GalleryController', function(assignmentFactory, galleryFactory, userInfoFactory, $scope) {
+  angular.module('datacultures.controllers').controller('GalleryController', function(assignmentFactory, galleryFactory, userInfoFactory, viewFactory, $scope) {
 
     $scope.resetOptions = function() {
       $scope.selectedItem = {
@@ -29,6 +29,19 @@
       return galleryFactory.getSubmissions().success(function(results) {
         $scope.items = results.files;
       });
+    };
+
+    var incrementViews = function(item) {
+      viewFactory.increment({
+        gallery_id: item.id
+      }).success(function() {
+        item.views++;
+      });
+    };
+
+    $scope.selectItem = function(item) {
+      $scope.selectedItem.itemId = item.id;
+      incrementViews(item);
     };
 
     userInfoFactory.me().success(function(data) {

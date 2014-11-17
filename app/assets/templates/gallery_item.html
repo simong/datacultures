@@ -3,7 +3,7 @@
     <button class="dc-button-link dc-full-back-link" data-ng-click="selectedItem.itemId = ''">&#8592; Back to Gallery</button>
   </div>
 
-  <div class="dc-full-container" ng-controller="GalleryViewController">
+  <div class="dc-full-container">
     <div ng-if="item.type === 'image'">
       <img class="dc-full-image" ng-src="{{item.image_url}}">
     </div>
@@ -24,7 +24,7 @@
     </form>
 
     <ul class="dc-comments-list" ng-if="item.comments.length">
-      <li ng-repeat="comment in item.comments | orderBy:created_at">
+      <li ng-repeat="comment in item.comments | orderBy:'created_at':true">
         <div ng-if="!comment.editMode">
           <div class="dc-comments-list-comment" dc-compile-directive="comment.comment | linky"></div>
           <div class="dc-comments-list-comment-info">
