@@ -3,9 +3,10 @@ class Activity < ActiveRecord::Base
   belongs_to :student, primary_key: :canvas_user_id, foreign_key: :canvas_user_id
   acts_as_paranoid
 
-  scope :opinion, -> { where(reason:  ['Like', 'Dislike', 'GetALike', 'GetADislike' ])}
-  scope :scored,  -> { where(score:   true)}
-  scope :current, -> { where(expired: false)}
+  scope :opinion,                 -> { where(reason:  ['Like', 'Dislike', 'GetALike', 'GetADislike' ])}
+  scope :scored,                  -> { where(score:   true)}
+  scope :current,                 -> { where(expired: false)}
+  scope :not_assigned_discussion, -> { where(assigned_discussion: false)}
 
   def self.score!(activity)
     create(activity)
@@ -15,7 +16,7 @@ class Activity < ActiveRecord::Base
   end
 
   def self.as_csv
-    current.scored.pluck(*FIELDS).map(&:to_csv).join()
+    current.scored.not_assigned_discussion.pluck(*FIELDS).map(&:to_csv).join()
   end
 
   def retire!
@@ -23,7 +24,7 @@ class Activity < ActiveRecord::Base
   end
 
   def self.student_scores
-    current.scored.group(:canvas_user_id).sum(:delta)
+    current.scored.not_assigned_discussion.group(:canvas_user_id).sum(:delta)
   end
 
 
