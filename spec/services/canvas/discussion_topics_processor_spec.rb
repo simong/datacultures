@@ -57,7 +57,15 @@ RSpec.describe Canvas::DiscussionTopicsProcessor, :type => :model do
         }
         expect(Activity).to receive(:score!).once
         processor.call(discussion)
-      end
+       end
+
+       it "does not score for an assigned discussion" do
+         setup_request {
+           stub_request(:get, base_url + topic_path ).to_return(ok_return)
+         }
+         expect{processor.call([discussion.first.merge('assignment_id' => 15)])}.
+           to_not change{Activity.student_scores}
+       end
 
       it "changes the Activities table" do
         setup_request {

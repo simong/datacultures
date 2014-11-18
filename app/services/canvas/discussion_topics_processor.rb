@@ -24,6 +24,7 @@ class Canvas::DiscussionTopicsProcessor
         end
         msg = discussion['message'] || ''
         title = discussion['title'] || ''
+        is_assigned_discussion = discussion['assignment_id'] ? true : false
         discussion_id = discussion['id']   # discussion's ID, not author's
         base_params = { canvas_updated_at: discussion['last_reply_at'], body: msg + title, scoring_item_id: discussion_id  }
         previous_scoring_record = Activity.where({scoring_item_id: discussion_id.to_s,
@@ -36,6 +37,7 @@ class Canvas::DiscussionTopicsProcessor
           if  ((discussion['message'].to_s + discussion['title'].to_s) != previous_scoring_record.body)  # edit, even trivial ones
             Activity.score!(base_params.merge({ canvas_user_id: previous_scoring_record.canvas_user_id,
                                                 score: edit_post.active,
+                                                assigned_discussion: is_assigned_discussion,
                                                 reason: 'DiscussionEdit', delta: edit_post.points_associated}) )
           end
         else   # new post
@@ -43,6 +45,7 @@ class Canvas::DiscussionTopicsProcessor
           if author_id
             Activity.score!(base_params.merge({ reason: 'DiscussionTopic', delta: top_level_post.points_associated,
                                                 score: top_level_post.active,
+                                                assigned_discussion: is_assigned_discussion,
                                                 canvas_user_id: author_id}))
           end
         end
