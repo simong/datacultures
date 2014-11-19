@@ -2,7 +2,8 @@ require 'rails_helper'
 
 RSpec.describe Api::V1::LikesController, :type => :controller do
 
-  let!(:valid_api_params)           { { id: 'image-19', canvas_user_id: 5, liked: true                          } }
+  let!(:valid_api_params)           { { id: 'image-19', canvas_user_id: 5, liked: true                             } }
+  let!(:valid_unlike_api_params)    { { id: 'image-19', canvas_user_id: 5, liked: nil                              } }
   let!(:valid_db_params)            { { canvas_user_id: 5, reason: 'Like', delta: 17, scoring_item_id: 'image-19'  } }
 
   let!(:valid_session) { {} }
@@ -50,6 +51,16 @@ RSpec.describe Api::V1::LikesController, :type => :controller do
         post :create, valid_api_params, valid_session
         expect(Activity.opinion.last.canvas_user_id).to eq(@submission_activity_params[:canvas_user_id])
       end
+
+      it "counts only one action per user per gallery item" do
+        Activity.delete_all
+        allow(controller).to receive(:current_user).and_return(USER_STRUCT)
+        expect {
+          post :create, valid_api_params,        valid_session
+          post :create, valid_unlike_api_params, valid_session
+          post :create, valid_api_params,        valid_session
+        }.to change{Activity.like_totals['image-19']}.from(nil).to(1)
+        end
 
       context "Liking one's own work" do
 

@@ -7,6 +7,7 @@ class Activity < ActiveRecord::Base
   scope :scored,                  -> { where(score:   true)}
   scope :current,                 -> { where(expired: false)}
   scope :not_assigned_discussion, -> { where(assigned_discussion: false)}
+  scope :matter,                  -> { where(assigned_discussion: false, expired: false, score: true) }
 
   def self.score!(activity)
     create(activity)
@@ -16,7 +17,15 @@ class Activity < ActiveRecord::Base
   end
 
   def self.as_csv
-    current.scored.not_assigned_discussion.pluck(*FIELDS).map(&:to_csv).join()
+    matter.pluck(*FIELDS).map(&:to_csv).join()
+  end
+
+  def self.like_totals
+    current.where({reason: 'Like'}).group(:scoring_item_id).count
+  end
+
+  def self.dislike_totals
+    current.where({reason: 'Dislike'}).group(:scoring_item_id).count
   end
 
   def retire!
