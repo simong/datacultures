@@ -9,8 +9,8 @@ class Api::V1::GalleryController < ApplicationController
   def index
     image_json = Attachment.includes(:comments, :view).select(IMAGE_ATTRIBUTES).to_a.image_hash
     video_json = MediaUrl.includes(:comments).select(VIDEO_ATTRIBUTES).to_a.video_hash
-    dislike_counts = Activity.where({reason: 'Dislike'}).group(:scoring_item_id).count
-    like_counts = Activity.where({reason: 'Like'}).group(:scoring_item_id).count
+    dislike_counts = Activity.dislike_totals
+    like_counts = Activity.like_totals
     json = image_json + video_json
     json.each do |item|
       item['likes']    =    like_counts[item['id']] || 0
