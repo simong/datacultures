@@ -37,8 +37,7 @@ class Canvas::SubmissionsProcessor
         previously_credited = Activity.where({scoring_item_id: submission['assignment_id'].to_s,
                                               reason: 'Submission', canvas_user_id: submission['user_id']}).first
         if has_url
-            MediaUrl.process_submission_url(url: submission['url'], canvas_user_id: user_id,
-                                            assignment_id: assignment_id, author: student_names[user_id])
+          ProcessMediaUrlWorker.perform_async(submission['url'], user_id, assignment_id, student_names[user_id])
         elsif  submission['attachments']
           process_attachments_to_submission(attachment_processor, student_names, submission, previously_credited)
         end
