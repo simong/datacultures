@@ -60,7 +60,7 @@ module ArrayRefinement
           'author'           => media_url.author,
           'id'               =>  media_url.gallery_id,
           'type'             => 'video',
-          'image_url'        => Video::Metadata.thumbnail_url(media_url.site_tag, media_url.site_id),
+          'image_url'        => media_url.thumbnail_url,
           'date'             => media_url.created_at.to_i * 1000,
           'comments'         => media_url.comments_json,
           'views'            => media_url.views_count
