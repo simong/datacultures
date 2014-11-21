@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 # framework
-gem 'rails',                   '4.1.7'
+gem 'rails',                   '4.1.8'
 
 # database
 gem 'pg',                      '~> 0.17'
