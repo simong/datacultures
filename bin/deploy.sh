@@ -20,7 +20,8 @@ if [ "$(whoami)" != "${app_user}" ]
 fi
 
 # cd to application's base directory
-cd ${HOME}/datacultures
+appHome="${HOME}/datacultures"
+cd ${appHome}
 
 git fetch origin \
   || { echo 'FAILED to fetch latest from master' ; exit 1; }
@@ -49,8 +50,8 @@ if [ "$change_count" -gt 0 ];
 
     # generate new assets and copy to the DOCROOT
     rake assets:precompile
-    cp -R public/assets/ ${DOCROOT}
-    cp public/index.htm ${DOCROOT}
+    cp -R ${appHome}/public/assets/ ${DOCROOT}
+    cp ${appHome}/public/index.htm ${DOCROOT}
 
     # update the DB if need be
     rake db:migrate
@@ -59,11 +60,14 @@ if [ "$change_count" -gt 0 ];
     # generate new Application Secret Key Base
     thor keys:app_new_secret
 
-    chmod 600 config/secrets.yml \
+    chmod 600 ${appHome}/config/secrets.yml \
       || { echo 'FAILED to change permissions on yml file' ; exit 1; }
 
     # resume normal apache mode
     rm -f ${DOCROOT}/datacultures-in-maintenance \
       || { echo 'FAILED to take DataCultures out of maintenance mode' ; exit 1; }
+
+    # Touch file to restart Apache. See https://www.phusionpassenger.com/documentation/Users%20guide%20Apache.html
+    touch ${appHome}/tmp/restart.txt
 
 fi
