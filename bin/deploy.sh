@@ -42,7 +42,7 @@ if [ "$change_count" -gt 0 ];
     git pull origin master
 
     # get new gems if any
-    bundle || { echo 'FAILED to bundle app (e.g., getting new gems)' ; exit 1; }
+    bundle --retry=5 || { echo 'FAILED to bundle app (e.g., getting new gems)' ; exit 1; }
 
     #  delete old assets
     rake assets:clobber
