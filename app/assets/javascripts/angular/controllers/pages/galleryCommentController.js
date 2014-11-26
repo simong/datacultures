@@ -7,8 +7,17 @@
       $scope.comment.input = '';
     };
 
-    var addingSuccessful = function() {
+    var refresh = function() {
       $scope.refreshSubmissions();
+      galleryFactory.getGalleryItem({
+        id: $scope.item.id
+      }).success(function(data) {
+        $scope.item.comments = data.comments;
+      });
+    };
+
+    var addingSuccessful = function() {
+      refresh();
       resetForm();
     };
 
@@ -21,7 +30,7 @@
       galleryFactory.updateComment({
         comment: comment.comment,
         comment_id: comment.comment_id
-      }).success($scope.refreshSubmissions);
+      }).success(refresh);
     };
 
     $scope.addComment = function() {
@@ -30,6 +39,13 @@
         comment: $scope.comment.input
       }).success(addingSuccessful);
     };
+
+    $scope.$watch('item.id', function(newValue) {
+      if (!newValue) {
+        return;
+      }
+      refresh();
+    });
 
   });
 

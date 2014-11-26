@@ -34,7 +34,7 @@ class Api::V1::GalleryController < ApplicationController
 
   COMMENTS_QUERY = <<-END_OF_COMMENTS_QUERY
     SELECT c.content AS comment, c.id AS comment_id,
-      c.authors_canvas_id AS author_canvas_id, cast(extract(EPOCH from c.created_at)* 1000 AS bigint) AS created_at,
+      c.authors_canvas_id AS author_canvas_user_id, cast(extract(EPOCH from c.created_at)* 1000 AS bigint) AS created_at,
       s.name AS author_name from comments c INNER JOIN students s ON s.canvas_user_id = c.authors_canvas_id
       WHERE c.gallery_id = '%s'
   END_OF_COMMENTS_QUERY
@@ -67,8 +67,8 @@ class Api::V1::GalleryController < ApplicationController
           base_data = {}
       end
       comments  = item_comments
-      json      = [base_data.merge({ 'comments' => comments })]
-      render json: { 'files' =>  json }, layout: false
+      json      = base_data.merge({ 'comments' => comments })
+      render json: json, layout: false
     else
       head :forbidden
     end

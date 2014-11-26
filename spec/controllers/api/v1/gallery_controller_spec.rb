@@ -83,7 +83,7 @@ RSpec.describe Api::V1::GalleryController, :type => :controller do
         FactoryGirl.create(:comment, gallery_id: gallery_id, authors_canvas_id: Student.first.canvas_user_id )
         get :show, gallery_id: gallery_id
         expect(JSON.parse(response.body)['files'].first['comments'].first.keys).
-            to eq(%w<comment comment_id author_canvas_id created_at author_name>)
+            to eq(%w<comment comment_id author_canvas_user_id created_at author_name>)
       end
 
     end
