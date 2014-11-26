@@ -68,21 +68,21 @@ RSpec.describe Api::V1::GalleryController, :type => :controller do
 
       it 'returns a single file item' do
         get :show, gallery_id: Attachment.first.gallery_id
-        expect(JSON.parse(response.body)['files'].first).to have_key('comments')
+        expect(JSON.parse(response.body)).to have_key('comments')
       end
 
       it 'finds the comments on an item' do
         gallery_id = Attachment.first.gallery_id
         FactoryGirl.create(:comment, gallery_id: gallery_id, authors_canvas_id: Student.first.canvas_user_id )
         get :show, gallery_id: gallery_id
-        expect(JSON.parse(response.body)['files'].first['comments'].first).to be_kind_of Hash
+        expect(JSON.parse(response.body)['comments'].first).to be_kind_of Hash
       end
 
       it 'item comments have the correct keys' do
         gallery_id = Attachment.first.gallery_id
         FactoryGirl.create(:comment, gallery_id: gallery_id, authors_canvas_id: Student.first.canvas_user_id )
         get :show, gallery_id: gallery_id
-        expect(JSON.parse(response.body)['files'].first['comments'].first.keys).
+        expect(JSON.parse(response.body)['comments'].first.keys).
             to eq(%w<comment comment_id author_canvas_user_id created_at author_name>)
       end
 
