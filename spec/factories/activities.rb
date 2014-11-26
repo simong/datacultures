@@ -1,15 +1,6 @@
 # Read about factories at https://github.com/thoughtbot/factory_girl
 
-reasons =
-[
-'DiscussionTopic',
-'DiscussionEdit',
-'DiscussionEntry',
-'Submission',
-'GalleryComment',
-'Like',
-'Dislike'
-]
+reasons = I18n.t('activity_types').stringify_keys.keys
 
 FactoryGirl.define do
   factory :activity do

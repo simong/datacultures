@@ -312,6 +312,7 @@ DEPENDENCIES
   decorated_csv (~> 1.0.0)
   factory_girl (~> 4.4)
   factory_girl_rails (~> 4.4)
+  faker (~> 1.4.3)
   faraday (~> 0.9)
   faraday_middleware (~> 0.9)
   font-awesome-rails (~> 4.2.0.0)

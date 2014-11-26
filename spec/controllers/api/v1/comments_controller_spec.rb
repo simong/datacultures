@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-HTTP_SYMBOLS = {conflict: 409, created: 201, gone: 410, no_content: 204, bad_request: 400}
+HTTP_SYMBOLS = {conflict: 409, created: 201, gone: 410, no_content: 204, bad_request: 400, forbidden: 403}
 
 RSpec::Matchers.define :have_return_status do |expected|
   match do |actual|

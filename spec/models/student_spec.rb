@@ -17,6 +17,14 @@ RSpec.describe Student, :type => :model do
      'lis_person_name_full' => 'Reynard Fox', 'lis_person_contact_email_primary' => 'fox@vulpes.net' }
   end
 
+  before(:all) do
+    Student.delete_all
+  end
+
+  after(:all) do
+    Student.delete_all
+  end
+
   describe "Student" do
     it "has a valid factory" do
       expect(FactoryGirl.build(:student)).to be_valid

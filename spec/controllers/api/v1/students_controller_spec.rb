@@ -26,6 +26,10 @@ RSpec.describe Api::V1::StudentsController, :type => :controller do
 
   let(:valid_session) { {} }
 
+  after(:all) do
+    Student.delete_all
+  end
+
   describe "POST update" do
     it "responds with a 200 with valid params" do
       student = Student.create! valid_student_attributes
