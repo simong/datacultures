@@ -15,6 +15,7 @@ Rails.application.routes.draw do
       post '/students/:canvas_id'    => 'students#update'
       get '/students/:canvas_id'     => 'students#show'
       get '/gallery/index' => 'gallery#index', defaults: { format: 'json'}
+      get '/gallery/:gallery_id'     => 'gallery#show'
       resources :points_configuration, only: [:index, :update]
       resources :comments, only: [ :create]
       put  '/comments'               => 'comments#update'

@@ -78,6 +78,7 @@ group :development, :test do
   # Factories & DataBase manipulation
   gem 'factory_girl',          '~> 4.4'
   gem 'factory_girl_rails',    '~> 4.4'
+  gem 'faker',                 '~> 1.4.3'
   gem 'database_cleaner',      '~> 1.3'
 end
 

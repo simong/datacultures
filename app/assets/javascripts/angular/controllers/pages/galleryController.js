@@ -76,7 +76,7 @@
       },
       {
         display: 'Comments',
-        type: 'comments.length'
+        type: 'comment_count'
       },
       {
         display: 'Likes',

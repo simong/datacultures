@@ -17,6 +17,11 @@
       return $http.put(commentUrl, data);
     };
 
+    var getGalleryItem = function(data) {
+      var url = '/api/v1/gallery/' + data.id;
+      return $http.get(url);
+    };
+
     var like = function(data) {
       var url = '/api/v1/likes';
       return $http.post(url, data);
@@ -31,6 +36,7 @@
     return {
       addComment: addComment,
       like: like,
+      getGalleryItem: getGalleryItem,
       getSubmissions: getSubmissions,
       updateComment: updateComment
     };

@@ -5,6 +5,12 @@ RSpec.describe Activity, :type => :model do
   before(:all) do
     Activity.delete_all
     FactoryGirl.create(:activity)
+    Student.delete_all
+  end
+
+  after(:all) do
+    Activity.delete_all
+    Student.delete_all
   end
 
   describe "Activity" do
