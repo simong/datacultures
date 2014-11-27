@@ -20,8 +20,16 @@ module HashRefinement
     end
 
     def numerize_count_values!
-      ['comment_count', 'likes', 'dislikes', 'views'].each do |count_key|
-          self[count_key] = self[count_key].to_i
+      self.numerize_keys!(keys_to_numerize: %w<comment_count likes dislikes views>)
+    end
+
+    def numerize_comment_fields!
+      self.numerize_keys!(keys_to_numerize: %w<created_at author_canvas_user_id>)
+    end
+
+    def numerize_keys!(keys_to_numerize:)
+      keys_to_numerize.each do |numerizable_key|
+        self[numerizable_key] = self[numerizable_key].to_i
       end
       self
     end
