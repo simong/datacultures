@@ -22,13 +22,14 @@ class Api::V1::GalleryController < ApplicationController
 
   IMAGE_SPECIFIC_QUERY =<<-END_OF_IMAGE_QUERY
     SELECT 'image' AS type, likes, dislikes, liked, disliked, g.assignment_id, g.submission_id, g.attachment_id,
-      s.name AS author, g.gallery_id AS id, g.canvas_user_id, g.content_type, co.comment_count, v.views
+      g.image_url, s.name AS author, g.gallery_id AS id, g.canvas_user_id, g.content_type, co.comment_count, v.views
       FROM attachments g
   END_OF_IMAGE_QUERY
 
   VIDEO_SPECIFIC_QUERY=<<-END_OF_VIDEO_QUERY
-    SELECT 'video' AS type, likes,  dislikes, liked, disliked, g.canvas_assignment_id AS assignment_id, g.site_tag, g.site_id,
-      s.name AS author, g.gallery_id AS id, g.canvas_user_id, co.comment_count, v.views
+    SELECT 'video' AS type, likes,  dislikes, liked, disliked, g.canvas_assignment_id AS assignment_id, g.site_tag,
+      g.site_id, g.thumbnail_url AS image_url, s.name AS author, g.gallery_id AS id, g.canvas_user_id,
+      co.comment_count, v.views
       FROM media_urls g
   END_OF_VIDEO_QUERY
 
