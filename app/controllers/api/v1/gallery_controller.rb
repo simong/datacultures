@@ -67,7 +67,7 @@ class Api::V1::GalleryController < ApplicationController
         else
           base_data = {}
       end
-      comments  = item_comments
+      comments  = item_comments.map{|comment| comment.numerize_comment_fields!}
       json      = base_data.merge({ 'comments' => comments })
       render json: json, layout: false
     else
