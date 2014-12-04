@@ -82,7 +82,9 @@ class Api::V1::GalleryController < ApplicationController
   end
 
   def sql_query(query:)
-    ActiveRecord::Base.connection.execute(query).to_a
+    ActiveRecord::Base.connection_pool.with_connection do |db_connection|
+      db_connection.execute(query).to_a
+    end
   end
 
   def video_item_data
