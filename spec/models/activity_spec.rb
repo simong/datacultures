@@ -33,8 +33,10 @@ RSpec.describe Activity, :type => :model do
 
       before(:all) do
         Student.delete_all
-        @sharing_students    = FactoryGirl.create_list(:student, 2, share: true)
-        @nonsharing_students = FactoryGirl.create_list(:student, 2, share: false)
+        2.times{ FactoryGirl.create(:student, share: true)  }
+        2.times{ FactoryGirl.create(:student, share: false) }
+        @sharing_students    = Student.where(share: true).to_a
+        @nonsharing_students = Student.where(share: false).to_a
         @teacher             = FactoryGirl.create(:student)
       end
 
