@@ -19,22 +19,22 @@ module StringRefinement
 
     def youtube_embed
       self =~ /www\.youtube\.com\/embed\/([a-zA-Z0-9_-]+)/
-      $1 ? {site_tag: :youtube_id, site_id: $1} : nil
+      $1 ? {site_tag: 'youtube_id', site_id: $1} : nil
     end
 
     def youtube_short
       self =~ /youtu\.be\/([a-zA-Z0-9_-]+)/
-      $1 ?  {site_tag: :youtube_id, site_id: $1} : nil
+      $1 ?  {site_tag: 'youtube_id', site_id: $1} : nil
     end
 
     def youtube
       self =~ /\?v=([a-zA-Z0-9_-]+)/
-      $1 ?  {site_tag: :youtube_id, site_id: $1} : nil
+      $1 ?  {site_tag: 'youtube_id', site_id: $1} : nil
     end
 
     def vimeo
       self =~ /vimeo\.com\/(?:video\/)?(\d+)/
-      $1 ?  {site_tag: :vimeo_id, site_id: $1} : nil
+      $1 ?  {site_tag: 'vimeo_id', site_id: $1} : nil
     end
 
     def slash_bracket(const_part)
