@@ -1,7 +1,7 @@
 (function(angular) {
   'use strict';
 
-  angular.module('datacultures.controllers').controller('GalleryItemController', function(galleryFactory, userInfoFactory, $scope) {
+  angular.module('datacultures.controllers').controller('GalleryItemController', function(galleryFactory, userInfoFactory, $rootScope, $scope) {
 
     var constructVideoUrl = function(item) {
       if (item.youtube_id) {
@@ -20,7 +20,7 @@
       }
     };
 
-    $scope.$watchGroup(['items', 'selectedItem.itemId'], function(newValues) {
+    $scope.$watch('selectedItem.itemId', function(newValues) {
       if (!newValues || !$scope.selectedItem || !$scope.selectedItem.itemId) {
         return;
       }
@@ -29,6 +29,7 @@
         currentItem.videoUrl = constructVideoUrl(currentItem);
       }
       $scope.item = currentItem;
+      $rootScope.$broadcast('dataculturesGalleryGetComments');
     });
 
   });

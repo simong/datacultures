@@ -7,13 +7,16 @@
       $scope.comment.input = '';
     };
 
-    var refresh = function() {
-      $scope.refreshSubmissions();
+    var getGalleryItem = function() {
       galleryFactory.getGalleryItem({
         id: $scope.item.id
       }).success(function(data) {
         $scope.item.comments = data.comments;
       });
+    };
+
+    var refresh = function() {
+      $scope.refreshSubmissions().then(getGalleryItem);
     };
 
     var addingSuccessful = function() {
@@ -40,12 +43,7 @@
       }).success(addingSuccessful);
     };
 
-    $scope.$watch('item.id', function(newValue) {
-      if (!newValue) {
-        return;
-      }
-      refresh();
-    });
+    $scope.$on('dataculturesGalleryGetComments', getGalleryItem);
 
   });
 
