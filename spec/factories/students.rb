@@ -6,11 +6,11 @@ Faker::Config.locale = 'en-US'
 
 FactoryGirl.define do
   factory :student do
-    sequence (:canvas_user_id) { |n| n + rand(100) }
+    sequence (:canvas_user_id) { |n| n + rand(400000) }
     name { Faker::Name.name  }
     sortable_name {"#{name}".split.reverse.join(', ')}
     sis_user_id 123
-    primary_email  { Faker::Internet.email }
+    primary_email  { Faker::Internet.email "#{name}" }
     section {["A", "B", "C", "D", "E"].sample}
     share {[true, false].sample}
   end
