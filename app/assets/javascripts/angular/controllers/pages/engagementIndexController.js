@@ -12,7 +12,6 @@
 
     // Define variables that deal with filling the EI
     $scope.showStudents = [];
-    $scope.studentPercentile = 0;
 
     $scope.user = {
       choice: true
@@ -56,37 +55,6 @@
         if ($scope.people[i] === $scope.currStudentItem && !$scope.api.user.me.roles.instructor) {
           $scope.people[i].highlight = true;
         }
-      }
-
-      // Percentile calculation (based on formula below)
-      for (var k = 0; k < $scope.people.length; k++) {
-        var index = 0;
-        $scope.scoreFreq = 1;
-        $scope.scoreCount = 0;
-        $scope.thisStudent = $scope.people[k];
-
-        // Linear 'search' through array of students to find the score frequency and total count of scores less than current student's
-        while (index < $scope.people.length) {
-
-          // Always start at index 0; skip over itself
-          if ($scope.thisStudent.id === $scope.people[index].id) {
-            index++;
-            continue;
-          }
-          // If score matches, update this student's score frequency
-          if ($scope.thisStudent.points === $scope.people[index].points) {
-            $scope.scoreFreq++;
-
-          // If score is less, update this student's score count (total number of scores that are less than his/hers)
-          } else if ($scope.people[index].points < $scope.thisStudent.points) {
-            $scope.scoreCount++;
-          }
-          index++;
-        }
-
-        // Calculate the percentile with rounding
-        $scope.studentPercentile = (($scope.scoreCount + (0.5 * $scope.scoreFreq)) / $scope.people.length) * 100;
-        $scope.people[k].studentPercentile = Math.round($scope.studentPercentile) + '%';
       }
 
       // Default Sort

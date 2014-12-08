@@ -1,5 +1,8 @@
 class Api::V1::EngagementIndexController < ApplicationController
 
+  require 'percentile'
+  using Percentile
+
   skip_before_filter  :verify_authenticity_token
   ALL_SEEING_ROLES = ["ContentDeveloper", "urn:lti:role:ims/lis/TeachingAssistant", "Instructor"]
 
@@ -13,11 +16,13 @@ class Api::V1::EngagementIndexController < ApplicationController
     students = Student.visible_to(user_id: current_user.canvas_id, all_seeing: all_seeing?)
     activities = Activity.visible_to(user_id: current_user.canvas_id, all_seeing: all_seeing?)
     student_points = activities.student_scores
+    all_student_scores = Activity.student_scores.values
     last_activity_dates = activities.select(:canvas_updated_at, :canvas_user_id).
         group(:canvas_user_id).maximum(:canvas_updated_at)
     students_array = []
+    student_count  = Student.count
     students.each do |student|
-      students_array << student_data(last_activity_dates, student, student_points)
+      students_array << student_data(last_activity_dates, student, student_points, all_student_scores, student_count)
     end
     engagement_index_json = {}
     engagement_index_json["students"] = students_array.sort_by {|h| h[:id]}
@@ -26,7 +31,7 @@ class Api::V1::EngagementIndexController < ApplicationController
     engagement_index_json
   end
 
-  def student_data(last_activity_dates, student, student_points)
+  def student_data(last_activity_dates, student, student_points, all_student_scores, student_count)
     student_hash = {}
     id = student.canvas_user_id
     student_hash[:id] = id
@@ -35,6 +40,7 @@ class Api::V1::EngagementIndexController < ApplicationController
     student_hash[:points] = student_points[id] || 0
     student_hash[:section] = student.section
     student_hash[:share] = student.share
+    student_hash[:percentile] = all_student_scores.rank(score: student_hash[:points], fill_zeroes_to_size: student_count)
     student_hash[:last_activity_date] = last_activity_dates[id] ? last_activity_dates[id].to_time.strftime("%m-%d-%Y %l:%M %p") : nil
     student_hash
   end
