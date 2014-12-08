@@ -30,7 +30,7 @@
         <span data-ng-if="!student.share">No</span>
       </td>
       <td class="col-sm-2" data-ng-bind="student.points"></td>
-      <td class="col-sm-2" data-ng-bind="student.studentPercentile"></td>
+      <td class="col-sm-2" data-ng-bind-template="{{student.percentile}}%"></td>
       <td class="col-sm-3" data-ng-bind="student.last_activity_date"></td>
     </tr>
   </tbody>

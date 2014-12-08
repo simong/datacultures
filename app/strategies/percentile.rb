@@ -3,7 +3,7 @@ module Percentile
   refine Array do
 
      def rank(score:, fill_zeroes_to_size:)
-       (((count(score)-1)*0.5 + count_lower_than(score: score) + (fill_zeroes_to_size - size)) / fill_zeroes_to_size) * 100.0
+       ((((count(score)-1)*0.5 + count_lower_than(score: score) + (fill_zeroes_to_size - size)) / fill_zeroes_to_size) * 100.0).round
      end
 
      private
