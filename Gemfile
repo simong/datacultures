@@ -5,7 +5,7 @@ gem 'rails',                   '4.1.8'
 
 # database
 gem 'pg',                      '~> 0.17'
-gem 'paranoia',                '~> 2.0'
+gem 'paranoia',                '~> 2.0.4'
 
 # external requests
 gem 'faraday',                 '~> 0.9'
