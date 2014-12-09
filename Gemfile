@@ -26,7 +26,7 @@ gem 'clockworkd',              '~> 0.2.5'
 gem 'daemons',                 '~> 1.1.9'
 
 # styling
-gem 'bootstrap-sass',          '~> 3.3.0.1'
+gem 'bootstrap-sass',          '~> 3.3.1.0'
 gem 'sass-rails',              '~> 4.0.4'
 gem 'compass-rails',           '~> 2.0.0'
 gem 'uglifier',                '~> 2.5'
