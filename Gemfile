@@ -20,7 +20,7 @@ gem 'thor',                    '~> 0.19'
 gem 'thor-rails',              '~> 0.0'
 
 # workers & scheduling
-gem 'sidekiq',                 '~> 3.2'
+gem 'sidekiq',                 '~> 3.3.0'
 gem 'clockwork',               '~> 1.0.0'
 gem 'clockworkd',              '~> 0.2.5'
 gem 'daemons',                 '~> 1.1.9'
