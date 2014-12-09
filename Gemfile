@@ -13,7 +13,7 @@ gem 'faraday_middleware',      '~> 0.9'
 gem 'net-http-persistent',     '~> 2.9'
 
 # process management
-gem 'foreman',                 '~> 0.75.0'
+gem 'foreman',                 '~> 0.76.0'
 
 # cli tools
 gem 'thor',                    '~> 0.19'
