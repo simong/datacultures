@@ -276,7 +276,7 @@ GEM
       hitimes
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
-    uglifier (2.5.3)
+    uglifier (2.6.0)
       execjs (>= 0.3.0)
       json (>= 1.8.0)
     uuid (2.3.7)
@@ -336,5 +336,5 @@ DEPENDENCIES
   simplecov (~> 0.7)
   thor (~> 0.19)
   thor-rails (~> 0.0)
-  uglifier (~> 2.5)
+  uglifier (~> 2.6)
   webmock (~> 1.18)

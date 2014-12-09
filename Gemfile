@@ -29,7 +29,7 @@ gem 'daemons',                 '~> 1.1.9'
 gem 'bootstrap-sass',          '~> 3.3.1.0'
 gem 'sass-rails',              '~> 4.0.5'
 gem 'compass-rails',           '~> 2.0.0'
-gem 'uglifier',                '~> 2.5'
+gem 'uglifier',                '~> 2.6'
 gem 'font-awesome-rails',      '~> 4.2.0.0'
 
 # JavaScript
