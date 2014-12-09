@@ -55,7 +55,7 @@ gem 'haml',                    '~> 4.0'
 gem 'ims-lti', :git => 'https://github.com/instructure/ims-lti.git'
 
 group :test do
-  gem 'page-object',           '~> 1.0'
+  gem 'page-object',           '~> 1.0.3'
   gem 'webmock',               '~> 1.18'
 end
 
