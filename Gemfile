@@ -37,7 +37,7 @@ gem 'coffee-rails',            '~> 4.0'
 gem 'angular-gem',             '~> 1.3.6'
 
 # https://rubygems.org/gems/ngannotate-rails
-gem 'ngannotate-rails',        '~> 0.10.1'
+gem 'ngannotate-rails',        '~> 0.14.1'
 
 # Use your angular templates with rails' asset pipeline
 # https://github.com/pitr/angular-rails-templates

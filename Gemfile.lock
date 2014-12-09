@@ -157,7 +157,7 @@ GEM
     multi_json (1.10.1)
     multipart-post (2.0.0)
     net-http-persistent (2.9.4)
-    ngannotate-rails (0.10.1)
+    ngannotate-rails (0.14.1)
       execjs
       rails (>= 3.1)
     nokogiri (1.6.3.1)
@@ -318,7 +318,7 @@ DEPENDENCIES
   jbuilder (~> 2.1)
   json (~> 1.8)
   net-http-persistent (~> 2.9)
-  ngannotate-rails (~> 0.10.1)
+  ngannotate-rails (~> 0.14.1)
   page-object (~> 1.0)
   paranoia (~> 2.0)
   passenger (~> 4.0)
