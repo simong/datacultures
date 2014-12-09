@@ -62,7 +62,7 @@ end
 group :development, :test do
   gem 'rspec',                 '~> 3.0'
   gem 'rspec-rails',           '~> 3.0'
-  gem 'guard-rspec',           '~> 4.2'
+  gem 'guard-rspec',           '~> 4.4.2'
   gem 'selenium-webdriver',    '~> 2.44'
 
   # Debugging
