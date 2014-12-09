@@ -3,7 +3,7 @@ class Canvas::AttachmentsProcessor
   attr_accessor :attachment_conf #, :request_object
 
   def initialize(conf)
-    @attachment_conf = conf.slice(*[:canvas_user_id, :assignment_id, :submission_id, :author])
+    @attachment_conf = conf.slice(*[:canvas_user_id, :assignment_id, :submission_id])
   end
 
   # called once per submission
