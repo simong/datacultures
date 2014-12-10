@@ -10,10 +10,8 @@
       $scope.search = {
         author: ''
       };
-      $scope.filter = {
-        assignment: '',
-        type: ''
-      };
+      $scope.assignmentFilter = '';
+      $scope.typeFilter = '';
       // Default should be the first one (date)
       $scope.sort = {
         option: $scope.sortOptions[0]
