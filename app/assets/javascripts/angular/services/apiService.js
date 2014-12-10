@@ -4,14 +4,12 @@
 
   angular.module('datacultures.services').service('apiService', function(
     httpService,
-    userService,
-    utilService) {
+    userService) {
 
     // API
     var api = {
       http: httpService,
-      user: userService,
-      util: utilService
+      user: userService
     };
 
     return api;
