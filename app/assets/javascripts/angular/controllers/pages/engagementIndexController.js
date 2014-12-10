@@ -1,7 +1,7 @@
 (function(angular) {
   'use strict';
 
-  angular.module('datacultures.controllers').controller('EngagementIndexController', function($scope, $location, $anchorScroll, studentFactory) {
+  angular.module('datacultures.controllers').controller('EngagementIndexController', function($scope, studentFactory) {
 
     // Define variables for carot symbol flip for sorting
     $scope.showcaretStudent = false;
@@ -9,9 +9,6 @@
     $scope.showcaretLastPoint = false;
     $scope.showcaretPercentile = false;
     $scope.showcaretShare = false;
-
-    // Define variables that deal with filling the EI
-    $scope.showStudents = [];
 
     $scope.user = {
       choice: true
@@ -43,12 +40,6 @@
         // Set current student to appropriate student in people array
         if ($scope.people[i].id === $scope.currStudent.canvas_user_id) {
           $scope.currStudentItem = $scope.people[i];
-        }
-
-        // Handle case where student IS sharing
-        if ($scope.people[i].share === true || $scope.api.user.me.roles.instructor) {
-          // If get here, means that the student chose to share EI score
-          $scope.showStudents.push($scope.people[i]); // push shared student to showStudents array
         }
 
         // Handle row highlighting (only get here if student is sharing)
