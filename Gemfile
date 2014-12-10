@@ -5,7 +5,7 @@ gem 'rails',                   '4.1.8'
 
 # database
 gem 'pg',                      '~> 0.17'
-gem 'paranoia',                '~> 2.0'
+gem 'paranoia',                '~> 2.0.4'
 
 # external requests
 gem 'faraday',                 '~> 0.9'
@@ -13,32 +13,31 @@ gem 'faraday_middleware',      '~> 0.9'
 gem 'net-http-persistent',     '~> 2.9'
 
 # process management
-gem 'foreman',                 '~> 0.75.0'
+gem 'foreman',                 '~> 0.76.0'
 
 # cli tools
 gem 'thor',                    '~> 0.19'
 gem 'thor-rails',              '~> 0.0'
 
 # workers & scheduling
-gem 'sidekiq',                 '~> 3.2'
+gem 'sidekiq',                 '~> 3.3.0'
 gem 'clockwork',               '~> 1.0.0'
 gem 'clockworkd',              '~> 0.2.5'
 gem 'daemons',                 '~> 1.1.9'
 
 # styling
-gem 'bootstrap-sass',          '~> 3.3.0.1'
-gem 'sass-rails',              '~> 4.0.4'
+gem 'bootstrap-sass',          '~> 3.3.1.0'
+gem 'sass-rails',              '~> 4.0.5'
 gem 'compass-rails',           '~> 2.0.0'
-gem 'uglifier',                '~> 2.5'
+gem 'uglifier',                '~> 2.6'
 gem 'font-awesome-rails',      '~> 4.2.0.0'
 
 # JavaScript
 gem 'coffee-rails',            '~> 4.0'
-gem 'jquery-rails',            '~> 3.1.2'
-gem 'angular-gem',             '~> 1.3.2'
+gem 'angular-gem',             '~> 1.3.6'
 
 # https://rubygems.org/gems/ngannotate-rails
-gem 'ngannotate-rails',        '~> 0.10.1'
+gem 'ngannotate-rails',        '~> 0.14.1'
 
 # Use your angular templates with rails' asset pipeline
 # https://github.com/pitr/angular-rails-templates
@@ -56,14 +55,14 @@ gem 'haml',                    '~> 4.0'
 gem 'ims-lti', :git => 'https://github.com/instructure/ims-lti.git'
 
 group :test do
-  gem 'page-object',           '~> 1.0'
+  gem 'page-object',           '~> 1.0.3'
   gem 'webmock',               '~> 1.18'
 end
 
 group :development, :test do
   gem 'rspec',                 '~> 3.0'
   gem 'rspec-rails',           '~> 3.0'
-  gem 'guard-rspec',           '~> 4.2'
+  gem 'guard-rspec',           '~> 4.4.2'
   gem 'selenium-webdriver',    '~> 2.44'
 
   # Debugging
