@@ -15,16 +15,6 @@ module ArrayRefinement
       }
     end
 
-    #  removes & returns the rendered attachment's data
-    def extract_rendering_attachments!
-      rendered_url_index = find_index{|a| (a.kind_of?(Hash) && a['content-type'] == 'image/png' && a['filename'] =~ /websnappr/)}
-      delete_at(rendered_url_index)
-    end
-
   end
 
 end
-
-# section of returned JSON for a generated image
-# { "content-type"=>"image/png", "filename"=>"websnappr20141118-13944-yzpnmg.png" }
-
