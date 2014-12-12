@@ -22,7 +22,7 @@ The new keys will print out. Mark them down.
 5. Repeat for each of the three Data Cultures applications (_Points Configuration, Engagement Index, Gallery_):
   1. Click **_Add New App_** 
   2. In the dialog that appears, set the following configuration settings: 
-    * For **Name** enter _the name you want for the application_
+    * For **Name** enter _a name for reference_ (the actual name comes from the application)
     * For **Consumer Key** enter _the key generated above_
     * For **Shared Secret** enter _the secret generated above_
     * For **Configuration Type** select "By URL"
