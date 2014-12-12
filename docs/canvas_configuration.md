@@ -8,7 +8,9 @@ To generate the tokens, use the following thor task on the Data Cultures instanc
 cd datacultures
 thor keys:lti_new
 ```
-The new keys will print out. 
+The new keys will print out. Mark them down. 
+
+**Note:** If you are configuring Canvas then proceed. If someone else is configuring Canvas, provide them with the tokens and the following directions.
 
 ## Configure Canvas
 *Note:* the following directions are for a hosted instance. Your milage may vary. 
