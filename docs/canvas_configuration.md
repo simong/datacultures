@@ -28,9 +28,8 @@ The new keys will print out.
   * For **URL** enter the URL where Canvas accesses DataCultures including the port + the URI for the _app_. 
     * **Example:** `http://learn.berkeley.edu:5000/canvas/canvas/lti_points_configuration`
 
-3. Repeat for all three applications
- * the three application URIs are:
-   * `/canvas/lti_points_configuration`
-   * `/canvas/lti_engagement_index`
-   * `/canvas/lti_gallery`
+3. Repeat for each of three applications using the following URIs:
+ * `/canvas/lti_points_configuration`
+ * `/canvas/lti_engagement_index`
+ * `/canvas/lti_gallery`
 
