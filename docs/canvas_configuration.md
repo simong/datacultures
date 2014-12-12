@@ -1,6 +1,6 @@
 # Configuring Canvas
 
-The LTI tokens that are used to communicate between the Data Cultures LTI provider and the Canvas consumer must be generated. There is a thor task for this:
+The LTI tokens, a _key_ and a _secret_, that are used to communicate between the Data Cultures LTI provider and the Canvas consumer must be generated. There is a thor task for this:
 
 ```shell
 cd datacultures
