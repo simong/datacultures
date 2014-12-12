@@ -26,6 +26,12 @@ class Api::V1::GalleryController < ApplicationController
       FROM attachments g
   END_OF_IMAGE_QUERY
 
+  URL_SPECIFIC_QUERY =<<-END_OF_SPECIFIC_QUERY
+    SELECT 'url' AS type, liked, disliked, s.name AS author, g.assignment_id, g.gallery_id AS id,
+      g.canvas_user_id, co.comment_count, v.views, g.image_url, g.url
+      FROM generic_urls g
+  END_OF_SPECIFIC_QUERY
+
   VIDEO_SPECIFIC_QUERY=<<-END_OF_VIDEO_QUERY
     SELECT 'video' AS type, likes,  dislikes, liked, disliked, g.canvas_assignment_id AS assignment_id, g.site_tag,
       g.site_id, g.thumbnail_url AS image_url, s.name AS author, g.gallery_id AS id, g.canvas_user_id,
@@ -44,12 +50,14 @@ class Api::V1::GalleryController < ApplicationController
 
   IMAGE_QUERY = IMAGE_SPECIFIC_QUERY + COMMON_QUERY
   VIDEO_QUERY = VIDEO_SPECIFIC_QUERY + COMMON_QUERY
+  URL_QUERY   = URL_SPECIFIC_QUERY   + COMMON_QUERY
 
   # GET /api/v1/gallery/index.json
   def index
     if current_user.canvas_id
       json =  sql_query(query: VIDEO_QUERY % [me, me]).map{|v| v.video_transform!} +
-              sql_query(query: IMAGE_QUERY % [me, me]).map{|i| i.image_transform!}
+              sql_query(query: IMAGE_QUERY % [me, me]).map{|i| i.image_transform!} +
+              sql_query(query:   URL_QUERY % [me, me]).map{|i| i.image_transform!}
       render json: {'files' => json}, layout: false
     else
       head :forbidden
@@ -64,6 +72,8 @@ class Api::V1::GalleryController < ApplicationController
           base_data = image_item_data.first.image_transform!
         when /\Avideo-/
           base_data = video_item_data.first.video_transform!
+        when /\Aurl-/
+          base_data = url_item_data.first.image_transform!
         else
           base_data = {}
       end
@@ -93,6 +103,10 @@ class Api::V1::GalleryController < ApplicationController
 
   def image_item_data
     sql_query(query: (IMAGE_QUERY + SINGLE_ITEM_RESTRICTION) % [me, me, safe_params[:gallery_id]])
+  end
+
+  def url_item_data
+    sql_query(query: (URL_QUERY + SINGLE_ITEM_RESTRICTION) % [me, me, safe_params[:gallery_id]])
   end
 
   def item_comments
