@@ -1,18 +1,36 @@
 # Configuring Canvas
 
-The LTI tokens, a _key_ and a _secret_, that are used to communicate between the Data Cultures LTI provider and the Canvas consumer must be generated. There is a thor task for this:
+## Generate LTI tokens
+On the DataCultures server, generate the LTI tokens, a _key_ and a _secret_, that are used to communicate between the Data Cultures LTI provider and the Canvas consumer. 
 
+To generate the tokens, use the following thor task on the Data Cultures instance you will be connecting:
 ```shell
 cd datacultures
 thor keys:lti_new
 ```
+The new keys will print out. 
 
-The new keys will print out. In the browser with Canvas open, and while logged in as a Canvas admin, go to the course, select the settings tab on the left, click the Applications tab in the middle of the screen, click on Add application.
+## Configure Canvas
+*Note:* the following directions are for a hosted instance. Your milage may vary. 
 
-In the dialog that appears, change the configuration type drop-down to 'By URL'. For the URL field, you must list the location where Canvas can access DataCultures, and the port, e.g., 'http://learn.berkeley.edu:5000' + the URLs for the LTI 'app'. The title here for each 'app' is only for this listing. The link on the left side of the nav bar will be taken from the generated XML that is parsed by Canvas. Do this for each app. The last part of the URL to append to the base are as follows:
+* In the browser log-in to Canvas as an admin.
+* Navigate to the course you wish to configure.
+* Select **_Settings_** from the left nav.
+* Click the **_Apps_** tab and click **_View App Configurations_**
 
-* /canvas/lti_points_configuration
-* /canvas/lti_engagement_index
-* /canvas/lti_gallery
+### For each of the three Data Cultures applications (Points Configuration, Engagement Index, Gallery)
 
-For the app key, use the value printed out above under 'thor keys:lti_new', and the same for the app secret.
+1. Click **_Add New App_** 
+2. In the dialog that appears, set the following configuration settings: 
+  * For **Consumer Key** enter _the key generated above_
+  * For **Shared Secret** enter _the secret generated above_
+  * For **Configuration Type** select "By URL"
+  * For **URL** enter the URL where Canvas accesses DataCultures including the port + the URI for the _app_. 
+    * **Example:** `http://learn.berkeley.edu:5000/canvas/canvas/lti_points_configuration`
+
+3. Repeat for all three applications
+ * the three application URIs are:
+   * `/canvas/lti_points_configuration`
+   * `/canvas/lti_engagement_index`
+   * `/canvas/lti_gallery`
+
