@@ -8,4 +8,4 @@ thor keys:lti_new
 ```
 The new keys will print out. Mark them down. 
 
-**Note:** If you are configuring Canvas then proceed. If someone else is configuring Canvas, provide them with the tokens and the following directions.
+**Note:** If you are configuring Canvas then proceed to the next step: [Configure Canvas](https://github.com/ets-berkeley-edu/datacultures/blob/master/docs/canvas_configuration.md#configure-canvas). If someone else is configuring Canvas, provide them with the tokens and the following directions.
