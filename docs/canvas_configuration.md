@@ -1,4 +1,4 @@
-Previous Step: [Generate LTI tokens](https://github.com/ets-berkeley-edu/datacultures/blob/master/docs/generate_LTI_tokens.md#generate-lti-tokens)
+Previous Step: [Generate LTI tokens](generate_LTI_tokens.md#generate-lti-tokens)
 
 # Configure Canvas
 *Note:* the following directions are for a hosted instance. Your milage may vary. 
