@@ -1,18 +1,6 @@
-# Configuring Canvas
+Previous Step: [Generate LTI tokens](https://github.com/ets-berkeley-edu/datacultures/blob/master/docs/generate_LTI_tokens.md#generate-lti-tokens)
 
-## Generate LTI tokens
-On the DataCultures server, generate the LTI tokens, a _key_ and a _secret_, that are used to communicate between the Data Cultures LTI provider and the Canvas consumer. 
-
-To generate the tokens, use the following thor task on the Data Cultures instance you will be connecting:
-```shell
-cd datacultures
-thor keys:lti_new
-```
-The new keys will print out. Mark them down. 
-
-**Note:** If you are configuring Canvas then proceed. If someone else is configuring Canvas, provide them with the tokens and the following directions.
-
-## Configure Canvas
+# Configure Canvas
 *Note:* the following directions are for a hosted instance. Your milage may vary. 
 
 1. In the browser log-in to Canvas as an admin.
