@@ -19,6 +19,8 @@ Now follow these steps in order:
     thor keys:app_new_secret
 ```
 
+* [Create LTI key](generate_LTI_tokens.md)
+
 * [Configuring the Canvas instance in which Data Cultures is embeded](canvas_configuration.md) Canvas must know about the Data Cultures LTI provider application.
 
 * [Generate Canvas API keys](api_key_generation.md)
