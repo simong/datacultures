@@ -6,7 +6,7 @@ An API key with teacher's permissions will be needed for the single course suppo
 
 To create the proper API key:
 
-    A. Log in as the instructor
+    A. Log in as a Canvas admin
     B. Go to the settings (follow the link in the upper right)
     C. At the bottom of the settings page, click "New Access Token"
     D. Follow the prompts, and don't place an expiration date (so the code won't stop working after that date)
