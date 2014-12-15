@@ -4,6 +4,9 @@ class Api::V1::LikesController < ApplicationController
   CURRENT_USER_TYPES = { true => 'Like', false => 'Dislike'}
   ORIGINAL_POSTER_TYPE = { true => 'GetALike', false => 'GetADislike'}
 
+  require 'string_refinement'
+  using StringRefinement
+
   # POST /api/v1/likes
   def create
     original_poster = posting_user_id
@@ -46,12 +49,7 @@ class Api::V1::LikesController < ApplicationController
     end
 
     def posting_user_id
-      if safe_params[:id] =~ /image-/
-        model = Attachment
-      else
-        model = MediaUrl
-      end
-      model.where(gallery_id: safe_params[:id]).first.try(:canvas_user_id)
+      safe_params[:id].gallery_model_class.where(gallery_id: safe_params[:id]).first.try(:canvas_user_id)
     end
 
     def previous_records(user_list:)
