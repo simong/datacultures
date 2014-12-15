@@ -40,16 +40,22 @@
       ]
     };
 
+    /**
+     * Reset all the filter, sort & search options for the gallery
+     */
     var resetOptions = function() {
       options.search = {
         author: ''
       };
       options.assignmentFilter = '';
       options.typeFilter = '';
+      setDefaultSort();
     };
 
+    /**
+     * Default sort should be the first one (date)
+     */
     var setDefaultSort = function() {
-      // Default should be the first one (date)
       options.sort = {
         option: options.sortOptions[0]
       };
@@ -63,7 +69,6 @@
     // Expose methods
     return {
       options: options,
-      setDefaultSort: setDefaultSort,
       resetOptions: resetOptions
     };
 
