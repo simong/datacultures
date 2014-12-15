@@ -2,6 +2,9 @@ class Api::V1::CommentsController < ApplicationController
 
   skip_before_filter  :verify_authenticity_token
 
+  require 'string_refinement'
+  using StringRefinement
+
   def create
     if Comment.create({authors_canvas_id: current_user.canvas_id, gallery_id: safe_params[:id],
                        content: safe_params[:comment] }).persisted?
@@ -48,12 +51,7 @@ class Api::V1::CommentsController < ApplicationController
   end
 
   def original_poster_id
-    if safe_params[:id] =~ /image-/
-      model = Attachment
-    else
-      model = MediaUrl
-    end
-    model.where(gallery_id: safe_params[:id]).
+    safe_params[:id].gallery_model_class.where(gallery_id: safe_params[:id]).
         first.try(:canvas_user_id)
   end
 

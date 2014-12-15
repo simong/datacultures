@@ -20,48 +20,49 @@ class Canvas::SubmissionsProcessor
       scored_submissions = []
     end
 
-    canvas_student_ids = Student.all.map(&:canvas_user_id)
-    attachment_processor = Canvas::AttachmentsProcessor.new({})
+    student_ids = Student.all.map(&:canvas_user_id)
+    attachment_processor = Canvas::AttachmentsProcessor.new
+    generic_url_processor = Canvas::GenericUrlProcessor.new
 
     submissions.each do |submission|
-      user_id    = submission['user_id']
       assignment_id = submission['assignment_id']
-      attachment_data = []
-      url = submission['url']
-      submitted_at = submission['submitted_at']
-      has_url = (url && !url.empty?)
-      attachments = submission['attachments']
-      # Student::create_by_canvas_user_id is safe, but why do the extra SQL query every time?
-      if !canvas_student_ids.include?(user_id.to_i)
-        Student.create_by_canvas_user_id(user_id)
-      end
-      if has_url
-        rendered_attachment = attachments.extract_rendering_attachments! if attachments
-        if url =~ video_url_regexp
-          previous_record = MediaUrl.where({canvas_assignment_id: assignment_id, canvas_user_id: user_id }).first
-          if needs_video_processing?(url: url, submitted_at: submitted_at, previous_record: previous_record )
-            ProcessMediaUrlWorker.perform_async(url, user_id, assignment_id, submission['submitted_at'])
-          end
-        else
-          # NOOP for now; process non-YT/Vimeo URLs (CYB-321)
-        end
-      elsif attachments && !attachments.empty?
-        previously_credited = Activity.where({scoring_item_id: submission['assignment_id'].to_s,
-                                              reason: 'Submission', canvas_user_id: submission['user_id']}).first
-        process_attachments(attachment_processor: attachment_processor, attachments: attachments,
-                            submission: submission, previously_credited: previously_credited)
-      end
-
-
+      user_id       = submission['user_id']
+      log_submission( attachment_processor, generic_url_processor, student_ids, submission,
+                      assignment_id, user_id)
       if user_id   && !(scored_submissions.include?([assignment_id.to_s, user_id]))
         Activity.score!({scoring_item_id: assignment_id,
                          canvas_user_id: user_id, reason: 'Submission',
-                         body: attachment_data.to_json,
                          score: submission_conf.active, delta: submission_conf.points_associated,
                          canvas_updated_at: submission['submitted_at'] })
       end
     end
 
+  end
+
+  def log_submission(attachment_processor, generic_url_processor, student_ids,
+                        submission, assignment_id, user_id)
+    url = submission['url']
+    submitted_at = submission['submitted_at']
+    has_url = (url && !url.empty?)
+    attachments = submission['attachments']
+    if !student_ids.include?(user_id.to_i)
+      Student.create_by_canvas_user_id(user_id)
+    end
+    if has_url
+      if url =~ video_url_regexp
+        previous_record = MediaUrl.where({canvas_assignment_id: assignment_id, canvas_user_id: user_id}).first
+        if needs_video_processing?(url: url, submitted_at: submitted_at, previous_record: previous_record)
+          ProcessMediaUrlWorker.perform_async(url, user_id, assignment_id, submission['submitted_at'])
+        end
+      else
+        generic_url_processor.call(submission)
+      end
+    elsif attachments && !attachments.empty?
+      previously_credited = Activity.where({scoring_item_id: assignment_id.to_s,
+                                            reason: 'Submission', canvas_user_id: user_id}).first
+      process_attachments(attachment_processor: attachment_processor, attachments: attachments,
+                          submission: submission, previously_credited: previously_credited)
+    end
   end
 
   def process_attachments(attachment_processor:, attachments:, submission:, previously_credited:)
