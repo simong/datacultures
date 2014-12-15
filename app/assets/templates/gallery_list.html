@@ -25,7 +25,7 @@
 <div class="dc-gallery-list" ng-repeat="item in items | orderBy:sort.option.type:true | filter:search | filter:{assignment_id:assignmentFilter.canvas_assignment_id || ''} | filter:{type:typeFilter.value || ''}">
   <div class="dc-thumbnail-item-container">
     {{selectedItem.itemId}}
-    <button class="dc-button-link dc-thumbnail-item" ng-click="selectItem(item)" style="background-image: url({{item.image_url || '/assets/thumbnail_default.png'}})">
+    <button class="dc-button-link dc-thumbnail-item" ng-click="selectItem(item)" ng-style="item.image_url && {'background-image': 'url(' + item.image_url + ')'}">
       <div class="dc-thumbnail-hover">
         <p>
           {{item.title}} <br>

@@ -105,6 +105,7 @@
     }
     .dc-thumbnail-item {
       @include background-size(cover);
+      background-image: asset-data-url('thumbnail placeholder_EPS.eps.svg');
       display: block;
       height: 200px;
       margin: 10px;
