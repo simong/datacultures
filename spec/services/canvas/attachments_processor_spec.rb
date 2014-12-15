@@ -11,7 +11,9 @@ RSpec.describe Canvas::AttachmentsProcessor, type: :model do
   end
 
   let(:processor) do
-    Canvas::AttachmentsProcessor.new({canvas_user_id: 4, assignment_id: 7, submission_id: 2, author: 'Picasso'})
+    p = Canvas::AttachmentsProcessor.new
+    p.attachment_conf = {canvas_user_id: 4, assignment_id: 7, submission_id: 2, author: 'Picasso'}
+    p
   end
 
   context 'is passed valid JSON for attachment(s)'  do

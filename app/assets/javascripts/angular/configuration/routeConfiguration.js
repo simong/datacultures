@@ -11,17 +11,17 @@
     $routeProvider.when('/', {
       templateUrl: 'splash.html'
     }).
-    when('/engagement_index', {
-      templateUrl: 'engagement_index.html'
-    }).
     when('/canvas/embedded/engagement_index', {
       templateUrl: 'engagement_index.html'
     }).
     when('/canvas/embedded/gallery', {
       templateUrl: 'gallery.html'
     }).
-    when('/points_configuration', {
-      templateUrl: 'points_configuration.html'
+    when('/canvas/embedded/gallery/item/:selectedItemId', {
+      templateUrl: 'gallery.html'
+    }).
+    when('/canvas/embedded/gallery/author/:authorName', {
+      templateUrl: 'gallery.html'
     }).
     when('/canvas/embedded/points_configuration', {
       templateUrl: 'points_configuration.html'

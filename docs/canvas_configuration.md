@@ -1,18 +1,26 @@
-# Configuring Canvas
+Previous Step: [Generate LTI tokens](generate_LTI_tokens.md#generate-lti-tokens)
 
-The LTI tokens that are used to communicate between the Data Cultures LTI provider and the Canvas consumer must be generated. There is a thor task for this:
+# Configure Canvas
+*Note:* the following directions are for a hosted instance. Your milage may vary. 
 
-```shell
-cd datacultures
-thor keys:lti_new
-```
+1. In the browser log-in to Canvas as an admin.
+2. Navigate to the course you wish to configure.
+3. Select **_Settings_** from the left nav.
+4. Click the **_Apps_** tab and click **_View App Configurations_**
+5. Repeat for each of the three Data Cultures applications (_Points Configuration, Engagement Index, Gallery_):
+  1. Click **_Add New App_** 
+  2. In the dialog that appears, set the following configuration settings: 
+    * For **Name** enter _a name for reference_ (the actual name comes from the application)
+    * For **Consumer Key** enter _the key generated above_
+    * For **Shared Secret** enter _the secret generated above_
+    * For **Configuration Type** select "By URL"
+    * For **Configuration URL** enter the URL and port for the DataCultures server + _the URI for the app_
+      * **Example:** `http://learn.berkeley.edu:5000/canvas/canvas/lti_points_configuration`
+      * :small_orange_diamond: See below for the 3 app URIs :small_orange_diamond: 
+  3. Click **_Submit_** 
 
-The new keys will print out. In the browser with Canvas open, and while logged in as a teacher, go to the course, select the settings tab on the left, click the Applications tab in the middle of the screen, click on Add application.
+  :small_orange_diamond: The three application URIs are: :small_orange_diamond: 
+    * `/canvas/lti_points_configuration`
+    * `/canvas/lti_engagement_index`
+    * `/canvas/lti_gallery`
 
-In the dialog that appears, change the configuration type drop-down to 'By URL'. For the URL field, you must list the location where Canvas can access DataCultures, and the port, e.g., 'http://learn.berkeley.edu:5000' + the URLs for the LTI 'app'. The title here for each 'app' is only for this listing. The link on the left side of the nav bar will be taken from the generated XML that is parsed by Canvas. Do this for each app. The last part of the URL to append to the base are as follows:
-
-* /canvas/lti_points_configuration
-* /canvas/lti_engagement_index
-* /canvas/lti_gallery
-
-For the app key, use the value printed out above under 'thor keys:lti_new', and the same for the app secret.
