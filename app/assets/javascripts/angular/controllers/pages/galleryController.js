@@ -1,26 +1,15 @@
 (function(angular) {
   'use strict';
 
-  angular.module('datacultures.controllers').controller('GalleryController', function(assignmentFactory, galleryFactory, userInfoFactory, viewFactory, $scope) {
+  angular.module('datacultures.controllers').controller('GalleryController', function(assignmentFactory, galleryFactory, galleryService, userInfoFactory, viewFactory, $routeParams, $scope) {
+
+    $scope.selectedItemId = $routeParams.selectedItemId;
+
+    $scope.options = galleryService.options;
 
     $scope.resetOptions = function() {
-      $scope.selectedItem = {
-        itemId: ''
-      };
-      $scope.search = {
-        author: ''
-      };
-      $scope.assignmentFilter = '';
-      $scope.typeFilter = '';
-      // Default should be the first one (date)
-      $scope.sort = {
-        option: $scope.sortOptions[0]
-      };
-    };
-
-    $scope.searchAuthor = function(authorName) {
-      $scope.resetOptions();
-      $scope.search.author = authorName;
+      galleryService.resetOptions();
+      galleryService.setDefaultSort();
     };
 
     $scope.refreshSubmissions = function() {
@@ -29,7 +18,7 @@
       });
     };
 
-    var incrementViews = function(item) {
+    $scope.incrementViews = function(item) {
       viewFactory.increment({
         gallery_id: item.id
       }).success(function() {
@@ -37,56 +26,24 @@
       });
     };
 
-    $scope.selectItem = function(item) {
-      $scope.selectedItem.itemId = item.id;
-      incrementViews(item);
+    var searchAuthor = function(authorName) {
+      $scope.resetOptions();
+      galleryService.options.search.author = authorName;
     };
+
+    if ($routeParams.authorName) {
+      searchAuthor($routeParams.authorName);
+    }
 
     userInfoFactory.me().success(function(data) {
       $scope.currentUser = data;
     }).then($scope.refreshSubmissions);
 
-    assignmentFactory.getAssignments().success(function(data) {
-      $scope.assignments = data;
-    });
-
-    // Type Filter
-    $scope.typeOptions = [
-      {
-        display: 'Image',
-        value: 'image'
-      },
-      {
-        display: 'Video',
-        value: 'video'
-      }
-    ];
-
-    // Sorting
-    $scope.sortOptions = [
-      {
-        display: 'Date',
-        type: 'date'
-      },
-      {
-        display: 'Views',
-        type: 'views'
-      },
-      {
-        display: 'Comments',
-        type: 'comment_count'
-      },
-      {
-        display: 'Likes',
-        type: 'likes'
-      },
-      {
-        display: 'Dislikes',
-        type: 'dislikes'
-      }
-    ];
-
-    $scope.resetOptions();
+    if (!galleryService.options.assignments) {
+      assignmentFactory.getAssignments().success(function(data) {
+        galleryService.options.assignments = data;
+      });
+    }
 
   });
 

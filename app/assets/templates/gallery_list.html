@@ -1,38 +1,37 @@
 <label for="dc-gallery-search-assignment">
   Select Assignment:
 </label>
-<select id="dc-gallery-search-assignment" ng-model="assignmentFilter" ng-options="assignment.name for assignment in assignments">
+<select id="dc-gallery-search-assignment" ng-model="options.assignmentFilter" ng-options="assignment.name for assignment in options.assignments">
   <option value="">Select All</option>
 </select>
 
 <label for="dc-gallery-search-filter">
   Filter by:
 </label>
-<select id="dc-gallery-search-filter" ng-model="typeFilter" ng-options="item.display for item in typeOptions">
+<select id="dc-gallery-search-filter" ng-model="options.typeFilter" ng-options="item.display for item in options.typeOptions">
   <option value="">All Types</option>
 </select>
 
 <label for="dc-gallery-search-sort">
   Sort by:
 </label>
-<select id="dc-gallery-search-sort" ng-model="sort.option" ng-options="option.display for option in sortOptions"></select>
+<select id="dc-gallery-search-sort" ng-model="options.sort.option" ng-options="option.display for option in options.sortOptions"></select>
 
 <label for="dc-gallery-search-text">
   Search For Student:
 </label>
-<input id="dc-gallery-search-text" type="text" ng-model="search.author">
+<input id="dc-gallery-search-text" type="text" ng-model="options.search.author">
 
-<div class="dc-gallery-list" ng-repeat="item in items | orderBy:sort.option.type:true | filter:search | filter:{assignment_id:assignmentFilter.canvas_assignment_id || ''} | filter:{type:typeFilter.value || ''}">
+<div class="dc-gallery-list" ng-repeat="item in items | orderBy:options.sort.option.type:true | filter:options.search | filter:{assignment_id:options.assignmentFilter.canvas_assignment_id || ''} | filter:{type:options.typeFilter.value || ''}">
   <div class="dc-thumbnail-item-container">
-    {{selectedItem.itemId}}
-    <button class="dc-button-link dc-thumbnail-item" ng-click="selectItem(item)" style="background-image: url({{item.image_url}})">
+    <a class="dc-button-link dc-thumbnail-item" ng-href="/canvas/embedded/gallery/item/{{item.id}}" ng-click="incrementViews(item)" style="background-image: url({{item.image_url}})">
       <div class="dc-thumbnail-hover">
         <p>
           {{item.title}} <br>
           Posted by {{item.author}}
         </p>
       </div>
-    </button>
+    </a>
     <div class="dc-thumbnail-caption">
       <div data-ng-include="'gallery_likes.html'"></div>
 
