@@ -45,7 +45,6 @@ gem 'angular-rails-templates', '~> 0.1.3'
 
 # formatters / decorators
 gem 'json',                    '~> 1.8'
-gem 'decorated_csv',           '~> 1.0.0'
 
 # LTI support
 gem 'ims-lti', :git => 'https://github.com/instructure/ims-lti.git'
