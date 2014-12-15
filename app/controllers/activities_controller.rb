@@ -10,7 +10,7 @@ class ActivitiesController < ApplicationController
        act.delta AS "action score", to_char(act.updated_at, 'YYYY-MM-DD HH24:MI:SS') AS "action at"
     FROM activities act INNER JOIN students s ON act.canvas_user_id = s.canvas_user_id
       WHERE (act.score = 't') AND (act.expired = 'f') AND (act.assigned_discussion = 'f')
-      AND (act.reason IN ('Submission', 'Like', 'Dislike', 'DiscussionTopic', 'DiscussionEdit', 'DiscussionReply', 'Comment'));
+      AND (act.reason IN ('Submission', 'Like', 'Dislike', 'DiscussionTopic', 'DiscussionEdit', 'DiscussionReply', 'GalleryComment'));
   END_OF_QUERY_SQL
 
 
