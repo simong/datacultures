@@ -14,8 +14,8 @@ class HashRefinementTester < Hash
     self.transmogrify_video_tags!
   end
 
-  def numerize_count_values_proxy
-    self.numerize_count_values!
+  def numerize_values_proxy
+    self.numerize_values!
   end
 
   def image_transform_proxy
@@ -57,16 +57,16 @@ RSpec.describe Hash do
 
   end
 
-  context '#numerize_count_values!' do
+  context '#numerize_values!' do
 
     it 'is fine if a count key is missing' do
-      expect(HashRefinementTester[{'comment_count' => '3', 'likes' => '10' }].numerize_count_values_proxy).
-             to eq({'comment_count' => 3, 'likes' => 10, 'dislikes' => 0, 'views' => 0})
+      expect(HashRefinementTester[{'comment_count' => '3', 'likes' => '10' }].numerize_values_proxy).
+             to eq({'comment_count' => 3, 'likes' => 10, 'dislikes' => 0, 'submitted_at' => 0, 'views' => 0})
     end
 
     it 'works on perfect inputs' do
-      expect(HashRefinementTester[{'comment_count' => '3', 'likes' => '10', 'dislikes' => '5', 'views' => '44' }].numerize_count_values_proxy).
-          to eq({'comment_count' => 3, 'likes' => 10, 'dislikes' => 5, 'views' => 44})
+      expect(HashRefinementTester[{'comment_count' => '3', 'likes' => '10', 'dislikes' => '5', 'submitted_at' => '19', 'views' => '44' }].numerize_values_proxy).
+          to eq({'comment_count' => 3, 'likes' => 10, 'dislikes' => 5, 'submitted_at' => 19, 'views' => 44})
     end
 
   end
@@ -77,7 +77,7 @@ RSpec.describe Hash do
       hash_refinement_tester = HashRefinementTester[{'likes' => '5', 'dislikes' => '7', 'comment_count' => '9',
            'liked' =>'t', 'disliked' => nil, 'views' => '11'}]
       expect(hash_refinement_tester.image_transform_proxy).
-          to eq({'likes' => 5, 'dislikes' => 7, 'comment_count' => 9, 'liked' => true, 'views' => 11})
+          to eq({'likes' => 5, 'dislikes' => 7, 'comment_count' => 9, 'liked' => true, 'submitted_at' => 0, 'views' => 11})
     end
 
   end
@@ -88,7 +88,8 @@ RSpec.describe Hash do
       hash_refinement_tester = HashRefinementTester[{'likes' => '5', 'dislikes' => '7', 'views' => '5',
          'comment_count' => '9', 'liked' =>'t', 'disliked' => nil, 'site_tag' => 'youtube_id', 'site_id' => '546811'}]
       expect(hash_refinement_tester.video_transform_proxy).
-          to eq({'likes' => 5, 'dislikes' => 7, 'views' => 5, 'comment_count' => 9, 'liked' => true, 'youtube_id' => '546811'})
+          to eq({'likes' => 5, 'dislikes' => 7, 'views' => 5, 'comment_count' => 9, 'liked' => true,
+                 'submitted_at' => 0, 'youtube_id' => '546811'})
     end
 
   end

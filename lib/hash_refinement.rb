@@ -19,8 +19,8 @@ module HashRefinement
       self.except!('site_tag', 'site_id', nil)  # if site_tag did not exist, do not create one with nil key
     end
 
-    def numerize_count_values!
-      self.numerize_keys!(keys_to_numerize: %w<comment_count likes dislikes views>)
+    def numerize_values!
+      self.numerize_keys!(keys_to_numerize: %w<comment_count likes dislikes views submitted_at>)
     end
 
     def numerize_comment_fields!
@@ -35,7 +35,7 @@ module HashRefinement
     end
 
     def image_transform!
-      correct_liked_values!.numerize_count_values!
+      correct_liked_values!.numerize_values!
     end
 
     def video_transform!
