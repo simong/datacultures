@@ -36,6 +36,10 @@
         {
           display: 'Video',
           value: 'video'
+        },
+        {
+          display: 'Website URL',
+          value: 'url'
         }
       ]
     };
