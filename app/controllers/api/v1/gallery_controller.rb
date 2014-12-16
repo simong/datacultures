@@ -15,9 +15,9 @@ class Api::V1::GalleryController < ApplicationController
       WHERE act.expired = 'f' AND reason = 'Dislike' GROUP BY act.scoring_item_id)
       AS dli ON dli.scoring_item_id = g.gallery_id
     LEFT JOIN (SELECT true AS liked, scoring_item_id FROM activities act WHERE act.canvas_user_id = %s
-      AND act.reason = 'Like') AS is_liked ON is_liked.scoring_item_id = g.gallery_id
+      AND act.reason = 'Like' AND act.expired = 'f') AS is_liked ON is_liked.scoring_item_id = g.gallery_id
     LEFT JOIN (SELECT true AS disliked, scoring_item_id FROM activities act WHERE act.canvas_user_id = %s
-      AND act.reason = 'Dislike') AS is_disliked ON is_disliked.scoring_item_id = g.gallery_id
+      AND act.reason = 'Dislike' AND act.expired = 'f') AS is_disliked ON is_disliked.scoring_item_id = g.gallery_id
   END_OF_COMMON_QUERY
 
   IMAGE_SPECIFIC_QUERY =<<-END_OF_IMAGE_QUERY
