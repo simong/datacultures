@@ -40,6 +40,19 @@ module StringRefinement
     def slash_bracket(const_part)
       empty? ? self : const_part + '/' + self
     end
+
+    def gallery_model_class
+      case self
+        when /\Aimage-/
+          Attachment
+        when /\Avideo-/
+          MediaUrl
+        when /\Aurl-/
+          GenericUrl
+      end
+    end
+
+
   end
 
 end
