@@ -56,6 +56,44 @@ RSpec.describe Api::V1::GalleryController, :type => :controller do
       expect(response.status).to have_return_status :forbidden
     end
 
+    context "index has the correct fields" do
+
+      before(:all) do
+        Attachment.delete_all
+        MediaUrl.delete_all
+        GenericUrl.delete_all
+        FactoryGirl.create(:generic_url, {canvas_user_id: 4})
+        FactoryGirl.create(:media_url, {canvas_user_id: 5, site_tag: 'vimeo_id'})
+        FactoryGirl.create(:attachment, {canvas_user_id: 7})
+      end
+
+      before(:each) do
+        allow(controller).to receive(:current_user).and_return(USER_STRUCT)
+      end
+
+      it "for Generic URLs" do
+        get :index, valid_session
+        return_body = JSON.parse(response.body)['files']
+        expect(return_body.select{|item| item['type'] == 'url'}.first.keys.sort).to \
+           eq(%w[assignment_id author canvas_user_id comment_count dislikes id image_url liked likes submitted_at type url views])
+      end
+
+      it "for Video (Vimeo here) URLs" do
+        get :index, valid_session
+        return_body = JSON.parse(response.body)['files']
+        expect(return_body.select{|item| item['type'] == 'video'}.first.keys.sort).to \
+           eq(%w[assignment_id author canvas_user_id comment_count dislikes id image_url liked likes submitted_at type views vimeo_id])
+      end
+
+      it "for file uploads" do
+        get :index, valid_session
+        return_body = JSON.parse(response.body)['files']
+        expect(return_body.select{|item| item['type'] == 'image'}.first.keys.sort).to \
+           eq(%w[assignment_id attachment_id author canvas_user_id comment_count content_type dislikes id image_url liked likes submission_id submitted_at type views])
+      end
+
+    end
+
   end
 
   describe 'GET show' do
