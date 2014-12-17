@@ -9,7 +9,7 @@
       sortOptions: [
         {
           display: 'Date',
-          type: 'date'
+          type: 'submitted_at'
         },
         {
           display: 'Views',
