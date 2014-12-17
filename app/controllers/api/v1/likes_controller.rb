@@ -10,7 +10,7 @@ class Api::V1::LikesController < ApplicationController
   # POST /api/v1/likes
   def create
     original_poster = posting_user_id
-    if (original_poster != current_user.canvas_id)
+    if (original_poster.to_s != current_user.canvas_id.to_s)
       previous_records(user_list: [original_poster, current_user.canvas_id]).each do |previous_record|
         previous_record.retire!
       end

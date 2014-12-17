@@ -9,7 +9,7 @@ class Api::V1::CommentsController < ApplicationController
     if Comment.create({authors_canvas_id: current_user.canvas_id, gallery_id: safe_params[:id],
                        content: safe_params[:comment] }).persisted?
       base_poster = original_poster_id
-      if (base_poster != current_user.canvas_id)
+      if (base_poster.to_s != current_user.canvas_id.to_s)
         Activity.score!(values_for_create(user_id: base_poster,            activity_type: 'GetAComment'))
         Activity.score!(values_for_create(user_id: current_user.canvas_id, activity_type: 'GalleryComment'))
       end
