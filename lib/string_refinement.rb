@@ -33,7 +33,7 @@ module StringRefinement
     end
 
     def vimeo
-      self =~ /vimeo\.com\/(?:video\/)?(\d+)/
+      self =~ /vimeo\.com(?:(?:\/channels\/[0-9a-z]+)|(?:groups\/[a-z]+\/videos)|(?:video))?\/?(\d+)/
       $1 ?  {site_tag: 'vimeo_id', site_id: $1} : nil
     end
 

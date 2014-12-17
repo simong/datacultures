@@ -86,7 +86,7 @@ class Canvas::SubmissionsProcessor
   end
 
   def video_url_regexp
-    /\Ahttps:\/\/www\.youtube\.com|\Ahttp:\/\/youtu\.be|www\.youtube.com\/embed|\Ahttp:\/\/vimeo\.com|player\.vimeo\.com\/video/
+      /\Ahttps?:\/\/www\.youtube\.com|\Ahttps?:\/\/youtu\.be|www\.youtube.com\/embed|\Ahttps?:\/\/vimeo\.com|player\.vimeo\.com\/video/
   end
 
   def needs_processing?(previously_credited, new_date)
