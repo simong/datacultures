@@ -19,13 +19,21 @@ Now follow these steps in order:
     thor keys:app_new_secret
 ```
 
-* [Create LTI key](generate_LTI_tokens.md)
+* Create LTI key and secret. These are a _key_ and a _secret_, that are used to communicate between the Data Cultures LTI provider and the Canvas consumer.
+```shell
+    thor keys:lti_new
+```
 
-* [Configuring the Canvas instance in which Data Cultures is embeded](canvas_configuration.md) Canvas must know about the Data Cultures LTI provider application.
+The new (or regenerated) LTI application key and shared secret will print out, if someone else is to configure canvas, they will need theses.
 
 * [Generate Canvas API keys](api_key_generation.md)
 
 * [Configuring Data Cultures](datacultures_configuration.md)
+
+* Configuring the Canvas instance in which Data Cultures is embedded
+```shell
+    thor lti:add_all_tools
+```
 
 * Bundling. The Ruby gems must be made available to the application:
 
