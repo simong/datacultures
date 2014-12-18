@@ -1,4 +1,4 @@
 <div ng-controller="GalleryLikeController">
-  <button title="Like" class="dc-button-link dc-thumb" ng-click="like(item)" ng-class="item.liked ? 'dc-thumb-blue' : ''" ng-disabled="item.canvas_user_id === api.user.me.canvas_user_id"><i class="fa fa-thumbs-up fa-lg"></i></button><strong ng-bind="item.likes"></strong>
-  <button title="Dislike" class="dc-button-link dc-thumb" ng-click="dislike(item)" ng-class="item.liked === false ? 'dc-thumb-blue' : ''" ng-disabled="item.canvas_user_id === api.user.me.canvas_user_id"><i class="fa fa-thumbs-down fa-lg"></i></button><strong ng-bind="item.dislikes"></strong>
+  <button title="Like" class="dc-button-link dc-thumb" ng-click="like(item)" ng-class="item.liked ? 'dc-thumb-blue' : ''" ng-disabled="item.canvas_user_id === api.user.me.canvas_user_id"><i class="fa fa-thumbs-up fa-lg"><span class="sr-only">Like</span></i></button><strong ng-bind="item.likes"></strong>
+  <button title="Dislike" class="dc-button-link dc-thumb" ng-click="dislike(item)" ng-class="item.liked === false ? 'dc-thumb-blue' : ''" ng-disabled="item.canvas_user_id === api.user.me.canvas_user_id"><i class="fa fa-thumbs-down fa-lg"><span class="sr-only">Dislike</span></i></button><strong ng-bind="item.dislikes"></strong>
 </div>
