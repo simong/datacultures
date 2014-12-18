@@ -10,7 +10,7 @@ class Clean < Thor
 
   desc 'db', 'Clear out the database'
   def db
-    table_names = %w<activities assignments attachments comments media_urls students views>
+    table_names = %w<activities assignments attachments comments generic_urls media_urls students views>
     table_names.each do |table_name|
       ActiveRecord::Base.connection_pool.with_connection do |db_connection|
         db_connection.execute('TRUNCATE ' + table_name + ';')
