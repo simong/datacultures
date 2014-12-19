@@ -36,12 +36,6 @@ class Activity < ActiveRecord::Base
     current.scored.not_assigned_discussion.group(:canvas_user_id).sum(:delta)
   end
 
-
-  ## refresh cache
-  def self.update_scores!
-    self.student_scores
-  end
-
   def self.visible_to(user_id:, all_seeing:)
     does_user_share = Student.find_by_canvas_user_id(user_id).try(:share)
     if all_seeing

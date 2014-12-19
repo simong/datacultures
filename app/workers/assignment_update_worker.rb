@@ -8,7 +8,6 @@ class AssignmentUpdateWorker
     processor = Canvas::AssignmentsProcessor.new({request_object: request_object, course: course })
     Canvas::PagedApiProcessor.new({request_object: request_object,
                                    handler: processor}).call(course_api_url(course: course, final_url: :assignments))
-    Activity.update_scores!
   end
 
 end
