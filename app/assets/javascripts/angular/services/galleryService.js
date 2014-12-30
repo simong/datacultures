@@ -90,7 +90,7 @@
           // Cache the gallery items
           galleryItems = data.files;
           return callback(galleryItems);
-        })
+        });
       } else {
         return callback(galleryItems);
       }

@@ -48,11 +48,10 @@
     if ($scope.selectedItemId) {
       userService.getMe(function(me) {
         $scope.me = me;
-        $scope.getCurrentItem(function(item) {
-          // Scroll to the top of the page, as the current scroll
-          // position could be somewhere deep in the gallery list
-          utilService.scrollToTop();
-        });
+        // Get the current gallery item and scroll to the top of
+        // the page, as the current scroll position could be somewhere
+        // deep in the gallery list
+        $scope.getCurrentItem(utilService.scrollToTop);
       });
     }
 

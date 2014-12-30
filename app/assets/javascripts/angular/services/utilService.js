@@ -75,7 +75,7 @@
         postIFrameMessage(function() {
           return {
             subject: 'getScrollPosition'
-          }
+          };
         });
 
         // The parent window will respond with a message into the current window containing

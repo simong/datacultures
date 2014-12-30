@@ -20,7 +20,7 @@
           // Cache the list of assignments
           assignments = data;
           return callback(assignments);
-        })
+        });
       } else {
         return callback(assignments);
       }
