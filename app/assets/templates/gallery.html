@@ -1,8 +1,8 @@
-<div class="dc-gallery dc-clearfix-container" ng-controller="GalleryController">
+<div class="dc-gallery dc-clearfix-container" data-ng-controller="GalleryController">
   <h1>
-    <a href="/canvas/embedded/gallery" ng-click="resetSortAndFilter()">Media Gallery</a>
+    <a href="/canvas/embedded/gallery" data-ng-click="resetSortAndFilter()">Media Gallery</a>
   </h1>
 
-  <div ng-show="!selectedItemId" ng-include="'gallery_list.html'"></div>
-  <div ng-show="selectedItemId" ng-include="'gallery_item.html'"></div>
+  <div data-ng-show="!selectedItemId" data-ng-include="'gallery_list.html'"></div>
+  <div data-ng-show="selectedItemId" data-ng-include="'gallery_item.html'"></div>
 </div>

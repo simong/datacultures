@@ -6,7 +6,7 @@
     /**
      * Like or dislike a gallery item
      *
-     * @param  {Object}         item          The gallery item to like or dislike
+     * @param  {GalleryItem}    item          The gallery item to like or dislike
      * @param  {Boolean}        [liked]       `true` if the item should be liked. `false` if the item should be disliked. `null` if the existing like or dislike should be removed
      * @api private
      */
@@ -29,7 +29,7 @@
     /**
      * Update the like and dislike count on a gallery item
      *
-     * @param  {Object}         item          The gallery item that's being liked or disliked
+     * @param  {GalleryItem}    item          The gallery item that's being liked or disliked
      * @param  {Boolean}        liked         `true` if the item was liked. `false` if the item was disliked. `null` if the existing like or dislike was removed
      * @api private
      */
@@ -64,7 +64,7 @@
      * Like a gallery item. If the current user already liked the gallery item,
      * the like will be removed
      *
-     * @param  {Object}         item          The gallery item to like
+     * @param  {GalleryItem}    item          The gallery item to like
      */
     $scope.like = function(item) {
       // Pass in `null` to remove the like when the user already liked the gallery item
@@ -75,7 +75,7 @@
      * Dislike a gallery item. If the current user already disliked the gallery item,
      * the dislike will be removed
      *
-     * @param  {Object}         item          The gallery item to dislike
+     * @param  {GalleryItem}    item          The gallery item to dislike
      */
     $scope.dislike = function(item) {
       // Pass in `null` to remove the dislike when the user already disliked the gallery item

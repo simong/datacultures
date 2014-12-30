@@ -2,28 +2,29 @@
 
   'use strict';
 
-  angular.module('datacultures.services').service('assignmentService', function(assignmentFactory) {
+  angular.module('datacultures.services').service('assignmentService', function(assignmentFactory, $q) {
 
     var assignments = null;
 
     /**
      * Get all assignments in the current course. The items will only be retrieved once
      *
-     * @param  {Function}       callback                Standard callback function
-     * @param  {Assignment[]}   callback.assignments    The retrieved assignments
+     * @return {Promise<Assignment[]>}            Promise returning all assignments in the current course
      */
-    var getAssignments = function(callback) {
+    var getAssignments = function() {
+      var deferred = $q.defer();
       // When the assignments have already been retreived, we return
       // them from cache
       if (!assignments) {
         assignmentFactory.getAssignments().success(function(data) {
           // Cache the list of assignments
           assignments = data;
-          return callback(assignments);
+          deferred.resolve(assignments);
         });
       } else {
-        return callback(assignments);
+        deferred.resolve(assignments);
       }
+      return deferred.promise;
     };
 
     return {

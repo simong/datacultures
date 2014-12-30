@@ -33,7 +33,7 @@
 
     // Expose the iFrame resize function to allow the window to resize
     // when any of the filtering and sorting options change
-    $scope.resizeIFrame =  utilService.resizeIFrame;
+    $scope.resizeIFrame = utilService.resizeIFrame;
 
     /**
      * Filter the results by author if the author filter is present in the
@@ -51,22 +51,25 @@
      * items. We only do this when no specific item has been selected
      */
     if (!$scope.selectedItemId) {
-      userService.getMe(function(me) {
-        $scope.me = me;
-        // Get the assignments for the current course
-        assignmentService.getAssignments(function(assignments) {
+      userService.getMe()
+        .then(function(me) {
+          $scope.me = me;
+          // Get the assignments for the current course
+          return assignmentService.getAssignments();
+        })
+        .then(function(assignments) {
           $scope.assignments = assignments;
           // Get the gallery items
-          galleryService.getGalleryItems(function(items) {
-            $scope.items = items;
-            // Resize the iFrame Datacultures is running in
-            utilService.resizeIFrame();
-            // Restore the scroll position to the position the list
-            // was in previously
-            galleryService.restoreScrollPosition();
-          });
+          return galleryService.getGalleryItems();
+        })
+        .then(function(items) {
+          $scope.items = items;
+          // Resize the iFrame Datacultures is running in
+          utilService.resizeIFrame();
+          // Restore the scroll position to the position the list
+          // was in previously
+          galleryService.restoreScrollPosition();
         });
-      });
     }
 
   });

@@ -1,7 +1,7 @@
 (function(angular) {
   'use strict';
 
-  angular.module('datacultures.controllers').controller('GalleryItemController', function(galleryItemFactory, userService, utilService, $rootScope, $scope) {
+  angular.module('datacultures.controllers').controller('GalleryItemController', function(galleryItemFactory, userService, utilService, $scope) {
 
     // Variable that will keep track of the currently selected gallery item
     $scope.item = null;
@@ -9,28 +9,27 @@
     /**
      * Get the current gallery item and render it
      *
-     * @param  {String}       [callback]                Standard callback function
-     * @param  {Object}       [callback.currentItem]    The current gallery item
+     * @return {Promise}                                Standard promise
      * @api private
      */
-    $scope.getCurrentItem = function(callback) {
-      galleryItemFactory.getGalleryItem($scope.selectedItemId, function(item) {
+    var loadCurrentItem = function() {
+      return galleryItemFactory.getGalleryItem($scope.selectedItemId).then(function(item) {
         if (item.type === 'video') {
           item.videoUrl = constructVideoUrl(item);
         }
         $scope.item = item;
         // Resize the iFrame Datacultures is running in
         utilService.resizeIFrame();
-        if (callback) {
-          return callback(item);
-        }
       });
     };
+
+    // Listen for external requests to reload the current gallery item
+    $scope.$on('datacultures.gallery.reloadGalleryItem', loadCurrentItem);
 
     /**
      * Construct the preview URL for a video submission
      *
-     * @param  {GalleryItem}  item                      The id of the gallery item to generate a preview for
+     * @param  {GalleryItem}              item          The id of the gallery item to generate a preview for
      * @api private
      */
     var constructVideoUrl = function(item) {
@@ -46,13 +45,15 @@
      * item. We only do this when an item has been selected
      */
     if ($scope.selectedItemId) {
-      userService.getMe(function(me) {
-        $scope.me = me;
-        // Get the current gallery item and scroll to the top of
-        // the page, as the current scroll position could be somewhere
+      userService.getMe()
+        .then(function(me) {
+          $scope.me = me;
+          // Get the current gallery item
+          return loadCurrentItem();
+        })
+        // Scroll to the top of the page, as the current scroll position could be somewhere
         // deep in the gallery list
-        $scope.getCurrentItem(utilService.scrollToTop);
-      });
+        .then(utilService.scrollToTop);
     }
 
   });

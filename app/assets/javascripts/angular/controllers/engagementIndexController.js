@@ -66,7 +66,7 @@
      * Get the detailed information about the current user and load the students
      * in the engagement index
      */
-    userService.getMe(function(me) {
+    userService.getMe().then(function(me) {
       $scope.me = me;
       getEngagementIndexList();
     });

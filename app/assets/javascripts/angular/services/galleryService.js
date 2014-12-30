@@ -2,7 +2,7 @@
 
   'use strict';
 
-  angular.module('datacultures.services').service('galleryService', function(galleryFactory, utilService) {
+  angular.module('datacultures.services').service('galleryService', function(galleryFactory, utilService, $q) {
 
     /* FILTERING AND SORTING */
 
@@ -74,29 +74,30 @@
     /**
      * Get all gallery items. The items will only be retrieved once
      *
-     * @param  {Function}       callback          Standard callback function
-     * @param  {GalleryItem[]}  callback.items    The retrieved gallery items
+     * @return {Promise<GalleryItem[]>}                       Promise returning all gallery items
      */
-    var getGalleryItems = function(callback) {
+    var getGalleryItems = function() {
+      var deferred = $q.defer();
       // When the gallery items have already been retrieved, we return
       // them from cache
       if (!galleryItems) {
-        galleryFactory.getGalleryItems(function(data) {
+        galleryFactory.getGalleryItems().then(function(items) {
           // Cache the gallery items
-          galleryItems = data.files;
-          return callback(galleryItems);
+          galleryItems = items;
+          deferred.resolve(galleryItems);
         });
       } else {
-        return callback(galleryItems);
+        deferred.resolve(galleryItems);
       }
+      return deferred.promise;
     };
 
     /**
      * Get a gallery item from the cached list of gallery items. If the
      * gallery items have not been cached yet, `null` will be returned
      *
-     * @param  {String}         id                The id of the gallery item to retrieve from the cached gallery items
-     * @return {Object}                           The requested gallery item from cache or `null` if the gallery items have not been cached or the requested item can not be found
+     * @param  {String}                     id                The id of the gallery item to retrieve from the cached gallery items
+     * @return {GalleryItem}                                  The requested gallery item from cache or `null` if the gallery items have not been cached or the requested item can not be found
      */
     var getCachedGalleryItem = function(id) {
       if (galleryItems) {
@@ -119,7 +120,7 @@
      * location when going back to the list
      */
     var cacheScrollPosition = function() {
-      utilService.getScrollPosition(function(currentScrollPosition) {
+      utilService.getScrollPosition().then(function(currentScrollPosition) {
         scrollPosition = currentScrollPosition;
       });
     };

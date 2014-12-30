@@ -2,7 +2,7 @@
 
   'use strict';
 
-  angular.module('datacultures.services').service('utilService', function() {
+  angular.module('datacultures.services').service('utilService', function($q) {
 
     /**
      * Adjust the height of the current iFrame to the size of its content.
@@ -44,7 +44,7 @@
      * it will scroll the current window to the specified position. When Datacultures is being run
      * as a BasicLTI tool, it will scroll the parent window to the specified position
      *
-     * @param  {Number}     position                      The vertical scroll position to scroll to
+     * @param  {Number}           position            The vertical scroll position to scroll to
      */
     var scrollTo = function(position) {
       // When running Datacultures as a BasicLTI tool, scroll the parent window
@@ -66,10 +66,10 @@
      * it will return the scroll position of the current window. When Datacultures is being run
      * as a BasicLTI tool, it will return the scroll position of the parent window
      *
-     * @param  {Function}     callback                    Standard callback function
-     * @param  {Number}       callback.scrollPosition     The current scroll position
+     * @return {Promise<Number>}                      Promise returning the current scroll position
      */
-    var getScrollPosition = function(callback) {
+    var getScrollPosition = function() {
+      var deferred = $q.defer();
       // When running Datacultures as a BasicLTI tool, request the scroll position of the parent window
       if (window.parent) {
         postIFrameMessage(function() {
@@ -90,15 +90,16 @@
               return;
             }
             if (message.scrollPosition !== undefined) {
-              return callback(message.scrollPosition);
+              deferred.resolve(message.scrollPosition);
             }
           }
         };
       // Otherwise, retrieve the scroll position of the current window
       } else {
         var scrollPosition = (window.pageYOffset || document.documentElement.scrollTop) - (document.documentElement.clientTop || 0);
-        return callback(scrollPosition);
+        deferred.resolve(scrollPosition);
       }
+      return deferred.promise;
     };
 
     /**

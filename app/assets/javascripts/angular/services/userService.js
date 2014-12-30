@@ -2,7 +2,7 @@
 
   'use strict';
 
-  angular.module('datacultures.services').service('userService', function(userFactory) {
+  angular.module('datacultures.services').service('userService', function(userFactory, $q) {
 
     // Variable that caches the profile information for the current user
     var me = null;
@@ -10,19 +10,19 @@
     /**
      * Retrieve the profile information for the current user. This will only be retrieved once
      *
-     * @param  {Function}     callback                Standard callback function
-     * @param  {Object}       callback.me             Detailed information about the current user
-     * @param  {Boolean}      callback.me.isAdmin     Whether the current user is a Datacultures administrator
+     * @return {Promise<Me>}                      Promise returning the profile information for the current user
      */
-    var getMe = function(callback) {
+    var getMe = function() {
+      var deferred = $q.defer();
       if (!me) {
-        userFactory.getMe(function(retrievedMe) {
+        userFactory.getMe().then(function(retrievedMe) {
           me = retrievedMe;
-          return callback(me);
+          deferred.resolve(me);
         });
       } else {
-        return callback(me);
+        deferred.resolve(me);
       }
+      return deferred.promise;
     };
 
     return {

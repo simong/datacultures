@@ -1,9 +1,7 @@
-// create the module and points it pointssystemApp
-
 (function(angular) {
   'use strict';
 
-  angular.module('datacultures.controllers').controller('PointsConfigurationController', function(pointsConfigurationFactory, userService, utilService, $http, $scope) {
+  angular.module('datacultures.controllers').controller('PointsConfigurationController', function(pointsConfigurationFactory, userService, utilService, $scope) {
 
     // Variable that keeps track of whether the points configuration is shown
     // in view or edit mode
@@ -17,8 +15,8 @@
      * Retrieve the current points configuration and render it
      */
     var getPointsConfiguration = function() {
-      pointsConfigurationFactory.getPointsConfiguration().success(function(configuration) {
-        $scope.configuration = configuration.activities;
+      pointsConfigurationFactory.getPointsConfiguration().then(function(configuration) {
+        $scope.configuration = configuration;
 
         // Resize the BasicLTI iFrame
         utilService.resizeIFrame();
@@ -47,7 +45,7 @@
      * Remove an activity from the points configuration. These activities will not
      * generate activity points
      *
-     * @param  {Object}       activity      The activity to remove from the points configuration
+     * @param  {Activity}     activity      The activity to remove from the points configuration
      */
     $scope.removeActivity = function(activity) {
       activity.active = false;
@@ -57,7 +55,7 @@
      * Add an activity back to the points configuration. These activities will generate
      * activity points
      *
-     * @param  {Object}       activity      The activity to add to the points configuration
+     * @param  {Activity}     activity      The activity to add to the points configuration
      */
     $scope.enableActivity = function(activity) {
       activity.active = true;
@@ -113,7 +111,7 @@
      * Get the detailed information about the current user and load
      * the points configuration for the current course
      */
-    userService.getMe(function(me) {
+    userService.getMe().then(function(me) {
       $scope.me = me;
       getPointsConfiguration();
     });

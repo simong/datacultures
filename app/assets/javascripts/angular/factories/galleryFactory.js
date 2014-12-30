@@ -10,20 +10,19 @@
     /**
      * Get all gallery items
      *
-     * @param  {Function}     callback                Standard callback function
-     * @param  {Object[]}     callback.galleryItems   The retrieved gallery items
+     * @return {Promise<GalleryItem[]>}      Promise returning all gallery items
      */
-    var getGalleryItems = function(callback) {
-      var url = '/api/v1/gallery/index';
-      $http.get(url).success(function(galleryItems) {
+    var getGalleryItems = function() {
+      return $http.get('/api/v1/gallery/index').then(function(response) {
+        var galleryItems = response.data.files;
         // Convert the `canvas_user_id`s to numbers
         // TODO: Improve the API endpoint to ensure the `canvas_user_id`
         // property is returned as a number
-        for (var i = 0; i < galleryItems.files.length; i++) {
-          var galleryItem = galleryItems.files[i];
+        for (var i = 0; i < galleryItems.length; i++) {
+          var galleryItem = galleryItems[i];
           galleryItem.canvas_user_id = parseInt(galleryItem.canvas_user_id, 10);
         }
-        return callback(galleryItems);
+        return galleryItems;
       });
     };
 

@@ -12,26 +12,27 @@
     /**
      * Get the detailed information for a gallery item
      *
-     * @param  {String}     id                       The id of the gallery item to retrieve
-     * @param  {Function}   callback                 Standard callback function
-     * @param  {Object}     callback.galleryItem     The retrieved gallery items
+     * @param  {String}                 id            The id of the gallery item to retrieve
+     * @return {Promise<GalleryItem>}                 Promise returning the retrieved gallery item
      */
-    var getGalleryItem = function(id, callback) {
+    var getGalleryItem = function(id) {
       var url = '/api/v1/gallery/' + id;
-      $http.get(url).success(function(galleryItem) {
+      return $http.get(url).then(function(response) {
+        var galleryItem = response.data;
         // Convert the `canvas_user_id` property to a number
         // TODO: Improve the API endpoint to ensure the `canvas_user_id`
         // property is returned as a number
         galleryItem.canvas_user_id = parseInt(galleryItem.canvas_user_id, 10);
-        return callback(galleryItem);
+        return galleryItem;
       });
     };
 
     /**
      * Add a comment to a gallery item
      *
-     * @param  {String}     id                      The id of the gallery item to add a comment to
-     * @param  {String}     comment                 The comment to add to the gallery item
+     * @param  {String}                 id            The id of the gallery item to add a comment to
+     * @param  {String}                 comment       The comment to add to the gallery item
+     * @return {Promise}                              $http promise
      */
     var addComment = function(id, comment) {
       var data = {
@@ -44,8 +45,9 @@
     /**
      * Update an existing comment on a gallery item
      *
-     * @param  {String}     comment_id            The id of the comment to update
-     * @param  {String}     comment               The updated comment
+     * @param  {String}                 comment_id    The id of the comment to update
+     * @param  {String}                 comment       The updated comment
+     * @return {Promise}                              $http promise
      */
     var updateComment = function(comment_id, comment) {
       var data = {
@@ -58,7 +60,8 @@
     /**
      * Increment the number of views on a gallery item
      *
-     * @param  {String}     id                    The id of the gallery item to increment the views for
+     * @param  {String}                 id            The id of the gallery item to increment the views for
+     * @return {Promise}                              $http promise
      */
     var incrementViews = function(id) {
       var data = {
@@ -70,8 +73,9 @@
     /**
      * Like or dislike a gallery item
      *
-     * @param  {String}     id                    The id of the gallery item to like or dislike
-     * @param  {Boolean}    [liked]               `true` when the gallery item should be liked. `false` when it should be disliked. `null` when the existing like or dislike should be removed
+     * @param  {String}                 id            The id of the gallery item to like or dislike
+     * @param  {Boolean}                [liked]       `true` when the gallery item should be liked. `false` when it should be disliked. `null` when the existing like or dislike should be removed
+     * @return {Promise}                              $http promise
      */
     var like = function(id, liked) {
       var data = {
