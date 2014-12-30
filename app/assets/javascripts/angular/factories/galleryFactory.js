@@ -3,42 +3,32 @@
   'use strict';
 
   /**
-   * Gallery Factory - Managing submissions, likes, and comments
+   * Gallery Factory - Retrieve all gallery items
    */
   angular.module('datacultures.factories').factory('galleryFactory', function($http) {
 
-    var commentUrl = '/api/v1/comments';
-
-    var addComment = function(data) {
-      return $http.post(commentUrl, data);
-    };
-
-    var updateComment = function(data) {
-      return $http.put(commentUrl, data);
-    };
-
-    var getGalleryItem = function(data) {
-      var url = '/api/v1/gallery/' + data.id;
-      return $http.get(url);
-    };
-
-    var like = function(data) {
-      var url = '/api/v1/likes';
-      return $http.post(url, data);
-    };
-
-    var getSubmissions = function() {
-      // var url = '/dummy/json/gallerySubmissions.json';
+    /**
+     * Get all gallery items
+     *
+     * @param  {Function}     callback                Standard callback function
+     * @param  {Object[]}     callback.galleryItems   The retrieved gallery items
+     */
+    var getGalleryItems = function(callback) {
       var url = '/api/v1/gallery/index';
-      return $http.get(url);
+      $http.get(url).success(function(galleryItems) {
+        // Convert the `canvas_user_id`s to numbers
+        // TODO: Improve the API endpoint to ensure the `canvas_user_id`
+        // property is returned as a number
+        for (var i = 0; i < galleryItems.files.length; i++) {
+          var galleryItem = galleryItems.files[i];
+          galleryItem.canvas_user_id = parseInt(galleryItem.canvas_user_id, 10);
+        }
+        return callback(galleryItems);
+      });
     };
 
     return {
-      addComment: addComment,
-      like: like,
-      getGalleryItem: getGalleryItem,
-      getSubmissions: getSubmissions,
-      updateComment: updateComment
+      getGalleryItems: getGalleryItems
     };
 
   });

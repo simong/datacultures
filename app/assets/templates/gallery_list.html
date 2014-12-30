@@ -1,30 +1,30 @@
 <label for="dc-gallery-search-assignment">
   Select Assignment:
 </label>
-<select id="dc-gallery-search-assignment" ng-model="options.assignmentFilter" ng-options="assignment.name for assignment in options.assignments">
+<select id="dc-gallery-search-assignment" ng-model="sortAndFilter.selected.assignment" ng-change="resizeIFrame()" ng-options="assignment.name for assignment in assignments">
   <option value="">Select All</option>
 </select>
 
 <label for="dc-gallery-search-filter">
   Filter by:
 </label>
-<select id="dc-gallery-search-filter" ng-model="options.typeFilter" ng-options="item.display for item in options.typeOptions">
+<select id="dc-gallery-search-filter" ng-model="sortAndFilter.selected.type" ng-change="resizeIFrame()" ng-options="type.display for type in sortAndFilter.options.type">
   <option value="">All Types</option>
 </select>
 
 <label for="dc-gallery-search-sort">
   Sort by:
 </label>
-<select id="dc-gallery-search-sort" ng-model="options.sort.option" ng-options="option.display for option in options.sortOptions"></select>
+<select id="dc-gallery-search-sort" ng-model="sortAndFilter.selected.sort" ng-change="resizeIFrame()" ng-options="sort.display for sort in sortAndFilter.options.sort"></select>
 
 <label for="dc-gallery-search-text">
   Search For Student:
 </label>
-<input id="dc-gallery-search-text" type="text" ng-model="options.search.author">
+<input id="dc-gallery-search-text" type="text" ng-change="resizeIFrame()" ng-model="sortAndFilter.selected.search.author">
 
-<div class="dc-gallery-list" ng-repeat="item in items | orderBy:options.sort.option.type:true | filter:options.search | filter:{assignment_id:options.assignmentFilter.canvas_assignment_id || ''} | filter:{type:options.typeFilter.value || ''}">
+<div class="dc-gallery-list" ng-repeat="item in items | orderBy:sortAndFilter.selected.sort.value:true | filter:sortAndFilter.selected.search | filter:{assignment_id:sortAndFilter.selected.assignment.canvas_assignment_id || ''} | filter:{type:sortAndFilter.selected.type.value || ''}">
   <div class="dc-thumbnail-item-container">
-    <a class="dc-button-link dc-thumbnail-item" ng-href="/canvas/embedded/gallery/item/{{item.id}}" ng-click="incrementViews(item)" ng-style="item.image_url && {'background-image': 'url(' + item.image_url + ')'}">
+    <a class="dc-button-link dc-thumbnail-item" ng-href="/canvas/embedded/gallery/item/{{item.id}}" ng-click="handleGalleryItemClick(item)" ng-style="item.image_url && {'background-image': 'url(' + item.image_url + ')'}">
       <div class="dc-thumbnail-hover">
         <p>
           {{item.title}} <br>

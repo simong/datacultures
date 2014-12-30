@@ -22,8 +22,8 @@
     <h2 class="dc-float-left">Comments ({{item.comments.length}})</h2>
     <div class="dc-float-left dc-gallery-item-likes" data-ng-include="'gallery_likes.html'"></div>
 
-    <form ng-submit="addComment()" name="dc_comments_form">
-      <textarea ng-model="comment.input" required placeholder="Enter your comment..."></textarea>
+    <form ng-submit="addComment(item.id, newComment)" name="dc_comments_form">
+      <textarea ng-model="newComment" required placeholder="Enter your comment..."></textarea>
       <div>
         <button type="submit" class="btn btn-info" ng-disabled="dc_comments_form.$invalid">Submit</button>
       </div>
@@ -35,14 +35,14 @@
           <div class="dc-comments-list-comment" dc-compile-directive="comment.comment | linky"></div>
           <div class="dc-comments-list-comment-info">
             by <a ng-href="/canvas/embedded/gallery/author/{{comment.author_name}}">{{comment.author_name}}</a> on {{comment.created_at | date:"MM/dd/yyyy 'at' h:mm a"}}
-            <span ng-if="comment.author_canvas_user_id === api.user.me.canvas_user_id"> | <button type="button" ng-click="enterEditMode(comment)" class="btn btn-info">Edit</button></span>
+            <span ng-if="comment.author_canvas_user_id === me.canvas_user_id"> | <button type="button" ng-click="editComment(comment)" class="btn btn-info">Edit</button></span>
           </div>
         </div>
         <div ng-if="comment.editMode">
-          <form ng-submit="updateComment(editComment)" name="dc_comments_form_{{comment.$$index}}">
-            <textarea ng-model="editComment.comment" required placeholder="Enter your comment..."></textarea>
+          <form ng-submit="updateComment(comment)" name="dc_comments_form_{{comment.$$index}}">
+            <textarea ng-model="comment.comment" required placeholder="Enter your comment..."></textarea>
             <div>
-              <button type="button" class="btn btn-info" ng-click="comment.editMode = false">Cancel</button>
+              <button type="button" class="btn btn-info" ng-click="cancelEditComment(comment)">Cancel</button>
               <button type="submit" class="btn btn-info" ng-disabled="dc_comments_form_{{comment.$$index}}.$invalid">Submit</button>
             </div>
           </form>
