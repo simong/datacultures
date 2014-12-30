@@ -4,9 +4,7 @@
 
   angular.module('datacultures.services').service('galleryService', function(galleryFactory, utilService) {
 
-    ///////////////////////////
-    // FILTERING AND SORTING //
-    ///////////////////////////
+    /* FILTERING AND SORTING */
 
     var sortAndFilter = {};
 
@@ -69,10 +67,7 @@
     // Set the filtering and sorting to the default options
     resetSortAndFilter();
 
-
-    //////////////////////////
-    // GALLERY ITEM CACHING //
-    //////////////////////////
+    /* GALLERY ITEM CACHING */
 
     var galleryItems = null;
 
@@ -114,9 +109,7 @@
       return null;
     };
 
-    /////////////////////////////
-    // SCROLL POSITION CACHING //
-    /////////////////////////////
+    /* SCROLL POSITION CACHING */
 
     var scrollPosition = 0;
 
