@@ -13,7 +13,7 @@
     $scope.resetSortAndFilter = function() {
       // Reset the cached scroll position to ensure the page is scrolled to the top
       galleryService.resetScrollPosition();
-      // Reset the selected sort and filtering options to the default values
+      // Reset the selected sorting and filtering options to the default values
       galleryService.resetSortAndFilter();
     };
 
@@ -31,7 +31,7 @@
       });
     };
 
-    // Expose the iFrame resize function to allow the window to resized
+    // Expose the iFrame resize function to allow the window to resize
     // when any of the filtering and sorting options change
     $scope.resizeIFrame =  utilService.resizeIFrame;
 
@@ -40,7 +40,7 @@
      * current page URL
      */
     if ($routeParams.authorName) {
-      // Ensure that all sorting and filtering options are back at the default
+      // Ensure that all sorting and filtering options are back at their default values
       $scope.resetSortAndFilter();
       // Filter by the author name
       $scope.sortAndFilter.selected.search.author = $routeParams.authorName;

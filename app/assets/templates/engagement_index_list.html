@@ -23,7 +23,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr data-ng-repeat="student in people | orderBy:sortBy:!reverse | filter:search:strict" data-ng-class="{'info': student.highlight}">
+    <tr data-ng-repeat="student in students | orderBy:sortBy:!reverse | filter:search:strict" data-ng-class="{'info': student.highlight}">
       <td class="col-sm-2" data-ng-bind="student.name"></td>
       <td data-ng-if="me.isAdmin" class="col-sm-2">
         <span data-ng-if="student.share">Yes</span>

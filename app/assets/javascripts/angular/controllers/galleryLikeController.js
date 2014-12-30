@@ -7,7 +7,7 @@
      * Like or dislike a gallery item
      *
      * @param  {Object}         item          The gallery item to like or dislike
-     * @param  {Boolean}        liked         `true` if the item should be liked. `false` if the item should be disliked. `null` if the existing like or dislike should be removed
+     * @param  {Boolean}        [liked]       `true` if the item should be liked. `false` if the item should be disliked. `null` if the existing like or dislike should be removed
      * @api private
      */
     var like = function(item, liked) {
@@ -18,7 +18,7 @@
           updateItemLikes($scope.item, liked);
         }
         // If the gallery item list has already been cached, update
-        // the like and dislike count on the corresponding item in the list
+        // the like and dislike count of the corresponding list item
         var cachedItem = galleryService.getCachedGalleryItem(item.id);
         if (cachedItem) {
           updateItemLikes(cachedItem, liked);
@@ -75,7 +75,7 @@
      * Dislike a gallery item. If the current user already disliked the gallery item,
      * the dislike will be removed
      *
-     * @param  {Object}         item          The gallery item to like
+     * @param  {Object}         item          The gallery item to dislike
      */
     $scope.dislike = function(item) {
       // Pass in `null` to remove the dislike when the user already disliked the gallery item

@@ -98,7 +98,7 @@
 
     /**
      * Get a gallery item from the cached list of gallery items. If the
-     * gallery items have not been cached yet, null will be returned
+     * gallery items have not been cached yet, `null` will be returned
      *
      * @param  {String}         id                The id of the gallery item to retrieve from the cached gallery items
      * @return {Object}                           The requested gallery item from cache or `null` if the gallery items have not been cached or the requested item can not be found

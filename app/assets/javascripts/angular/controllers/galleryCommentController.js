@@ -38,7 +38,7 @@
     };
 
     /**
-     * Cancel editing a comment and revert back to the previous comment
+     * Cancel editing a comment and revert back to the original comment
      *
      * @param  {Object}       comment         The comment to cancel editing for
      */

@@ -30,7 +30,7 @@
     /**
      * Construct the preview URL for a video submission
      *
-     * @param {GalleryItem}   item                      The id of the gallery item to generate a preview for
+     * @param  {GalleryItem}  item                      The id of the gallery item to generate a preview for
      * @api private
      */
     var constructVideoUrl = function(item) {

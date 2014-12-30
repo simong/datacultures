@@ -19,15 +19,16 @@
      * Prepare the list of students in the engagement index for rendering
      */
     var parseEngagementIndexList = function(results) {
-      $scope.people = results.students;
+      $scope.students = results.students;
       $scope.currStudent = results.current_canvas_user;
 
-      for (var i = $scope.people.length - 1; i >= 0; i--) {
-        // Set current student to appropriate student in engagement index list
-        if ($scope.people[i].id === $scope.currStudent.canvas_user_id) {
-          $scope.currStudentItem = $scope.people[i];
+      for (var i = $scope.students.length - 1; i >= 0; i--) {
+        // Set the current student to the appropriate student in the engagement index list
+        var student = $scope.students[i];
+        if (student.id === $scope.currStudent.canvas_user_id) {
+          $scope.currStudentItem = student;
           // Highlight the current user
-          $scope.people[i].highlight = true;
+          student.highlight = true;
         }
       }
 
@@ -57,7 +58,7 @@
       });
     };
 
-    // Expose the iFrame resize function to allow the window to resized
+    // Expose the iFrame resize function to allow the window to resize
     // when the sharing option is changed
     $scope.resizeIFrame =  utilService.resizeIFrame;
 

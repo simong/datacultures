@@ -3,7 +3,7 @@
   'use strict';
 
   /**
-   * Engagement Index Factory
+   * Points Configuration Factory
    */
   angular.module('datacultures.factories').factory('pointsConfigurationFactory', function($http) {
 

@@ -9,8 +9,8 @@
     /**
      * Get all assignments in the current course. The items will only be retrieved once
      *
-     * @param  {Function}       callback          Standard callback function
-     * @param  {Assignment[]}   callback.items    The retrieved assignments
+     * @param  {Function}       callback                Standard callback function
+     * @param  {Assignment[]}   callback.assignments    The retrieved assignments
      */
     var getAssignments = function(callback) {
       // When the assignments have already been retreived, we return

@@ -4,7 +4,7 @@
   'use strict';
 
   /**
-   * User Info Factory - Retrieve information about the current user
+   * User Factory - Retrieve information about the current user
    */
   angular.module('datacultures.factories').factory('userFactory', function($http) {
 

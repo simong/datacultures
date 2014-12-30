@@ -71,7 +71,7 @@
      * Like or dislike a gallery item
      *
      * @param  {String}     id                    The id of the gallery item to like or dislike
-     * @param  {Boolean}    liked                 `true` when the gallery item should be liked, `false` when it should be disliked
+     * @param  {Boolean}    [liked]               `true` when the gallery item should be liked. `false` when it should be disliked. `null` when the existing like or dislike should be removed
      */
     var like = function(id, liked) {
       var data = {
