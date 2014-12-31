@@ -24,7 +24,7 @@ Now follow these steps in order:
     thor keys:lti_new
 ```
 
-The new (or regenerated) LTI application key and shared secret will print out, if someone else is to configure canvas, they will need theses.
+The new (or regenerated) LTI application key and shared secret will print out. If someone else is to configure canvas, they will need these.
 
 * [Generate Canvas API keys](api_key_generation.md)
 
