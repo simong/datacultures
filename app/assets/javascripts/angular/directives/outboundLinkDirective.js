@@ -52,7 +52,7 @@
       link: function(scope, element, attr) {
 
         /**
-         * When the current URL is an external
+         * We update the anchor tag
          * @param {String} url The URL of the anchor tag.
          */
         var updateAnchorTag = function(url) {
