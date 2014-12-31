@@ -42,16 +42,17 @@
   };
 
   /**
-   * This directive will make sure that external links are always opened in a new window
-   * To make it more accessible, we also add an extra message to each element.
+   * Ensure that external links are always opened in a new window. To improve accessibility,
+   * a screenreader message is added to each external link
    */
   angular.module('datacultures.directives').directive('a', function() {
     return {
       restrict: 'E',
       priority: 200, // We need to run this after ngHref has changed
       link: function(scope, element, attr) {
+
         /**
-         * We update the anchor tag
+         * When the current URL is an external
          * @param {String} url The URL of the anchor tag.
          */
         var updateAnchorTag = function(url) {
@@ -59,10 +60,12 @@
           // Since this gets executed a couple of times, we add a class to the screenreader message & check for it
           if (!isSameDomain(url, location.href) && !element[0].querySelector('.dc-outbound-link')) {
             var screenReadMessage = document.createElement('span');
-            screenReadMessage.className = 'dc-outbound-link dc-visuallyhidden';
-            screenReadMessage.innerHTML = ' - opens in new window';
+            // Ensure that the screenreader message is only visible to screenreaders
+            screenReadMessage.className = 'sr-only';
+            screenReadMessage.innerHTML = '(opens in new window)';
             element.append(screenReadMessage);
             element.addClass('dc-outbound-link');
+            // Ensure that the link is opened in a new window
             attr.$set('target', '_blank');
           }
         };
