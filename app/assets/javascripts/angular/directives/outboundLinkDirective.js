@@ -9,7 +9,7 @@
    * @return {Boolean}                    Whether the provided URL is external
    * @api private
    */
-  var isExternalURL = function (url) {
+  var isExternalURL = function(url) {
     // Relative URLs are never external
     if (url[0] === '/') {
       return false;
