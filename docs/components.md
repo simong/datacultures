@@ -1,8 +1,10 @@
 # DataCultures Components
 
-## [DataCultures](/) application. This is the Rails application itself.
+## [DataCultures](https://github.com/ets-berkeley-edu/datacultures)
 
-## [Postgres](http://http://www.postgresql.org/).
+The DataCultures Rails application itself.
+
+## [Postgres](http://http://www.postgresql.org/)
 
 Postgres is an open source, ACID, relational database. DataCultures uses Postgres, configured in the usual `config/database.yml` file but with parameters loaded from the configuration file (`../config/.env_conf.yml`). There is a task to clean out postgres (of tables other than the points_configuration, which should usually not be cleared):
 ```shell
