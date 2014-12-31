@@ -41,6 +41,10 @@ module AppConfig
       base_struct.app.secret_key_base
     end
 
+    def self.lti_base_url
+      base_struct.app.lti_base_url
+    end
+
     private
 
     ## ENV['RAILS_ENV'] works in Thor, not in the server
