@@ -65,7 +65,7 @@
      */
     var incrementViews = function(id) {
       var data = {
-        'gallery_id': id
+        gallery_id: id
       };
       return $http.post('/api/v1/views/', data);
     };
