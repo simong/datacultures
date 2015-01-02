@@ -10,8 +10,9 @@
    * @api private
    */
   var isExternalURL = function(url) {
-    // Relative URLs are never external
-    if (url[0] === '/') {
+    // Relative URLs are never external. However, we ensure that the second character
+    // is not a `/` to account for protocol relative URLs (e.g. `//www.google.com`)
+    if (url[0] === '/' && url[1] !== '/') {
       return false;
     }
     return extractDomain(location.href) !== extractDomain(url);
