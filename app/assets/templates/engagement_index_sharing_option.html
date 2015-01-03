@@ -1,8 +1,8 @@
 <div class="dc-engagement-index-sharing">
   <h2>Sharing</h2>
-  <form ng-submit="shareDataPass()">
+  <form data-ng-submit="setEngagementIndexStatus()">
     <div>
-      <input type="checkbox" ng-model="user.choice" id="dc-engagement-index-choice">
+      <input type="checkbox" data-ng-model="currStudent.share" data-ng-change="resizeIFrame()" id="dc-engagement-index-choice">
       <label for="dc-engagement-index-choice">Yes, I want to share my score on the Engagement Index.</label>
     </div>
     <div>

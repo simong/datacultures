@@ -1,3 +1,7 @@
+// Prevent window scrollbars before iFrame resizing
+html {
+  overflow: hidden;
+}
 // Headers
 h1, h2, h3 {
   font-weight: 300;
@@ -69,7 +73,7 @@ label {
 
 // Main container
 .dc-main {
-  margin: 20px;
+  padding: 20px;
 }
 
 // Text

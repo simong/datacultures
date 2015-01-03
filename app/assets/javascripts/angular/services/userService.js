@@ -2,39 +2,31 @@
 
   'use strict';
 
-  angular.module('datacultures.services').service('userService', function(userInfoFactory) {
+  angular.module('datacultures.services').service('userService', function(userFactory, $q) {
 
-    var me = {};
+    // Variable that caches the profile information for the current user
+    var me = null;
 
-    var defineRoles = function() {
-      var roles = {};
-      if (me && me.canvas_roles) {
-        roles.instructor = (
-          me.canvas_roles.indexOf('Instructor') !== -1 ||
-          // Designer should have the same permissions as an instructor
-          me.canvas_roles.indexOf('ContentDeveloper') !== -1
-        );
+    /**
+     * Retrieve the profile information for the current user. This will only be retrieved once
+     *
+     * @return {Promise<Me>}                      Promise returning the profile information for the current user
+     */
+    var getMe = function() {
+      var deferred = $q.defer();
+      if (!me) {
+        userFactory.getMe().then(function(retrievedMe) {
+          me = retrievedMe;
+          deferred.resolve(me);
+        });
+      } else {
+        deferred.resolve(me);
       }
-      me.roles = roles;
+      return deferred.promise;
     };
 
-    var handleUserLoaded = function(data) {
-      angular.extend(me, data);
-      defineRoles();
-    };
-
-    var fetch = function(options) {
-      userInfoFactory.me(options).success(handleUserLoaded);
-    };
-
-    var handleRouteChange = function() {
-      fetch();
-    };
-
-    // Expose methods
     return {
-      handleRouteChange: handleRouteChange,
-      me: me
+      getMe: getMe
     };
 
   });
