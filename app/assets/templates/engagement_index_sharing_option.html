@@ -1,12 +1,12 @@
 <div class="dc-engagement-index-sharing">
   <h2>Sharing</h2>
-  <form data-ng-submit="setEngagementIndexStatus()">
+  <form data-ng-submit="saveEngagementIndexStatus()">
     <div>
-      <input type="checkbox" data-ng-model="currStudent.share" data-ng-change="resizeIFrame()" id="dc-engagement-index-choice">
+      <input type="checkbox" data-ng-model="currStudent.share" data-ng-change="changeEngagementIndexStatus()" id="dc-engagement-index-choice">
       <label for="dc-engagement-index-choice">Yes, I want to share my score on the Engagement Index.</label>
     </div>
-    <div>
-      <button type="submit" class="btn btn-info">Save</button>
+    <div ng-if="!currStudent.has_answered_share_question">
+      <button type="submit" class="btn btn-info">Continue</button>
     </div>
   </form>
 </div>

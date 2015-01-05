@@ -1,26 +1,36 @@
-<label for="dc-gallery-search-assignment">
-  Select Assignment:
-</label>
-<select id="dc-gallery-search-assignment" data-ng-model="sortAndFilter.selected.assignment" data-ng-change="resizeIFrame()" data-ng-options="assignment.name for assignment in assignments">
-  <option value="">Select All</option>
-</select>
+<div class="dc-gallery-sort-filter-container">
+  <div class="dc-gallery-sort-filter-option">
+    <label for="dc-gallery-search-assignment">
+      Assignment:
+    </label>
+    <select id="dc-gallery-search-assignment" data-ng-model="sortAndFilter.selected.assignment" data-ng-change="resizeIFrame()" data-ng-options="assignment.name for assignment in assignments">
+      <option value="">All Assignments</option>
+    </select>
+  </div>
 
-<label for="dc-gallery-search-filter">
-  Filter by:
-</label>
-<select id="dc-gallery-search-filter" data-ng-model="sortAndFilter.selected.type" data-ng-change="resizeIFrame()" data-ng-options="type.display for type in sortAndFilter.options.type">
-  <option value="">All Types</option>
-</select>
+  <div class="dc-gallery-sort-filter-option">
+    <label for="dc-gallery-search-filter">
+      Filter by:
+    </label>
+    <select id="dc-gallery-search-filter" data-ng-model="sortAndFilter.selected.type" data-ng-change="resizeIFrame()" data-ng-options="type.display for type in sortAndFilter.options.type">
+      <option value="">All Types</option>
+    </select>
+  </div>
 
-<label for="dc-gallery-search-sort">
-  Sort by:
-</label>
-<select id="dc-gallery-search-sort" data-ng-model="sortAndFilter.selected.sort" data-ng-change="resizeIFrame()" data-ng-options="sort.display for sort in sortAndFilter.options.sort"></select>
+  <div class="dc-gallery-sort-filter-option">
+    <label for="dc-gallery-search-sort">
+      Sort by:
+    </label>
+    <select id="dc-gallery-search-sort" data-ng-model="sortAndFilter.selected.sort" data-ng-change="resizeIFrame()" data-ng-options="sort.display for sort in sortAndFilter.options.sort"></select>
+  </div>
 
-<label for="dc-gallery-search-text">
-  Search For Student:
-</label>
-<input id="dc-gallery-search-text" type="text" data-ng-change="resizeIFrame()" data-ng-model="sortAndFilter.selected.search.author">
+  <div class="dc-gallery-sort-filter-option">
+    <label for="dc-gallery-search-text">
+      Search For Student:
+    </label>
+    <input id="dc-gallery-search-text" type="text" data-ng-change="resizeIFrame()" data-ng-model="sortAndFilter.selected.search.author">
+  </div>
+</div>
 
 <div class="dc-gallery-list" data-ng-repeat="item in items | orderBy:sortAndFilter.selected.sort.value:true | filter:sortAndFilter.selected.search | filter:{assignment_id:sortAndFilter.selected.assignment.canvas_assignment_id || ''} | filter:{type:sortAndFilter.selected.type.value || ''}">
   <div class="dc-thumbnail-item-container">

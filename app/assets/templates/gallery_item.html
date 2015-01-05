@@ -24,8 +24,8 @@
 
     <form data-ng-submit="addComment()" name="dc_comments_form">
       <textarea data-ng-model="newComment.comment" required placeholder="Enter your comment..."></textarea>
-      <div>
-        <button type="submit" class="btn btn-info" data-ng-disabled="dc_comments_form.$invalid">Submit</button>
+      <div class="text-right dc-comments-submit">
+        <button type="submit" class="btn btn-info" data-ng-disabled="dc_comments_form.$invalid">Comment</button>
       </div>
     </form>
 
@@ -33,17 +33,17 @@
       <li data-ng-repeat="comment in item.comments | orderBy:'created_at':true">
         <div data-ng-if="!comment.editMode">
           <div class="dc-comments-list-comment" data-dc-compile-directive="comment.comment | linky"></div>
-          <div class="dc-comments-list-comment-info">
+          <div class="text-left dc-comments-list-comment-info">
             by <a data-ng-href="/canvas/embedded/gallery/author/{{comment.author_name}}">{{comment.author_name}}</a> on {{comment.created_at | date:"MM/dd/yyyy 'at' h:mm a"}}
-            <span data-ng-if="comment.author_canvas_user_id === me.canvas_user_id"> | <button type="button" data-ng-click="editComment(comment)" class="btn btn-info">Edit</button></span>
+            <span data-ng-if="comment.author_canvas_user_id === me.canvas_user_id"> | <button type="button" data-ng-click="editComment(comment)" class="btn btn-link">Edit</button></span>
           </div>
         </div>
         <div data-ng-if="comment.editMode">
           <form data-ng-submit="updateComment(comment)" name="dc_comments_form_{{comment.$$index}}">
             <textarea data-ng-model="comment.comment" required placeholder="Enter your comment..."></textarea>
-            <div>
-              <button type="button" class="btn btn-info" data-ng-click="cancelEditComment(comment)">Cancel</button>
-              <button type="submit" class="btn btn-info" data-ng-disabled="dc_comments_form_{{comment.$$index}}.$invalid">Submit</button>
+            <div class="text-right dc-comments-edit-buttons">
+              <button type="button" class="btn btn-default btn-sm" data-ng-click="cancelEditComment(comment)">Cancel</button>
+              <button type="submit" class="btn btn-info btn-sm" data-ng-disabled="dc_comments_form_{{comment.$$index}}.$invalid">Save</button>
             </div>
           </form>
         </div>

@@ -4,16 +4,22 @@
     margin-top: 5px;
   }
   .dc-points-configuration-main-container {
-    max-width: 440px;
+    max-width: 550px;
   }
   .dc-points-configuration-table-container {
     margin: 5px auto;
-    table td {
-      vertical-align: middle;
+    table {
+      table-layout: fixed;
+      th:first-child {
+        width: 350px;
+      }
+      td {
+        vertical-align: middle;
+      }
     }
   }
   .dc-points-configuration-table-points-input {
     margin: 0 auto;
-    width: 40px;
+    width: 50px;
   }
 }
