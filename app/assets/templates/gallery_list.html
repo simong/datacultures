@@ -47,7 +47,7 @@
 </div>
 <div data-ng-if="filteredItems.length === 0" class="alert alert-info dc-gallery-noresults">
   <span data-ng-if="!sortAndFilter.selected.assignment && !sortAndFilter.selected.search.author">No Gallery Items are available yet</span>
-  <span data-ng-if="sortAndFilter.selected.assignment && !sortAndFilter.selected.search.author">No Gallery Items could be found for the assignment <strong>&quot;{{sortAndFilter.selected.assignment.name}}&quot;</strong></span>
-  <span data-ng-if="!sortAndFilter.selected.assignment && sortAndFilter.selected.search.author">No Gallery Items could be found for the student <strong>&quot;{{sortAndFilter.selected.search.author}}&quot;</strong></span>
-  <span data-ng-if="sortAndFilter.selected.assignment && sortAndFilter.selected.search.author">No Gallery Items could be found for the student <strong>&quot;{{sortAndFilter.selected.search.author}}&quot;</strong> in the assignment <strong>&quot;{{sortAndFilter.selected.assignment.name}}&quot;</span>
+  <span data-ng-if="sortAndFilter.selected.assignment && !sortAndFilter.selected.search.author">No Gallery Items could be found for the assignment <strong>&quot;<span data-ng-bind="sortAndFilter.selected.assignment.name"></span>&quot;</strong></span>
+  <span data-ng-if="!sortAndFilter.selected.assignment && sortAndFilter.selected.search.author">No Gallery Items could be found for the student <strong>&quot;<span data-ng-bind="sortAndFilter.selected.search.author"></span>&quot;</strong></span>
+  <span data-ng-if="sortAndFilter.selected.assignment && sortAndFilter.selected.search.author">No Gallery Items could be found for the student <strong>&quot;<span data-ng-bind="sortAndFilter.selected.search.author"></span>&quot;</strong> in the assignment <strong><span data-ng-bind="sortAndFilter.selected.assignment.name"></span>&quot;&quot;</span>
 </div>
