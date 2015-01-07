@@ -1,5 +1,14 @@
-<div class="dc-user-info">
-  <div>Your Points: <span data-ng-bind="currStudentItem.points"></span></div>
-  <div>Your Percentile: <span data-ng-bind-template="{{currStudentItem.percentile}}%"></span></div>
-  <div>Last Point Earned: <span data-ng-bind="currStudentItem.last_activity_date | date:'MM/dd/yyyy h:mm a'"></span></div>
+<div class="clearfix dc-user-info">
+  <div class="dc-user-badge">
+    <span class="dc-user-badge-value" data-ng-bind="currStudentItem.rank"></span>
+    <div class="dc-user-badge-info">My Rank</div>
+  </div>
+  <div class="dc-user-badge">
+    <span class="dc-user-badge-value" data-ng-bind="currStudentItem.points"></span>
+    <div class="dc-user-badge-info">My Points</div>
+  </div>
+  <div class="dc-user-badge dc-user-badge-boxplot-container">
+    <div id="dc-user-badge-boxplot" class="dc-user-badge-boxplot"></div>
+    <div class="dc-user-badge-info">How do I compare</div>
+  </div>
 </div>

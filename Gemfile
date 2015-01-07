@@ -35,6 +35,7 @@ gem 'font-awesome-rails',      '~> 4.2.0.0'
 # JavaScript
 gem 'coffee-rails',            '~> 4.0'
 gem 'angular-gem',             '~> 1.3.7'
+gem 'jquery-rails',            '~> 3.1.2'
 
 # https://rubygems.org/gems/ngannotate-rails
 gem 'ngannotate-rails',        '~> 0.14.1'
@@ -42,6 +43,9 @@ gem 'ngannotate-rails',        '~> 0.14.1'
 # Use your angular templates with rails' asset pipeline
 # https://github.com/pitr/angular-rails-templates
 gem 'angular-rails-templates', '~> 0.1.3'
+
+# Highcharts
+gem "highcharts-rails",        '~> 3.0.0'
 
 # formatters / decorators
 gem 'json',                    '~> 1.8'
