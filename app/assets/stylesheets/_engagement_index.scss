@@ -1,14 +1,5 @@
-// BODY
 .dc-engagement-index {
-  table {
-    margin-bottom: 0;
-  }
-  .dc-engagement-index-controls {
-    margin: 20px 0;
-    input {
-      width: 200px;
-    }
-  }
+  // Engagment Index Splash
   .dc-engagement-index-description {
     margin-bottom: 30px;
   }
@@ -23,33 +14,44 @@
     background-image: asset-url("engagement_index_screenshot-1100x580.png");
     padding-bottom: 52.7272%;
   }
+
+  // Engagement Index Sharing
   .dc-engagement-index-sharing {
     padding-top: 20px;
-    button {
+    .dc-engagement-index-continue {
       margin-top: 10px;
     }
   }
 
-  hr {
-    margin-bottom: 25px;
-  }
-  .dc-engagement-search {
-    display: inline-block;
-    padding: 4px 6px;
-    width: 155px;
-  }
-  .dc-header-title {
-    th {
-      &:hover, &:focus {
-        background-color: #d9edf7;
-        text-decoration: underline;
-      }
-    }
-  }
-  .dc-mouse-pointer {
-    cursor: pointer;
-  }
+  // Engagement Index Current User Info
   .dc-user-info {
     font-size: 18px;
+  }
+  .dc-engagement-index-divider {
+    margin-bottom: 25px;
+  }
+
+  // Engagement Index Leaderboard
+  .dc-engagement-index-controls {
+    margin: 20px 0;
+    .dc-engagement-search {
+      display: inline-block;
+      padding: 4px 6px;
+      width: 200px;
+    }
+  }
+  .dc-enagement-index-leaderboard {
+    margin-bottom: 0;
+    .dc-header-title {
+      th {
+        cursor: pointer;
+      }
+      th {
+        &:hover, &:focus {
+          background-color: #d9edf7;
+          text-decoration: underline;
+        }
+      }
+    }
   }
 }
