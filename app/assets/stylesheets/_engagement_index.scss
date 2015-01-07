@@ -45,8 +45,6 @@
     .dc-header-title {
       th {
         cursor: pointer;
-      }
-      th {
         &:hover, &:focus {
           background-color: #d9edf7;
           text-decoration: underline;
