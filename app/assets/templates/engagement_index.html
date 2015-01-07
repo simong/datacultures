@@ -5,7 +5,7 @@
   <!-- Landing Page -->
   <div data-ng-if="!me.isAdmin && !currStudent.has_answered_share_question" data-ng-include="'engagement_index_landing.html'"></div>
 
-  <div data-ng-if="currStudent.has_answered_share_question || me.roles.instructor">
+  <div data-ng-if="currStudent.has_answered_share_question || me.isAdmin">
 
     <!-- Not Share -->
     <div data-ng-if="!me.isAdmin && !currStudent.share" data-ng-include="'engagement_index_not_share.html'"></div>

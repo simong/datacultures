@@ -28,7 +28,7 @@
         $scope.currStudent.share = true;
       }
 
-      for (var i = $scope.students.length - 1; i >= 0; i--) {
+      for (var i = 0; i < $scope.students.length; i++) {
         // Set the current student to the appropriate student in the engagement index list
         var student = $scope.students[i];
         if (student.id === $scope.currStudent.canvas_user_id) {
