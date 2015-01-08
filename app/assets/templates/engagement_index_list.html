@@ -31,7 +31,7 @@
       </td>
       <td class="col-sm-2" data-ng-bind="student.points"></td>
       <td class="col-sm-2" data-ng-bind-template="{{student.percentile}}%"></td>
-      <td class="col-sm-3" data-ng-bind="student.last_activity_date"></td>
+      <td class="col-sm-3"><span data-ng-if="student.last_activity_date > 0" data-ng-bind="student.last_activity_date | date:'MM/dd/yyyy h:mm a'"></span></td>
     </tr>
   </tbody>
 </table>
