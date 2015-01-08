@@ -22,7 +22,7 @@
 </label>
 <input id="dc-gallery-search-text" type="text" data-ng-change="resizeIFrame()" data-ng-model="sortAndFilter.selected.search.author">
 
-<div class="dc-gallery-list" data-ng-repeat="item in items | orderBy:sortAndFilter.selected.sort.value:true | filter:sortAndFilter.selected.search | filter:{assignment_id:sortAndFilter.selected.assignment.canvas_assignment_id || ''} | filter:{type:sortAndFilter.selected.type.value || ''}">
+<div class="dc-gallery-list" data-ng-repeat="item in filteredItems = (items | orderBy:sortAndFilter.selected.sort.value:true | filter:sortAndFilter.selected.search | filter:{assignment_id:sortAndFilter.selected.assignment.canvas_assignment_id || ''} | filter:{type:sortAndFilter.selected.type.value || ''})">
   <div class="dc-thumbnail-item-container">
     <a class="dc-button-link dc-thumbnail-item" data-ng-href="/canvas/embedded/gallery/item/{{item.id}}" data-ng-click="handleGalleryItemClick(item)" data-ng-style="item.image_url && {'background-image': 'url(' + item.image_url + ')'}">
       <div class="dc-thumbnail-hover">
@@ -44,4 +44,10 @@
       </div>
     </div>
   </div>
+</div>
+<div data-ng-if="filteredItems.length === 0" class="alert alert-info dc-gallery-noresults">
+  <span data-ng-if="!sortAndFilter.selected.assignment && !sortAndFilter.selected.search.author">No Gallery Items are available yet</span>
+  <span data-ng-if="sortAndFilter.selected.assignment && !sortAndFilter.selected.search.author">No Gallery Items could be found for the assignment <strong>&quot;<span data-ng-bind="sortAndFilter.selected.assignment.name"></span>&quot;</strong></span>
+  <span data-ng-if="!sortAndFilter.selected.assignment && sortAndFilter.selected.search.author">No Gallery Items could be found for the student <strong>&quot;<span data-ng-bind="sortAndFilter.selected.search.author"></span>&quot;</strong></span>
+  <span data-ng-if="sortAndFilter.selected.assignment && sortAndFilter.selected.search.author">No Gallery Items could be found for the student <strong>&quot;<span data-ng-bind="sortAndFilter.selected.search.author"></span>&quot;</strong> in the assignment <strong>&quot;<span data-ng-bind="sortAndFilter.selected.assignment.name"></span>&quot;</span>
 </div>
