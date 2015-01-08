@@ -16,7 +16,7 @@
     <div class="clearfix dc-points-configuration-table-container">
       <table class="table table-striped table-compact table-bordered">
         <tr>
-          <th class="dc-text-center" scope="col">Activity</th>
+          <th class="dc-text-left" scope="col">Activity</th>
           <th class="dc-text-center" scope="col">Points</th>
           <th class="dc-text-center" scope="col" data-ng-if="editMode">Action</th>
         </tr>
@@ -37,9 +37,9 @@
       <div class="dc-points-configuration-table-container">
         <table class="table table-striped table-compact table-bordered">
           <tr>
-            <th class="dc-text-center" scope="col">Activity</th>
+            <th class="dc-text-left" scope="col">Activity</th>
             <th class="dc-text-center" scope="col">Points</th>
-            <th class="dc-text-center" scope="col" data-ng-show="showAction">Action</th>
+            <th class="dc-text-center" scope="col" data-ng-if="editMode">Action</th>
           </tr>
           <tr data-ng-repeat="activity in configuration | orderBy:'id' | filter:{active: false}">
             <td class="dc-text-left" data-ng-bind="activity.name"></td>

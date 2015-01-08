@@ -10,7 +10,7 @@
      * Reset the sort and filtering options to the default values. This will
      * also ensure that the page is scrolled to the top when showing the items
      */
-    $scope.resetSortAndFilter = function() {
+    var resetSortAndFilter = function() {
       // Reset the cached scroll position to ensure the page is scrolled to the top
       galleryService.resetScrollPosition();
       // Reset the selected sorting and filtering options to the default values
@@ -41,7 +41,7 @@
      */
     if ($routeParams.authorName) {
       // Ensure that all sorting and filtering options are back at their default values
-      $scope.resetSortAndFilter();
+      resetSortAndFilter();
       // Filter by the author name
       $scope.sortAndFilter.selected.search.author = $routeParams.authorName;
     }

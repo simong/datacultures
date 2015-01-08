@@ -22,7 +22,13 @@
       $scope.students = results.students;
       $scope.currStudent = results.current_canvas_user;
 
-      for (var i = $scope.students.length - 1; i >= 0; i--) {
+      // If the user hasn't yet decided whether to share their engagement
+      // points with the entire class, default the setting to `true`
+      if (!$scope.currStudent.has_answered_share_question) {
+        $scope.currStudent.share = true;
+      }
+
+      for (var i = 0; i < $scope.students.length; i++) {
         // Set the current student to the appropriate student in the engagement index list
         var student = $scope.students[i];
         if (student.id === $scope.currStudent.canvas_user_id) {
@@ -49,18 +55,28 @@
 
     /**
      * Store whether the current student's engagement index points should be
-     * shared with the entire class
+     * shared with the entire class. This function will only be used for the
+     * initial save
      */
-    $scope.setEngagementIndexStatus = function() {
+    $scope.saveEngagementIndexStatus = function() {
       engagementIndexFactory.setEngagementIndexStatus($scope.currStudent.canvas_user_id, $scope.currStudent.share).success(function() {
         $scope.currStudent.has_answered_share_question = true;
         getEngagementIndexList();
       });
     };
 
-    // Expose the iFrame resize function to allow the window to resize
-    // when the sharing option is changed
-    $scope.resizeIFrame =  utilService.resizeIFrame;
+    /**
+     * Change whether the current student's engagement index should be shared
+     * with the entire class. This will be executed every time the corresponding
+     * checkbox is changed following the initial save
+     */
+    $scope.changeEngagementIndexStatus = function() {
+      // Only save the new setting straight away when the initial
+      // save has already happened
+      if ($scope.currStudent.has_answered_share_question) {
+        engagementIndexFactory.setEngagementIndexStatus($scope.currStudent.canvas_user_id, $scope.currStudent.share).success(getEngagementIndexList);
+      }
+    };
 
     /**
      * Get the detailed information about the current user and load the students

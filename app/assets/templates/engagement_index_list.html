@@ -2,7 +2,7 @@
 
   <div data-ng-include="'engagement_index_user_info.html'"></div>
 
-  <hr />
+  <hr class="dc-engagement-index-divider"/>
 </div>
 
 <div class="dc-engagement-index-controls dc-clearfix-container">
@@ -12,9 +12,9 @@
   <a type="button" href="/download/activities.csv" target="_blank" class="btn btn-info dc-float-right" data-ng-show="me.isAdmin">Download CSV</a>
 </div>
 
-<table class="table table-striped table-bordered dc-table-striped-border dc-table-margin">
+<table class="table table-striped table-bordered dc-table-striped-border dc-enagement-index-leaderboard">
   <thead class="dc-header-color">
-    <tr class="dc-header-title dc-mouse-pointer">
+    <tr class="dc-header-title">
       <th data-ng-click="changeEngagementIndexSort('sortable_name')" data-ng-class="{dropup: reverse}">Student <span class="caret" data-ng-if="sortBy === 'sortable_name'"></span></th>
       <th data-ng-click="changeEngagementIndexSort('share')" data-ng-class="{dropup: reverse}" data-ng-if="me.isAdmin">Share <span class="caret" data-ng-if="sortBy === 'share'"></span></th>
       <th data-ng-click="changeEngagementIndexSort('points')" data-ng-class="{dropup: reverse}">Points <span class="caret" data-ng-if="sortBy === 'points'"></span></th>

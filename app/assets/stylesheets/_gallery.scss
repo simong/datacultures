@@ -1,34 +1,31 @@
 .dc-gallery {
-  input, textarea {
+  input, textarea, select {
     @include single-transition(all, .3s, ease-in-out);
     border: 1px solid #eaeaea;
     border-radius: 0;
+    box-shadow: none;
     color: #777;
     font-weight: 300;
-    margin: 6px;
-    padding: 4px;
-    width: 182px;
-  }
-  input, textarea, select {
     &:focus, &:hover {
       border: 1px solid rgba(0, 125, 221, .75);
       box-shadow: 0 0 5px rgba(0, 125, 221, .8);
       outline: none;
     }
   }
-  select {
-    @include single-transition(all, .3s, ease-in-out);
-    background: #fff;
-    border: 1px solid #eaeaea;
-    border-radius: 0;
-    color: #777;
-    font-weight: 300;
-    height: 22px;
+  input, select {
+    height: 25px;
     margin: 6px;
     width: 130px;
   }
+  input {
+    padding-left: 4px;
+    padding-right: 4px;
+  }
   textarea {
+    border: 1px solid #d4d4d4;
+    height: 75px;
     margin: 0;
+    padding: 5px 10px;
     resize: none;
     width: 100%;
   }
@@ -37,20 +34,30 @@
     margin-top: 10px;
   }
 
+  .dc-comments-submit,
+  .dc-comments-edit-buttons {
+    margin-top: 6px;
+  }
+
   .dc-comments-list {
     list-style-type: none;
     margin: 20px 0;
-    max-width: 600px;
     padding: 0;
     li {
       background: #f9f9f9;
-      margin: 10px 0;
-      padding: 5px;
+      margin: 15px 0;
+      padding: 10px;
     }
     .dc-comments-list-comment-info {
       color: #888;
-      .btn {
-        padding: 1px 5px;
+      padding-top: 5px;
+      .dc-comments-list-comment-edit {
+        margin-left: 5px;
+        .btn {
+          margin-left: 5px;
+          margin-top: -2px;
+          padding: 0;
+        }
       }
     }
     .dc-comments-list-comment {
@@ -68,12 +75,12 @@
     }
   }
   .dc-full-container {
-    margin-bottom: 30px;
+    margin-bottom: 20px;
     margin-top: 20px;
   }
   .dc-full-header {
     border-bottom: 1px solid #efefef;
-    padding: 10px;
+    padding: 0 10px 10px;
   }
   .dc-full-image {
     max-width: 750px;
@@ -81,6 +88,18 @@
   }
   .dc-gallery-item-likes {
     margin: 12px 0 0 10px;
+  }
+  .dc-gallery-sort-filter-container {
+    margin-bottom: 5px;
+    select {
+      margin-right: 20px;
+    }
+  }
+  .dc-gallery-sort-filter-option {
+    display: inline-block;
+  }
+  .dc-gallery-search-text {
+    width: 209px;
   }
   .dc-thumb {
     color: #0d628e;
@@ -102,8 +121,8 @@
     background: #fcfcfc;
     border: 1px solid #eaeaea;
     float: left;
-    margin: 8px;
-    padding: 2px;
+    margin: 8px 16px 8px 0;
+    padding: 10px;
     img {
       max-width: 100%;
     }
@@ -111,10 +130,10 @@
       @include background-size(cover);
       background-image: asset-data-url('thumbnail_default.svg');
       display: block;
-      height: 200px;
-      margin: 10px;
+      height: 210px;
+      margin: 5px;
       position: relative;
-      width: 200px;
+      width: 210px;
       &:focus, &:hover {
         .dc-thumbnail-hover {
           opacity: 1;
