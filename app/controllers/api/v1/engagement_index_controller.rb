@@ -41,7 +41,7 @@ class Api::V1::EngagementIndexController < ApplicationController
     student_hash[:section] = student.section
     student_hash[:share] = student.share
     student_hash[:percentile] = all_student_scores.rank(score: student_hash[:points], fill_zeroes_to_size: student_count)
-    student_hash[:last_activity_date] = last_activity_dates[id] ? last_activity_dates[id].to_time.strftime("%m-%d-%Y %l:%M %p") : nil
+    student_hash[:last_activity_date] = last_activity_dates[id] ? (last_activity_dates[id].to_time.to_i * 1000) : 0
     student_hash
   end
 
