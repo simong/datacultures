@@ -1,4 +1,4 @@
-(function(angular, $) {
+(function(angular, Highcharts) {
   'use strict';
 
   angular.module('datacultures.controllers').controller('EngagementIndexController', function(engagementIndexFactory, userService, utilService, $scope) {
@@ -6,6 +6,9 @@
     // Default sort
     $scope.sortBy = 'rank';
     $scope.reverse = true;
+
+    // Variable that will be used to hold the box plot
+    var chart = null;
 
     /**
      * Get the students in the engagement index and their engagement
@@ -62,12 +65,13 @@
       setTimeout(function() {
         // Render the box plot using highcharts
         // @see http://api.highcharts.com/highcharts
-        $('#dc-user-badge-boxplot').highcharts({
+        chart = new Highcharts.Chart({
           chart: {
             backgroundColor: 'transparent',
             inverted: true,
             // Ensure that the box plot is displayed horizontally
             margin: [0, 20, 0, 20],
+            renderTo: 'dc-user-badge-boxplot',
             type: 'boxplot'
           },
 
@@ -273,4 +277,4 @@
 
   });
 
-})(window.angular, window.jQuery);
+})(window.angular, window.Highcharts);
