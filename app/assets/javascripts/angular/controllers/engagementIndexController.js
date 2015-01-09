@@ -1,4 +1,4 @@
-(function(angular, $) {
+(function(angular) {
   'use strict';
 
   angular.module('datacultures.controllers').controller('EngagementIndexController', function(engagementIndexFactory, userService, utilService, $scope) {
@@ -62,12 +62,13 @@
       setTimeout(function() {
         // Render the box plot using highcharts
         // @see http://api.highcharts.com/highcharts
-        $('#dc-user-badge-boxplot').highcharts({
+        var chart = new Highcharts.Chart({
           chart: {
             backgroundColor: 'transparent',
             inverted: true,
             // Ensure that the box plot is displayed horizontally
             margin: [0, 20, 0, 20],
+            renderTo: 'dc-user-badge-boxplot',
             type: 'boxplot'
           },
 
@@ -273,4 +274,4 @@
 
   });
 
-})(window.angular, window.jQuery);
+})(window.angular);
