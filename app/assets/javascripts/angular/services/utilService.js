@@ -125,6 +125,9 @@
       }
     };
 
+    // Always resize the current BasicLTI tool when the screen is resized
+    window.onresize = resizeIFrame;
+
     return {
       getScrollPosition: getScrollPosition,
       resizeIFrame: resizeIFrame,
