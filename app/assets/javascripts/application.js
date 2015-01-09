@@ -14,6 +14,9 @@
 //= require angular-route
 //= require angular-sanitize
 //= require angular-rails-templates
+//= require jquery
+//= require highcharts
+//= require highcharts/highcharts-more
 //= require_tree ../templates
 //= require angular/datacultures
 //= require_tree .
