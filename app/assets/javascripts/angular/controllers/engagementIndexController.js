@@ -7,6 +7,9 @@
     $scope.sortBy = 'rank';
     $scope.reverse = true;
 
+    // Variable that will be used to hold the box plot
+    var chart = null;
+
     /**
      * Get the students in the engagement index and their engagement
      * index points
@@ -62,7 +65,7 @@
       setTimeout(function() {
         // Render the box plot using highcharts
         // @see http://api.highcharts.com/highcharts
-        new Highcharts.Chart({
+        chart = new Highcharts.Chart({
           chart: {
             backgroundColor: 'transparent',
             inverted: true,
