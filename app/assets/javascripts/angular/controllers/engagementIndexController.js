@@ -1,4 +1,4 @@
-(function(angular) {
+(function(angular, Highcharts) {
   'use strict';
 
   angular.module('datacultures.controllers').controller('EngagementIndexController', function(engagementIndexFactory, userService, utilService, $scope) {
@@ -62,7 +62,7 @@
       setTimeout(function() {
         // Render the box plot using highcharts
         // @see http://api.highcharts.com/highcharts
-        var chart = new Highcharts.Chart({
+        new Highcharts.Chart({
           chart: {
             backgroundColor: 'transparent',
             inverted: true,
@@ -274,4 +274,4 @@
 
   });
 
-})(window.angular);
+})(window.angular, window.Highcharts);
