@@ -1,4 +1,4 @@
-(function(angular) {
+(function(angular, $) {
   'use strict';
 
   angular.module('datacultures.controllers').controller('EngagementIndexController', function(engagementIndexFactory, userService, utilService, $scope) {
@@ -89,7 +89,7 @@
           tooltip: {
             borderColor: '#333',
             hideDelay: 100,
-            positioner: function(labelWidth, labelHeight, point) {
+            positioner: function(labelWidth, labelHeight) {
               // Ensure that the tooltip does not overlap with the box plot to
               // allow access hover access to "my points"
               return {
@@ -191,7 +191,7 @@
     var calculateBoxPlotData = function(series) {
       // Sort the provided data series in ascending order
       series.sort(function(a, b) {
-        return a-b
+        return a - b;
       });
 
       var min = series[0];
@@ -273,4 +273,4 @@
 
   });
 
-})(window.angular);
+})(window.angular, window.jQuery);
