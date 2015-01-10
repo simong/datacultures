@@ -14,8 +14,8 @@
 app_user="app_calcentral"
 
 # verify user
-if [ "$(whoami)" != "${app_user}" ]
-  then echo "Only user ${app_user} can run this script"
+if [ "$(whoami)" != "${app_user}" ]; then
+  echo "Only user ${app_user} can run this script"
   exit
 fi
 
@@ -28,15 +28,19 @@ git fetch origin \
 
 change_count=$(git rev-list HEAD...origin/master | wc -l)
 
-if [ "$change_count" -gt 0 ];
-  then
+if [ "$change_count" -gt 0 ]; then
     # Stop Sidekiq after capturing pid of process
-    pids_dir="${appHome}/tmp/pid"
-    sidekiq_pid="${pids_dir}/sidekiq.pid"
-    mkdir -p "${pids_dir}"
-    ps -f | grep sidekiq > "${sidekiq_pid}"
-    sidekiqctl stop "${sidekiq_pid}" \
-      || { echo 'FAILED to stop Sidekiq'; exit 1; }
+    active_pid=$(ps -eo pid,command | grep -i sidekiq | grep -v grep | awk '{print $1}')
+    if [ ${active_pid} ]; then
+      pids_dir="${appHome}/tmp/pid"
+      mkdir -p "${pids_dir}"
+      sidekiq_pid="${pids_dir}/sidekiq.pid"
+      echo "${active_pid}" > "${sidekiq_pid}"
+      sidekiqctl stop "${sidekiq_pid}" \
+        || { echo 'FAILED to stop Sidekiq'; exit 1; }
+    else
+      echo 'No need to stop Sidekiq. It is not running.'
+    fi
     ${appHome}/scripts/clear_sidekiq_queue.rb \
       || { echo 'FAILED to clear Sidekiq queue'; exit 1; }
 
