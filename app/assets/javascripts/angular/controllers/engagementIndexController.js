@@ -91,15 +91,21 @@
           },
 
           tooltip: {
-            borderColor: '#333',
+            backgroundColor: '#000',
+            borderColor: '#000',
             hideDelay: 100,
             positioner: function(labelWidth, labelHeight) {
               // Ensure that the tooltip does not overlap with the box plot to
               // allow access hover access to "my points"
               return {
                 x: 305,
-                y: 30 - (labelHeight / 2)
+                y: 15 - (labelHeight / 2)
               };
+            },
+            shadow: false,
+            style: {
+              color: '#fff',
+              lineHeight: '18px'
             },
             // Ensure the tooltip is rendered as HTML to allow it
             // to overflow the box plot container
@@ -139,16 +145,18 @@
           // Style the box plot
           plotOptions: {
             boxplot: {
-              fillColor: 'rgba(255, 255, 255, 0.4)',
-              lineWidth: 2,
-              medianWidth: 3
+              color: '#88acc4',
+              fillColor: '#88acc4',
+              lineWidth: 1,
+              medianColor: '#eee',
+              medianWidth: 3,
+              whiskerLength: 20
             }
           },
 
           series: [
             // Box plot data serie
             {
-              color: '#333',
               data: [calculateBoxPlotData(points)],
               pointWidth: 40,
               tooltip: {
@@ -163,9 +171,9 @@
             }, {
               data: [[0, $scope.currStudentItem.points]],
               marker: {
-                fillColor: '#0d628e',
-                lineWidth: 3,
-                lineColor: '#0d628e'
+                fillColor: '#3179bc',
+                lineWidth: 5,
+                lineColor: '#3179bc'
               },
               tooltip: {
                 headerFormat: '',
