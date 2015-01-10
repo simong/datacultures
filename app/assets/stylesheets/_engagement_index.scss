@@ -4,6 +4,7 @@
     margin-bottom: 30px;
   }
   .dc-engagement-index-disclaimer {
+    margin-bottom: 30px;
     margin-top: 20px;
   }
   .dc-engagement-index-screenshot-container {
@@ -11,13 +12,13 @@
   }
   .dc-engagement-index-screenshot-example {
     @include box-shadow(3px 3px 5px #aaa);
-    background-image: asset-url("engagement_index_screenshot-1100x580.png");
+    background-image: asset-url("engagement_index_screenshot.png");
+    margin-bottom: 30px;
     padding-bottom: 52.7272%;
   }
 
   // Engagement Index Sharing
   .dc-engagement-index-sharing {
-    padding-top: 20px;
     .dc-engagement-index-continue {
       margin-top: 10px;
     }
@@ -27,27 +28,24 @@
   .dc-user-info {
     margin-top: 20px;
     .dc-user-badge {
-      background-color: #f6f6f6;
-      border: 1px solid #eee;
-      border-radius: 2px;
+      background-color: #eee;
+      border-radius: 4px;
+      color: #444;
       float: left;
       margin-bottom: 20px;
       margin-right: 25px;
-      padding: 5px;
+      padding: 10px;
       text-align: center;
       width: 150px;
+      .dc-user-badge-info {
+        font-size: 14px;
+        padding: 2px;
+        text-transform: uppercase;
+      }
       .dc-user-badge-value {
-        color: rgb(51, 51, 51);
-        font-size: 45px;
+        font-size: 48px;
         font-weight: 300;
         line-height: 60px;
-      }
-      .dc-user-badge-info {
-        background-color: rgb(136, 172, 196);
-        color: #fff;
-        font-size: 13px;
-        margin-top: 5px;
-        padding: 2px;
       }
     }
     .dc-user-badge-boxplot-container {
@@ -61,14 +59,10 @@
       }
     }
   }
-  .dc-engagement-index-divider {
-    margin-bottom: 25px;
-    margin-top: 0;
-  }
 
   // Engagement Index Leaderboard
   .dc-engagement-index-controls {
-    margin: 20px 0;
+    margin: 10px 0 20px;
     .dc-engagement-search {
       display: inline-block;
       padding: 4px 6px;
@@ -76,7 +70,7 @@
     }
   }
   .dc-enagement-index-leaderboard {
-    margin-bottom: 0;
+    margin-bottom: 20px;
     .dc-header-title {
       th {
         cursor: pointer;
