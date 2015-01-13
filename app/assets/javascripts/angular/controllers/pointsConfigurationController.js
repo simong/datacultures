@@ -49,6 +49,8 @@
      */
     $scope.removeActivity = function(activity) {
       activity.active = false;
+      // Resize the BasicLTI iFrame
+      utilService.resizeIFrame();
     };
 
     /**
@@ -59,6 +61,8 @@
      */
     $scope.enableActivity = function(activity) {
       activity.active = true;
+      // Resize the BasicLTI iFrame
+      utilService.resizeIFrame();
     };
 
     /**
@@ -102,9 +106,9 @@
           toSave.push($scope.configuration[i]);
         }
       }
-      pointsConfigurationFactory.updatePointsConfiguration(toSave).success(getPointsConfiguration);
       // Switch to view mode
       $scope.editMode = false;
+      pointsConfigurationFactory.updatePointsConfiguration(toSave).success(getPointsConfiguration);
     };
 
     /**
