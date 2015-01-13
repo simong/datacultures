@@ -37,14 +37,17 @@
     sortAndFilter.options.type = [
       {
         display: 'Image',
+        emptyMessage: 'image',
         value: 'image'
       },
       {
         display: 'Video',
+        emptyMessage: 'video',
         value: 'video'
       },
       {
         display: 'Website URL',
+        emptyMessage: 'website URL',
         value: 'url'
       }
     ];
