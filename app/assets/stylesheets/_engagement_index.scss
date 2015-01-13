@@ -57,6 +57,22 @@
           overflow: visible !important;
         }
       }
+      // Style the Highcharts tooltip. In order to get the tooltip
+      // to display correctly outside of the chart area on all browsers,
+      // we need to override a number of the inline styles that are
+      // applied by Highcharts
+      // @see https://jira.ets.berkeley.edu/jira/browse/CYB-414
+      .highcharts-tooltip {
+        background-color: #000;
+        border-color: #000;
+        border-radius: 6px;
+        padding: 8px;
+        span {
+          left: 0 !important;
+          position: relative !important;
+          top: 0 !important;
+        }
+      }
     }
   }
 

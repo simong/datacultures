@@ -91,8 +91,6 @@
           },
 
           tooltip: {
-            backgroundColor: '#000',
-            borderColor: '#000',
             hideDelay: 100,
             positioner: function(labelWidth, labelHeight) {
               // Ensure that the tooltip does not overlap with the box plot to
@@ -104,8 +102,7 @@
             },
             shadow: false,
             style: {
-              color: '#fff',
-              lineHeight: '18px'
+              color: '#fff'
             },
             // Ensure the tooltip is rendered as HTML to allow it
             // to overflow the box plot container
