@@ -203,7 +203,7 @@
     var calculateBoxPlotData = function(series) {
       // Sort the provided data series in ascending order
       series.sort(function(a, b) {
-        return a - b;
+        return b - a;
       });
 
       var min = series[0];
