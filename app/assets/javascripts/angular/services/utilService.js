@@ -11,9 +11,7 @@
      */
     var resizeIFrame = function() {
       postIFrameMessage(function() {
-        // Add 20px to the total height to provide some extra padding
-        // at the bottom and to ensure that no scrollbar appears
-        var height = document.body.scrollHeight + 20;
+        var height = document.body.scrollHeight;
         return {
           subject: 'lti.frameResize',
           height: height
