@@ -21,7 +21,8 @@
         // TODO: Improve the REST API to determine the administration status
         // on the back-end and return it as part of the response
         if (me.canvas_roles.indexOf('Instructor') !== -1 ||
-            me.canvas_roles.indexOf('ContentDeveloper') !== -1) {
+            me.canvas_roles.indexOf('ContentDeveloper') !== -1 ||
+            me.canvas_roles.indexOf('urn:lti:role:ims/lis/TeachingAssistant') !== -1) {
           me.isAdmin = true;
         }
         return me;
