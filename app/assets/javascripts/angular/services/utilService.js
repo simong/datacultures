@@ -11,7 +11,7 @@
      */
     var resizeIFrame = function() {
       postIFrameMessage(function() {
-        var height = document.body.scrollHeight;
+        var height = document.body.offsetHeight;
         return {
           subject: 'changeParent',
           height: height
