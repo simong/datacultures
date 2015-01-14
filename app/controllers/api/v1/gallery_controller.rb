@@ -28,7 +28,7 @@ class Api::V1::GalleryController < ApplicationController
   END_OF_IMAGE_QUERY
 
   URL_SPECIFIC_QUERY =<<-END_OF_SPECIFIC_QUERY
-    SELECT 'url' AS type, liked, disliked, s.name AS author, g.assignment_id, g.gallery_id AS id,
+    SELECT 'url' AS type, likes, dislikes, liked, disliked, s.name AS author, g.assignment_id, g.gallery_id AS id,
       g.canvas_user_id, co.comment_count, v.views, g.image_url, g.url, cast(extract(EPOCH from g.submitted_at)*
       1000 AS bigint) AS submitted_at FROM generic_urls g
   END_OF_SPECIFIC_QUERY
