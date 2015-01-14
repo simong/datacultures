@@ -25,14 +25,14 @@ en:
     # don't change keys below
     DiscussionTopic:  'Create a discussion topic'
     DiscussionEdit:   'Edit a discussion topic'
-    DiscussionEntry:  'Reply to a discussion'
-    Submission:       'Submit an Assignment to the Gallery'
-    GalleryComment:   'Comment on a Gallery Submission'
-    GetAComment:      'Receive a Comment on a Gallery Submission'
-    Like:             'Like a Gallery Item'
-    Dislike:          'Dislike a Gallery Item'
-    GetALike:         'Receive a Gallery Item like'
-    GetADislike:      'Receive a Gallery Item dislike'
+    DiscussionEntry:  'Post to a discussion'
+    Submission:       'Gallery submission'
+    GalleryComment:   'Comment on a gallery submission'
+    GetAComment:      'Receive a comment on a gallery submission'
+    Like:             'Like a gallery item'
+    Dislike:          'Dislike a gallery item'
+    GetALike:         'Receive a gallery item like'
+    GetADislike:      'Receive a gallery item dislike'
 
 
   short_activity_names:
