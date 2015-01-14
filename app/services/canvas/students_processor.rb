@@ -10,11 +10,11 @@ class Canvas::StudentsProcessor
     if students.respond_to?(:each)
       students.each do |student|
         student_attributes = {}
-        student_attributes[:name] = student["name"]
-        student_attributes[:sortable_name] = student["sortable_name"]
-        student_attributes[:canvas_user_id] = student["id"].to_i
-        student_attributes[:sis_user_id] = student["sis_user_id"] || -1
-        student_attributes[:section] = "Unknown"
+        student_attributes[:name] = student['name']
+        student_attributes[:sortable_name] = student['sortable_name']
+        student_attributes[:canvas_user_id] = student['id'].to_i
+        student_attributes[:sis_user_id] = student['sis_user_id'] || -1
+        student_attributes[:section] = 'Unknown'
 
         # we can't use #find_or_create_by as if any other attributes differ but canvas_user_id value is already
         # present, ActiveRecord will not match, and will try to create a new record, violating uniqueness on that key.
