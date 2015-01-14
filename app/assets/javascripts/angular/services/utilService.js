@@ -13,7 +13,7 @@
       postIFrameMessage(function() {
         var height = document.body.scrollHeight;
         return {
-          subject: 'lti.frameResize',
+          subject: 'changeParent',
           height: height
         };
       });
