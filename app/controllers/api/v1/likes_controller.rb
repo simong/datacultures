@@ -11,11 +11,11 @@ class Api::V1::LikesController < ApplicationController
   def create
     original_poster = posting_user_id
     if (original_poster.to_s != current_user.canvas_id.to_s)
-      # Invalidate the existing like/dislike record
+      # Invalidate the existing like/dislike record(s)
       previous_records(user: current_user.canvas_id).each do |previous_record|
         previous_record.retire!
       end
-      # Invalidate the existing get a like/get a dislike record
+      # Invalidate the existing get a like/get a dislike record(s)
       previous_actor_records(user: current_user.canvas_id).each do |previous_record|
         previous_record.retire!
       end
