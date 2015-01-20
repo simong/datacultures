@@ -26,8 +26,10 @@
       $scope.currStudent = results.current_canvas_user;
 
       // If the user hasn't yet decided whether to share their engagement
-      // points with the entire class, default the setting to `true`
-      if (!$scope.currStudent.has_answered_share_question) {
+      // points with the entire class, default the setting to `true`. Note that
+      // admins will not see the splash screen, so their sharing setting should
+      // not be defaulted
+      if (!$scope.currStudent.has_answered_share_question && !$scope.me.isAdmin) {
         $scope.currStudent.share = true;
       }
 
@@ -265,8 +267,10 @@
      */
     $scope.changeEngagementIndexStatus = function() {
       // Only save the new setting straight away when the initial
-      // save has already happened
-      if ($scope.currStudent.has_answered_share_question) {
+      // save has already happened. Note that admins will not see the
+      // splash screens, so their changes can be saved straight away
+      if ($scope.currStudent.has_answered_share_question || $scope.me.isAdmin) {
+        $scope.currStudent.has_answered_share_question = true;
         engagementIndexFactory.setEngagementIndexStatus($scope.currStudent.canvas_user_id, $scope.currStudent.share).success(getEngagementIndexList);
       }
     };
