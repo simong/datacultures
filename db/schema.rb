@@ -11,25 +11,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141211233554) do
+ActiveRecord::Schema.define(version: 20150115105930105930) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "activities", force: true do |t|
-    t.string   "reason",                              null: false
-    t.integer  "delta",                               null: false
+    t.string   "reason",                               null: false
+    t.integer  "delta",                                null: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "deleted_at"
-    t.integer  "canvas_user_id",                      null: false
-    t.string   "scoring_item_id",                     null: false
+    t.integer  "canvas_user_id",                       null: false
+    t.string   "scoring_item_id",                      null: false
     t.datetime "canvas_updated_at"
     t.text     "body"
     t.boolean  "score"
     t.string   "gallery_id"
-    t.boolean  "expired",             default: false
-    t.boolean  "assigned_discussion", default: false
+    t.boolean  "expired",              default: false
+    t.boolean  "assigned_discussion",  default: false
+    t.integer  "canvas_user_actor_id"
   end
 
   add_index "activities", ["deleted_at"], name: "index_activities_on_deleted_at", using: :btree
@@ -47,15 +48,16 @@ ActiveRecord::Schema.define(version: 20141211233554) do
     t.integer  "canvas_user_id"
     t.integer  "assignment_id"
     t.integer  "submission_id"
+    t.integer  "attachment_id"
     t.string   "author"
     t.string   "content_type"
     t.text     "image_url"
     t.datetime "deleted_at"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "attachment_id"
     t.datetime "date"
     t.string   "gallery_id"
+    t.string   "thumbnail_url"
   end
 
   create_table "comments", force: true do |t|
@@ -76,6 +78,7 @@ ActiveRecord::Schema.define(version: 20141211233554) do
     t.datetime "deleted_at"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "thumbnail_url"
   end
 
   create_table "media_urls", force: true do |t|
@@ -90,6 +93,7 @@ ActiveRecord::Schema.define(version: 20141211233554) do
     t.string   "gallery_id"
     t.string   "thumbnail_url"
     t.datetime "submitted_at"
+    t.string   "url"
   end
 
   create_table "points_configurations", force: true do |t|
