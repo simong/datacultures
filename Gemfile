@@ -25,6 +25,9 @@ gem 'clockwork',               '~> 1.0.0'
 gem 'clockworkd',              '~> 0.2.5'
 gem 'daemons',                 '~> 1.1.9'
 
+# thumbnail generation
+gem 'graphicsmagick',          '~> 1.0.5'
+
 # styling
 gem 'bootstrap-sass',          '~> 3.3.1.0'
 gem 'sass-rails',              '~> 4.0.5'
