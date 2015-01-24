@@ -2,7 +2,7 @@
 
   'use strict';
 
-  angular.module('datacultures.services').service('galleryService', function(galleryFactory, utilService, $q) {
+  angular.module('datacultures.services').service('galleryService', function(analyticsService, galleryFactory, utilService, $q) {
 
     /* FILTERING AND SORTING */
 
@@ -143,6 +143,9 @@
     var restoreScrollPosition = function() {
       utilService.scrollTo(scrollPosition);
     };
+
+    // Track that the gallery tool has been loaded
+    analyticsService.track('Load Gallery Tool');
 
     return {
       sortAndFilter: sortAndFilter,

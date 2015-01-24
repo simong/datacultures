@@ -1,7 +1,7 @@
 (function(angular) {
   'use strict';
 
-  angular.module('datacultures.controllers').controller('GalleryLikeController', function(galleryItemFactory, galleryService, $scope) {
+  angular.module('datacultures.controllers').controller('GalleryLikeController', function(analyticsService, galleryItemFactory, galleryService, $scope) {
 
     /**
      * Like or dislike a gallery item
@@ -12,6 +12,17 @@
      */
     var like = function(item, liked) {
       galleryItemFactory.like(item.id, liked).success(function() {
+        // Track that a gallery item has been liked/disliked
+        var trackingTitle = null;
+        if (liked === true) {
+          trackingTitle = 'Like Gallery Item';
+        } else if (liked === false) {
+          trackingTitle = 'Dislike Gallery Item';
+        } else if (liked === null) {
+          trackingTitle = 'Undo Like Gallery Item';
+        }
+        analyticsService.track(trackingTitle, analyticsService.getGalleryItemTrackingProperties($scope.item));
+
         // If we're looking at an individual gallery item, update
         // the like and dislike count on the item
         if ($scope.selectedItemId) {

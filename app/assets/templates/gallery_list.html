@@ -3,7 +3,7 @@
     <label for="dc-gallery-search-assignment">
       Assignment:
     </label>
-    <select id="dc-gallery-search-assignment" data-ng-model="sortAndFilter.selected.assignment" data-ng-change="resizeIFrame()" data-ng-options="assignment.name for assignment in assignments">
+    <select id="dc-gallery-search-assignment" data-ng-model="sortAndFilter.selected.assignment" data-ng-change="handleSortAndFilter('assignment')" data-ng-options="assignment.name for assignment in assignments">
       <option value="">All Assignments</option>
     </select>
   </div>
@@ -12,7 +12,7 @@
     <label for="dc-gallery-search-filter">
       Filter by:
     </label>
-    <select id="dc-gallery-search-filter" data-ng-model="sortAndFilter.selected.type" data-ng-change="resizeIFrame()" data-ng-options="type.display for type in sortAndFilter.options.type">
+    <select id="dc-gallery-search-filter" data-ng-model="sortAndFilter.selected.type" data-ng-change="handleSortAndFilter('type')" data-ng-options="type.display for type in sortAndFilter.options.type">
       <option value="">All Types</option>
     </select>
   </div>
@@ -21,18 +21,18 @@
     <label for="dc-gallery-search-sort">
       Sort by:
     </label>
-    <select id="dc-gallery-search-sort" data-ng-model="sortAndFilter.selected.sort" data-ng-change="resizeIFrame()" data-ng-options="sort.display for sort in sortAndFilter.options.sort"></select>
+    <select id="dc-gallery-search-sort" data-ng-model="sortAndFilter.selected.sort" data-ng-change="handleSortAndFilter('sort')" data-ng-options="sort.display for sort in sortAndFilter.options.sort"></select>
   </div>
 
   <div class="dc-gallery-sort-filter-option">
     <label for="dc-gallery-search-text">
       Search For Student:
     </label>
-    <input id="dc-gallery-search-text" class="dc-gallery-search-text" type="text" data-ng-change="resizeIFrame()" data-ng-model="sortAndFilter.selected.search.author">
+    <input id="dc-gallery-search-text" class="dc-gallery-search-text" type="text" data-ng-change="handleSortAndFilter('search')" data-ng-model="sortAndFilter.selected.search.author">
   </div>
 </div>
 
-<div class="dc-gallery-list" data-ng-repeat="item in filteredItems = (items | orderBy:sortAndFilter.selected.sort.value:true | filter:sortAndFilter.selected.search | filter:{assignment_id:sortAndFilter.selected.assignment.canvas_assignment_id || ''} | filter:{type:sortAndFilter.selected.type.value || ''})">
+<div class="dc-gallery-list" data-ng-repeat="item in $scope.filteredItems = (items | orderBy:sortAndFilter.selected.sort.value:true | filter:sortAndFilter.selected.search | filter:{assignment_id:sortAndFilter.selected.assignment.canvas_assignment_id || ''} | filter:{type:sortAndFilter.selected.type.value || ''})">
   <div class="dc-thumbnail-item-container">
     <a class="dc-button-link dc-thumbnail-item" data-ng-href="/canvas/embedded/gallery/item/{{item.id}}" data-ng-click="handleGalleryItemClick(item)" data-ng-style="item.image_url && {'background-image': 'url(' + item.image_url + ')'}">
       <div class="dc-thumbnail-hover">
@@ -55,7 +55,7 @@
     </div>
   </div>
 </div>
-<div data-ng-if="filteredItems.length === 0" class="alert alert-info dc-gallery-noresults">
+<div data-ng-if="$scope.filteredItems.length === 0" class="alert alert-info dc-gallery-noresults">
   <span data-ng-if="!sortAndFilter.selected.assignment && !sortAndFilter.selected.type && !sortAndFilter.selected.search.author">No gallery items are available yet</span>
   <span data-ng-if="!sortAndFilter.selected.assignment && sortAndFilter.selected.type && !sortAndFilter.selected.search.author">No <span data-ng-bind="sortAndFilter.selected.type.emptyMessage"></span> gallery items are currently available</span>
   <span data-ng-if="!sortAndFilter.selected.assignment && !sortAndFilter.selected.type && sortAndFilter.selected.search.author">No gallery items could be found for the student <strong>&quot;<span data-ng-bind="sortAndFilter.selected.search.author"></span>&quot;</strong></span>

@@ -1,7 +1,7 @@
 (function(angular, Highcharts) {
   'use strict';
 
-  angular.module('datacultures.controllers').controller('EngagementIndexController', function(engagementIndexFactory, userService, utilService, $scope) {
+  angular.module('datacultures.controllers').controller('EngagementIndexController', function(analyticsService, engagementIndexFactory, userService, utilService, $scope) {
 
     // Default sort
     $scope.sortBy = 'rank';
@@ -43,9 +43,14 @@
         }
       }
 
-      // Render the box plot showing how the current student ranks
-      // in the class
-      drawBoxPlot();
+      // If the current user is sharing its engagement index score, render the
+      // box plot showing how the current student ranks in the class
+      if ($scope.currStudent.share) {
+        drawBoxPlot();
+      }
+
+      // Track that the engagement index tool has been loaded
+      analyticsService.track('Load Engagement Index Tool');
 
       // Resize the BasicLTI iFrame
       utilService.resizeIFrame();
@@ -96,7 +101,7 @@
             hideDelay: 100,
             positioner: function(labelWidth, labelHeight) {
               // Ensure that the tooltip does not overlap with the box plot to
-              // allow access hover access to "my points"
+              // allow access hover access to 'my points'
               return {
                 x: 305,
                 y: 15 - (labelHeight / 2)
@@ -238,6 +243,21 @@
     };
 
     /**
+     * Handle a change in the engagement index search by pushing an analytics
+     * statement containing the search query and resizing the BasicLTI iFrame
+     *
+     * @param  {String}       search        The current search query
+     */
+    $scope.handleSearch = function(search) {
+      // Track that the engagement index is being searched
+      analyticsService.track('Search Engagement Index', {
+        search: search || null
+      });
+      // Resize the BasicLTI iFrame
+      utilService.resizeIFrame();
+    };
+
+    /**
      * Change the sorting field and/or sorting direction when one of the
      * engagement list headers is clicked
      *
@@ -246,6 +266,12 @@
     $scope.changeEngagementIndexSort = function(sortBy) {
       $scope.sortBy = sortBy;
       $scope.reverse = !$scope.reverse;
+
+      // Track that the engagement index sort has been changed
+      analyticsService.track('Sort Engagement Index', {
+        sortBy: $scope.sortBy,
+        reverse: $scope.reverse
+      });
     };
 
     /**
@@ -273,6 +299,14 @@
         $scope.currStudent.has_answered_share_question = true;
         engagementIndexFactory.setEngagementIndexStatus($scope.currStudent.canvas_user_id, $scope.currStudent.share).success(getEngagementIndexList);
       }
+    };
+
+    /**
+     * Track downloads of the engagement index CSV export file in the MixPanel
+     * analytics
+     */
+    $scope.trackCSVDownload = function() {
+      analyticsService.track('Download Engagement Index CSV');
     };
 
     /**
