@@ -17,3 +17,10 @@ Create a gemset for the application:
 rvm gemset create datacultures
 rvm gemset use datacultures
 ```
+
+Install [GraphicsMagick](http://www.graphicsmagick.org/README.html).
+ * OS X:
+   - Can be installed through Homebrew
+ * Ubuntu
+   - Add Peter Teichman's PPA (https://launchpad.net/~pteichman/+archive/ubuntu/graphicsmagick)
+   - `apt-get install graphicsmagick`

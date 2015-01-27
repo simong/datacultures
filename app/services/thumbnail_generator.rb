@@ -21,8 +21,15 @@ class ThumbnailGenerator
   end
 
   # Download the image at `url` and resize it. The image will be rescaled to
-  # the largest dimension so the original ratio is retained
-  def generate(url, width=210, height=210)
+  # the largest dimension so the original ratio is retained.
+  # The options are:
+  #  - width: The desired width of the thumbnail, defaults to 210px
+  #  - height: The desired height of the thumbnail, defaults to 210px
+  #  - quality: The desired quality of the thumbnail (as a percentage), defaults to 75
+  def generate(url, options={})
+    # Allow to user to specify overrides
+    options = {width: 210, height: 210, quality: 75}.merge(options)
+
     # Open up a temp file
     temp_file = Tempfile.new('thumbnail_', Rails.root.join('tmp'), :encoding => "binary")
     temp_file.open()
@@ -33,9 +40,9 @@ class ThumbnailGenerator
     end
 
     # Resize the downloaded image
-    frame = width.to_s + 'x' + height.to_s
+    frame = options[:width].to_s + 'x' + options[:height].to_s
     img = GraphicsMagick::Image.new(temp_file)
-    img.size(frame).resize(frame).quality(100)
+    img.size(frame).resize(frame).quality(options[:quality])
     img.write!
 
     # Return the temp_file
@@ -43,9 +50,9 @@ class ThumbnailGenerator
   end
 
   # Download the image at `url`, resize it and upload it to the specified course in Canvas
-  def generate_and_upload(assignment_id, url, content_type='image/jpeg')
+  def generate_and_upload(assignment_id, url, content_type='image/jpeg', options={})
     # Generate a thumbnail
-    temp_file = generate(url)
+    temp_file = generate(url, options)
 
     # Upload it to Canvas
     uploader = Canvas::FileUploader.new

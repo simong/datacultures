@@ -5,36 +5,18 @@ class Canvas::AttachmentsProcessor
   end
 
   def call(submission, attachments)
-    previously_credited = Activity.where({
-      scoring_item_id: submission['assignment_id'].to_s,
-      reason: 'Submission',
-      canvas_user_id: submission['user_id']
-    }).first
+    assignment_id = submission['assignment_id']
+    user_id       = submission['user_id']
 
-    ## Attachments on a submission are processed in two cases:
-    #    1.  It has not been done before for this student and this assignment, or
-    #    2.  The assignment has been resubmitted (the date is after the already credited date)
-    if needs_processing?(previously_credited, submission['submitted_at'])
-      # Delete any attachments that are already associated with the submission (if any)
-      Attachment.where({
-        canvas_user_id: submission['user_id'],
-        submission_id: submission['id']
-      }).delete_all
+    # Delete any previous attachments or urls
+    Attachment.where({submission_id: submission['id'], canvas_user_id: user_id}).delete_all
+    MediaUrl.where({canvas_assignment_id: assignment_id, canvas_user_id: user_id}).delete_all
+    GenericUrl.where({assignment_id: assignment_id, canvas_user_id: user_id}).delete_all
 
-      # Create a new record and generate a thumbnail for each attachment
-      attachments.each do |attachment|
-        handle_attachment(submission, attachment)
-      end
-
-      # Update the submittal date
-      if previously_credited
-        previously_credited.update_attribute(:canvas_updated_at, submission['submitted_at'])
-      end
+    # Create a new record and generate a thumbnail for each attachment
+    attachments.each do |attachment|
+      handle_attachment(submission, attachment)
     end
-  end
-
-  def needs_processing?(previously_credited, new_date)
-    previously_credited.nil? || (previously_credited.canvas_updated_at.to_time != Time.parse(new_date))
   end
 
   def handle_attachment(submission, attachment)
@@ -57,8 +39,7 @@ class Canvas::AttachmentsProcessor
       date: Time.parse(attachment['updated_at']),
       attachment_id: attachment['id'],
       image_url: attachment['url'],
-      thumbnail_url: thumbnail_url,
-      content_type: attachment['content-type']
+      thumbnail_url: thumbnail_url
     })
   end
 
