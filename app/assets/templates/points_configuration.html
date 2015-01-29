@@ -16,17 +16,18 @@
     <div class="clearfix dc-points-configuration-table-container">
       <table class="table table-striped table-compact table-bordered">
         <tr>
-          <th class="dc-text-left" scope="col">Activity</th>
-          <th class="dc-text-center" scope="col">Points</th>
-          <th class="dc-text-center" scope="col" data-ng-if="editMode">Action</th>
+          <th class="text-left" scope="col">Activity</th>
+          <th class="text-center" scope="col">Points</th>
+          <th class="text-center" scope="col" data-ng-if="editMode">Action</th>
         </tr>
         <tr data-ng-repeat="activity in configuration | orderBy:'id' | filter:{active: true}">
-          <td class="dc-text-left" data-ng-bind="activity.name"></td>
-          <td class="dc-text-center" data-ng-bind="activity.points" data-ng-if="!editMode"></td>
-          <td class="dc-text-center" data-ng-if="editMode">
-            <input data-ng-model="activity.points" class="dc-points-configuration-table-points-input dc-text-center form-control"/>
+          <td class="text-left" data-ng-bind="activity.name"></td>
+          <td class="text-center" data-ng-bind="activity.points" data-ng-if="!editMode"></td>
+          <td class="text-center" data-ng-if="editMode">
+            <label for="dc-points-configuration-points-{{activity.id}}" class="sr-only" data-ng-bind="activity.name"></label>
+            <input id="dc-points-configuration-points-{{activity.id}}" data-ng-model="activity.points" class="dc-points-configuration-table-points-input text-center form-control"/>
           </td>
-          <td class="dc-text-center" data-ng-if="editMode"><button class="btn btn-default" data-ng-click="removeActivity(activity)">Remove</button></td>
+          <td class="text-center" data-ng-if="editMode"><button class="btn btn-default" data-ng-click="removeActivity(activity)">Remove</button></td>
         </tr>
       </table>
     </div>
@@ -37,14 +38,14 @@
       <div class="dc-points-configuration-table-container">
         <table class="table table-striped table-compact table-bordered">
           <tr>
-            <th class="dc-text-left" scope="col">Activity</th>
-            <th class="dc-text-center" scope="col">Points</th>
-            <th class="dc-text-center" scope="col" data-ng-if="editMode">Action</th>
+            <th class="text-left" scope="col">Activity</th>
+            <th class="text-center" scope="col">Points</th>
+            <th class="text-center" scope="col" data-ng-if="editMode">Action</th>
           </tr>
           <tr data-ng-repeat="activity in configuration | orderBy:'id' | filter:{active: false}">
-            <td class="dc-text-left" data-ng-bind="activity.name"></td>
-            <td class="dc-text-center" data-ng-bind="activity.points"></td>
-            <td class="dc-text-center" data-ng-if="editMode"><button class="btn btn-primary" data-ng-click="enableActivity(activity)">Add</button></td>
+            <td class="text-left" data-ng-bind="activity.name"></td>
+            <td class="text-center" data-ng-bind="activity.points"></td>
+            <td class="text-center" data-ng-if="editMode"><button class="btn btn-primary" data-ng-click="enableActivity(activity)">Add</button></td>
           </tr>
         </table>
       </div>
