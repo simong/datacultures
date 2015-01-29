@@ -58,7 +58,8 @@ class Canvas::SubmissionsProcessor
     }).first
 
     # Check whether we really need to process this submission
-    if needs_processing?(previously_credited, submitted_at, assignment_id, user_id, is_media_url)
+    if needs_processing?(previously_credited, submitted_at, assignment_id, user_id, has_url, is_media_url)
+
       # If the submission was a URL to a known video system such as youtube or vimeo
       # we let the media url processor deal with it
       if is_media_url
@@ -95,7 +96,7 @@ class Canvas::SubmissionsProcessor
   end
 
   # Check whether a submission needs processing
-  def needs_processing?(previously_credited, new_date, assignment_id, user_id, is_media_url)
+  def needs_processing?(previously_credited, new_date, assignment_id, user_id, has_url, is_media_url)
     # If:
     #  - this is a new submission
     #  - this is a resubmission
@@ -107,9 +108,11 @@ class Canvas::SubmissionsProcessor
     # If this is a generic URL submitted in the last 2 minutes for which we don't have a thumbnail yet,
     # we process it. This is because Canvas generates images for generic URLs asynchronously and we have to
     # give it a little bit of time
-    generic_url = GenericUrl.where({assignment_id: assignment_id, canvas_user_id: user_id}).first
-    if generic_url.nil? || generic_url.thumbnail_url.nil?
-      return true
+    if has_url && !is_media_url
+      generic_url = GenericUrl.where({assignment_id: assignment_id, canvas_user_id: user_id}).first
+      if generic_url.nil? || generic_url.thumbnail_url.nil?
+        return true
+      end
     end
   end
 
