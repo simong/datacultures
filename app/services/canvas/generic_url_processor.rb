@@ -16,7 +16,7 @@ class Canvas::GenericUrlProcessor
     # image_url is present
     thumbnail_url = nil
     if image_url
-      thumbnail_url = @thumbnail_generator.generate_and_upload(assignment_id, image_url, 'image/jpeg', {quality: 100})
+      thumbnail_url = @thumbnail_generator.generate_and_upload(assignment_id, image_url, 'image/jpeg', {quality: 100, gravity: 'north'})
     end
 
     # If this is a new submission, or the previous submission was of a different type, the previous_item
