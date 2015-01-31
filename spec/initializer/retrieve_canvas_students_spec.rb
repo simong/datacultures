@@ -7,7 +7,8 @@ RSpec.describe RetrieveCanvasStudents do
 
   let(:url){
     course_id = AppConfig::CourseConstants.course
-    "http://localhost:3100/api/v1/courses/#{course_id}/search_users?per_page=250"
+    base_url = AppConfig::CourseConstants.base_url
+    "#{base_url}api/v1/courses/#{course_id}/search_users?per_page=250"
   }
 
   before(:all) do

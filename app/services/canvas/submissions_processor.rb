@@ -45,6 +45,11 @@ class Canvas::SubmissionsProcessor
     is_media_url  = (has_url && url =~ video_url_regexp)
     attachments   = submission['attachments']
 
+    # Basic parameter validation
+    if user_id.nil? || assignment_id.nil?
+      return
+    end
+
     # Create a student record if we haven't seen this student yet
     if !student_ids.include?(user_id.to_i)
       Student.create_by_canvas_user_id(user_id)

@@ -23,7 +23,7 @@ class ApiRequest
   private
 
   def request_object
-    f = Faraday.new(url: base_url)
+    f = Faraday.new(url: @base_url)
     f.headers['User-Agent'] = I18n.t "app_name"
     f.headers.merge!({'Authorization' => "Bearer #{api_key}"})
     f.builder.swap(1, Faraday::Adapter::NetHttpPersistent)

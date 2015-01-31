@@ -21,7 +21,7 @@ class Canvas::FileUploader
       "name"                  => File.basename(path),
       "filesize"              => File.size(path),
       "content_type"          => content_type,
-      "parent_folder_path"    => '/_thumbnails/' + assignment_id.to_s,
+      "parent_folder_path"    => sprintf('/_thumbnails/%d/%d/%d/%d/%d', assignment_id,  Time.now.year,  Time.now.month, Time.now.day, Time.now.hour.to_s),
       "on_duplicate"          => 'overwrite'              # Overwrite any existing files
     }
     response = request_object.request.post(url, data)
