@@ -33,7 +33,7 @@
      * Get the properties for a gallery item that should be tracked
      * in the MixPanel analytics
      *
-     * @param  {GalleryItem}    id              The gallery item for which to retrieve the analytics tracking properties
+     * @param  {GalleryItem}    item            The gallery item for which to retrieve the analytics tracking properties
      * @return {Object}                         Object containing the properties for the GalleryItem that should be tracked in the MixPanel analytics
      */
     var getGalleryItemTrackingProperties = function(item) {
