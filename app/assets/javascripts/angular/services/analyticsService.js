@@ -8,11 +8,11 @@
      * Identify the current user to MixPanel. This will ensure that all events that
      * happen during the current session will be associated with that user
      *
-     * @param  {String}         user_id         The id of the user to associate to the current session
+     * @param  {String}         userId          The id of the user to associate to the current session
      * @param  {String}         name            The display name of the user being tracked
      */
-    var identify = function(user_id, name) {
-      mixpanel.identify(user_id);
+    var identify = function(userId, name) {
+      mixpanel.identify(userId);
       mixpanel.people.set({
         $name: name,
         last_activity: new Date()
@@ -49,7 +49,7 @@
         contentType: item.content_type,
         commentCount: item.comment_count,
         views: item.views
-      }
+      };
     };
 
     return {
