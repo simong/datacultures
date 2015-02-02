@@ -1,7 +1,7 @@
 (function(angular) {
   'use strict';
 
-  angular.module('datacultures.controllers').controller('PointsConfigurationController', function(pointsConfigurationFactory, userService, utilService, $scope) {
+  angular.module('datacultures.controllers').controller('PointsConfigurationController', function(analyticsService, pointsConfigurationFactory, userService, utilService, $scope) {
 
     // Variable that keeps track of whether the points configuration is shown
     // in view or edit mode
@@ -75,6 +75,8 @@
       // Switch to edit mode
       $scope.editMode = true;
 
+      // Track that the points configuration is being edited
+      analyticsService.track('Edit Points Configuration');
       // Resize the BasicLTI iFrame
       utilService.resizeIFrame();
     };
@@ -89,6 +91,8 @@
       // Switch to view mode
       $scope.editMode = false;
 
+      // Track that the points configuration has been cancelled
+      analyticsService.track('Cancel Points Configuration');
       // Resize the BasicLTI iFrame
       utilService.resizeIFrame();
     };
@@ -108,6 +112,8 @@
       }
       // Switch to view mode
       $scope.editMode = false;
+      // Track that the points configuration has been saved
+      analyticsService.track('Save Points Configuration');
       pointsConfigurationFactory.updatePointsConfiguration(toSave).success(getPointsConfiguration);
     };
 
@@ -117,6 +123,8 @@
      */
     userService.getMe().then(function(me) {
       $scope.me = me;
+      // Track that the points configuration tool has been loaded
+      analyticsService.track('Load Points Configuration Tool');
       getPointsConfiguration();
     });
 
