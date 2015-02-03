@@ -90,7 +90,7 @@ class Canvas::SubmissionsProcessor
   end
 
   def needs_processing?(previously_credited, new_date)
-    previously_credited.nil? || (previously_credited.canvas_updated_at.to_time != Time.parse(new_date))
+    previously_credited.nil? || previously_credited.canvas_updated_at.nil? || (previously_credited.canvas_updated_at.to_time != Time.parse(new_date))
   end
 
 end
