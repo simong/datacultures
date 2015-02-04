@@ -158,7 +158,7 @@
         // Track that the gallery tool has been loaded
         analyticsService.track('Load Gallery Tool');
       }
-   };
+    };
 
     return {
       sortAndFilter: sortAndFilter,
