@@ -90,6 +90,8 @@
         })
         .then(function(items) {
           $scope.items = items;
+          // Track that the gallery tool has been loaded
+          galleryService.trackToolLoad();
           // Track that the gallery list has been loaded
           analyticsService.track('Load Gallery List');
           // Resize the iFrame Datacultures is running in
