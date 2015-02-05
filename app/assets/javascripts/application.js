@@ -14,6 +14,8 @@
 //= require angular-route
 //= require angular-sanitize
 //= require angular-rails-templates
+//= require angulartics
+//= require angulartics-mixpanel
 //= require highcharts/adapters/standalone-framework
 //= require highcharts
 //= require highcharts/highcharts-more

@@ -1,8 +1,8 @@
-(function(angular, mixpanel) {
+(function(angular) {
 
   'use strict';
 
-  angular.module('datacultures.services').service('analyticsService', function() {
+  angular.module('datacultures.services').service('analyticsService', function($analytics) {
 
     /**
      * Identify the current user to MixPanel. This will ensure that all events that
@@ -12,11 +12,11 @@
      * @param  {String}         name            The display name of the user being tracked
      */
     var identify = function(userId, name) {
-      mixpanel.identify(userId);
-      mixpanel.people.set({
+      $analytics.setUserProperties({
         $name: name,
         last_activity: new Date()
       });
+      $analytics.setUsername(userId);
     };
 
     /**
@@ -26,7 +26,7 @@
      * @param  {Object}         [options]       Additional options to store against the specified event
      */
     var track = function(event, options) {
-      mixpanel.track(event, options);
+      $analytics.eventTrack(event, options);
     };
 
     /**
@@ -60,4 +60,4 @@
 
   });
 
-}(window.angular, window.mixpanel));
+}(window.angular));
