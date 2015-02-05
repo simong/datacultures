@@ -16,7 +16,7 @@ class ActivitiesController < ApplicationController
   def index
     activities = sql_query(query: QUERY_SQL)
     send_data activities.columns.to_csv + activities.rows.map{|act| act.to_csv}.join,
-              type: :csv, disposition: 'attachement', filename: 'student_activities-' + Time.now.strftime("%Y_%m_%d-%I_%M_%S%P")
+              type: :csv, disposition: 'attachement', filename: 'student_activities-' + Time.now.strftime("%Y_%m_%d-%I_%M_%S%P") + '.csv'
   end
 
   def sql_query(query:)
