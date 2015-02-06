@@ -43,9 +43,10 @@
         }
       }
 
-      // If the current user is sharing its engagement index score, render the
-      // box plot showing how the current student ranks in the class
-      if ($scope.currStudent.share) {
+      // If the current user is sharing its engagement index score and is not
+      // an administrator, render the box plot showing how the current student
+      // ranks in the class
+      if ($scope.currStudent.share && !$scope.me.isAdmin) {
         drawBoxPlot();
       }
 
