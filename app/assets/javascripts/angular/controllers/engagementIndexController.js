@@ -155,7 +155,8 @@
               lineWidth: 1,
               medianColor: '#eee',
               medianWidth: 3,
-              whiskerLength: 20
+              whiskerLength: 20,
+              whiskerWidth: 3
             }
           },
 
