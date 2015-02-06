@@ -5,7 +5,7 @@
   /**
    * Initialize all of the submodules
    */
-  angular.module('datacultures.config', ['ngRoute']);
+  angular.module('datacultures.config', ['ngRoute', 'angulartics', 'angulartics.mixpanel']);
   angular.module('datacultures.controllers', []);
   angular.module('datacultures.directives', []);
   angular.module('datacultures.factories', []);
@@ -24,7 +24,9 @@
     'datacultures.services',
     'ngRoute',
     'ngSanitize',
-    'templates'
+    'templates',
+    'angulartics',
+    'angulartics.mixpanel'
   ]);
 
   // Bind datacultures to the window object so it's globally accessible
