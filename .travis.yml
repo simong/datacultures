@@ -1,4 +1,6 @@
 bundler_args: --without production --jobs=4 --retry=5
+language: ruby
+sudo: false
 
 rvm:
   - "2.1.1"
