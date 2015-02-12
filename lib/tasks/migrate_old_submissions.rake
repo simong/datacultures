@@ -1,8 +1,6 @@
 task :migrate_old_submissions => :environment do
 
   include CanvasRelativeUrlHelper
-  require 'string_refinement'
-  using StringRefinement
 
   # Basic setup:
   course = AppConfig::CourseConstants.course
@@ -23,6 +21,9 @@ task :migrate_old_submissions => :environment do
 end
 
 class SubmissionsProcessor
+
+  require 'string_refinement'
+  using StringRefinement
 
   attr_accessor :request_object
 
@@ -89,5 +90,10 @@ class SubmissionsProcessor
         end
       end
     end
+  end
+
+  # A regular expression that checks if a URL is pointing to a known media system such as YouTube or Vimeo
+  def video_url_regexp
+    /\Ahttps?:\/\/www\.youtube\.com|\Ahttps?:\/\/youtu\.be|www\.youtube.com\/embed|\Ahttps?:\/\/vimeo\.com|player\.vimeo\.com\/video/
   end
 end
