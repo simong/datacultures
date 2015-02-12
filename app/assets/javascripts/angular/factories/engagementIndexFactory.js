@@ -5,7 +5,7 @@
   /**
    * Engagement Index Factory
    */
-  angular.module('datacultures.factories').factory('engagementIndexFactory', function($http) {
+  angular.module('datacultures.factories').factory('engagementIndexFactory', function(analyticsService, $http) {
 
     /**
      * Get the list of students and their engagement index points in the
@@ -51,6 +51,10 @@
       var data = {
         status: share
       };
+      // Track that the engagement index share status has been changed
+      analyticsService.track('Update Engagement Index Sharing', {
+        share: share
+      });
       return $http.post(url, data);
     };
 

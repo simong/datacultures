@@ -2,7 +2,7 @@
 
   'use strict';
 
-  angular.module('datacultures.services').service('userService', function(userFactory, $q) {
+  angular.module('datacultures.services').service('userService', function(analyticsService, userFactory, $q) {
 
     // Variable that caches the profile information for the current user
     var me = null;
@@ -17,6 +17,9 @@
       if (!me) {
         userFactory.getMe().then(function(retrievedMe) {
           me = retrievedMe;
+          // Identify the current user to ensure that all following
+          // events are associate to that user
+          analyticsService.identify(me.canvas_user_id, me.canvas_username);
           deferred.resolve(me);
         });
       } else {

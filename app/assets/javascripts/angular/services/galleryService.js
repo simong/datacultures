@@ -2,7 +2,7 @@
 
   'use strict';
 
-  angular.module('datacultures.services').service('galleryService', function(galleryFactory, utilService, $q) {
+  angular.module('datacultures.services').service('galleryService', function(analyticsService, galleryFactory, utilService, $q) {
 
     /* FILTERING AND SORTING */
 
@@ -144,6 +144,22 @@
       utilService.scrollTo(scrollPosition);
     };
 
+    /* ANALYTICS */
+
+    var hasTrackedToolLoad = false;
+
+    /**
+     * Track that the Gallery Tool has been loaded. We ensure that this is only tracked
+     * once per full LTI lifecycle
+     */
+    var trackToolLoad = function() {
+      if (!hasTrackedToolLoad) {
+        hasTrackedToolLoad = true;
+        // Track that the gallery tool has been loaded
+        analyticsService.track('Load Gallery Tool');
+      }
+    };
+
     return {
       sortAndFilter: sortAndFilter,
       resetSortAndFilter: resetSortAndFilter,
@@ -151,7 +167,8 @@
       getCachedGalleryItem: getCachedGalleryItem,
       cacheScrollPosition: cacheScrollPosition,
       resetScrollPosition: resetScrollPosition,
-      restoreScrollPosition: restoreScrollPosition
+      restoreScrollPosition: restoreScrollPosition,
+      trackToolLoad: trackToolLoad
     };
 
   });

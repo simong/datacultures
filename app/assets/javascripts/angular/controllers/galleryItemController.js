@@ -1,7 +1,7 @@
 (function(angular) {
   'use strict';
 
-  angular.module('datacultures.controllers').controller('GalleryItemController', function(galleryItemFactory, userService, utilService, $scope) {
+  angular.module('datacultures.controllers').controller('GalleryItemController', function(analyticsService, galleryItemFactory, userService, utilService, $scope) {
 
     // Variable that will keep track of the currently selected gallery item
     $scope.item = null;
@@ -41,6 +41,13 @@
     };
 
     /**
+     * Track that the link for an external URL submission has been clicked
+     */
+    $scope.trackOpenLink = function() {
+      analyticsService.track('Open Gallery Item Link', analyticsService.getGalleryItemTrackingProperties($scope.item));
+    };
+
+    /**
      * Get the detailed information about the current user and load the selected
      * item. We only do this when an item has been selected
      */
@@ -50,6 +57,10 @@
           $scope.me = me;
           // Get the current gallery item
           return loadCurrentItem();
+        })
+        .then(function() {
+          // Track that a gallery item has been loaded
+          analyticsService.track('Load Gallery Item', analyticsService.getGalleryItemTrackingProperties($scope.item));
         })
         // Scroll to the top of the page, as the current scroll position could be somewhere
         // deep in the gallery list

@@ -12,7 +12,7 @@
     </div>
     <div data-ng-if="item.type === 'url'">
       <div class="alert alert-info">
-          This Media Item is a website URL. <a href="{{item.url}}" target="_blank">Open website.</a>
+          This Media Item is a website URL. <a href="{{item.url}}" data-ng-click="trackOpenLink()" target="_blank">Open website.</a>
       </div>
       <img class="dc-full-image" data-ng-src="{{item.image_url}}">
     </div>

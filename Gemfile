@@ -49,6 +49,9 @@ gem 'angular-rails-templates', '~> 0.1.3'
 # Highcharts
 gem "highcharts-rails",        '~> 3.0.0'
 
+# Angular analytics
+gem 'angulartics-rails',       '~> 0.15.19'
+
 # formatters / decorators
 gem 'json',                    '~> 1.8'
 
