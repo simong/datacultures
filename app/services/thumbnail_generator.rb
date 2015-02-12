@@ -32,7 +32,7 @@ class ThumbnailGenerator
     options = {width: 210, height: 210, quality: 75, gravity: 'center'}.merge(options)
 
     # Open up a temp file
-    temp_file = Tempfile.new('thumbnail_', Rails.root.join('tmp'), :encoding => "binary")
+    temp_file = Tempfile.new(['thumbnail_', '.jpg'], Rails.root.join('tmp'), :encoding => "binary")
     temp_file.open()
 
     # Download the remote file to the temporary file
