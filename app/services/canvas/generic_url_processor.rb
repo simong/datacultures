@@ -22,15 +22,8 @@ class Canvas::GenericUrlProcessor
       # Generate a thumbnail for the URL
       thumbnail_url = generate_thumbnail(assignment_id, image_url)
 
-      # Create a new generic url
-      GenericUrl.create({
-        assignment_id: assignment_id,
-        canvas_user_id: user_id,
-        url: url,
-        image_url: image_url,
-        thumbnail_url: thumbnail_url,
-        submitted_at: submitted_at
-      })
+      # Create a new generic url object
+      create_generic_url(assignment_id, user_id, url, image_url, thumbnail_url, submitted_at)
 
     # The user submitted a completely new url
     elsif previous_item.url != url
@@ -40,15 +33,8 @@ class Canvas::GenericUrlProcessor
       # Generate a thumbnail for the URL
       thumbnail_url = generate_thumbnail(assignment_id, image_url)
 
-      # Create a new generic url
-      GenericUrl.create({
-        assignment_id: assignment_id,
-        canvas_user_id: user_id,
-        url: url,
-        image_url: image_url,
-        thumbnail_url: thumbnail_url,
-        submitted_at: submitted_at
-      })
+      # Create a new generic url object
+      create_generic_url(assignment_id, user_id, url, image_url, thumbnail_url, submitted_at)
 
     # Otherwise Canvas finally got round to generating a thumbnail for the generic url
     # We update the record if haven't persisted a thumbnail for it yet
@@ -78,6 +64,18 @@ class Canvas::GenericUrlProcessor
     end
 
     return thumbnail_url
+  end
+
+  # Create a new generic URL record in the database
+  def create_generic_url(assignment_id, user_id, url, image_url, thumbnail_url, submitted_at)
+    GenericUrl.create({
+      assignment_id: assignment_id,
+      canvas_user_id: user_id,
+      url: url,
+      image_url: image_url,
+      thumbnail_url: thumbnail_url,
+      submitted_at: submitted_at
+    })
   end
 
 end

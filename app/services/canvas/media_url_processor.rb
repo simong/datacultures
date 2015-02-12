@@ -28,24 +28,27 @@ class Canvas::MediaUrlProcessor
       GenericUrl.where({assignment_id: assignment_id, canvas_user_id: user_id}).delete_all
       Attachment.where({assignment_id: assignment_id, canvas_user_id: user_id}).delete_all
 
-      # Create a new media url
-      MediaUrl.create({
-        canvas_assignment_id: assignment_id,
-        url: url,
-        canvas_user_id: user_id,
-        thumbnail_url: thumbnail_url,
-        submitted_at: submitted_at
-      })
+      # Create a new media url object
+      create_media_url(assignment_id, url, user_id, thumbnail_url, submitted_at)
 
     # Otherwise this is an existing submissions pointing to a media URL that we've updated
-    # with a new media url. We can simply update the old record.
-    # TODO: Should we delete rather than update as things like likes might no longer be relevant?
+    # with a new media url
     else
-      previous_item.update_attributes({
-        url: url,
-        thumbnail_url: thumbnail_url,
-        submitted_at: submitted_at
-      })
+      # We delete the existing item as things like likes are probably no longer be relevant
+      previous_item.delete
+
+      # Create a new media url object
+      create_media_url(assignment_id, url, user_id, thumbnail_url, submitted_at)
     end
+  end
+
+  def create_media_url(assignment_id, url, user_id, thumbnail_url, submitted_at)
+    MediaUrl.create({
+      canvas_assignment_id: assignment_id,
+      url: url,
+      canvas_user_id: user_id,
+      thumbnail_url: thumbnail_url,
+      submitted_at: submitted_at
+    })
   end
 end
