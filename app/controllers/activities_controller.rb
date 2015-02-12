@@ -14,9 +14,20 @@ class ActivitiesController < ApplicationController
 
 
   def index
+    # Get the activities from the DB
     activities = sql_query(query: QUERY_SQL)
-    send_data activities.columns.to_csv + activities.rows.map{|act| act.to_csv}.join,
-              type: :csv, disposition: 'attachement', filename: 'student_activities-' + Time.now.strftime("%Y_%m_%d-%I_%M_%S%P") + '.csv'
+
+    # Convert the UTC timestamp into a PST timestamp and dump each record into CSV
+    activities_csv = activities.rows.map{ |act|
+      act[4] = Time.parse(act[4] + ' UTC').in_time_zone('Pacific Time (US & Canada)');
+      act.to_csv
+    }
+
+    # Create the CSV file (column heades and a set of activities)
+    data = activities.columns.to_csv + activities_csv.join
+
+    # Send the CSV file to the user
+    send_data data, type: :csv, disposition: 'attachement', filename: 'student_activities-' + Time.now.strftime("%Y_%m_%d-%I_%M_%S%P") + '.csv'
   end
 
   def sql_query(query:)
