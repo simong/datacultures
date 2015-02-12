@@ -42,6 +42,7 @@ class Canvas::MediaUrlProcessor
     end
   end
 
+  # Create a new media URL record in the database
   def create_media_url(assignment_id, url, user_id, thumbnail_url, submitted_at)
     MediaUrl.create({
       canvas_assignment_id: assignment_id,

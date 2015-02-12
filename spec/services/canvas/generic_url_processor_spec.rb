@@ -35,13 +35,13 @@ RSpec.describe Canvas::GenericUrlProcessor, type: :model do
 
     # Stub the "request-to-upload" request
     stub_request(:post, "http://localhost:3100/api/v1/courses/1/files").
-      to_return(:status => 200, :body => '{"upload_url": "http://localhost:3100/files", "upload_params": {}}', :headers => {'Content-Type': 'application/json'})
+      to_return(:status => 200, :body => '{"upload_url": "http://localhost:3100/files", "upload_params": {}}', :headers => {'Content-Type' => 'application/json'})
     # Stub the actual upload
     stub_request(:post, "http://localhost:3100/files").
       to_return(:status => 302, :body => '', :headers => {'location' => 'http://localhost:3100/confirm'})
     # Stub the confirm request
     stub_request(:post, "http://localhost:3100/confirm").
-      to_return(:status => 200, :body => '{"id": 1, "url": "http://localhost:3100/url/to/file"}', :headers => {'Content-Type': 'application/json'})
+      to_return(:status => 200, :body => '{"id": 1, "url": "http://localhost:3100/url/to/file"}', :headers => {'Content-Type' => 'application/json'})
     # Stub the hiding of the file
     stub_request(:put, "http://localhost:3100/api/v1/files/1").
       with(:body => {"hidden"=>"true"}).
