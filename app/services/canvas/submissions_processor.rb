@@ -28,8 +28,14 @@ class Canvas::SubmissionsProcessor
 
     submissions.each do |submission|
       # Handle the submission
-      log_submission( attachment_processor, generic_url_processor, media_url_processor,
-                      student_ids, submission)
+      begin
+        log_submission( attachment_processor, generic_url_processor, media_url_processor,
+                        student_ids, submission)
+      rescue Exception => msg
+        puts "Failed to properly deal with a submission:"
+        puts submission.to_yaml
+        puts msg
+      end
     end
 
   end

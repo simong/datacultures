@@ -35,58 +35,68 @@ class SubmissionsProcessor
 
   def call(submissions)
     submissions.each do |submission|
-      assignment_id  = submission['assignment_id']
-      user_id        = submission['user_id']
-      url            = submission['url']
-      submitted_at   = submission['submitted_at']
-      attachments    = submission['attachments']
-      has_url        = (url && !url.empty?)
-      is_media_url   = (has_url && url =~ video_url_regexp)
-      is_generic_url = (has_url && !is_media_url)
-      is_file_upload = (!has_url)
+      begin
+        handle_submission(submission)
+      rescue Exception => msg
+        puts "Failed to properly deal with a submission:"
+        puts submission.to_yaml
+        puts msg
+      end
+    end
+  end
+
+  def handle_submission(submission)
+    assignment_id  = submission['assignment_id']
+    user_id        = submission['user_id']
+    url            = submission['url']
+    submitted_at   = submission['submitted_at']
+    attachments    = submission['attachments']
+    has_url        = (url && !url.empty?)
+    is_media_url   = (has_url && url =~ video_url_regexp)
+    is_generic_url = (has_url && !is_media_url)
+    is_file_upload = (!has_url)
 
 
-      # Media URLs
-      if (is_media_url)
-        # Extract the title and thumbnail
-        site_and_slug = url.extract_site_and_slug
-        thumbnail_url = Video::Metadata.thumbnail_url(site_and_slug[:site_tag], site_and_slug[:site_id])
+    # Media URLs
+    if (is_media_url)
+      # Extract the title and thumbnail
+      site_and_slug = url.extract_site_and_slug
+      thumbnail_url = Video::Metadata.thumbnail_url(site_and_slug[:site_tag], site_and_slug[:site_id])
 
-        # Update the record
-        MediaUrl.where({
-          canvas_assignment_id: assignment_id,
+      # Update the record
+      MediaUrl.where({
+        canvas_assignment_id: assignment_id,
+        canvas_user_id: user_id
+      }).first.update_attributes({thumbnail_url: thumbnail_url})
+
+    # Generic URLs:
+    elsif is_generic_url
+      # If Canvas was able to generate an image for the generic URL,
+      # we generate a thumbnail and update the record
+      image_url       = submission.try(:[], 'attachments').try(:first).try(:[],'url')
+      if image_url
+        thumbnail_url = @thumbnail_generator.generate_and_upload(assignment_id, image_url, 'image/jpeg', {quality: 100, gravity: 'north'})
+        GenericUrl.where({
+          assignment_id: assignment_id,
           canvas_user_id: user_id
         }).first.update_attributes({thumbnail_url: thumbnail_url})
+      end
 
-      # Generic URLs:
-      elsif is_generic_url
-        # If Canvas was able to generate an image for the generic URL,
-        # we generate a thumbnail and update the record
-        image_url       = submission.try(:[], 'attachments').try(:first).try(:[],'url')
-        if image_url
-          thumbnail_url = @thumbnail_generator.generate_and_upload(assignment_id, image_url, 'image/jpeg', {quality: 100, gravity: 'north'})
-          GenericUrl.where({
+    # File uploads:
+    elsif is_file_upload
+      attachments.each do |attachment|
+        url           = attachment['url']
+        content_type  = attachment['content-type']
+
+        # Check if we can generate a thumbnail for this attachment
+        if url && @thumbnail_generator.can_process(content_type)
+          # Generate the thumbnail and update the record
+          thumbnail_url = @thumbnail_generator.generate_and_upload(assignment_id, url, content_type)
+          att = Attachment.where({
             assignment_id: assignment_id,
             canvas_user_id: user_id
-          }).first.update_attributes({thumbnail_url: thumbnail_url})
-        end
-
-      # File uploads:
-      elsif is_file_upload
-        attachments.each do |attachment|
-          url           = attachment['url']
-          content_type  = attachment['content-type']
-
-          # Check if we can generate a thumbnail for this attachment
-          if url && @thumbnail_generator.can_process(content_type)
-            # Generate the thumbnail and update the record
-            thumbnail_url = @thumbnail_generator.generate_and_upload(assignment_id, url, content_type)
-            att = Attachment.where({
-              assignment_id: assignment_id,
-              canvas_user_id: user_id
-            }).first
-            att.update_attributes({thumbnail_url: thumbnail_url})
-          end
+          }).first
+          att.update_attributes({thumbnail_url: thumbnail_url})
         end
       end
     end
