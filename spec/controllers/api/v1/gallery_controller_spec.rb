@@ -75,14 +75,14 @@ RSpec.describe Api::V1::GalleryController, :type => :controller do
         get :index, valid_session
         return_body = JSON.parse(response.body)['files']
         expect(return_body.select{|item| item['type'] == 'url'}.first.keys.sort).to \
-           eq(%w[assignment_id author canvas_user_id comment_count dislikes id image_url liked likes submitted_at thumbnail_url type url views])
+           eq(%w[assignment_id author canvas_user_id comment_count content_type dislikes id image_url liked likes submitted_at thumbnail_url type url views])
       end
 
       it "for Video (Vimeo here) URLs" do
         get :index, valid_session
         return_body = JSON.parse(response.body)['files']
         expect(return_body.select{|item| item['type'] == 'video'}.first.keys.sort).to \
-           eq(%w[assignment_id author canvas_user_id comment_count dislikes id liked likes submitted_at thumbnail_url type url views vimeo_id])
+           eq(%w[assignment_id author canvas_user_id comment_count content_type dislikes id liked likes submitted_at thumbnail_url type url views vimeo_id])
       end
 
       it "for file uploads" do
