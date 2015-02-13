@@ -32,7 +32,7 @@ class ThumbnailGenerator
     options = {width: 210, height: 210, quality: 75, gravity: 'center'}.merge(options)
 
     # Open up a temp file
-    temp_file = Tempfile.new(['thumbnail_', '.jpg'], Rails.root.join('tmp'), :encoding => "binary")
+    temp_file = Tempfile.new('thumbnail_', Rails.root.join('tmp'), :encoding => "binary")
     temp_file.open()
 
     # Download the remote file to the temporary file
@@ -42,11 +42,11 @@ class ThumbnailGenerator
 
     # Resize the downloaded image so it fits in a the specified container (assume 210x210)
     # Execute the equivalent of:
-    #   gm convert -size 210x210 source.png -thumbnail 210x210^ -gravity north -extent 210x210 +profile "*" thumbnail.jpg
+    #   gm convert -format jpeg -size 210x210 source.png -thumbnail 210x210^ -gravity north -extent 210x210 +profile "*" thumbnail.jpg
     size = options[:width].to_s + 'x' + options[:height].to_s
     frame = size + '^'
     img = GraphicsMagick::Image.new(temp_file)
-    img.size(size).thumbnail(frame).gravity(options[:gravity]).extent(size).quality(options[:quality])
+    img.format('jpeg').size(size).thumbnail(frame).gravity(options[:gravity]).extent(size).quality(options[:quality])
     img.write!
 
     # Return the temp_file
