@@ -6,9 +6,9 @@ module StringRefinement
       case self
         when /www\.youtube\.com\/embed/  # embed YT URL
           youtube_embed
-        when /youtu\.be/                 # short YT URL
+        when /youtu\.be\//               # short YT URL
           youtube_short
-        when /www.\youtube\.com/         # 'regular' YT URL
+        when /www.\youtube\.com\//       # 'regular' YT URL
           youtube
         when /vimeo/
           vimeo
@@ -18,6 +18,7 @@ module StringRefinement
     end
 
     def youtube_embed
+
       self =~ /www\.youtube\.com\/embed\/([a-zA-Z0-9_-]+)/
       $1 ? {site_tag: 'youtube_id', site_id: $1} : nil
     end
