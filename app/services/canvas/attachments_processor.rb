@@ -27,7 +27,11 @@ class Canvas::AttachmentsProcessor
 
     # Generate a thumbnail if possible
     if url && @thumbnail_generator.can_process(content_type)
-      thumbnail_url = @thumbnail_generator.generate_and_upload(assignment_id, url, content_type)
+      begin
+        thumbnail_url = @thumbnail_generator.generate_and_upload(assignment_id, url, content_type)
+      rescue Exception => msg
+        puts "Failed to generate a thumbnail for " + url
+      end
     end
 
     # Persist an attachment record

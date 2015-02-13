@@ -60,7 +60,11 @@ class Canvas::GenericUrlProcessor
   def generate_thumbnail(assignment_id, image_url)
     thumbnail_url = nil
     if image_url
-      thumbnail_url = @thumbnail_generator.generate_and_upload(assignment_id, image_url, 'image/jpeg', {quality: 100, gravity: 'north'})
+      begin
+        thumbnail_url = @thumbnail_generator.generate_and_upload(assignment_id, image_url, 'image/jpeg', {quality: 100, gravity: 'north'})
+      rescue Exception => msg
+        puts "Failed to generate a thumbnail for " + image_url
+      end
     end
 
     return thumbnail_url
