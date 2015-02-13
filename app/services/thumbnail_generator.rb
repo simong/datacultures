@@ -2,6 +2,7 @@ class ThumbnailGenerator
   require 'open-uri'
   require 'set'
   require 'tempfile'
+  require 'graphicsmagick'
 
   @@types = Set.new [
     'application/dicom', 'application/tga', 'application/x-font-ttf', 'application/x-tga', 'application/x-targa',
