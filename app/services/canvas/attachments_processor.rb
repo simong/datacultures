@@ -32,7 +32,7 @@ class Canvas::AttachmentsProcessor
 
     # Persist an attachment record
     Attachment.create({
-      content_type: submission['content-type'],
+      content_type: attachment['content-type'],
       canvas_user_id: submission['user_id'],
       assignment_id: submission['assignment_id'],
       submission_id: submission['id'],
