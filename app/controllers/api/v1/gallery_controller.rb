@@ -29,13 +29,13 @@ class Api::V1::GalleryController < ApplicationController
 
   URL_SPECIFIC_QUERY =<<-END_OF_SPECIFIC_QUERY
     SELECT 'url' AS type, likes, dislikes, liked, disliked, s.name AS author, g.assignment_id, g.gallery_id AS id,
-      g.canvas_user_id, co.comment_count, v.views, g.image_url, g.thumbnail_url, g.url, cast(extract(EPOCH from g.submitted_at)*
+      g.canvas_user_id, 'url' as content_type, co.comment_count, v.views, g.image_url, g.thumbnail_url, g.url, cast(extract(EPOCH from g.submitted_at)*
       1000 AS bigint) AS submitted_at FROM generic_urls g
   END_OF_SPECIFIC_QUERY
 
   VIDEO_SPECIFIC_QUERY=<<-END_OF_VIDEO_QUERY
     SELECT 'video' AS type, likes,  dislikes, liked, disliked, g.canvas_assignment_id AS assignment_id, g.site_tag,
-      g.site_id, g.thumbnail_url, g.url, s.name AS author, g.gallery_id AS id, g.canvas_user_id,
+      g.site_id, g.thumbnail_url, g.url, s.name AS author, g.gallery_id AS id, g.canvas_user_id, 'video' as content_type,
       co.comment_count, v.views,  cast(extract(EPOCH from g.submitted_at)* 1000 AS bigint) AS submitted_at
       FROM media_urls g
   END_OF_VIDEO_QUERY
