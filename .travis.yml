@@ -1,6 +1,5 @@
 bundler_args: --without production --jobs=4 --retry=5
 language: ruby
-cache: bundler
 sudo: false
 
 rvm:
