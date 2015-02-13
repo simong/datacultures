@@ -56,6 +56,13 @@ class SubmissionsProcessor
     is_generic_url = (has_url && !is_media_url)
     is_file_upload = (!has_url)
 
+    type = "file"
+    if is_media_url
+      type = "media url"
+    elsif is_generic_url
+      type = "generic url"
+    end
+    puts "Handling " + type + " submission for assignment " + assignment_id.to_s + " from user " + user_id.to_s
 
     # Media URLs
     if (is_media_url)
