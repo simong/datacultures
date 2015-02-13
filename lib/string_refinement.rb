@@ -18,7 +18,6 @@ module StringRefinement
     end
 
     def youtube_embed
-
       self =~ /www\.youtube\.com\/embed\/([a-zA-Z0-9_-]+)/
       $1 ? {site_tag: 'youtube_id', site_id: $1} : nil
     end
