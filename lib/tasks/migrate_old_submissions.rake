@@ -80,10 +80,13 @@ class SubmissionsProcessor
       thumbnail_url = Video::Metadata.thumbnail_url(site_and_slug[:site_tag], site_and_slug[:site_id])
 
       # Update the record
-      MediaUrl.where({
+      media_url = MediaUrl.where({
         canvas_assignment_id: assignment_id,
         canvas_user_id: user_id
-      }).first.update_attributes({thumbnail_url: thumbnail_url})
+      }).first
+      if media_url
+        media_url.update_attributes({thumbnail_url: thumbnail_url})
+      end
 
     # Generic URLs:
     elsif is_generic_url
@@ -92,10 +95,13 @@ class SubmissionsProcessor
       image_url       = submission.try(:[], 'attachments').try(:first).try(:[],'url')
       if image_url
         thumbnail_url = @thumbnail_generator.generate_and_upload(assignment_id, image_url, 'image/jpeg', {quality: 100, gravity: 'north'})
-        GenericUrl.where({
+        generic_url = GenericUrl.where({
           assignment_id: assignment_id,
           canvas_user_id: user_id
-        }).first.update_attributes({thumbnail_url: thumbnail_url})
+        }).first
+        if generic_url
+          generic_url.update_attributes({thumbnail_url: thumbnail_url})
+        end
       end
 
     # File uploads:
@@ -103,6 +109,7 @@ class SubmissionsProcessor
       attachments.each do |attachment|
         url           = attachment['url']
         content_type  = attachment['content-type']
+        attachment_id = attachment['id']
 
         # Check if we can generate a thumbnail for this attachment
         if url && @thumbnail_generator.can_process(content_type)
@@ -110,9 +117,12 @@ class SubmissionsProcessor
           thumbnail_url = @thumbnail_generator.generate_and_upload(assignment_id, url, content_type)
           att = Attachment.where({
             assignment_id: assignment_id,
-            canvas_user_id: user_id
+            canvas_user_id: user_id,
+            attachment_id: attachment_id
           }).first
-          att.update_attributes({thumbnail_url: thumbnail_url})
+          if att
+            att.update_attributes({thumbnail_url: thumbnail_url})
+          end
         end
       end
     end
