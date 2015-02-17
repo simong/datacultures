@@ -27,10 +27,10 @@ class ThumbnailGenerator
   #  - width: The desired width of the thumbnail, defaults to 210px
   #  - height: The desired height of the thumbnail, defaults to 210px
   #  - gravity: How the image should be cropped, defaults to 'center'. Options are: NorthWest, North, NorthEast, West, Center, East, SouthWest, South, or SouthEast
-  #  - quality: The desired quality of the thumbnail (as a percentage), defaults to 75
+  #  - quality: The desired quality of the thumbnail (as a percentage), defaults to 85
   def generate(url, options={})
     # Allow to user to specify overrides
-    options = {width: 210, height: 210, quality: 75, gravity: 'center'}.merge(options)
+    options = {width: 210, height: 210, quality: 85, gravity: 'center'}.merge(options)
 
     # Open up a temp file
     temp_file = Tempfile.new(['thumbnail_', '.jpg'], Rails.root.join('tmp'), :encoding => "binary")
@@ -43,7 +43,7 @@ class ThumbnailGenerator
 
     # Resize the downloaded image so it fits in a the specified container (assume 210x210)
     # Execute the equivalent of:
-    #   gm mogrify -size 210x210 -thumbnail 210x210\^ -gravity center -extent 210x210 -quality 75 thumbnail_123.jpg
+    #   gm mogrify -size 210x210 -thumbnail 210x210\^ -gravity center -extent 210x210 -quality 85 thumbnail_123.jpg
     size = options[:width].to_s + 'x' + options[:height].to_s
     frame = size + '^'
     img = GraphicsMagick::Image.new(temp_file)
