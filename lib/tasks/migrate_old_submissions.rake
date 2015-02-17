@@ -41,6 +41,7 @@ class SubmissionsProcessor
         puts "Failed to properly deal with a submission:"
         puts submission.to_yaml
         puts msg
+        puts msg.backtrace
       end
     end
   end
@@ -56,6 +57,16 @@ class SubmissionsProcessor
     is_generic_url = (has_url && !is_media_url)
     is_file_upload = (!has_url)
 
+    # Ensure that we can deal with media URLs as the regex this relies on is quite broken
+    # and it's not worth the effort in bringing in new libraries to properly support this
+    if is_media_url
+      site_and_slug = url.extract_site_and_slug
+      if site_and_slug.nil?
+        is_media_url = false
+        is_generic_url = true
+      end
+    end
+
     type = "file"
     if is_media_url
       type = "media url"
@@ -66,8 +77,6 @@ class SubmissionsProcessor
 
     # Media URLs
     if (is_media_url)
-      # Extract the title and thumbnail
-      site_and_slug = url.extract_site_and_slug
       thumbnail_url = Video::Metadata.thumbnail_url(site_and_slug[:site_tag], site_and_slug[:site_id])
 
       # Update the record
