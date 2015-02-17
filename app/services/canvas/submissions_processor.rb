@@ -31,10 +31,11 @@ class Canvas::SubmissionsProcessor
       begin
         log_submission( attachment_processor, generic_url_processor, media_url_processor,
                         student_ids, submission)
-      rescue Exception => msg
-        puts "Failed to properly deal with a submission:"
-        puts submission.to_yaml
-        puts msg
+      rescue Exception => e
+        Rails.logger.error('Failed to properly deal with a submission')
+        Rails.logger.error(submission.to_yaml)
+        Rails.logger.error(e.message);
+        Rails.logger.error(e.backtrace.join('\n'));
       end
     end
 

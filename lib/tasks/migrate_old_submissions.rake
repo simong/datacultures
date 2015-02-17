@@ -38,7 +38,7 @@ class SubmissionsProcessor
       begin
         handle_submission(submission)
       rescue Exception => msg
-        puts "Failed to properly deal with a submission:"
+        puts 'Failed to properly deal with a submission'
         puts submission.to_yaml
         puts msg
         puts msg.backtrace
@@ -73,7 +73,7 @@ class SubmissionsProcessor
     elsif is_generic_url
       type = "generic url"
     end
-    puts "Handling " + type + " submission for assignment " + assignment_id.to_s + " from user " + user_id.to_s
+    puts "Handling #{type} submission for assignment #{assignment_id} from user #{user_id}"
 
     # Media URLs
     if (is_media_url)

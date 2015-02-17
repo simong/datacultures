@@ -62,8 +62,10 @@ class Canvas::GenericUrlProcessor
     if image_url
       begin
         thumbnail_url = @thumbnail_generator.generate_and_upload(assignment_id, image_url, 'image/jpeg', {quality: 100, gravity: 'north'})
-      rescue Exception => msg
-        puts "Failed to generate a thumbnail for " + image_url
+      rescue Exception => e
+        Rails.logger.error("Failed to generate a thumbnail for #{image_url}")
+        Rails.logger.error(e.message);
+        Rails.logger.error(e.backtrace.join('\n'));
       end
     end
 

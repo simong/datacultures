@@ -29,8 +29,10 @@ class Canvas::AttachmentsProcessor
     if url && @thumbnail_generator.can_process(content_type)
       begin
         thumbnail_url = @thumbnail_generator.generate_and_upload(assignment_id, url, content_type)
-      rescue Exception => msg
-        puts "Failed to generate a thumbnail for " + url
+      rescue Exception => e
+        Rails.logger.error("Failed to generate a thumbnail for #{url}")
+        Rails.logger.error(e.message);
+        Rails.logger.error(e.backtrace.join('\n'));
       end
     end
 

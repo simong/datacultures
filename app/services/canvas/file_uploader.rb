@@ -26,7 +26,8 @@ class Canvas::FileUploader
     }
     response = request_object.request.post(url, data)
     if response.status != 200
-      puts response.body
+      Rails.logger.error('Unable to request file upload')
+      Rails.logger.error(response.body);
       raise "Unable to request file upload"
     end
     upload_url = response.body['upload_url']
@@ -46,7 +47,8 @@ class Canvas::FileUploader
     end
     response = conn.post(upload_uri.path, upload_params)
     if response.status != 302
-      puts response.body
+      Rails.logger.error('Unable to upload file')
+      Rails.logger.error(response.body);
       raise "Unable to upload file"
     end
     confirm_url = response.headers['location']
@@ -55,7 +57,8 @@ class Canvas::FileUploader
     # Step 3: Confirm the upload's success
     response = request_object.request.post(confirm_url)
     if response.status != 200
-      puts response.body
+      Rails.logger.error('Unable to confirm file')
+      Rails.logger.error(response.body);
       raise "Unable to confirm file"
     end
     file_id = response.body['id']
@@ -65,8 +68,9 @@ class Canvas::FileUploader
     # Step 4: Hide the file from regular users (they can still download it though)
     response = request_object.request.put('/api/v1/files/' + file_id.to_s, {'hidden' => 'true'})
     if response.status != 200
-      puts response.body
-      raise "Unable to confirm file"
+      Rails.logger.error('Unable to hide file')
+      Rails.logger.error(response.body);
+      raise "Unable to hide file"
     end
     return file_url
   end
