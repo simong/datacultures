@@ -18,8 +18,6 @@
           item.videoUrl = constructVideoUrl(item);
         }
         $scope.item = item;
-        // Resize the iFrame Datacultures is running in
-        utilService.resizeIFrame();
       });
     };
 

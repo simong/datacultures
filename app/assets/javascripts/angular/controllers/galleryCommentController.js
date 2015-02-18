@@ -54,8 +54,6 @@
         commentLength: comment.comment.length
       });
       analyticsService.track('Edit Gallery Item Comment', trackingData);
-      // Resize the iFrame Datacultures is running in
-      utilService.resizeIFrame();
     };
 
     /**
@@ -75,8 +73,6 @@
       // Revert back to the original comment
       comment.comment = comment.originalComment;
       comment.editMode = false;
-      // Resize the iFrame Datacultures is running in
-      utilService.resizeIFrame();
     };
 
     /**

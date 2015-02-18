@@ -17,9 +17,6 @@
     var getPointsConfiguration = function() {
       pointsConfigurationFactory.getPointsConfiguration().then(function(configuration) {
         $scope.configuration = configuration;
-
-        // Resize the BasicLTI iFrame
-        utilService.resizeIFrame();
       });
     };
 
@@ -49,8 +46,6 @@
      */
     $scope.removeActivity = function(activity) {
       activity.active = false;
-      // Resize the BasicLTI iFrame
-      utilService.resizeIFrame();
     };
 
     /**
@@ -61,8 +56,6 @@
      */
     $scope.enableActivity = function(activity) {
       activity.active = true;
-      // Resize the BasicLTI iFrame
-      utilService.resizeIFrame();
     };
 
     /**
@@ -77,8 +70,6 @@
 
       // Track that the points configuration is being edited
       analyticsService.track('Edit Points Configuration');
-      // Resize the BasicLTI iFrame
-      utilService.resizeIFrame();
     };
 
     /**
@@ -93,8 +84,6 @@
 
       // Track that the points configuration has been cancelled
       analyticsService.track('Cancel Points Configuration');
-      // Resize the BasicLTI iFrame
-      utilService.resizeIFrame();
     };
 
     /**

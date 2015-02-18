@@ -57,8 +57,6 @@
         trackingTitle = 'Search Gallery List';
       }
       analyticsService.track(trackingTitle, trackingData);
-      // Resize the iFrame Datacultures is running in
-      utilService.resizeIFrame();
     };
 
     /**
