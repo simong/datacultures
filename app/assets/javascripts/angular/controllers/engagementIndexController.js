@@ -52,9 +52,6 @@
 
       // Track that the engagement index tool has been loaded
       analyticsService.track('Load Engagement Index Tool');
-
-      // Resize the BasicLTI iFrame
-      utilService.resizeIFrame();
     };
 
     /**
@@ -255,8 +252,6 @@
       analyticsService.track('Search Engagement Index', {
         search: search || null
       });
-      // Resize the BasicLTI iFrame
-      utilService.resizeIFrame();
     };
 
     /**

@@ -19,6 +19,10 @@
       });
     };
 
+    // Continuously check if there have been any changes to the content of the page
+    // and resize accordingly
+    setInterval(resizeIFrame, 250);
+
     /**
      * Scroll to the top of the window. When Datacultures is being run stand-alone,
      * it will scroll the current window to the top. When Datacultures is being run
@@ -122,9 +126,6 @@
         }, 0);
       }
     };
-
-    // Always resize the current BasicLTI tool when the screen is resized
-    window.onresize = resizeIFrame;
 
     return {
       getScrollPosition: getScrollPosition,
