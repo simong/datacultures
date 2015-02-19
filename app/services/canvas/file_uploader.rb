@@ -46,7 +46,9 @@ class Canvas::FileUploader
       f.adapter :net_http
     end
     response = conn.post(upload_uri.path, upload_params)
-    if response.status != 302
+    # Note: There's a discrepancy between the Canvas file upload API (302) and the
+    # Amazon AWS S3 API (303) that is used in production
+    if !(response.status == 302 or response.status == 303)
       Rails.logger.error('Unable to upload file')
       Rails.logger.error(response.body);
       raise "Unable to upload file"
