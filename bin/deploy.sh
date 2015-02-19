@@ -26,10 +26,10 @@ fi
 appHome="${HOME}/datacultures"
 cd ${appHome}
 
-# Stop Sidekiq 
+# Stop Sidekiq
 sidekiq_pid_file="${appHome}/tmp/pids/sidekiq.pid"
 sidekiq_pid=$(/bin/cat $sidekiq_pid_file)
-active_pid=$(pgrep -U app_calcentral -f "sidekiq [0-9.]* datacultures \[[0-9]* of [0-9]* busy\]")
+active_pid=$(pgrep -U ${app_user} -f "sidekiq [0-9.]* datacultures \[[0-9]* of [0-9]* busy\]")
 if [ "${active_pid}" == "${sidekiq_pid}" ]; then
   sidekiqctl stop $sidekiq_pid_file \
     || { echo 'FAILED to stop Sidekiq'; exit 1; }
