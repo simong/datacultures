@@ -26,14 +26,12 @@ fi
 appHome="${HOME}/datacultures"
 cd ${appHome}
 
-# Stop Sidekiq after capturing pid of process
-active_pid=$(ps -eo pid,command | grep -i sidekiq | grep -v grep | awk '{print $1}')
-if [ ${active_pid} ]; then
-  pids_dir="${appHome}/tmp/pid"
-  mkdir -p "${pids_dir}"
-  sidekiq_pid="${pids_dir}/sidekiq.pid"
-  echo "${active_pid}" > "${sidekiq_pid}"
-  sidekiqctl stop "${sidekiq_pid}" \
+# Stop Sidekiq
+sidekiq_pid_file="${appHome}/tmp/pids/sidekiq.pid"
+sidekiq_pid=$(/bin/cat $sidekiq_pid_file)
+active_pid=$(pgrep -U ${app_user} -f "sidekiq [0-9.]* datacultures \[[0-9]* of [0-9]* busy\]")
+if [ "${active_pid}" == "${sidekiq_pid}" ]; then
+  sidekiqctl stop $sidekiq_pid_file \
     || { echo 'FAILED to stop Sidekiq'; exit 1; }
 else
   echo 'No need to stop Sidekiq. It is not running.'
@@ -89,5 +87,5 @@ touch ${appHome}/tmp/restart.txt
 
 # Start Sidekiq
 mkdir -p "${appHome}/tmp/log"
-bundle exec sidekiq -L "${appHome}/tmp/log/sidekiq.log" -d \
+bundle exec sidekiq -d -c 10 -L ${appHome}/tmp/log/sidekiq.log -P ${sidekiq_pid_file} \
   || { echo 'FAILED to start Sidekiq'; exit 1; }
