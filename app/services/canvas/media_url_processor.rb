@@ -12,7 +12,6 @@ class Canvas::MediaUrlProcessor
     assignment_id  = submission['assignment_id']
     submitted_at   = submission['submitted_at']
     url            = submission['url']
-    site_and_slug  = nil
 
     # If this is a new submission, or the previous submission was of a different type, the previous_item
     # will be nil. We can delete all other types (files and media urls) and create a new media url
