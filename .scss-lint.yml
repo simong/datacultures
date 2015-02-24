@@ -1,6 +1,8 @@
 linters:
   Comment:
     exclude: 'app/assets/stylesheets/application.scss'
+  ColorVariable:
+    enabled: false
   EmptyLineBetweenBlocks:
     enabled: false
   SelectorDepth:
