@@ -87,5 +87,5 @@ touch ${appHome}/tmp/restart.txt
 
 # Start Sidekiq
 mkdir -p "${appHome}/tmp/log"
-bundle exec sidekiq -d -c 10 -L ${appHome}/tmp/log/sidekiq.log -P ${sidekiq_pid_file} \
+bundle exec sidekiq -d -c 1 -L ${appHome}/tmp/log/sidekiq.log -P ${sidekiq_pid_file} \
   || { echo 'FAILED to start Sidekiq'; exit 1; }
