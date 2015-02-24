@@ -5,6 +5,8 @@ linters:
     enabled: false
   EmptyLineBetweenBlocks:
     enabled: false
+  ImportantRule:
+    enabled: false
   SelectorDepth:
     enabled: false
   SingleLinePerSelector:
