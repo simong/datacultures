@@ -119,7 +119,7 @@
           xAxis: {
             endOnTick: false,
             labels: {
-             enabled: false
+              enabled: false
             },
             lineWidth: 0,
             startOnTick: false,
@@ -180,7 +180,7 @@
               },
               tooltip: {
                 headerFormat: '',
-                  pointFormat: 'My Points: {point.y}'
+                pointFormat: 'My Points: {point.y}'
               },
               type: 'scatter'
             }
